@@ -95,5 +95,54 @@ Phase 1 development is underway.
 This repo is the **core technical infrastructure** for the Lupine ecosystem.
 
 ---
+```
+mermaid
+
+graph TD
+    %% -- STYLES --
+    classDef main fill:#2C3E50,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef aiva fill:#8E44AD,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef rail fill:#C0392B,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef cloked fill:#27AE60,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef data fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px,color:#333;
+
+    %% -- ORCHESTRATOR --
+    Orchestrator(main_skeleton.py):::main
+    
+    %% -- AIVA LAYER --
+    subgraph AIVA ["🟣 AIVA (Intelligence Layer)"]
+        MergeEngine[merge_engine.py]:::aiva
+        HopGraph[hop_graph.py]:::aiva
+        MockGraphs[mock_graphs.py]:::aiva
+        
+        MockGraphs -->|Scores 1.0| MergeEngine
+        HopGraph -->|Network Topology| MergeEngine
+    end
+
+    %% -- RAIL LAYER --
+    subgraph RAIL ["🔴 RAIL (Execution Layer)"]
+        Executor[executor.py]:::rail
+        StateMachine[state_machine.py]:::rail
+        
+        Executor -->|Updates| StateMachine
+    end
+
+    %% -- CLOKED LAYER --
+    subgraph CLOKED ["🟢 CLOKED (Evidence Layer)"]
+        Auditor[auditor.py]:::cloked
+        EvidenceLog[(Evidence Log)]:::cloked
+    end
+
+    %% -- DATA FLOW --
+    Orchestrator -->|1. Request Route| MergeEngine
+    MergeEngine -->|2. Return Route [NodeA, NodeB]| Orchestrator
+    
+    Orchestrator -->|3. Execute Route| Executor
+    Executor -->|4. Hop Status 'COMPLETED'| Orchestrator
+    
+    Orchestrator -->|5. Send Evidence| Auditor
+    Auditor -->|6. Generate SHA-256 Hash| EvidenceLog
+
+---
 
 ## © 2025 Lupine Systems
