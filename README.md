@@ -1,148 +1,138 @@
+
+````markdown
 # Lupine Systems — Core Infrastructure (Phase 1)
 
+**"When the stakes are human, failure cannot be probabilistic."**
+
 This repository holds the **Phase 1 technical foundation** of Lupine Systems:
+- **Aiva**: Deterministic multi-graph intelligence engine (The Brain).
+- **Lupine Rail**: Event-driven execution state machine (The Muscle).
+- **Cloked**: Hash-linked evidence and audit capsule layer (The Truth).
 
-- **Aiva** — deterministic multi-graph intelligence engine  
-- **Lupine Rail** — event-driven execution state machine  
-- **Cloked** — hash-linked evidence and audit capsule layer  
-
-The objective of Phase 1 is to build a **prototype simulation**, not a production system:
-
-1. Aiva constructs multi-layer weighted graphs  
-2. Aiva selects an optimal deterministic route using scoring + Pareto logic  
-3. Lupine Rail executes that route hop-by-hop as a state machine  
-4. Cloked records each hop as verifiable hash-linked JSON evidence  
+The objective of Phase 1 is to build a **walking skeleton simulation**:
+1. Aiva selects a route based on logic.
+2. Rail executes the route hop-by-hop.
+3. Cloked cryptographically logs the events.
 
 ---
 
 ## 📁 Project Structure
 
-```
+```text
 lupine-systems-core/
-├── docs/              # Architecture diagrams, design notes, Jira mappings
-├── notebooks/         # Jupyter notebooks for experiments
+├── docs/              # Architecture diagrams, Jira mappings
 ├── src/
-│   ├── aiva/          # EPIC 1–3: Graphs, scoring, routing
-│   ├── rail/          # EPIC 4: Execution state machine
-│   └── cloked/        # EPIC 5: Evidence capsule and hash chain
-└── tests/             # Minimal tests for validation
+│   ├── aiva/          # Intelligence Layer (Graphs & Routing)
+│   │   ├── hop_graph.py      # Network topology
+│   │   ├── mock_graphs.py    # Placeholder logic (Volatility/Medical)
+│   │   └── merge_engine.py   # Routing logic
+│   ├── rail/          # Execution Layer
+│   │   ├── executor.py       # Hop simulator
+│   │   └── state_machine.py  # Transaction states
+│   └── cloked/        # Evidence Layer
+│       └── auditor.py        # SHA-256 Hashing logger
+├── main_skeleton.py   # The Steel Thread (Entry Point)
+├── requirements.txt   # Dependencies
+└── README.md          # This file
+````
+
+-----
+
+## 🧬 System Architecture (The Steel Thread)
+
+This diagram represents the flow of data in the current Skeleton build (`main_skeleton.py`).
+
+```mermaid
+graph TD
+    %% Nodes
+    Orchestrator(main_skeleton.py)
+    
+    subgraph AIVA [🟣 AIVA Intelligence]
+        MergeEngine[merge_engine.py]
+        HopGraph[hop_graph.py]
+        MockGraphs[mock_graphs.py]
+        
+        MockGraphs -->|Scores| MergeEngine
+        HopGraph -->|Topology| MergeEngine
+    end
+
+    subgraph RAIL [🔴 RAIL Execution]
+        Executor[executor.py]
+        StateMachine[state_machine.py]
+        
+        Executor -->|Update State| StateMachine
+    end
+
+    subgraph CLOKED [🟢 CLOKED Truth]
+        Auditor[auditor.py]
+        EvidenceLog[(Evidence Log)]
+    end
+
+    %% Flow
+    Orchestrator -->|1. Request Route| MergeEngine
+    MergeEngine -->|2. Return Route| Orchestrator
+    
+    Orchestrator -->|3. Execute Hop| Executor
+    Executor -->|4. Status: COMPLETED| Orchestrator
+    
+    Orchestrator -->|5. Log Evidence| Auditor
+    Auditor -->|6. SHA-256 Hash| EvidenceLog
 ```
 
----
+*(Note: If the diagram above does not render, view this file on GitHub.com or use a Markdown viewer with Mermaid support.)*
 
-## 🚀 Phase 1 Goals
+-----
 
-### ✔ Aiva v0.1 — Multi-Graph Routing Engine  
-- Hop Graph  
-- Corridor Graph  
-- Liquidity Graph  
-- Volatility Graph  
-- Compliance Graph  
-- Failure Graph  
-- Medical Urgency Graph  
-- Multi-Graph Merge Engine  
+## 🚀 Phase 1 Progress
 
-### ✔ Scoring Engine v0.1  
-- Liquidity Score  
-- Latency Score  
-- FX Cost Score  
-- Reliability Score  
-- Compliance Score  
-- Exposure Risk  
-- Utility Function  
+### 🟣 Aiva v0.1 (Routing)
 
-### ✔ Route Selection Engine v0.1  
-- Candidate generation  
-- Dominance logic  
-- Pareto frontier  
-- Optimal route + fallback tree  
+  - [x] **Hop Graph** (Basic Topology)
+  - [x] **Merge Engine** (Skeleton Logic)
+  - [x] **Mock Graphs** (Placeholders for Volatility/Medical)
+  - [ ] **Real Thermal Decay Logic** (Next Step)
+  - [ ] **Corridor FX Logic**
 
-### ✔ Lupine Rail v0.1  
-- State machine (INIT → PRECHECK → HOP_1 → DONE)  
-- Hop execution simulator  
-- Failover logic  
-- Event logs  
+### 🔴 Lupine Rail v0.1 (Execution)
 
-### ✔ Cloked v0.1  
-- Evidence capsule schema  
-- Hash linking  
-- Export + replay  
+  - [x] **State Machine** (INIT → MOVING → COMPLETED)
+  - [x] **Hop Executor** (Simulation)
+  - [ ] **Failover/Retry Logic**
 
----
+### 🟢 Cloked v0.1 (Evidence)
 
-## 📦 Installation
+  - [x] **Auditor** (Basic Logging)
+  - [x] **Hashing** (SHA-256)
+  - [ ] **Merkle Tree Implementation**
+  - [ ] **JSON Capsule Schema**
 
-```
+-----
+
+## 📦 Getting Started
+
+### 1\. Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
----
+### 2\. Run the Skeleton Simulation
 
-## ⚙ Requirements
+This runs the "Steel Thread"—proving that all three layers can talk to each other.
 
-Developed primarily using:
-
-- Python 3.10+
-- networkx
-- pandas
-- numpy
-
----
-
-## 🧭 Status
-
-Phase 1 development is underway.  
-This repo is the **core technical infrastructure** for the Lupine ecosystem.
-
----
+```bash
+python main_skeleton.py
 ```
-mermaid
 
-graph TD
-    %% -- STYLES --
-    classDef main fill:#2C3E50,stroke:#fff,stroke-width:2px,color:#fff;
-    classDef aiva fill:#8E44AD,stroke:#fff,stroke-width:2px,color:#fff;
-    classDef rail fill:#C0392B,stroke:#fff,stroke-width:2px,color:#fff;
-    classDef cloked fill:#27AE60,stroke:#fff,stroke-width:2px,color:#fff;
-    classDef data fill:#ECF0F1,stroke:#BDC3C7,stroke-width:1px,color:#333;
+**Expected Output:**
 
-    %% -- ORCHESTRATOR --
-    Orchestrator(main_skeleton.py):::main
-    
-    %% -- AIVA LAYER --
-    subgraph AIVA ["🟣 AIVA (Intelligence Layer)"]
-        MergeEngine[merge_engine.py]:::aiva
-        HopGraph[hop_graph.py]:::aiva
-        MockGraphs[mock_graphs.py]:::aiva
-        
-        MockGraphs -->|Scores 1.0| MergeEngine
-        HopGraph -->|Network Topology| MergeEngine
-    end
+```text
+>>> RAIL: Executing hop to NodeA...
+🔒 CLOKED EVIDENCE: [RAIL] Moved funds to NodeA | Hash: 5e884...
+>>> RAIL: Executing hop to NodeB...
+🔒 CLOKED EVIDENCE: [RAIL] Moved funds to NodeB | Hash: a99b3...
+** LUPINE TRANSACTION COMPLETE **
+```
 
-    %% -- RAIL LAYER --
-    subgraph RAIL ["🔴 RAIL (Execution Layer)"]
-        Executor[executor.py]:::rail
-        StateMachine[state_machine.py]:::rail
-        
-        Executor -->|Updates| StateMachine
-    end
-
-    %% -- CLOKED LAYER --
-    subgraph CLOKED ["🟢 CLOKED (Evidence Layer)"]
-        Auditor[auditor.py]:::cloked
-        EvidenceLog[(Evidence Log)]:::cloked
-    end
-
-    %% -- DATA FLOW --
-    Orchestrator -->|1. Request Route| MergeEngine
-    MergeEngine -->|2. Return Route [NodeA, NodeB]| Orchestrator
-    
-    Orchestrator -->|3. Execute Route| Executor
-    Executor -->|4. Hop Status 'COMPLETED'| Orchestrator
-    
-    Orchestrator -->|5. Send Evidence| Auditor
-    Auditor -->|6. Generate SHA-256 Hash| EvidenceLog
-
----
-
-## © 2025 Lupine Systems
+```
+```
