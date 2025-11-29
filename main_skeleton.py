@@ -5,6 +5,7 @@ from typing import List
 from src.aiva.merge_engine import MergeEngine as RouteEngine
 from src.aiva.medical_graph import MedicalGraph
 from src.aiva.volatility_graph import VolatilityGraph, CorridorVolatilityContext
+from src.aiva.compliance_graph import ComplianceGraph, ComplianceContext
 from src.rail.executor import RailExecutor
 from src.cloked.auditor import ClokedLogger
 
@@ -66,7 +67,7 @@ def run_medical_scenarios() -> None:
     logger.log_event(
         "MEDICAL",
         f"Scenario B slow route viability={viability_slow:.3f} "
-        f"for payload={payload}, duration={duration_slow}h, temp={temp_ok}°C",
+        ffor payload={payload}, duration={duration_slow}h, temp={temp_ok}°C",
     )
 
     if viability_fast > 0.0:
@@ -144,6 +145,89 @@ def run_volatility_scenario() -> None:
         )
 
 
+def run_compliance_scenario() -> None:
+    """
+    Story 1.5 – Compliance Graph:
+    Scenario D (Sanctions Violation).
+
+    - Route: Sydney → North Korea (conceptual corridor AUD-KPW)
+    - Medical: Safe
+    - Volatility: Safe
+    - Compliance: Blacklisted (sanctions)
+    - Expected: Aiva rejects due to compliance failure (sanctions).
+    """
+    logger = ClokedLogger()
+    med_graph = MedicalGraph()
+    vol_graph = VolatilityGraph()
+    comp_graph = ComplianceGraph()
+
+    print("\n=== COMPLIANCE SCENARIO (Story 1.5 – Sanctions Violation) ===")
+
+    # Medical – fast + in-range temperature (should be OK)
+    payload = "Heart"
+    duration_hours = 2.0
+    temp_celsius = 4.0
+
+    viability = med_graph.calculate_viability(payload, duration_hours, temp_celsius)
+    print(
+        f"Medical check – {payload}: duration={duration_hours}h, "
+        f"temp={temp_celsius}°C → viability={viability:.3f}"
+    )
+
+    # Volatility – calm market on conceptual AUD-KPW corridor (treat as safe index)
+    corridor_id = "AUD-KPW"
+    calm_vol_index = 1.0
+
+    vol_ctx = CorridorVolatilityContext(
+        corridor_id=corridor_id,
+        market_volatility_index=calm_vol_index,
+    )
+    vol_score = vol_graph.get_volatility_score(vol_ctx)
+    print(
+        f"Volatility check – corridor={corridor_id}, "
+        f"index={calm_vol_index} → volatility_score={vol_score:.3f}"
+    )
+
+    # Compliance – destination is blacklisted (North Korea)
+    destination_country = "North Korea"
+    beneficiary_id = "BEN-SDNTK-001"
+
+    comp_ctx = ComplianceContext(
+        destination_country=destination_country,
+        beneficiary_id=beneficiary_id,
+    )
+    comp_score = comp_graph.get_compliance_score(comp_ctx)
+    print(
+        f"Compliance check – destination={destination_country}, "
+        f"beneficiary={beneficiary_id} → compliance_score={comp_score:.3f}"
+    )
+
+    if viability > 0.0 and vol_score > 0.0 and comp_score == 0.0:
+        print(
+            "→ Scenario D verdict: REJECTED by Aiva due to "
+            "Compliance Failure (Sanctions / Blacklisted Destination)."
+        )
+        logger.log_event(
+            "AIVA",
+            "Scenario D rejected: sanctions/compliance failure for "
+            f"destination={destination_country}, beneficiary={beneficiary_id}. "
+            f"Medical viability={viability:.3f}, volatility_score={vol_score:.3f}.",
+        )
+    else:
+        print(
+            "→ Scenario D verdict: Unexpected combination "
+            f"(viability={viability:.3f}, volatility_score={vol_score:.3f}, "
+            f"compliance_score={comp_score:.3f})."
+        )
+        logger.log_event(
+            "AIVA",
+            "Scenario D anomaly: "
+            f"viability={viability:.3f}, volatility_score={vol_score:.3f}, "
+            f"compliance_score={comp_score:.3f} for "
+            f"destination={destination_country}, beneficiary={beneficiary_id}.",
+        )
+
+
 def main() -> None:
     # 1) Original Aiva → Rail → Cloked skeleton
     run_transaction_skeleton()
@@ -153,6 +237,9 @@ def main() -> None:
 
     # 3) Volatility-driven rejection scenario (Story 1.4)
     run_volatility_scenario()
+
+    # 4) Compliance-driven sanctions scenario (Story 1.5)
+    run_compliance_scenario()
 
 
 if __name__ == "__main__":
