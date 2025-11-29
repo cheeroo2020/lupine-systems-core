@@ -11,7 +11,7 @@ from src.cloked.auditor import ClokedLogger
 
 
 def run_transaction_skeleton() -> None:
-    """Original walking skeleton: Aiva → Rail → Cloked."""
+    """Original walking skeleton: Aiva -> Rail -> Cloked."""
     route_engine: RouteEngine = RouteEngine()
     rail_executor: RailExecutor = RailExecutor()
     logger: ClokedLogger = ClokedLogger()
@@ -39,46 +39,50 @@ def run_medical_scenarios() -> None:
 
     print("\n=== MEDICAL VIABILITY SCENARIOS (Story 1.7) ===")
 
-    # Scenario A — Fast route (2 hours) → Should succeed
+    # Scenario A — Fast route (2 hours) -> Should succeed
     payload = "Heart"
     duration_fast = 2.0  # hours
-    temp_ok = 4.0        # °C within safe band
+    temp_ok = 4.0        # C, within safe band
 
     viability_fast = med_graph.calculate_viability(payload, duration_fast, temp_ok)
     print(
         f"Scenario A — Fast {payload} route: "
-        f"duration={duration_fast}h, temp={temp_ok}°C, "
+        f"duration={duration_fast}h, temp={temp_ok}C, "
         f"viability={viability_fast:.3f}"
     )
     logger.log_event(
         "MEDICAL",
-        f"Scenario A fast route viability={viability_fast:.3f} "
-        f"for payload={payload}, duration={duration_fast}h, temp={temp_ok}°C",
+        (
+            f"Scenario A fast route viability={viability_fast:.3f} "
+            f"for payload={payload}, duration={duration_fast}h, temp={temp_ok}C"
+        ),
     )
 
-    # Scenario B — Slow route (6 hours) → Should fail (viability = 0)
+    # Scenario B — Slow route (6 hours) -> Should fail (viability = 0)
     duration_slow = 6.0  # hours (> 4h limit for Heart)
     viability_slow = med_graph.calculate_viability(payload, duration_slow, temp_ok)
     print(
         f"Scenario B — Slow {payload} route: "
-        f"duration={duration_slow}h, temp={temp_ok}°C, "
+        f"duration={duration_slow}h, temp={temp_ok}C, "
         f"viability={viability_slow:.3f}"
     )
     logger.log_event(
         "MEDICAL",
-        f"Scenario B slow route viability={viability_slow:.3f} "
-        ffor payload={payload}, duration={duration_slow}h, temp={temp_ok}°C",
+        (
+            f"Scenario B slow route viability={viability_slow:.3f} "
+            f"for payload={payload}, duration={duration_slow}h, temp={temp_ok}C"
+        ),
     )
 
     if viability_fast > 0.0:
-        print("→ Scenario A verdict: OK (payload viable).")
+        print("-> Scenario A verdict: OK (payload viable).")
     else:
-        print("→ Scenario A verdict: FAILED (unexpected for fast route).")
+        print("-> Scenario A verdict: FAILED (unexpected for fast route).")
 
     if viability_slow == 0.0:
-        print("→ Scenario B verdict: FAILED as expected (payload non-viable).")
+        print("-> Scenario B verdict: FAILED as expected (payload non-viable).")
     else:
-        print("→ Scenario B verdict: WARNING (expected 0.0 viability).")
+        print("-> Scenario B verdict: WARNING (expected 0.0 viability).")
 
 
 def run_volatility_scenario() -> None:
@@ -86,7 +90,7 @@ def run_volatility_scenario() -> None:
     Story 1.4 – Volatility Graph:
     Scenario C (Market Crash on AUD-SGD corridor).
 
-    - Route: Sydney → Singapore (conceptually AUD-SGD)
+    - Route: Sydney -> Singapore (conceptually AUD-SGD)
     - Medical: Safe (2 hours, in-range temp)
     - Volatility: Dangerous (index 8.5 > threshold)
     - Expected: Aiva rejects route due to high FX volatility risk.
@@ -105,7 +109,7 @@ def run_volatility_scenario() -> None:
     viability = med_graph.calculate_viability(payload, duration_hours, temp_celsius)
     print(
         f"Medical check – {payload}: duration={duration_hours}h, "
-        f"temp={temp_celsius}°C → viability={viability:.3f}"
+        f"temp={temp_celsius}C -> viability={viability:.3f}"
     )
 
     # Volatility side – corridor AUD-SGD in a crash-like scenario
@@ -120,28 +124,33 @@ def run_volatility_scenario() -> None:
 
     print(
         f"Volatility check – corridor={corridor_id}, "
-        f"index={crash_vol_index} → volatility_score={vol_score:.3f}"
+        f"index={crash_vol_index} -> volatility_score={vol_score:.3f}"
     )
 
     if viability > 0.0 and vol_score == 0.0:
         print(
-            "→ Scenario C verdict: REJECTED by Aiva due to high FX volatility risk "
+            "-> Scenario C verdict: REJECTED by Aiva due to high FX volatility risk "
             "(medical conditions were acceptable)."
         )
         logger.log_event(
             "AIVA",
-            f"Scenario C rejected: high FX volatility risk on {corridor_id} "
-            f"(index={crash_vol_index}), despite medical viability={viability:.3f}.",
+            (
+                f"Scenario C rejected: high FX volatility risk on {corridor_id} "
+                f"(index={crash_vol_index}), despite medical viability={viability:.3f}."
+            ),
         )
     else:
         print(
-            "→ Scenario C verdict: Unexpected combination "
+            "-> Scenario C verdict: Unexpected combination "
             f"(viability={viability:.3f}, volatility_score={vol_score:.3f})."
         )
         logger.log_event(
             "AIVA",
-            f"Scenario C anomaly: viability={viability:.3f}, "
-            f"volatility_score={vol_score:.3f} on {corridor_id}.",
+            (
+                "Scenario C anomaly: "
+                f"viability={viability:.3f}, volatility_score={vol_score:.3f} "
+                f"on {corridor_id}."
+            ),
         )
 
 
@@ -150,7 +159,7 @@ def run_compliance_scenario() -> None:
     Story 1.5 – Compliance Graph:
     Scenario D (Sanctions Violation).
 
-    - Route: Sydney → North Korea (conceptual corridor AUD-KPW)
+    - Route: Sydney -> North Korea (conceptual corridor AUD-KPW)
     - Medical: Safe
     - Volatility: Safe
     - Compliance: Blacklisted (sanctions)
@@ -171,7 +180,7 @@ def run_compliance_scenario() -> None:
     viability = med_graph.calculate_viability(payload, duration_hours, temp_celsius)
     print(
         f"Medical check – {payload}: duration={duration_hours}h, "
-        f"temp={temp_celsius}°C → viability={viability:.3f}"
+        f"temp={temp_celsius}C -> viability={viability:.3f}"
     )
 
     # Volatility – calm market on conceptual AUD-KPW corridor (treat as safe index)
@@ -185,7 +194,7 @@ def run_compliance_scenario() -> None:
     vol_score = vol_graph.get_volatility_score(vol_ctx)
     print(
         f"Volatility check – corridor={corridor_id}, "
-        f"index={calm_vol_index} → volatility_score={vol_score:.3f}"
+        f"index={calm_vol_index} -> volatility_score={vol_score:.3f}"
     )
 
     # Compliance – destination is blacklisted (North Korea)
@@ -199,37 +208,42 @@ def run_compliance_scenario() -> None:
     comp_score = comp_graph.get_compliance_score(comp_ctx)
     print(
         f"Compliance check – destination={destination_country}, "
-        f"beneficiary={beneficiary_id} → compliance_score={comp_score:.3f}"
+        f"beneficiary={beneficiary_id} -> compliance_score={comp_score:.3f}"
     )
 
     if viability > 0.0 and vol_score > 0.0 and comp_score == 0.0:
         print(
-            "→ Scenario D verdict: REJECTED by Aiva due to "
+            "-> Scenario D verdict: REJECTED by Aiva due to "
             "Compliance Failure (Sanctions / Blacklisted Destination)."
         )
         logger.log_event(
             "AIVA",
-            "Scenario D rejected: sanctions/compliance failure for "
-            f"destination={destination_country}, beneficiary={beneficiary_id}. "
-            f"Medical viability={viability:.3f}, volatility_score={vol_score:.3f}.",
+            (
+                "Scenario D rejected: sanctions/compliance failure for "
+                f"destination={destination_country}, beneficiary={beneficiary_id}. "
+                f"Medical viability={viability:.3f}, "
+                f"volatility_score={vol_score:.3f}."
+            ),
         )
     else:
         print(
-            "→ Scenario D verdict: Unexpected combination "
+            "-> Scenario D verdict: Unexpected combination "
             f"(viability={viability:.3f}, volatility_score={vol_score:.3f}, "
             f"compliance_score={comp_score:.3f})."
         )
         logger.log_event(
             "AIVA",
-            "Scenario D anomaly: "
-            f"viability={viability:.3f}, volatility_score={vol_score:.3f}, "
-            f"compliance_score={comp_score:.3f} for "
-            f"destination={destination_country}, beneficiary={beneficiary_id}.",
+            (
+                "Scenario D anomaly: "
+                f"viability={viability:.3f}, volatility_score={vol_score:.3f}, "
+                f"compliance_score={comp_score:.3f} for "
+                f"destination={destination_country}, beneficiary={beneficiary_id}."
+            ),
         )
 
 
 def main() -> None:
-    # 1) Original Aiva → Rail → Cloked skeleton
+    # 1) Original Aiva -> Rail -> Cloked skeleton
     run_transaction_skeleton()
 
     # 2) Medical thermal-decay scenarios (Story 1.7)
