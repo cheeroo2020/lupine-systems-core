@@ -6,6 +6,7 @@ from src.aiva.merge_engine import MergeEngine as RouteEngine
 from src.aiva.medical_graph import MedicalGraph
 from src.aiva.volatility_graph import VolatilityGraph, CorridorVolatilityContext
 from src.aiva.compliance_graph import ComplianceGraph, ComplianceContext
+from src.aiva.liquidity_graph import LiquidityGraph, LiquidityContext
 from src.rail.executor import RailExecutor
 from src.cloked.auditor import ClokedLogger
 
@@ -242,6 +243,118 @@ def run_compliance_scenario() -> None:
         )
 
 
+def run_liquidity_scenario() -> None:
+    """
+    Story 1.3 – Liquidity Graph:
+    Scenario E (Liquidity Crunch at Bank_Singapore).
+
+    - Route: Sydney -> Singapore
+    - Transaction Amount: 75,000
+    - Bank_Singapore Balance: 50,000
+    - Medical: Safe
+    - Volatility: Safe
+    - Compliance: Safe
+    - Liquidity: Insufficient at intermediate node
+    - Expected: Aiva rejects due to insufficient liquidity.
+    """
+    logger = ClokedLogger()
+    med_graph = MedicalGraph()
+    vol_graph = VolatilityGraph()
+    comp_graph = ComplianceGraph()
+    liq_graph = LiquidityGraph()
+
+    print("\n=== LIQUIDITY SCENARIO (Story 1.3 – Liquidity Crunch) ===")
+
+    # Medical – safe journey
+    payload = "Heart"
+    duration_hours = 2.0
+    temp_celsius = 4.0
+
+    viability = med_graph.calculate_viability(payload, duration_hours, temp_celsius)
+    print(
+        f"Medical check – {payload}: duration={duration_hours}h, "
+        f"temp={temp_celsius}C -> viability={viability:.3f}"
+    )
+
+    # Volatility – calm AUD-SGD market
+    corridor_id = "AUD-SGD"
+    calm_vol_index = 1.0
+
+    vol_ctx = CorridorVolatilityContext(
+        corridor_id=corridor_id,
+        market_volatility_index=calm_vol_index,
+    )
+    vol_score = vol_graph.get_volatility_score(vol_ctx)
+    print(
+        f"Volatility check – corridor={corridor_id}, "
+        f"index={calm_vol_index} -> volatility_score={vol_score:.3f}"
+    )
+
+    # Compliance – normal country (Singapore)
+    destination_country = "Singapore"
+    beneficiary_id = "BEN-SG-001"
+
+    comp_ctx = ComplianceContext(
+        destination_country=destination_country,
+        beneficiary_id=beneficiary_id,
+    )
+    comp_score = comp_graph.get_compliance_score(comp_ctx)
+    print(
+        f"Compliance check – destination={destination_country}, "
+        f"beneficiary={beneficiary_id} -> compliance_score={comp_score:.3f}"
+    )
+
+    # Liquidity – crunch at Bank_Singapore
+    node_id = "Bank_Singapore"
+    transaction_amount = 75_000.0  # exceeds 50,000 balance
+
+    liq_ctx = LiquidityContext(
+        node_id=node_id,
+        transaction_amount=transaction_amount,
+    )
+    liq_score = liq_graph.get_liquidity_score(liq_ctx)
+    print(
+        f"Liquidity check – node={node_id}, "
+        f"amount={transaction_amount:.2f} -> liquidity_score={liq_score:.3f}"
+    )
+
+    if (
+        viability > 0.0
+        and vol_score > 0.0
+        and comp_score > 0.0
+        and liq_score == 0.0
+    ):
+        print(
+            "-> Scenario E verdict: REJECTED by Aiva due to "
+            "Insufficient Liquidity at intermediate settlement node."
+        )
+        logger.log_event(
+            "AIVA",
+            (
+                "Scenario E rejected: insufficient liquidity at node "
+                f"{node_id} for amount={transaction_amount:.2f}. "
+                f"Medical viability={viability:.3f}, "
+                f"volatility_score={vol_score:.3f}, "
+                f"compliance_score={comp_score:.3f}."
+            ),
+        )
+    else:
+        print(
+            "-> Scenario E verdict: Unexpected combination "
+            f"(viability={viability:.3f}, volatility_score={vol_score:.3f}, "
+            f"compliance_score={comp_score:.3f}, liquidity_score={liq_score:.3f})."
+        )
+        logger.log_event(
+            "AIVA",
+            (
+                "Scenario E anomaly: "
+                f"viability={viability:.3f}, volatility_score={vol_score:.3f}, "
+                f"compliance_score={comp_score:.3f}, liquidity_score={liq_score:.3f} "
+                f"for node={node_id}, amount={transaction_amount:.2f}."
+            ),
+        )
+
+
 def main() -> None:
     # 1) Original Aiva -> Rail -> Cloked skeleton
     run_transaction_skeleton()
@@ -254,6 +367,9 @@ def main() -> None:
 
     # 4) Compliance-driven sanctions scenario (Story 1.5)
     run_compliance_scenario()
+
+    # 5) Liquidity-driven rejection scenario (Story 1.3)
+    run_liquidity_scenario()
 
 
 if __name__ == "__main__":
