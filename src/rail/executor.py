@@ -1,60 +1,56 @@
 # src/rail/executor.py
 
+from __future__ import annotations
+
 from typing import List
-from .state_machine import TransactionState
+
+from src.rail.state_machine import TransactionState
 
 
 class RailExecutor:
     """
-    Minimal execution layer for Lupine Rail.
+    Executes a route produced by Aiva across Lupine Rail.
 
-    This is a walking-skeleton executor that:
-    - accepts a route (list of nodes)
-    - iterates over each hop
-    - prints execution logs
-    - returns a final transaction state as a string
+    For now:
+    - Starts at CREATED
+    - (Assume Aiva checks already passed)
+    - Locks liquidity
+    - Moves through hops
+    - Ends at SETTLED
     """
 
     def __init__(self) -> None:
-        self.state: TransactionState = TransactionState.INIT
+        self.state: TransactionState = TransactionState.CREATED
 
-    def execute_transaction(self, route: List[str]) -> str:
+    def execute_transaction(self, route: List[str]) -> TransactionState:
         """
         Execute a transaction along the given route.
 
         Parameters
         ----------
         route : List[str]
-            The ordered list of nodes Aiva has chosen for this transaction.
+            Sequence of node identifiers (hops).
 
         Returns
         -------
-        str
-            "COMPLETED" if the execution finishes successfully.
-            (Future versions may return other states on failure.)
+        TransactionState
+            Final state (expected: SETTLED in this simple skeleton).
         """
         if not route:
-            # No route → immediately fail
-            self.state = TransactionState.FAILED
-            return self.state.value
+            # No route to execute – treat as rejected/misconfigured.
+            self.state = TransactionState.AIVA_REJECTED
+            print(">>> RAIL: No route provided, marking as AIVA_REJECTED.")
+            return self.state
 
-        # Transition to MOVING
-        self.state = TransactionState.MOVING
+        # Assume Aiva already ran risk checks before we get here.
+        self.state = TransactionState.LIQUIDITY_LOCKED
+        print(f">>> RAIL: Liquidity locked for route: {route}")
 
+        self.state = TransactionState.IN_FLIGHT
         for node in route:
             print(f">>> RAIL: Executing hop to {node}...")
 
-            # Walking skeleton: assume every hop succeeds.
-            # Later, we will inject failure probabilities, latency, etc.
+        self.state = TransactionState.SETTLED
+        print(">>> RAIL: Transaction settled successfully.")
 
-        # If we completed the loop without issues:
-        self.state = TransactionState.COMPLETED
-        return self.state.value
-
-
-if __name__ == "__main__":
-    # Simple manual test for the walking skeleton
-    executor = RailExecutor()
-    sample_route = ["NodeA", "NodeB", "NodeC"]
-    final_state = executor.execute_transaction(sample_route)
-    print(f"Final transaction state: {final_state}")
+        return self.state
