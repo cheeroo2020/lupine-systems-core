@@ -1,20 +1,38 @@
 # src/rail/state_machine.py
 
+from __future__ import annotations
+
 from enum import Enum
 
 
-class TransactionState(str, Enum):
+class TransactionState(Enum):
     """
-    Simple transaction lifecycle states for the Lupine Rail layer.
+    Transaction lifecycle for Lupine Rail.
 
-    INIT      → transaction created, not yet moving
-    MOVING    → actively executing hops along the route
-    COMPLETED → all hops executed successfully
-    FAILED    → one or more hops failed
+    New model:
+    - CREATED (100)
+    - AIVA_CHECKING (200)
+    - AIVA_REJECTED (400)
+    - LIQUIDITY_LOCKED (300)
+    - IN_FLIGHT (500)
+    - SETTLED (600)
+
+    Backwards-compatibility aliases:
+    - INIT      -> CREATED
+    - MOVING    -> IN_FLIGHT
+    - COMPLETED -> SETTLED
+    - FAILED    -> AIVA_REJECTED
     """
 
-    INIT = "INIT"
-    MOVING = "MOVING"
-    COMPLETED = "COMPLETED"
-    FAILED = "FAILED"
+    CREATED = 100
+    AIVA_CHECKING = 200
+    AIVA_REJECTED = 400
+    LIQUIDITY_LOCKED = 300
+    IN_FLIGHT = 500
+    SETTLED = 600
 
+    # Aliases so older code using INIT/MOVING/etc does not break
+    INIT = 100
+    MOVING = 500
+    COMPLETED = 600
+    FAILED = 400
