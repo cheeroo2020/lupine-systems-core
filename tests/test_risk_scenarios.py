@@ -4,6 +4,9 @@ from src.aiva.medical_graph import MedicalGraph
 from src.aiva.volatility_graph import VolatilityGraph, CorridorVolatilityContext
 from src.aiva.compliance_graph import ComplianceGraph, ComplianceContext
 from src.aiva.liquidity_graph import LiquidityGraph, LiquidityContext
+from src.aiva.merge_engine import MergeEngine as RouteEngine
+from src.rail.executor import RailExecutor
+from src.rail.state_machine import TransactionState
 from src.cloked.auditor import ClokedLogger
 
 
@@ -287,12 +290,46 @@ def run_liquidity_scenario() -> None:
         )
 
 
+def test_scenario_f_resilience() -> None:
+    """
+    Scenario F – Rail Resilience under Network Glitches.
+
+    Goal:
+    - Run a standard transaction using RailExecutor.
+    - Because of the 25% failure chance per hop, we might see:
+        - Full success with no retries,
+        - Success after some retries,
+        - Or full failure after MAX_RETRIES.
+    - The important part is observing the retry logs and final state.
+    """
+    logger = ClokedLogger()
+    route_engine = RouteEngine()
+    rail_executor = RailExecutor()
+
+    print("\n=== SCENARIO F – RAIL RESILIENCE (Story 4.3) ===")
+
+    route = route_engine.get_best_route("NodeA", "NodeB")
+    print(f"AIVA (for Scenario F) selected route: {route}")
+
+    final_state: TransactionState = rail_executor.execute_transaction(route)
+    print(f"Final Rail state for Scenario F: {final_state.name} ({final_state.value})")
+
+    logger.log_event(
+        "RAIL",
+        (
+            "Scenario F completed with final_state="
+            f"{final_state.name} ({final_state.value}), route={route}"
+        ),
+    )
+
+
 def run_all_tests() -> None:
     print("\n########## LUPINE RISK SCENARIOS – TEST SUITE ##########")
     run_medical_scenarios()
     run_volatility_scenario()
     run_compliance_scenario()
     run_liquidity_scenario()
+    test_scenario_f_resilience()
     print("\n########## END OF TEST SUITE ##########")
 
 
