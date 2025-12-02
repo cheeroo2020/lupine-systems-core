@@ -1,60 +1,59 @@
-Lupine Systems — Core Infrastructure (Phase 1)
 
-"When the stakes are human, failure cannot be probabilistic."
+````markdown
+# Lupine Systems — Core Infrastructure (Phase 1)
 
-This repository holds the Phase 1 technical foundation of Lupine Systems:
+**"When the stakes are human, failure cannot be probabilistic."**
 
-Aiva: Deterministic multi-graph intelligence engine (The Brain).
+This repository holds the **Phase 1 technical foundation** of Lupine Systems:
+- **Aiva**: Deterministic multi-graph intelligence engine (The Brain).
+- **Lupine Rail**: Event-driven execution state machine (The Muscle).
+- **Cloked**: Hash-linked evidence and audit capsule layer (The Truth).
 
-Lupine Rail: Event-driven execution state machine (The Muscle).
+The objective of Phase 1 is to build a **walking skeleton simulation**:
+1. Aiva selects a route based on logic.
+2. Rail executes the route hop-by-hop.
+3. Cloked cryptographically logs the events.
 
-Cloked: Hash-linked evidence and audit capsule layer (The Truth).
+---
 
-The objective of Phase 1 is to build a walking skeleton simulation that enforces the Biological Movement Contract (BMC):
+## 📁 Project Structure
 
-Aiva selects a route based on Medical, Financial, and Regulatory constraints.
-
-Rail executes the route hop-by-hop with resilience and retry logic.
-
-Cloked cryptographically logs the events for immutable audit trails.
-
-📁 Project Structure
-
+```text
 lupine-systems-core/
 ├── docs/              # Architecture diagrams, Jira mappings
 ├── src/
 │   ├── aiva/          # Intelligence Layer (Graphs & Routing)
-│   │   ├── hop_graph.py        # Network topology
-│   │   ├── medical_graph.py    # Thermal decay & viability logic
-│   │   ├── volatility_graph.py # FX risk & market crash protection
-│   │   ├── liquidity_graph.py  # Nostro balance checks
-│   │   ├── compliance_graph.py # Sanctions & blacklist logic
-│   │   └── merge_engine.py     # Central routing brain
+│   │   ├── hop_graph.py      # Network topology
+│   │   ├── mock_graphs.py    # Placeholder logic (Volatility/Medical)
+│   │   └── merge_engine.py   # Routing logic
 │   ├── rail/          # Execution Layer
-│   │   ├── executor.py         # Hop simulator with Retry/Failover
-│   │   └── state_machine.py    # Transaction Lifecycle (LOCKED -> SETTLED)
+│   │   ├── executor.py       # Hop simulator
+│   │   └── state_machine.py  # Transaction states
 │   └── cloked/        # Evidence Layer
-│       └── auditor.py          # SHA-256 Hashing logger
-├── tests/             # Verification Suite
-│   └── test_risk_scenarios.py  # A/B/C/D/E Scenario Tests
-├── main_skeleton.py   # Entry Point
+│       └── auditor.py        # SHA-256 Hashing logger
+├── main_skeleton.py   # The Steel Thread (Entry Point)
 ├── requirements.txt   # Dependencies
 └── README.md          # This file
+````
 
+-----
 
-🧬 System Architecture (The Steel Thread)
+## 🧬 System Architecture (The Steel Thread)
 
-This diagram represents the flow of data in the current build.
+This diagram represents the flow of data in the current Skeleton build (`main_skeleton.py`).
 
+```mermaid
 graph TD
     %% Nodes
     Orchestrator(main_skeleton.py)
     
     subgraph AIVA [🟣 AIVA Intelligence]
         MergeEngine[merge_engine.py]
-        RiskGraphs[Risk Graphs]
+        HopGraph[hop_graph.py]
+        MockGraphs[mock_graphs.py]
         
-        RiskGraphs -->|Medical/FX/Legal Scores| MergeEngine
+        MockGraphs -->|Scores| MergeEngine
+        HopGraph -->|Topology| MergeEngine
     end
 
     subgraph RAIL [🔴 RAIL Execution]
@@ -62,7 +61,6 @@ graph TD
         StateMachine[state_machine.py]
         
         Executor -->|Update State| StateMachine
-        Executor -->|Retry Logic| Executor
     end
 
     subgraph CLOKED [🟢 CLOKED Truth]
@@ -72,82 +70,69 @@ graph TD
 
     %% Flow
     Orchestrator -->|1. Request Route| MergeEngine
-    MergeEngine -->|2. Return Safe Route| Orchestrator
+    MergeEngine -->|2. Return Route| Orchestrator
     
-    Orchestrator -->|3. Execute Transaction| Executor
-    Executor -->|4. Status: SETTLED| Orchestrator
+    Orchestrator -->|3. Execute Hop| Executor
+    Executor -->|4. Status: COMPLETED| Orchestrator
     
     Orchestrator -->|5. Log Evidence| Auditor
     Auditor -->|6. SHA-256 Hash| EvidenceLog
+```
 
+*(Note: If the diagram above does not render, view this file on GitHub.com or use a Markdown viewer with Mermaid support.)*
 
-(Note: If the diagram above does not render, view this file on GitHub.com or use a Markdown viewer with Mermaid support.)
+-----
 
-🚀 Phase 1 Progress
+## 🚀 Phase 1 Progress
 
-🟣 Aiva v0.1 (The Risk Engine)
+### 🟣 Aiva v0.1 (Routing)
 
-[x] Hop Graph (Basic Topology)
+  - [x] **Hop Graph** (Basic Topology)
+  - [x] **Merge Engine** (Skeleton Logic)
+  - [x] **Mock Graphs** (Placeholders for Volatility/Medical)
+  - [ ] **Real Thermal Decay Logic** (Next Step)
+  - [ ] **Corridor FX Logic**
 
-[x] Merge Engine (Routing Logic)
+### 🔴 Lupine Rail v0.1 (Execution)
 
-[x] Medical Graph (Thermal Decay Logic) — Story 1.7
+  - [x] **State Machine** (INIT → MOVING → COMPLETED)
+  - [x] **Hop Executor** (Simulation)
+  - [ ] **Failover/Retry Logic**
 
-[x] Volatility Graph (Market Crash Protection) — Story 1.4
+### 🟢 Cloked v0.1 (Evidence)
 
-[x] Compliance Graph (Sanctions Screening) — Story 1.5
+  - [x] **Auditor** (Basic Logging)
+  - [x] **Hashing** (SHA-256)
+  - [ ] **Merkle Tree Implementation**
+  - [ ] **JSON Capsule Schema**
 
-[x] Liquidity Graph (Nostro Balance Checks) — Story 1.3
+-----
 
-🔴 Lupine Rail v0.1 (The Execution Engine)
+## 📦 Getting Started
 
-[x] State Machine (CREATED → LOCKED → IN_FLIGHT → SETTLED) — Story 4.1
+### 1\. Install Dependencies
 
-[x] Hop Executor (Simulation) — Story 4.2
-
-[x] Failover & Retry Logic (Chaos Monkey Resilience) — Story 4.3
-
-🟢 Cloked v0.1 (The Evidence Engine)
-
-[x] Auditor (Basic Logging)
-
-[x] Hashing (SHA-256)
-
-[ ] Merkle Tree Implementation (Next Sprint)
-
-[ ] JSON Capsule Schema (Next Sprint)
-
-📦 Getting Started
-
-1. Install Dependencies
-
+```bash
 pip install -r requirements.txt
+```
 
+### 2\. Run the Skeleton Simulation
 
-2. Run the Test Suite
+This runs the "Steel Thread"—proving that all three layers can talk to each other.
 
-Verify that the system correctly handles all 5 risk scenarios (Medical Spoilage, Market Crashes, Sanctions, Liquidity Crunch, and Happy Path).
-
-python -m unittest tests/test_risk_scenarios.py
-
-
-3. Run the Main Simulation
-
-This runs the "Steel Thread" with resilience logic enabled.
-
+```bash
 python main_skeleton.py
+```
 
+**Expected Output:**
 
-<div align="center">
+```text
+>>> RAIL: Executing hop to NodeA...
+🔒 CLOKED EVIDENCE: [RAIL] Moved funds to NodeA | Hash: 5e884...
+>>> RAIL: Executing hop to NodeB...
+🔒 CLOKED EVIDENCE: [RAIL] Moved funds to NodeB | Hash: a99b3...
+** LUPINE TRANSACTION COMPLETE **
+```
 
-
-
-
-
-<b>© Lupine Systems</b>
-
-
-
-
-
-</div>
+```
+```
