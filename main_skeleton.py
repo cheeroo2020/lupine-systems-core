@@ -1,6 +1,7 @@
 # main_skeleton.py
 
 from typing import List
+import json
 
 from src.aiva.merge_engine import MergeEngine as RouteEngine
 from src.rail.executor import RailExecutor
@@ -12,8 +13,9 @@ def run_happy_path_demo() -> None:
     """
     Happy Path Demo:
     - Aiva computes a route
-    - Rail executes it
+    - Rail executes it (with structured events)
     - Cloked logs final outcome
+    - We print a Transaction Receipt (full Rail event log)
     """
     route_engine: RouteEngine = RouteEngine()
     rail_executor: RailExecutor = RailExecutor()
@@ -27,9 +29,8 @@ def run_happy_path_demo() -> None:
     print(f"AIVA selected route: {route}")
 
     # --- RAIL LAYER ---
-    print("\n=== RAIL: Executing route ===")
+    print("\n=== RAIL: Executing route (structured events) ===")
     final_state: TransactionState = rail_executor.execute_transaction(route)
-    print(f"RAIL final state: {final_state.name} ({final_state.value})")
 
     # --- CLOKED LAYER ---
     print("\n=== CLOKED: Logging outcome ===")
@@ -38,6 +39,11 @@ def run_happy_path_demo() -> None:
         f"code={final_state.value}, route={route}"
     )
     logger.log_event("SYSTEM", message)
+
+    # --- TRANSACTION RECEIPT ---
+    print("\n=== TRANSACTION RECEIPT (Rail Event Log) ===")
+    for event in rail_executor.event_log:
+        print(json.dumps(event.to_dict(), indent=2, ensure_ascii=False))
 
 
 def main() -> None:
