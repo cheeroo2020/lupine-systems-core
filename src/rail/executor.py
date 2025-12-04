@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import random
 import time
-from typing import List
+from typing import List, Tuple
 
 from src.rail.state_machine import TransactionState
 from src.rail.events import RailEvent, RailEventType
@@ -37,7 +37,7 @@ class RailExecutor:
     def _emit_event(self, event_type: RailEventType, details: dict) -> None:
         event = RailEvent.create(event_type=event_type, details=details)
         self.event_log.append(event)
-        # Print structured JSON line (JSON-ready logs)
+        # Print structured JSON line (JSON-ready logs) so we can still see it in the terminal
         print(json.dumps(event.to_dict(), ensure_ascii=False))
 
     # ---------- Hop execution with retry ----------
@@ -107,7 +107,7 @@ class RailExecutor:
 
     # ---------- Public API ----------
 
-    def execute_transaction(self, route: List[str]) -> TransactionState:
+    def execute_transaction(self, route: List[str]) -> Tuple[str, List[RailEvent]]:
         """
         Execute a transaction along the given route.
 
@@ -118,8 +118,8 @@ class RailExecutor:
 
         Returns
         -------
-        TransactionState
-            Final state (expected: SETTLED on success, FAILED on repeated errors).
+        Tuple[str, List[RailEvent]]
+            (final_status_string, list_of_events)
         """
         # Transaction start event
         self._emit_event(
@@ -139,9 +139,10 @@ class RailExecutor:
                     "state": self.state.name,
                     "code": self.state.value,
                     "reason": "No route provided",
+                    "route": route,
                 },
             )
-            return self.state
+            return self.state.name, self.event_log
 
         # Assume Aiva has already run risk checks before calling Rail.
         self.state = TransactionState.LIQUIDITY_LOCKED
@@ -169,7 +170,7 @@ class RailExecutor:
                         "reason": "Network instability / max retries exceeded",
                     },
                 )
-                return self.state
+                return self.state.name, self.event_log
 
         self.state = TransactionState.SETTLED
         self._emit_event(
@@ -182,4 +183,4 @@ class RailExecutor:
             },
         )
 
-        return self.state
+        return self.state.name, self.event_log
