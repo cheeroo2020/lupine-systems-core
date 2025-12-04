@@ -1,138 +1,186 @@
+# LUPINE SYSTEMS — README
 
-````markdown
-# Lupine Systems — Core Infrastructure (Phase 1)
+## Overview
+Lupine Systems is a multi-layer value‑movement architecture composed of three coordinated subsystems:
 
-**"When the stakes are human, failure cannot be probabilistic."**
+- **AIVA** — Intelligent multi‑graph routing & risk evaluation  
+- **LUPINE RAIL** — Resilient settlement & movement pipeline  
+- **CLOKED** — Evidence, audit & verifiable truth layer  
 
-This repository holds the **Phase 1 technical foundation** of Lupine Systems:
-- **Aiva**: Deterministic multi-graph intelligence engine (The Brain).
-- **Lupine Rail**: Event-driven execution state machine (The Muscle).
-- **Cloked**: Hash-linked evidence and audit capsule layer (The Truth).
-
-The objective of Phase 1 is to build a **walking skeleton simulation**:
-1. Aiva selects a route based on logic.
-2. Rail executes the route hop-by-hop.
-3. Cloked cryptographically logs the events.
+This README summarises Phase 1 development progress, includes architecture diagrams, and documents the implemented components.
 
 ---
 
-## 📁 Project Structure
-
-```text
-lupine-systems-core/
-├── docs/              # Architecture diagrams, Jira mappings
-├── src/
-│   ├── aiva/          # Intelligence Layer (Graphs & Routing)
-│   │   ├── hop_graph.py      # Network topology
-│   │   ├── mock_graphs.py    # Placeholder logic (Volatility/Medical)
-│   │   └── merge_engine.py   # Routing logic
-│   ├── rail/          # Execution Layer
-│   │   ├── executor.py       # Hop simulator
-│   │   └── state_machine.py  # Transaction states
-│   └── cloked/        # Evidence Layer
-│       └── auditor.py        # SHA-256 Hashing logger
-├── main_skeleton.py   # The Steel Thread (Entry Point)
-├── requirements.txt   # Dependencies
-└── README.md          # This file
-````
-
------
-
-## 🧬 System Architecture (The Steel Thread)
-
-This diagram represents the flow of data in the current Skeleton build (`main_skeleton.py`).
+## 🌐 High‑Level Architecture
 
 ```mermaid
-graph TD
-    %% Nodes
-    Orchestrator(main_skeleton.py)
-    
-    subgraph AIVA [🟣 AIVA Intelligence]
-        MergeEngine[merge_engine.py]
-        HopGraph[hop_graph.py]
-        MockGraphs[mock_graphs.py]
-        
-        MockGraphs -->|Scores| MergeEngine
-        HopGraph -->|Topology| MergeEngine
+flowchart TD
+    AIVA[AIVA Intelligence Layer] --> RAIL[Lupine Rail Execution Layer]
+    RAIL --> CLOKED[Cloked Evidence Layer]
+
+    subgraph AIVA Intelligence
+        MG[Medical Graph]
+        VG[Volatility Graph]
+        CG[Compliance Graph]
+        LG[Liquidity Graph]
+        HG[Hop Graph]
+        MERGE[Multi-Graph Merge Engine]
+        MG --> MERGE
+        VG --> MERGE
+        CG --> MERGE
+        LG --> MERGE
+        HG --> MERGE
     end
 
-    subgraph RAIL [🔴 RAIL Execution]
-        Executor[executor.py]
-        StateMachine[state_machine.py]
-        
-        Executor -->|Update State| StateMachine
+    subgraph RAIL Execution
+        SM[State Machine]
+        EX[Rail Executor]
+        EV[Structured Event Log]
+        SM --> EX
+        EX --> EV
     end
 
-    subgraph CLOKED [🟢 CLOKED Truth]
-        Auditor[auditor.py]
-        EvidenceLog[(Evidence Log)]
+    subgraph CLOKED Evidence
+        AUD[Hash-linked Evidence Capsule]
     end
 
-    %% Flow
-    Orchestrator -->|1. Request Route| MergeEngine
-    MergeEngine -->|2. Return Route| Orchestrator
-    
-    Orchestrator -->|3. Execute Hop| Executor
-    Executor -->|4. Status: COMPLETED| Orchestrator
-    
-    Orchestrator -->|5. Log Evidence| Auditor
-    Auditor -->|6. SHA-256 Hash| EvidenceLog
+    EV --> AUD
 ```
 
-*(Note: If the diagram above does not render, view this file on GitHub.com or use a Markdown viewer with Mermaid support.)*
+---
 
------
+## 🚀 AIVA: Intelligence Layer
 
-## 🚀 Phase 1 Progress
+AIVA decides whether a route is safe, viable, liquid, and compliant using five graph engines:
 
-### 🟣 Aiva v0.1 (Routing)
+### 🫀 MedicalGraph (Thermal Viability)
+- Determines biological viability based on:
+  - payload type  
+  - transit duration  
+  - container temperature  
+- Implements deterministic spoilage thresholds.
 
-  - [x] **Hop Graph** (Basic Topology)
-  - [x] **Merge Engine** (Skeleton Logic)
-  - [x] **Mock Graphs** (Placeholders for Volatility/Medical)
-  - [ ] **Real Thermal Decay Logic** (Next Step)
-  - [ ] **Corridor FX Logic**
+### 📉 VolatilityGraph (FX Market Conditions)
+- Normalises FX volatility into a safety score.  
+- Rejects if above configured threshold.
 
-### 🔴 Lupine Rail v0.1 (Execution)
+### 🛂 ComplianceGraph (Sanctions Risk)
+- Rejects blacklisted countries.  
+- Flags high-risk corridors.
 
-  - [x] **State Machine** (INIT → MOVING → COMPLETED)
-  - [x] **Hop Executor** (Simulation)
-  - [ ] **Failover/Retry Logic**
+### 💧 LiquidityGraph (Funding Capacity)
+- Simulates available balances per node.  
+- Rejects insufficient liquidity.
 
-### 🟢 Cloked v0.1 (Evidence)
+### 🔗 HopGraph & Merge Engine
+- Builds settlement corridors.  
+- Merges risk + liquidity + volatility + compliance into a unified score.
 
-  - [x] **Auditor** (Basic Logging)
-  - [x] **Hashing** (SHA-256)
-  - [ ] **Merkle Tree Implementation**
-  - [ ] **JSON Capsule Schema**
+---
 
------
+## 🚂 LUPINE RAIL: Execution Layer
 
-## 📦 Getting Started
+### 🔧 Transaction State Machine
 
-### 1\. Install Dependencies
-
-```bash
-pip install -r requirements.txt
+```mermaid
+stateDiagram-v2
+    [*] --> CREATED
+    CREATED --> AIVA_CHECKING
+    AIVA_CHECKING --> AIVA_REJECTED
+    AIVA_CHECKING --> LIQUIDITY_LOCKED
+    LIQUIDITY_LOCKED --> IN_FLIGHT
+    IN_FLIGHT --> FAILED
+    IN_FLIGHT --> SETTLED
 ```
 
-### 2\. Run the Skeleton Simulation
+### 🛠 Rail Executor
+- Performs settlement hops.  
+- Includes **Chaos Monkey (25% chance of network failure)**.  
+- Implements **Retry Logic (max 3 attempts per hop)**.
 
-This runs the "Steel Thread"—proving that all three layers can talk to each other.
+### 🧾 Structured Event Logging (Story 4.4)
+Every hop, attempt, retry, success, and final settlement is captured as a structured event:
 
-```bash
-python main_skeleton.py
+- UUID  
+- Timestamp  
+- Event Type  
+- Details (node, attempt, status, etc.)
+
+---
+
+## 🔐 CLOKED: Evidence Layer
+
+Hash‑linked audit log ensuring immutability and forensic replayability:
+
+- Every event hashed  
+- Linked to previous event  
+- Replayable chain (like a mini blockchain)
+
+---
+
+## 🧪 Test Suite (tests/test_risk_scenarios.py)
+
+The system includes six scenarios:
+
+1. **Scenario A** — Medical Fast Route  
+2. **Scenario B** — Medical Slow Route  
+3. **Scenario C** — FX Market Crash  
+4. **Scenario D** — Sanctions Compliance Failure  
+5. **Scenario E** — Liquidity Crunch  
+6. **Scenario F** — Rail Resilience (Retries & Failover)
+
+---
+
+## 📦 Project Structure
+
+```
+lupine-systems-core/
+├── src/
+│   ├── aiva/
+│   │   ├── medical_graph.py
+│   │   ├── volatility_graph.py
+│   │   ├── compliance_graph.py
+│   │   ├── liquidity_graph.py
+│   │   ├── hop_graph.py
+│   │   └── merge_engine.py
+│   ├── rail/
+│   │   ├── state_machine.py
+│   │   ├── executor.py
+│   │   └── events.py
+│   └── cloked/
+│       └── auditor.py
+├── tests/
+│   └── test_risk_scenarios.py
+└── main_skeleton.py
 ```
 
-**Expected Output:**
+---
 
-```text
->>> RAIL: Executing hop to NodeA...
-🔒 CLOKED EVIDENCE: [RAIL] Moved funds to NodeA | Hash: 5e884...
->>> RAIL: Executing hop to NodeB...
-🔒 CLOKED EVIDENCE: [RAIL] Moved funds to NodeB | Hash: a99b3...
-** LUPINE TRANSACTION COMPLETE **
-```
+## 📈 Phase 1 Progress
 
-```
-```
+| Component | Status | Details |
+|----------|--------|---------|
+| Medical Risk Engine | ✅ Done | Deterministic thermal decay |
+| Volatility Engine | ✅ Done | FX-safe scoring & rejection |
+| Compliance Engine | ✅ Done | Sanctions + high-risk handling |
+| Liquidity Engine | ✅ Done | Node balance + stress logic |
+| AIVA Merge Engine | 🟩 In Progress | Multi‑graph score fusion |
+| Rail Executor | ✅ Done | Hops, retries, resilience |
+| Structured Events | ✅ Done | JSON logs for each hop |
+| Test Suite | ✅ Done | Full risk‑scenario coverage |
+
+---
+
+## 🎯 Next Steps (Phase 2)
+
+- AIVA: Weighted composite scoring  
+- Rail: Multi-hop settlement chains  
+- Cloked: Evidence capsule encryption  
+- API Layer: Public routing endpoint  
+- CLI Tool: lupctl for running transactions  
+
+---
+
+## 📜 License
+Internal experimental research prototype.
+
