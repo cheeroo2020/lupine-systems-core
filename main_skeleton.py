@@ -6,7 +6,6 @@ import json
 from src.aiva.merge_engine import MergeEngine as RouteEngine
 from src.rail.executor import RailExecutor
 from src.cloked.auditor import ClokedLogger
-from src.rail.state_machine import TransactionState
 
 
 def run_happy_path_demo() -> None:
@@ -30,19 +29,19 @@ def run_happy_path_demo() -> None:
 
     # --- RAIL LAYER ---
     print("\n=== RAIL: Executing route (structured events) ===")
-    final_state: TransactionState = rail_executor.execute_transaction(route)
+    final_status, events = rail_executor.execute_transaction(route)
 
     # --- CLOKED LAYER ---
     print("\n=== CLOKED: Logging outcome ===")
     message = (
-        f"Transaction completed with state={final_state.name}, "
-        f"code={final_state.value}, route={route}"
+        f"Transaction completed with state={final_status}, "
+        f"route={route}"
     )
     logger.log_event("SYSTEM", message)
 
     # --- TRANSACTION RECEIPT ---
-    print("\n=== TRANSACTION RECEIPT (Rail Event Log) ===")
-    for event in rail_executor.event_log:
+    print("\n🧾 FINAL TRANSACTION RECEIPT (Rail Event Log)")
+    for event in events:
         print(json.dumps(event.to_dict(), indent=2, ensure_ascii=False))
 
 
