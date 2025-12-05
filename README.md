@@ -183,4 +183,5 @@ lupine-systems-core/
 
 ## 📜 License
 Internal experimental research prototype.
+Trademark Chris Gogoi
 
