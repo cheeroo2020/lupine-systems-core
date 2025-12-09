@@ -1,55 +1,58 @@
-# main_skeleton.py
-
-from typing import List
 import json
-
-from src.aiva.merge_engine import MergeEngine as RouteEngine
+from src.aiva.merge_engine import RouteEngine
 from src.rail.executor import RailExecutor
-from src.cloked.auditor import ClokedLogger
+from src.cloked.auditor import ClokedLogger, AuditChain
 
 
-def run_happy_path_demo() -> None:
-    """
-    Happy Path Demo:
-    - Aiva computes a route
-    - Rail executes it (with structured events)
-    - Cloked logs final outcome
-    - We print a Transaction Receipt (full Rail event log)
-    """
-    route_engine: RouteEngine = RouteEngine()
-    rail_executor: RailExecutor = RailExecutor()
-    logger: ClokedLogger = ClokedLogger()
+def run_transaction_scenario():
+    print("\n🚀 Starting Lupine Systems Walking Skeleton\n")
 
-    print("=== LUPINE SYSTEMS – HAPPY PATH DEMO ===")
+    # === AIVA: Determine Best Route ===
+    engine = RouteEngine()
+    route = engine.get_best_route("Sydney", "Singapore")
+    print("\n🧠 AIVA Selected Route:", route)
 
-    # --- AIVA LAYER ---
-    print("=== AIVA: Computing route ===")
-    route: List[str] = route_engine.get_best_route("NodeA", "NodeB")
-    print(f"AIVA selected route: {route}")
+    # === RAIL: Execute Transaction ===
+    executor = RailExecutor()
 
-    # --- RAIL LAYER ---
-    print("\n=== RAIL: Executing route (structured events) ===")
-    final_status, events = rail_executor.execute_transaction(route)
+    final_state, event_log = executor.execute_transaction(route)
 
-    # --- CLOKED LAYER ---
-    print("\n=== CLOKED: Logging outcome ===")
-    message = (
-        f"Transaction completed with state={final_status}, "
-        f"route={route}"
-    )
-    logger.log_event("SYSTEM", message)
+    print("\n=== RAIL FINAL STATE ===")
+    print(f"State: {final_state.name}  (code={final_state.value})")
 
-    # --- TRANSACTION RECEIPT ---
-    print("\n🧾 FINAL TRANSACTION RECEIPT (Rail Event Log)")
-    for event in events:
-        print(json.dumps(event.to_dict(), indent=2, ensure_ascii=False))
+    # === RAIL: Structured JSON Event Summary ===
+    print("\n=== 🧾 FINAL TRANSACTION RECEIPT (Rail Event Log) ===")
+    for ev in event_log:
+        print(json.dumps(ev.to_dict(), indent=2))
 
+    # === CLOKED: Hash-linked Audit Chain ===
+    print("\n🔐 Building Cloked Audit Chain...")
+    audit_chain = AuditChain()
 
-def main() -> None:
-    # For now, just run the happy path.
-    # All risk scenarios live in tests/test_risk_scenarios.py
-    run_happy_path_demo()
+    # Feed each RailEvent into the Cloked chain
+    for ev in event_log:
+        audit_chain.log_event(ev)
+
+    # === Integrity Check BEFORE any tampering ===
+    print("\n=== CLOKED: Integrity Check (Before Tamper) ===")
+    print("Integrity OK?", audit_chain.verify_integrity())
+
+    # === DELIBERATE TAMPER TEST ===
+    print("\n⚠️  Tampering with chain for verification test...")
+    if len(audit_chain.chain) > 1:
+        # Tamper with the FIRST non-genesis entry
+        try:
+            audit_chain.chain[1]["event"]["amount"] = 99999999
+        except Exception:
+            # If event didn’t have an amount field, add one
+            audit_chain.chain[1]["event"]["amount"] = 99999999
+
+    # === Integrity Check AFTER tampering ===
+    print("\n=== CLOKED: Integrity Check (After Tamper) ===")
+    print("Integrity OK?", audit_chain.verify_integrity())
+
+    print("\n🏁 End of Transaction\n")
 
 
 if __name__ == "__main__":
-    main()
+    run_transaction_scenario()
