@@ -1,37 +1,54 @@
 import json
+from typing import Any, Dict
+
 from src.aiva.merge_engine import RouteEngine
 from src.rail.executor import RailExecutor
 from src.cloked.auditor import ClokedLogger, AuditChain
 
 
-def run_transaction_scenario():
+def _event_to_dict(ev: Any) -> Dict[str, Any]:
+    """
+    Helper: normalise a RailEvent or plain dict into a dict.
+    """
+    if hasattr(ev, "to_dict"):
+        return ev.to_dict()  # RailEvent
+    if isinstance(ev, dict):
+        return ev
+    # Fallback – best-effort conversion
+    return dict(ev)
+
+
+def run_transaction_scenario() -> None:
     print("\n🚀 Starting Lupine Systems Walking Skeleton\n")
 
     # === AIVA: Determine Best Route ===
     engine = RouteEngine()
     route = engine.get_best_route("Sydney", "Singapore")
-    print("\n🧠 AIVA Selected Route:", route)
+    print("🧠 AIVA Selected Route:", route)
 
     # === RAIL: Execute Transaction ===
     executor = RailExecutor()
 
+    # NOTE: executor returns (final_state_str, event_log)
     final_state, event_log = executor.execute_transaction(route)
 
     print("\n=== RAIL FINAL STATE ===")
-    print(f"State: {final_state.name}  (code={final_state.value})")
+    # final_state is a string, so we print it directly
+    print(f"State: {final_state}")
 
     # === RAIL: Structured JSON Event Summary ===
     print("\n=== 🧾 FINAL TRANSACTION RECEIPT (Rail Event Log) ===")
-    for ev in event_log:
-        print(json.dumps(ev.to_dict(), indent=2))
+    normalised_events = [_event_to_dict(ev) for ev in event_log]
+    for ev_dict in normalised_events:
+        print(json.dumps(ev_dict, indent=2))
 
     # === CLOKED: Hash-linked Audit Chain ===
     print("\n🔐 Building Cloked Audit Chain...")
     audit_chain = AuditChain()
 
-    # Feed each RailEvent into the Cloked chain
-    for ev in event_log:
-        audit_chain.log_event(ev)
+    # Feed each RailEvent (as dict) into the Cloked chain
+    for ev_dict in normalised_events:
+        audit_chain.log_event(ev_dict)
 
     # === Integrity Check BEFORE any tampering ===
     print("\n=== CLOKED: Integrity Check (Before Tamper) ===")
@@ -40,12 +57,14 @@ def run_transaction_scenario():
     # === DELIBERATE TAMPER TEST ===
     print("\n⚠️  Tampering with chain for verification test...")
     if len(audit_chain.chain) > 1:
-        # Tamper with the FIRST non-genesis entry
-        try:
-            audit_chain.chain[1]["event"]["amount"] = 99999999
-        except Exception:
-            # If event didn’t have an amount field, add one
-            audit_chain.chain[1]["event"]["amount"] = 99999999
+        entry = audit_chain.chain[1]
+        event_payload = entry.get("event")
+
+        # If the event is a dict, mutate that; otherwise, set an attribute.
+        if isinstance(event_payload, dict):
+            event_payload["amount"] = 99_999_999
+        else:
+            setattr(event_payload, "amount", 99_999_999)
 
     # === Integrity Check AFTER tampering ===
     print("\n=== CLOKED: Integrity Check (After Tamper) ===")
