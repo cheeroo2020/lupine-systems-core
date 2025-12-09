@@ -17,21 +17,27 @@ def run_transaction_scenario() -> Tuple[TransactionState, List[Dict[str, Any]], 
       - AIVA (route selection)
       - RAIL (execution with retries and structured events)
       - CLOKED (hashing will be done later in main)
+
     Returns:
-      final_state: TransactionState enum (or equivalent)
-      event_log:   List of RailEvent dictionaries
-      route:       List of hop node IDs
-      transaction_id: String ID for this movement
+      final_state:     TransactionState enum (or equivalent)
+      event_log:       List of RailEvent dictionaries
+      route:           List of hop node IDs
+      transaction_id:  String ID for this movement
     """
     print("🚀 Starting Lupine Systems Walking Skeleton\n")
 
     # Random transaction id for this movement
     transaction_id = str(uuid4())
 
-    # 1. Ask AIVA for a route (currently static in RouteEngine)
+    # 1. Ask AIVA for a route
     route_engine = RouteEngine()
-    # IMPORTANT: current RouteEngine.get_best_route() takes NO arguments
-    route = route_engine.get_best_route()
+
+    # IMPORTANT: your RouteEngine.get_best_route(origin, destination) expects
+    # two arguments. We'll use NodeA -> NodeB as the default corridor.
+    origin = "NodeA"
+    destination = "NodeB"
+    route = route_engine.get_best_route(origin, destination)
+
     print("🧠 AIVA Selected Route:", route)
 
     # 2. Execute via RAIL
@@ -80,7 +86,8 @@ def get_final_audit_hash(audit_chain: AuditChain) -> str:
       - or directly reading the last entry's 'hash'
     """
     if hasattr(audit_chain, "get_final_hash"):
-        return audit_chain.get_final_hash()  # type: ignore[attr-defined]
+        # type: ignore[attr-defined]
+        return audit_chain.get_final_hash()
 
     if getattr(audit_chain, "chain", None):
         return audit_chain.chain[-1].get("hash", "")
@@ -99,18 +106,19 @@ def generate_evidence_capsule(
     """
     final_hash = get_final_audit_hash(audit_chain)
 
-    # You can choose any schema_version here; default is "1.0" in capsule class.
     capsule = EvidenceCapsule(
         transaction_id=transaction_id,
         events=event_log,
         audit_hash=final_hash,
+        # schema_version can default inside the class; override if you want.
+        schema_version="1.0",
     )
 
     print("\n📦 GENERATING EVIDENCE CAPSULE...\n")
     capsule_json = capsule.to_json()
     print(capsule_json)
 
-    # Optionally persist to disk (uncomment if you want a file)
+    # Optional: persist to disk
     # capsule.save_to_disk(f"capsule_{transaction_id}.json")
 
     return capsule
