@@ -1,56 +1,31 @@
-import json
 import uuid
-from dataclasses import dataclass, asdict
-from datetime import datetime, timezone
-from typing import Any, Dict, List
+import json
+from datetime import datetime
 
 
-@dataclass
 class EvidenceCapsule:
-    """
-    EvidenceCapsule
-    ----------------
-    A portable, sealed container for a single transaction's history.
+    def __init__(self, capsule_id, transaction_id, generated_at,
+                 schema_version, events, audit_hash):
+        self.capsule_id = capsule_id
+        self.transaction_id = transaction_id
+        self.generated_at = generated_at
+        self.schema_version = schema_version
+        self.events = events
+        self.audit_hash = audit_hash
 
-    This is what Lupine would hand to a regulator or auditor:
-      - who moved value
-      - how it moved (Rail events)
-      - what the final audit hash was (Cloked chain tip)
-    """
+    def to_dict(self):
+        return {
+            "capsule_id": self.capsule_id,
+            "transaction_id": self.transaction_id,
+            "schema_version": self.schema_version,
+            "generated_at": self.generated_at,
+            "audit_hash": self.audit_hash,
+            "events": self.events
+        }
 
-    capsule_id: str
-    transaction_id: str
-    schema_version: str
-    generated_at: str
-    events: List[Dict[str, Any]]
-    audit_hash: str
+    def to_json(self):
+        return json.dumps(self.to_dict(), indent=2)
 
-    @classmethod
-    def create(
-        cls,
-        transaction_id: str,
-        events: List[Dict[str, Any]],
-        audit_hash: str,
-        schema_version: str = "1.0",
-    ) -> "EvidenceCapsule":
-        """Factory helper to build a new capsule with fresh IDs + timestamps."""
-        capsule_id = str(uuid.uuid4())
-        generated_at = datetime.now(timezone.utc).isoformat()
-        return cls(
-            capsule_id=capsule_id,
-            transaction_id=transaction_id,
-            schema_version=schema_version,
-            generated_at=generated_at,
-            events=events,
-            audit_hash=audit_hash,
-        )
-
-    def to_json(self) -> str:
-        """Return a pretty-printed JSON representation of the capsule."""
-        data = asdict(self)
-        return json.dumps(data, indent=2, ensure_ascii=False)
-
-    def save_to_disk(self, filename: str) -> None:
-        """Persist the capsule JSON to disk."""
-        with open(filename, "w", encoding="utf-8") as f:
+    def save_to_disk(self, filename):
+        with open(filename, "w") as f:
             f.write(self.to_json())
