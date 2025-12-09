@@ -1,77 +1,101 @@
-import json
-from typing import Any, Dict
+#!/usr/bin/env python3
+"""
+Lupine Systems – Walking Skeleton
+Aiva (Intelligence) → Rail (Execution) → Cloked (Evidence)
+"""
+
+from __future__ import annotations
+
+from typing import List, Tuple, Dict, Any
+from uuid import uuid4
 
 from src.aiva.merge_engine import RouteEngine
 from src.rail.executor import RailExecutor
-from src.cloked.auditor import ClokedLogger, AuditChain
+from src.rail.state_machine import TransactionState
+from src.cloked.auditor import AuditChain
+from src.cloked.capsule import EvidenceCapsule
 
 
-def _event_to_dict(ev: Any) -> Dict[str, Any]:
+def run_transaction_scenario() -> Tuple[TransactionState, List[Dict[str, Any]]]:
     """
-    Helper: normalise a RailEvent or plain dict into a dict.
+    Run a single 'happy path' transaction through:
+      - Aiva route engine
+      - Rail executor (with retries + chaos monkey)
+      - Return final state + structured Rail event log
     """
-    if hasattr(ev, "to_dict"):
-        return ev.to_dict()  # RailEvent
-    if isinstance(ev, dict):
-        return ev
-    # Fallback – best-effort conversion
-    return dict(ev)
+    print("🚀 Starting Lupine Systems Walking Skeleton\n")
 
-
-def run_transaction_scenario() -> None:
-    print("\n🚀 Starting Lupine Systems Walking Skeleton\n")
-
-    # === AIVA: Determine Best Route ===
-    engine = RouteEngine()
-    route = engine.get_best_route("Sydney", "Singapore")
+    # 1. Ask Aiva for a route
+    route_engine = RouteEngine()
+    route = route_engine.get_best_route(start="NodeA", end="NodeB")
     print("🧠 AIVA Selected Route:", route)
 
-    # === RAIL: Execute Transaction ===
+    # 2. Execute via Rail
     executor = RailExecutor()
-
-    # NOTE: executor returns (final_state_str, event_log)
     final_state, event_log = executor.execute_transaction(route)
 
     print("\n=== RAIL FINAL STATE ===")
-    # final_state is a string, so we print it directly
-    print(f"State: {final_state}")
+    print("State:", final_state.name)
 
-    # === RAIL: Structured JSON Event Summary ===
+    return final_state, event_log
+
+
+def main() -> None:
+    # Synthetic transaction ID for this run
+    transaction_id = str(uuid4())
+
+    # Run the happy-path transaction
+    final_state, event_log = run_transaction_scenario()
+
+    # Pretty-print the Rail event log
     print("\n=== 🧾 FINAL TRANSACTION RECEIPT (Rail Event Log) ===")
-    normalised_events = [_event_to_dict(ev) for ev in event_log]
-    for ev_dict in normalised_events:
-        print(json.dumps(ev_dict, indent=2))
+    for ev in event_log:
+        print(ev)
 
-    # === CLOKED: Hash-linked Audit Chain ===
+    # 3. Build Cloked audit chain from Rail events
     print("\n🔐 Building Cloked Audit Chain...")
     audit_chain = AuditChain()
 
-    # Feed each RailEvent (as dict) into the Cloked chain
-    for ev_dict in normalised_events:
-        audit_chain.log_event(ev_dict)
+    # Feed events into the chain in order
+    for ev in event_log:
+        audit_chain.log_event(ev)
 
-    # === Integrity Check BEFORE any tampering ===
+    # First integrity check (should be True)
     print("\n=== CLOKED: Integrity Check (Before Tamper) ===")
-    print("Integrity OK?", audit_chain.verify_integrity())
+    clean_ok = audit_chain.verify_integrity()
+    print("Integrity OK?", clean_ok)
 
-    # === DELIBERATE TAMPER TEST ===
-    print("\n⚠️  Tampering with chain for verification test...")
+    # Capture the clean final hash for the Evidence Capsule
+    clean_final_hash = audit_chain.get_final_hash()
+
+    # 4. Generate Evidence Capsule (for regulator / export)
+    print("\n📦 GENERATING EVIDENCE CAPSULE...")
+    capsule = EvidenceCapsule.create(
+        transaction_id=transaction_id,
+        events=event_log,
+        audit_hash=clean_final_hash,
+        schema_version="1.0",
+    )
+
+    capsule_json = capsule.to_json()
+    print(capsule_json)
+
+    # Optionally save to disk (uncomment if you want files created each run)
+    # filename = f"capsule_{capsule.capsule_id}.json"
+    # capsule.save_to_disk(filename)
+    # print(f"\n💾 Capsule saved to: {filename}")
+
+    # 5. Tamper test to prove the chain detects corruption
+    print("\n⚠️ Tampering with chain for verification test...")
     if len(audit_chain.chain) > 1:
-        entry = audit_chain.chain[1]
-        event_payload = entry.get("event")
+        audit_chain.chain[1]["event"]["tampered"] = True
 
-        # If the event is a dict, mutate that; otherwise, set an attribute.
-        if isinstance(event_payload, dict):
-            event_payload["amount"] = 99_999_999
-        else:
-            setattr(event_payload, "amount", 99_999_999)
-
-    # === Integrity Check AFTER tampering ===
     print("\n=== CLOKED: Integrity Check (After Tamper) ===")
-    print("Integrity OK?", audit_chain.verify_integrity())
+    tampered_ok = audit_chain.verify_integrity()
+    print("Integrity OK?", tampered_ok)
 
-    print("\n🏁 End of Transaction\n")
+    print("\n🏁 End of Transaction")
 
 
 if __name__ == "__main__":
-    run_transaction_scenario()
+    main()
