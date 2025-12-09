@@ -31,18 +31,20 @@ def run_transaction_scenario() -> Tuple[TransactionState, List[Dict[str, Any]], 
 
     # 1. Ask AIVA for a route
     route_engine = RouteEngine()
-
-    # IMPORTANT: your RouteEngine.get_best_route(origin, destination) expects
-    # two arguments. We'll use NodeA -> NodeB as the default corridor.
     origin = "NodeA"
     destination = "NodeB"
     route = route_engine.get_best_route(origin, destination)
-
     print("🧠 AIVA Selected Route:", route)
 
     # 2. Execute via RAIL
     executor = RailExecutor()
-    final_state, event_log = executor.execute_transaction(route)
+    final_state, raw_events = executor.execute_transaction(route)
+
+    # Convert RailEvent objects -> plain dicts
+    event_log: List[Dict[str, Any]] = [
+        ev.to_dict() if hasattr(ev, "to_dict") else ev  # type: ignore[arg-type]
+        for ev in raw_events
+    ]
 
     print("\n=== RAIL FINAL STATE ===")
     state_label = final_state.name if hasattr(final_state, "name") else str(final_state)
@@ -68,7 +70,6 @@ def build_audit_chain(event_log: List[Dict[str, Any]]) -> AuditChain:
     # Deliberate tamper test (Story 5.1)
     print("\n⚠️ Tampering with chain for verification test...")
     if len(audit_chain.chain) > 1:
-        # Add or change a field in the second entry to break the hash chain
         audit_chain.chain[1]["event"]["amount"] = 99999999
 
     print("\n=== CLOKED: Integrity Check (After Tamper) ===")
@@ -110,7 +111,6 @@ def generate_evidence_capsule(
         transaction_id=transaction_id,
         events=event_log,
         audit_hash=final_hash,
-        # schema_version can default inside the class; override if you want.
         schema_version="1.0",
     )
 
