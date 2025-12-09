@@ -1,107 +1,105 @@
-# src/cloked/auditor.py
-
 import hashlib
 import json
-from datetime import datetime
-from typing import Any, Dict, List, Union
+from datetime import datetime, timezone
+from typing import Any, Dict, List
 
 
 class ClokedLogger:
     """
-    Simple hash-printing logger (existing behaviour, kept for compatibility).
+    Legacy simple logger (still here in case you use it elsewhere).
+    Not used by the new audit chain, but harmless to keep.
     """
-    @staticmethod
-    def log_event(source: str, message: str) -> None:
-        payload = f"[{source}] {message}"
+
+    def log_event(self, source: str, message: str) -> str:
+        payload = f"{source}|{message}"
         hash_value = hashlib.sha256(payload.encode("utf-8")).hexdigest()
         print(
-            f"🔒 CLOKED EVIDENCE: {payload} | Hash: {hash_value}"
+            f"🔒 CLOKED EVIDENCE: [{source}] {message} | Hash: {hash_value}"
         )
+        return hash_value
 
 
 class AuditChain:
     """
-    Cryptographic event chain (Story 5.1).
+    AuditChain
+    ----------
+    Blockchain-style hash chain for Rail events.
 
-    - Maintains an append-only list of entries.
-    - Each entry links to the previous via SHA-256(previous_hash + event_json).
-    - verify_integrity() recomputes all hashes and returns False if any mismatch.
+    Each entry links:
+      prev_hash + event_json  ->  sha256 -> current hash
     """
 
     def __init__(self) -> None:
         self.chain: List[Dict[str, Any]] = []
-        self._init_genesis_block()
 
-    def _init_genesis_block(self) -> None:
-        """
-        Create the genesis block with a fixed previous_hash.
-        """
-        previous_hash = "0" * 64
-        event = {
-            "type": "GENESIS",
-            "timestamp": datetime.utcnow().isoformat() + "Z",
+        # Genesis block with a fixed previous_hash
+        genesis_prev = "0" * 64
+        genesis_event = {
+            "event_id": "GENESIS",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "event_type": "GENESIS",
+            "details": {},
         }
-        event_str = json.dumps(event, sort_keys=True)
-        block_hash = hashlib.sha256(
-            (previous_hash + event_str).encode("utf-8")
-        ).hexdigest()
+        genesis_hash = self._compute_hash(genesis_prev, genesis_event)
+        self.chain.append(
+            {
+                "event": genesis_event,
+                "hash": genesis_hash,
+                "previous_hash": genesis_prev,
+            }
+        )
 
-        genesis_entry = {
-            "event": event,
-            "previous_hash": previous_hash,
-            "hash": block_hash,
-        }
-        self.chain.append(genesis_entry)
+    # ----------------- internal helpers -----------------
 
-    def log_event(self, event: Union[Dict[str, Any], Any]) -> None:
+    def _compute_hash(
+        self, previous_hash: str, event: Dict[str, Any]
+    ) -> str:
+        event_str = json.dumps(event, sort_keys=True, separators=(",", ":"))
+        payload = (previous_hash + event_str).encode("utf-8")
+        return hashlib.sha256(payload).hexdigest()
+
+    # ----------------- public API -----------------
+
+    def log_event(self, event: Dict[str, Any]) -> None:
         """
-        Append a new event to the chain.
-
-        Accepts a dict or an object with a .to_dict() method (e.g. RailEvent).
+        Append an event to the chain and compute a new tip hash.
         """
-        if hasattr(event, "to_dict"):
-            event_dict = event.to_dict()
-        else:
-            event_dict = dict(event)
-
         previous_hash = self.chain[-1]["hash"] if self.chain else "0" * 64
-        event_str = json.dumps(event_dict, sort_keys=True)
-        block_hash = hashlib.sha256(
-            (previous_hash + event_str).encode("utf-8")
-        ).hexdigest()
-
+        new_hash = self._compute_hash(previous_hash, event)
         entry = {
-            "event": event_dict,
+            "event": event,
+            "hash": new_hash,
             "previous_hash": previous_hash,
-            "hash": block_hash,
         }
         self.chain.append(entry)
 
     def verify_integrity(self) -> bool:
         """
-        Recompute all hashes and check links.
+        Walk the chain and recompute each hash.
 
-        Returns:
-            True  -> chain is consistent
-            False -> at least one entry was tampered with
+        Returns False if any entry has been tampered with.
         """
         if not self.chain:
             return True
 
-        for idx, entry in enumerate(self.chain):
-            expected_prev = "0" * 64 if idx == 0 else self.chain[idx - 1]["hash"]
+        for i, entry in enumerate(self.chain):
+            if i == 0:
+                # Genesis is assumed correct
+                continue
 
-            # Check that stored previous_hash matches
-            if entry["previous_hash"] != expected_prev:
-                return False
+            prev_hash = self.chain[i - 1]["hash"]
+            event = entry["event"]
+            expected_hash = self._compute_hash(prev_hash, event)
 
-            # Recompute hash from stored event + expected_prev
-            event_str = json.dumps(entry["event"], sort_keys=True)
-            expected_hash = hashlib.sha256(
-                (expected_prev + event_str).encode("utf-8")
-            ).hexdigest()
-
-            if entry["hash"] != expected_hash:
+            if expected_hash != entry["hash"]:
                 return False
 
         return True
+
+    def get_final_hash(self) -> str:
+        """
+        Return the current tip hash of the chain (for EvidenceCapsule).
+        """
+        if not self.chain:
+            return ""
+        return self.chain[-1]["hash"]
