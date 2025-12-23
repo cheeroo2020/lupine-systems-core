@@ -1,0 +1,106 @@
+{
+  "capsule_id": "b3e6fb31-0352-44a2-8d3a-d9dea57314eb",
+  "transaction_id": "5e67b61d-dc60-4319-89fe-f4f16c542bd9",
+  "schema_version": "1.0",
+  "generated_at": "2025-12-09T11:43:03.688780Z",
+  "audit_hash": "b506cf6fb07d74d37e47a806aa9fbf32cc47d0e9e3966ec9ff41cb01c54250e8",
+  "events": [
+    {
+      "event_id": "56bf6b40-7afb-45fd-b9ab-7f6c64f59b0a",
+      "timestamp": "2025-12-09T11:43:02.678365+00:00",
+      "event_type": "TRANSACTION_START",
+      "details": {
+        "route": [
+          "NodeA",
+          "NodeB"
+        ]
+      }
+    },
+    {
+      "event_id": "809c5974-27fb-43c7-9c56-a2b42dd5beaf",
+      "timestamp": "2025-12-09T11:43:02.678604+00:00",
+      "event_type": "TRANSACTION_START",
+      "details": {
+        "status": "LIQUIDITY_LOCKED",
+        "route": [
+          "NodeA",
+          "NodeB"
+        ]
+      }
+    },
+    {
+      "event_id": "17210106-0ce0-4dea-9ddf-89c1daa66f95",
+      "timestamp": "2025-12-09T11:43:02.678624+00:00",
+      "event_type": "HOP_ATTEMPT",
+      "details": {
+        "node_id": "NodeA",
+        "attempt": 1,
+        "max_retries": 3
+      }
+    },
+    {
+      "event_id": "145fe806-0bb5-42c9-8c47-bfd7716490c4",
+      "timestamp": "2025-12-09T11:43:02.678638+00:00",
+      "event_type": "HOP_SUCCESS",
+      "details": {
+        "node_id": "NodeA",
+        "attempt": 1
+      }
+    },
+    {
+      "event_id": "77ddcff0-bbcb-4e01-8402-4ba28f17e77a",
+      "timestamp": "2025-12-09T11:43:02.678649+00:00",
+      "event_type": "HOP_ATTEMPT",
+      "details": {
+        "node_id": "NodeB",
+        "attempt": 1,
+        "max_retries": 3
+      }
+    },
+    {
+      "event_id": "e75b820a-0737-4c22-b9ca-e6cd6e7f8f29",
+      "timestamp": "2025-12-09T11:43:02.678660+00:00",
+      "event_type": "HOP_FAILURE",
+      "details": {
+        "node_id": "NodeB",
+        "attempt": 1,
+        "max_retries": 3,
+        "reason": "Bank API Offline",
+        "will_retry": true
+      }
+    },
+    {
+      "event_id": "1fa61a62-74a4-4286-a9ea-c9646de2701a",
+      "timestamp": "2025-12-09T11:43:03.684014+00:00",
+      "event_type": "HOP_ATTEMPT",
+      "details": {
+        "node_id": "NodeB",
+        "attempt": 2,
+        "max_retries": 3
+      }
+    },
+    {
+      "event_id": "b146f641-b303-483e-bbb1-288803d1a252",
+      "timestamp": "2025-12-09T11:43:03.684543+00:00",
+      "event_type": "HOP_SUCCESS",
+      "details": {
+        "node_id": "NodeB",
+        "attempt": 2
+      }
+    },
+    {
+      "event_id": "07ca1ed7-b04c-4980-af4d-b7e547cb077f",
+      "timestamp": "2025-12-09T11:43:03.684657+00:00",
+      "event_type": "TRANSACTION_COMPLETE",
+      "details": {
+        "status": "SETTLED",
+        "state": "SETTLED",
+        "code": 600,
+        "route": [
+          "NodeA",
+          "NodeB"
+        ]
+      }
+    }
+  ]
+}
