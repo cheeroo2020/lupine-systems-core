@@ -1,183 +1,12 @@
-# LUPINE SYSTEMS — README
+# Lupine Systems — V0
 
-## Overview
-Lupine Systems is a multi-layer value‑movement architecture composed of three coordinated subsystems:
+> Lupine decides how value moves when the cost of getting it wrong is high.
 
-- **AIVA** — Intelligent multi‑graph routing & risk evaluation  
-- **LUPINE RAIL** — Resilient settlement & movement pipeline  
-- **CLOKED** — Evidence, audit & verifiable truth layer  
-
-This README summarises Phase 1 development progress, includes architecture diagrams, and documents the implemented components.
+V0 is the first working loop: take a movement request, score route options, pick the best one, simulate execution, and produce a cryptographic evidence log.
 
 ---
 
-## 🌐 High‑Level Architecture
-
-```mermaid
-flowchart TD
-    AIVA[AIVA Intelligence Layer] --> RAIL[Lupine Rail Execution Layer]
-    RAIL --> CLOKED[Cloked Evidence Layer]
-
-    subgraph AIVA Intelligence
-        MG[Medical Graph]
-        VG[Volatility Graph]
-        CG[Compliance Graph]
-        LG[Liquidity Graph]
-        HG[Hop Graph]
-        MERGE[Multi-Graph Merge Engine]
-        MG --> MERGE
-        VG --> MERGE
-        CG --> MERGE
-        LG --> MERGE
-        HG --> MERGE
-    end
-
-    subgraph RAIL Execution
-        SM[State Machine]
-        EX[Rail Executor]
-        EV[Structured Event Log]
-        SM --> EX
-        EX --> EV
-    end
-
-    subgraph CLOKED Evidence
-        AUD[Hash-linked Evidence Capsule]
-    end
-
-    EV --> AUD
-```
-
----
-
-## 🚀 AIVA: Intelligence Layer
-
-AIVA decides whether a route is safe, viable, liquid, and compliant using five graph engines:
-
-### 🫀 MedicalGraph (Thermal Viability)
-- Determines biological viability based on:
-  - payload type  
-  - transit duration  
-  - container temperature  
-- Implements deterministic spoilage thresholds.
-
-### 📉 VolatilityGraph (FX Market Conditions)
-- Normalises FX volatility into a safety score.  
-- Rejects if above configured threshold.
-
-### 🛂 ComplianceGraph (Sanctions Risk)
-- Rejects blacklisted countries.  
-- Flags high-risk corridors.
-
-### 💧 LiquidityGraph (Funding Capacity)
-- Simulates available balances per node.  
-- Rejects insufficient liquidity.
-
-### 🔗 HopGraph & Merge Engine
-- Builds settlement corridors.  
-- Merges risk + liquidity + volatility + compliance into a unified score.
-
----
-
-## 🚂 LUPINE RAIL: Execution Layer
-
-### 🔧 Transaction State Machine
-
-```mermaid
-stateDiagram-v2
-    [*] --> CREATED
-    CREATED --> AIVA_CHECKING
-    AIVA_CHECKING --> AIVA_REJECTED
-    AIVA_CHECKING --> LIQUIDITY_LOCKED
-    LIQUIDITY_LOCKED --> IN_FLIGHT
-    IN_FLIGHT --> FAILED
-    IN_FLIGHT --> SETTLED
-```
-
-### 🛠 Rail Executor
-- Performs settlement hops.  
-- Includes **Chaos Monkey (25% chance of network failure)**.  
-- Implements **Retry Logic (max 3 attempts per hop)**.
-
-### 🧾 Structured Event Logging (Story 4.4)
-Every hop, attempt, retry, success, and final settlement is captured as a structured event:
-
-- UUID  
-- Timestamp  
-- Event Type  
-- Details (node, attempt, status, etc.)
-
----
-
-## 🔐 CLOKED: Evidence Layer
-
-Hash‑linked audit log ensuring immutability and forensic replayability:
-
-- Every event hashed  
-- Linked to previous event  
-- Replayable chain (like a mini blockchain)
-
----
-
-## 🧪 Test Suite (tests/test_risk_scenarios.py)
-
-The system includes six scenarios:
-
-1. **Scenario A** — Medical Fast Route  
-2. **Scenario B** — Medical Slow Route  
-3. **Scenario C** — FX Market Crash  
-4. **Scenario D** — Sanctions Compliance Failure  
-5. **Scenario E** — Liquidity Crunch  
-6. **Scenario F** — Rail Resilience (Retries & Failover)
-
----
-
-## 📦 Project Structure
-
-```
-lupine-systems-core/
-├── src/
-│   ├── models/                   # V0 Pydantic data models
-│   │   └── schemas.py
-│   ├── aiva_lite/                # V0 Intelligence layer
-│   │   ├── router.py             #   route generation
-│   │   ├── scorer.py             #   composite utility scoring
-│   │   └── selector.py           #   winner selection + rationale
-│   ├── rail_lite/                # V0 Execution layer
-│   │   └── executor.py           #   state machine
-│   ├── cloked_lite/              # V0 Evidence layer
-│   │   └── logger.py             #   SHA-256 hash chain
-│   ├── api/                      # V0 FastAPI app
-│   │   └── main.py               #   5 endpoints
-│   ├── aiva/                     # Phase 1 — full graph engines
-│   │   ├── medical_graph.py
-│   │   ├── volatility_graph.py
-│   │   ├── compliance_graph.py
-│   │   ├── liquidity_graph.py
-│   │   ├── hop_graph.py
-│   │   └── merge_engine.py
-│   ├── rail/                     # Phase 1 — full executor
-│   │   ├── state_machine.py
-│   │   ├── executor.py
-│   │   └── events.py
-│   └── cloked/                   # Phase 1 — full auditor
-│       └── auditor.py
-├── tests/
-│   ├── test_aiva.py              # V0 routing + scoring tests
-│   ├── test_rail.py              # V0 state machine tests
-│   ├── test_cloked.py            # V0 evidence chain tests
-│   └── test_risk_scenarios.py    # Phase 1 risk scenarios
-├── docs/
-│   └── v0_spec.md
-└── main_skeleton.py
-```
-
----
-
-## V0 — Movement Decision Engine
-
-> V0 is the first working loop: take a request, score routes, pick the best, simulate execution, produce proof.
-
-### V0 System Overview
+## V0 System Overview
 
 ```mermaid
 flowchart LR
@@ -192,31 +21,31 @@ flowchart LR
     end
 
     subgraph AIVA_LITE["Aiva-lite — Intelligence"]
-        R[router.py\nGenerate 3 routes]
-        S[scorer.py\nComposite utility score]
-        SEL[selector.py\nPick winner + rationale]
+        R["router.py\nGenerate 3 routes"]
+        S["scorer.py\nComposite utility score"]
+        SEL["selector.py\nPick winner + rationale"]
         R --> S --> SEL
     end
 
     subgraph RAIL_LITE["Rail-lite — Execution"]
-        SM2[executor.py\nState machine]
+        SM["executor.py\nState machine"]
     end
 
     subgraph CLOKED_LITE["Cloked-lite — Evidence"]
-        L[logger.py\nSHA-256 hash chain]
+        L["logger.py\nSHA-256 hash chain"]
     end
 
     EP2 --> R
     EP3 --> S
     EP3 --> SEL
-    EP4 --> SM2
+    EP4 --> SM
     EP1 & EP2 & EP3 & EP4 --> L
     EP5 --> L
 ```
 
 ---
 
-### V0 API — 5-Step Flow
+## API — 5-Step Flow
 
 ```mermaid
 sequenceDiagram
@@ -256,7 +85,7 @@ sequenceDiagram
 
 ---
 
-### Aiva-lite — Route Scoring
+## Aiva-lite — Route Scoring
 
 Composite utility: **U = w₁·Speed + w₂·Cost + w₃·Reliability**
 
@@ -271,12 +100,12 @@ Weights shift automatically based on urgency:
 
 ```mermaid
 flowchart TD
-    REQ[Movement Request\nurgency: high] --> WP[Weight Profile\nspeed=50% cost=15% reliability=35%]
-    WP --> NORM[Normalise scores 0→1\nspeed: 1 - time/max_time\ncost:  1 - cost/max_cost]
+    REQ["Movement Request\nurgency: high"] --> WP["Weight Profile\nspeed=50% cost=15% reliability=35%"]
+    WP --> NORM["Normalise scores 0→1\nspeed: 1 - time/max_time\ncost:  1 - cost/max_cost"]
 
-    NORM --> R1["Fast Route\nspeed=1.0 cost=0.27 rel=0.82\nU = 0.50×1.0 + 0.15×0.27 + 0.35×0.82 = 0.829"]
-    NORM --> R2["Cheap Route\nspeed=0.0 cost=1.0 rel=0.71\nU = 0.50×0.0 + 0.15×1.0 + 0.35×0.71 = 0.399"]
-    NORM --> R3["Balanced Route\nspeed=0.86 cost=0.62 rel=0.93\nU = 0.50×0.86 + 0.15×0.62 + 0.35×0.93 = 0.849"]
+    NORM --> R1["Fast Route\nspeed=1.0 cost=0.27 rel=0.82\nU = 0.829"]
+    NORM --> R2["Cheap Route\nspeed=0.0 cost=1.0 rel=0.71\nU = 0.399"]
+    NORM --> R3["Balanced Route\nspeed=0.86 cost=0.62 rel=0.93\nU = 0.849"]
 
     R1 & R2 & R3 --> WIN["Winner: Balanced Route\nscore 0.849"]
 
@@ -285,7 +114,7 @@ flowchart TD
 
 ---
 
-### Rail-lite — Execution State Machine
+## Rail-lite — Execution State Machine
 
 ```mermaid
 stateDiagram-v2
@@ -304,7 +133,7 @@ Invalid transitions raise `ValueError` — the state machine enforces every step
 
 ---
 
-### Cloked-lite — SHA-256 Evidence Chain
+## Cloked-lite — SHA-256 Evidence Chain
 
 ```mermaid
 flowchart LR
@@ -319,14 +148,68 @@ flowchart LR
     E1 -->|prev_hash| E2
     E2 -->|prev_hash| E3
 
-    NOTE["verify_chain() recomputes\nevery hash and checks linkage.\nAny tamper = False."]
+    NOTE["verify_chain() recomputes every hash\nand checks linkage. Any tamper = False."]
 ```
 
 ---
 
-## 📈 Progress
+## Quick Start
 
-### V0 — Movement Decision Engine
+```bash
+pip install -r requirements.txt
+uvicorn src.api.main:app --reload
+```
+
+Then call the endpoints in order:
+
+```bash
+# 1. Create a movement request
+curl -X POST "http://localhost:8000/create-movement?amount=500000&from_currency=AUD&to_currency=SGD&urgency=high"
+
+# 2. Get routes (use request_id from step 1)
+curl "http://localhost:8000/get-routes/{request_id}"
+
+# 3. Score and select
+curl -X POST "http://localhost:8000/score-routes/{request_id}"
+
+# 4. Execute
+curl -X POST "http://localhost:8000/execute/{request_id}"
+
+# 5. View evidence log
+curl "http://localhost:8000/log/{request_id}"
+```
+
+---
+
+## Project Structure
+
+```
+lupine-systems-core/
+├── src/
+│   ├── models/           # Pydantic data models
+│   │   └── schemas.py
+│   ├── aiva_lite/        # Intelligence layer
+│   │   ├── router.py     #   route generation
+│   │   ├── scorer.py     #   composite utility scoring
+│   │   └── selector.py   #   winner selection + rationale
+│   ├── rail_lite/        # Execution layer
+│   │   └── executor.py   #   state machine
+│   ├── cloked_lite/      # Evidence layer
+│   │   └── logger.py     #   SHA-256 hash chain
+│   └── api/              # FastAPI app (5 endpoints)
+│       └── main.py
+├── tests/
+│   ├── test_aiva.py      # routing + scoring
+│   ├── test_rail.py      # state machine transitions
+│   └── test_cloked.py    # evidence chain integrity
+├── docs/
+│   └── v0_spec.md
+└── requirements.txt
+```
+
+---
+
+## V0 Status
 
 | Component | Status | Details |
 |-----------|--------|---------|
@@ -340,32 +223,7 @@ flowchart LR
 | Test Suite (10 tests) | ✅ Done | Routing, scoring, states, chain integrity |
 | CI (GitHub Actions) | ✅ Done | Runs on every push |
 
-### Phase 1 — Full Graph Engines
-
-| Component | Status | Details |
-|-----------|--------|---------|
-| Medical Risk Engine | ✅ Done | Deterministic thermal decay |
-| Volatility Engine | ✅ Done | FX-safe scoring & rejection |
-| Compliance Engine | ✅ Done | Sanctions + high-risk handling |
-| Liquidity Engine | ✅ Done | Node balance + stress logic |
-| AIVA Merge Engine | 🟩 In Progress | Multi‑graph score fusion |
-| Rail Executor | ✅ Done | Hops, retries, resilience |
-| Structured Events | ✅ Done | JSON logs for each hop |
-| Test Suite | ✅ Done | Full risk‑scenario coverage |
-
 ---
 
-## 🎯 Next Steps (Phase 2)
-
-- AIVA: Weighted composite scoring  
-- Rail: Multi-hop settlement chains  
-- Cloked: Evidence capsule encryption  
-- API Layer: Public routing endpoint  
-- CLI Tool: lupctl for running transactions  
-
----
-
-## 📜 License
-Internal experimental research prototype.
-Trademark Chris Gogoi
-
+## License
+Internal experimental research prototype. Trademark Chris Gogoi.
