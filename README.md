@@ -1,187 +1,100 @@
-# LUPINE SYSTEMS — README
+# Lupine Systems V0
 
-## Overview
-Lupine Systems is a multi-layer value‑movement architecture composed of three coordinated subsystems:
+> Lupine decides how value moves when the cost of getting it wrong is high.
 
-- **AIVA** — Intelligent multi‑graph routing & risk evaluation  
-- **LUPINE RAIL** — Resilient settlement & movement pipeline  
-- **CLOKED** — Evidence, audit & verifiable truth layer  
+## What V0 is
 
-This README summarises Phase 1 development progress, includes architecture diagrams, and documents the implemented components.
+A movement decision engine for high-stakes transfers. Not a full payment network. Not medical logistics yet. Just the first working loop:
 
----
+1. Take a movement request
+2. Compare route options
+3. Choose the best route
+4. Simulate execution
+5. Produce a decision and evidence log
 
-## 🌐 High‑Level Architecture
+## Architecture
+
+V0 preserves the book's three-layer spine:
+
+- **Aiva-lite** — Intelligence: scores routes, selects optimal path
+- **Rail-lite** — Execution: state machine that simulates movement
+- **Cloked-lite** — Trust: evidence log proving what happened and why
 
 ```mermaid
 flowchart TD
-    AIVA[AIVA Intelligence Layer] --> RAIL[Lupine Rail Execution Layer]
-    RAIL --> CLOKED[Cloked Evidence Layer]
-
-    subgraph AIVA Intelligence
-        MG[Medical Graph]
-        VG[Volatility Graph]
-        CG[Compliance Graph]
-        LG[Liquidity Graph]
-        HG[Hop Graph]
-        MERGE[Multi-Graph Merge Engine]
-        MG --> MERGE
-        VG --> MERGE
-        CG --> MERGE
-        LG --> MERGE
-        HG --> MERGE
-    end
-
-    subgraph RAIL Execution
-        SM[State Machine]
-        EX[Rail Executor]
-        EV[Structured Event Log]
-        SM --> EX
-        EX --> EV
-    end
-
-    subgraph CLOKED Evidence
-        AUD[Hash-linked Evidence Capsule]
-    end
-
-    EV --> AUD
+    API[API Layer] --> AIVA[Aiva-lite: Route Generation + Scoring]
+    AIVA --> RAIL[Rail-lite: State Machine Execution]
+    RAIL --> CLOKED[Cloked-lite: Evidence Chain]
 ```
 
----
+## V0 Demo Scenario
 
-## 🚀 AIVA: Intelligence Layer
+- Amount: 500,000
+- From: AUD
+- To: SGD
+- Urgency: high
 
-AIVA decides whether a route is safe, viable, liquid, and compliant using five graph engines:
+Three routes evaluated (Fast, Cheap, Balanced), scored on speed/cost/reliability, best selected with full explanation and evidence trail.
 
-### 🫀 MedicalGraph (Thermal Viability)
-- Determines biological viability based on:
-  - payload type  
-  - transit duration  
-  - container temperature  
-- Implements deterministic spoilage thresholds.
+## API Endpoints
 
-### 📉 VolatilityGraph (FX Market Conditions)
-- Normalises FX volatility into a safety score.  
-- Rejects if above configured threshold.
+| Endpoint                      | Method | Description                              |
+|-------------------------------|--------|------------------------------------------|
+| `/create-movement`            | POST   | Submit a movement request                |
+| `/get-routes/{request_id}`    | GET    | Generate route options for a request     |
+| `/score-routes/{request_id}`  | POST   | Score all routes, select optimal         |
+| `/execute/{request_id}`       | POST   | Simulate execution through state machine |
+| `/log/{request_id}`           | GET    | Retrieve full evidence log               |
 
-### 🛂 ComplianceGraph (Sanctions Risk)
-- Rejects blacklisted countries.  
-- Flags high-risk corridors.
+## Tech Stack
 
-### 💧 LiquidityGraph (Funding Capacity)
-- Simulates available balances per node.  
-- Rejects insufficient liquidity.
+- Python 3.11+
+- FastAPI
+- Pydantic v2 (data models)
+- UUID for request/evidence tracking
+- SHA-256 for evidence hashing
 
-### 🔗 HopGraph & Merge Engine
-- Builds settlement corridors.  
-- Merges risk + liquidity + volatility + compliance into a unified score.
+## Quick Start
 
----
-
-## 🚂 LUPINE RAIL: Execution Layer
-
-### 🔧 Transaction State Machine
-
-```mermaid
-stateDiagram-v2
-    [*] --> CREATED
-    CREATED --> AIVA_CHECKING
-    AIVA_CHECKING --> AIVA_REJECTED
-    AIVA_CHECKING --> LIQUIDITY_LOCKED
-    LIQUIDITY_LOCKED --> IN_FLIGHT
-    IN_FLIGHT --> FAILED
-    IN_FLIGHT --> SETTLED
+```bash
+pip install -r requirements.txt
+uvicorn src.api.main:app --reload
 ```
 
-### 🛠 Rail Executor
-- Performs settlement hops.  
-- Includes **Chaos Monkey (25% chance of network failure)**.  
-- Implements **Retry Logic (max 3 attempts per hop)**.
+## Run Tests
 
-### 🧾 Structured Event Logging (Story 4.4)
-Every hop, attempt, retry, success, and final settlement is captured as a structured event:
+```bash
+pytest tests/ -v
+```
 
-- UUID  
-- Timestamp  
-- Event Type  
-- Details (node, attempt, status, etc.)
-
----
-
-## 🔐 CLOKED: Evidence Layer
-
-Hash‑linked audit log ensuring immutability and forensic replayability:
-
-- Every event hashed  
-- Linked to previous event  
-- Replayable chain (like a mini blockchain)
-
----
-
-## 🧪 Test Suite (tests/test_risk_scenarios.py)
-
-The system includes six scenarios:
-
-1. **Scenario A** — Medical Fast Route  
-2. **Scenario B** — Medical Slow Route  
-3. **Scenario C** — FX Market Crash  
-4. **Scenario D** — Sanctions Compliance Failure  
-5. **Scenario E** — Liquidity Crunch  
-6. **Scenario F** — Rail Resilience (Retries & Failover)
-
----
-
-## 📦 Project Structure
+## Project Structure
 
 ```
 lupine-systems-core/
 ├── src/
-│   ├── aiva/
-│   │   ├── medical_graph.py
-│   │   ├── volatility_graph.py
-│   │   ├── compliance_graph.py
-│   │   ├── liquidity_graph.py
-│   │   ├── hop_graph.py
-│   │   └── merge_engine.py
-│   ├── rail/
-│   │   ├── state_machine.py
-│   │   ├── executor.py
-│   │   └── events.py
-│   └── cloked/
-│       └── auditor.py
+│   ├── aiva_lite/        # Route generation, scoring, selection
+│   │   ├── router.py     # Route option generation
+│   │   ├── scorer.py     # Multi-dimension scoring engine
+│   │   └── selector.py   # Pareto frontier / route selection
+│   ├── rail_lite/        # Execution state machine
+│   │   └── executor.py   # State transitions, simulation
+│   ├── cloked_lite/      # Evidence logging
+│   │   └── logger.py     # Hash chain, evidence capsules
+│   ├── models/           # Pydantic data models
+│   │   └── schemas.py    # All V0 data objects
+│   └── api/              # FastAPI endpoints
+│       └── main.py       # All 5 endpoints
 ├── tests/
-│   └── test_risk_scenarios.py
-└── main_skeleton.py
+│   ├── test_aiva.py
+│   ├── test_rail.py
+│   └── test_cloked.py
+├── docs/
+│   └── v0_spec.md
+├── requirements.txt
+└── README.md
 ```
 
----
+## License
 
-## 📈 Phase 1 Progress
-
-| Component | Status | Details |
-|----------|--------|---------|
-| Medical Risk Engine | ✅ Done | Deterministic thermal decay |
-| Volatility Engine | ✅ Done | FX-safe scoring & rejection |
-| Compliance Engine | ✅ Done | Sanctions + high-risk handling |
-| Liquidity Engine | ✅ Done | Node balance + stress logic |
-| AIVA Merge Engine | 🟩 In Progress | Multi‑graph score fusion |
-| Rail Executor | ✅ Done | Hops, retries, resilience |
-| Structured Events | ✅ Done | JSON logs for each hop |
-| Test Suite | ✅ Done | Full risk‑scenario coverage |
-
----
-
-## 🎯 Next Steps (Phase 2)
-
-- AIVA: Weighted composite scoring  
-- Rail: Multi-hop settlement chains  
-- Cloked: Evidence capsule encryption  
-- API Layer: Public routing endpoint  
-- CLI Tool: lupctl for running transactions  
-
----
-
-## 📜 License
-Internal experimental research prototype.
+Internal experimental research prototype.  
 Trademark Chris Gogoi
-
