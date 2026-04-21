@@ -1,20 +1,19 @@
 # Daily News — Lupine Systems
 
-Live financial news relevant to Lupine Systems, fetched automatically every day at 9am UTC.
+Two summarised news stories every day at 9am UTC, pulled live from
+payments and fintech publications (PYMNTS, American Banker) and filtered
+for topics relevant to Lupine Systems: cross-border payments, FX,
+fintech, remittance, stablecoins, and payment infrastructure.
 
-Each day's digest covers headlines from financial publications on:
+Each story is written as a short summary with the source attribution —
+so you can read the headlines and the gist without clicking out.
 
-- Cross-border payments and payment infrastructure
-- International money transfer and fintech
-- FX markets and currency corridors
-- SWIFT, correspondent banking, and payment rails
-
-No manual input needed — the workflow fetches from Google News RSS, picks the top stories, and commits them here automatically.
+No manual input needed. Fully automated.
 
 ---
 
 ## Index
 
-| Date | Stories |
-|------|---------|
-| [2026-04-21](./2026-04-21.md) | 8 stories |
+| Date | Top headline |
+|------|--------------|
+| [2026-04-21](./2026-04-21.md) | Crypto has become part of Iran's arsenal |

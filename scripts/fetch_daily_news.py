@@ -1,8 +1,11 @@
 """
-Fetches live news about cross-border payments, fintech, and FX markets
-from Google News RSS and writes a daily digest to daily-news/YYYY-MM-DD.md.
+Fetches live financial news relevant to Lupine Systems (cross-border
+payments, fintech, FX, payment infrastructure) from payments-focused
+RSS feeds that include real article summaries.
 
-No API key required — uses Google News RSS public feeds.
+Writes a digest to daily-news/YYYY-MM-DD.md with 2 summarised stories
+and their sources. No API key required.
+
 Run daily by .github/workflows/daily.yml.
 """
 from __future__ import annotations
@@ -11,6 +14,7 @@ import html
 import re
 import sys
 from datetime import date, datetime, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 import requests
@@ -20,68 +24,103 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 NEWS_DIR = REPO_ROOT / "daily-news"
 README = NEWS_DIR / "README.md"
 
-SEARCHES = [
-    "cross-border+payments",
-    "international+money+transfer+fintech",
-    "SWIFT+payment+rails+correspondent+banking",
-    "FX+foreign+exchange+corridor",
+SOURCES = [
+    ("PYMNTS", "https://www.pymnts.com/feed/"),
+    ("American Banker", "https://www.americanbanker.com/feed?rss=true"),
+]
+
+RELEVANCE_KEYWORDS = [
+    "cross-border", "cross border", "payment", "payments", "remittance",
+    "transfer", "fx", "foreign exchange", "currency", "fintech",
+    "swift", "correspondent", "corridor", "stablecoin", "settlement",
+    "clearing", "real-time payment", "rtp", "interbank", "wire",
+    "bank", "visa", "mastercard", "ripple", "treasury",
 ]
 
 
-def _strip_tags(text: str) -> str:
-    return re.sub(r"<[^>]+>", "", text).strip()
+def _clean(text: str, limit: int | None = None) -> str:
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = html.unescape(text)
+    text = re.sub(r"\s+", " ", text).strip()
+    # Pymnts appends "The post X appeared first on …" — trim it
+    text = re.sub(r"\s*The post .*?appeared first on.*$", "", text)
+    if limit and len(text) > limit:
+        text = text[:limit].rsplit(" ", 1)[0] + "…"
+    return text
 
 
-def fetch_rss(query: str, max_items: int = 4) -> list[dict]:
-    url = (
-        f"https://news.google.com/rss/search"
-        f"?q={query}&hl=en-US&gl=US&ceid=US:en"
-    )
+def _is_relevant(title: str, description: str) -> bool:
+    blob = (title + " " + description).lower()
+    return any(k in blob for k in RELEVANCE_KEYWORDS)
+
+
+def _parse_date(s: str):
+    try:
+        return parsedate_to_datetime(s)
+    except Exception:
+        return datetime.min.replace(tzinfo=timezone.utc)
+
+
+def fetch_source(name: str, url: str) -> list[dict]:
     try:
         resp = requests.get(
             url, timeout=15, headers={"User-Agent": "Mozilla/5.0"}
         )
         resp.raise_for_status()
         root = ET.fromstring(resp.content)
-        items = []
-        for item in root.findall(".//item")[:max_items]:
-            title = html.unescape(item.findtext("title", "").strip())
-            link = item.findtext("link", "").strip()
-            src_el = item.find("source")
-            source = src_el.text.strip() if src_el is not None else ""
-            pub_date = item.findtext("pubDate", "").strip()
-            desc_raw = html.unescape(
-                _strip_tags(item.findtext("description", ""))
-            )
-            # Google News RSS repeats the title in the description — skip it
-            if desc_raw.startswith(title[:40]):
-                desc_raw = ""
-            desc = desc_raw[:280].rsplit(" ", 1)[0] + "…" if len(desc_raw) > 280 else desc_raw
-            if title:
-                items.append(
-                    {
-                        "title": title,
-                        "link": link,
-                        "source": source,
-                        "pub_date": pub_date,
-                        "description": desc,
-                    }
-                )
-        return items
     except Exception as exc:
-        print(f"  warning: could not fetch '{query}': {exc}", file=sys.stderr)
+        print(f"  warning: {name}: {exc}", file=sys.stderr)
         return []
 
+    items = []
+    for item in root.findall(".//item"):
+        title = _clean(item.findtext("title", ""))
+        description = _clean(item.findtext("description", ""), limit=600)
+        link = item.findtext("link", "").strip()
+        pub_date = item.findtext("pubDate", "").strip()
+        if not (title and description):
+            continue
+        if not _is_relevant(title, description):
+            continue
+        items.append(
+            {
+                "title": title,
+                "description": description,
+                "link": link,
+                "source": name,
+                "pub_date": pub_date,
+                "sort_key": _parse_date(pub_date),
+            }
+        )
+    return items
 
-def deduplicate(items: list[dict]) -> list[dict]:
-    seen: set[str] = set()
-    out = []
-    for item in items:
-        key = item["title"][:70].lower()
-        if key not in seen:
-            seen.add(key)
-            out.append(item)
-    return out
+
+def pick_stories(all_items: list[dict], n: int = 2) -> list[dict]:
+    seen_sources: set[str] = set()
+    sorted_items = sorted(all_items, key=lambda x: x["sort_key"], reverse=True)
+    picked: list[dict] = []
+    # Prefer one story per source first
+    for item in sorted_items:
+        if len(picked) >= n:
+            break
+        if item["source"] not in seen_sources:
+            picked.append(item)
+            seen_sources.add(item["source"])
+    # Fill with most recent if still short
+    for item in sorted_items:
+        if len(picked) >= n:
+            break
+        if item not in picked:
+            picked.append(item)
+    return picked
+
+
+def format_pub_date(raw: str) -> str:
+    try:
+        dt = parsedate_to_datetime(raw)
+        return dt.strftime("%d %b %Y")
+    except Exception:
+        return raw or ""
 
 
 def write_digest(today: date, stories: list[dict]) -> Path:
@@ -92,52 +131,45 @@ def write_digest(today: date, stories: list[dict]) -> Path:
     lines: list[str] = [
         f"# Daily News — {pretty}",
         "",
-        f"*Live financial news relevant to Lupine Systems — cross-border payments, "
-        f"fintech, FX, and payment infrastructure — {pretty}*",
+        "*Live headlines on cross-border payments, fintech, and FX — "
+        "fetched from PYMNTS and American Banker.*",
         "",
         "---",
         "",
     ]
 
-    if stories:
-        for i, s in enumerate(stories, 1):
-            lines += [
-                f"### {i}. {s['title']}",
-                "",
-            ]
-            if s["description"]:
-                lines += [s["description"], ""]
-            source_parts = []
-            if s["source"]:
-                source_parts.append(f"**{s['source']}**")
-            if s["pub_date"]:
-                source_parts.append(s["pub_date"])
-            if source_parts:
-                lines.append("  ".join(source_parts))
-                lines.append("")
-            if s["link"]:
-                lines += [f"[Read full article →]({s['link']})", ""]
-            lines += ["---", ""]
-    else:
+    if not stories:
         lines += [
-            "No stories fetched today — check the workflow log.",
+            "No relevant stories found today. Check workflow logs.",
             "",
         ]
+    else:
+        for s in stories:
+            lines += [
+                f"## {s['title']}",
+                "",
+                s["description"],
+                "",
+                f"*— {s['source']}, {format_pub_date(s['pub_date'])}*",
+                "",
+                "---",
+                "",
+            ]
 
     path.write_text("\n".join(lines), encoding="utf-8")
     return path
 
 
-def update_index(today: date, story_count: int) -> None:
+def update_index(today: date, stories: list[dict]) -> None:
     if not README.exists():
         return
     text = README.read_text(encoding="utf-8")
-    row = (
-        f"| [{today.isoformat()}](./{today.isoformat()}.md)"
-        f" | {story_count} stories |\n"
-    )
     if today.isoformat() in text:
         return
+    headline = stories[0]["title"] if stories else "—"
+    if len(headline) > 70:
+        headline = headline[:67] + "…"
+    row = f"| [{today.isoformat()}](./{today.isoformat()}.md) | {headline} |\n"
     text = text.rstrip() + "\n" + row
     README.write_text(text, encoding="utf-8")
 
@@ -145,16 +177,15 @@ def update_index(today: date, story_count: int) -> None:
 def main() -> int:
     today = datetime.now(timezone.utc).date()
     all_items: list[dict] = []
-    for q in SEARCHES:
-        label = q.replace("+", " ")
-        print(f"Fetching: {label}")
-        found = fetch_rss(q)
-        print(f"  {len(found)} stories")
-        all_items.extend(found)
+    for name, url in SOURCES:
+        print(f"Fetching: {name}")
+        items = fetch_source(name, url)
+        print(f"  {len(items)} relevant items")
+        all_items.extend(items)
 
-    stories = deduplicate(all_items)[:8]
+    stories = pick_stories(all_items, n=2)
     path = write_digest(today, stories)
-    update_index(today, len(stories))
+    update_index(today, stories)
     print(f"Wrote {len(stories)} stories → {path.relative_to(REPO_ROOT)}")
     return 0
 
