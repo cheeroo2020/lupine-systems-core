@@ -4,6 +4,8 @@
 
 V0 is the first working loop: take a movement request, score route options, pick the best one, simulate execution, and produce a cryptographic evidence log.
 
+**New to Lupine? Start here → [Plain English Guide](./docs/guide.md)**
+
 ---
 
 ## V0 System Overview
