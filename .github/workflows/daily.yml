@@ -126,8 +126,8 @@ jobs:
           RESULT_BADGE=$([ "$UNIT_EXIT" = "0" ] && [ "$LIVE_EXIT" = "0" ] && echo "✅ PASSED" || echo "❌ FAILED")
           echo "| [${DATE}](./${DATE}.md) | ${RESULT_BADGE} | ${TOTAL_PASSED}/14 | 1 AUD = ${FX_RATE} SGD |" >> test-results/README.md
 
-      - name: Write daily news article
-        run: python scripts/write_daily_news.py
+      - name: Fetch daily news
+        run: python scripts/fetch_daily_news.py
         env:
           PYTHONPATH: ${{ github.workspace }}
 

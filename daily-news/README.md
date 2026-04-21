@@ -1,28 +1,20 @@
 # Daily News — Lupine Systems
 
-One educational article per day, written automatically at 9am UTC, designed so that reading them over time teaches you the full Lupine Systems architecture.
+Live financial news relevant to Lupine Systems, fetched automatically every day at 9am UTC.
 
-No manual input needed — the article for each day is picked from a curated library and committed to this folder automatically.
+Each day's digest covers headlines from financial publications on:
 
----
+- Cross-border payments and payment infrastructure
+- International money transfer and fintech
+- FX markets and currency corridors
+- SWIFT, correspondent banking, and payment rails
 
-## How to read this
-
-Start at the beginning and read forward one per day. Each article builds on earlier concepts, so over a month you'll cover:
-
-- Why Lupine exists (the core problem)
-- The three-layer architecture (AIVA, RAIL, CLOKED)
-- How routes get generated and scored
-- The composite utility function
-- State machines and why they enforce order
-- Hash chains and tamper detection
-- Live FX data and why it matters
-- What V0 proves and what comes next
+No manual input needed — the workflow fetches from Google News RSS, picks the top stories, and commits them here automatically.
 
 ---
 
 ## Index
 
-| Date | Article |
+| Date | Stories |
 |------|---------|
-| [2026-04-21](./2026-04-21.md) | Day 1 — What Lupine is, and why |
+| [2026-04-21](./2026-04-21.md) | 8 stories |
