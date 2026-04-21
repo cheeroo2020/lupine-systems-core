@@ -1,45 +1,54 @@
 # Test Results
 
-This folder contains a daily record of every automated V0 health check run.
+Daily automated health check records for Lupine Systems V0.
+Every entry is written by GitHub Actions — no manual steps needed.
 
 ---
 
 ## How it works
 
-Every day at **9am UTC**, GitHub Actions runs the full V0 test suite automatically.
-After the run, the workflow writes a dated `.md` file here, commits it, and pushes it
-back to the repo. No manual action needed.
-
-Each file is named `YYYY-MM-DD.md` and contains:
-- Overall result (PASSED / FAILED)
-- Individual test outcomes
-- Run time
-- Link to the GitHub Actions run log
+Every day at **9am UTC** GitHub Actions:
+1. Runs 10 deterministic tests against fixed simulation data
+2. Fetches the live AUD/SGD rate from [Frankfurter API](https://www.frankfurter.app)
+3. Runs 4 live tests against that day's real market rate
+4. Writes a dated `.md` file here with full results + raw output
+5. Commits and pushes it back to the repo under your account
+6. Opens a GitHub Issue automatically if anything fails
 
 ---
 
-## Dataset the tests run against
+## Data sources
 
-The tests use a fixed in-code simulation dataset — no external database or API.
-It represents the V0 demo scenario:
+### Deterministic dataset (fixed, always the same)
+Used by `test_aiva.py`, `test_rail.py`, `test_cloked.py`
 
-### Movement Request
 | Field | Value |
 |-------|-------|
-| Amount | 500,000 |
-| From | AUD |
-| To | SGD |
-| Urgency | varied per test (high / low / normal) |
+| Amount | 500,000 AUD |
+| To currency | SGD |
+| Urgency levels tested | high, low, normal |
 
-### Route Options (hardcoded in `src/aiva_lite/router.py`)
+**Routes hardcoded in `src/aiva_lite/router.py`:**
+
 | Route | Time | Cost | Reliability |
 |-------|-----:|-----:|------------:|
 | Fast Route | 2.5h | 45bps | 0.82 |
 | Cheap Route | 18.0h | 12bps | 0.71 |
 | Balanced Route | 6.0h | 28bps | 0.93 |
 
-These values are fixed and deterministic — the same inputs always produce the same
-scores, which is why they're suitable for a daily regression check.
+These are fixed so tests are always reproducible — same input, same output, every run.
+
+### Live dataset (changes daily)
+Used by `tests/test_live.py`
+
+| Field | Value |
+|-------|-------|
+| Source | [Frankfurter API](https://www.frankfurter.app) — free, no API key |
+| Endpoint | `https://api.frankfurter.app/latest?from=AUD&to=SGD` |
+| Updates | Every business day (ECB reference rates) |
+| What it tests | That the full V0 pipeline runs correctly against today's real AUD/SGD rate |
+
+The live rate is embedded in the evidence chain and recorded in each daily file — so you can look back and see what the market rate was on any given day.
 
 ---
 
@@ -67,6 +76,14 @@ scores, which is why they're suitable for a daily regression check.
 | `test_tampered_chain_fails` | Modifying a hash breaks `verify_chain()` |
 | `test_genesis_link` | First entry always links to `"genesis"` |
 
+### `test_live.py` — Live FX integration
+| Test | What it checks |
+|------|----------------|
+| `test_frankfurter_api_reachable` | API is online and returning a valid rate |
+| `test_live_aud_sgd_high_urgency` | Full pipeline with today's rate, urgency=high |
+| `test_live_aud_sgd_low_urgency` | Full pipeline with today's rate, urgency=low |
+| `test_live_evidence_chain_with_real_rate` | Evidence chain valid with live rate embedded |
+
 ---
 
 ## How to find the GitHub Actions run
@@ -74,12 +91,12 @@ scores, which is why they're suitable for a daily regression check.
 1. Go to `github.com/cheeroo2020/lupine-systems-core`
 2. Click the **Actions** tab
 3. Select **Daily Health Check** on the left
-4. Click any run to see the full pytest output
+4. Click any run to see the full output
 
 ---
 
-## File index
+## Results index
 
-| Date | Result | Tests |
-|------|--------|-------|
-| [2026-04-21](./2026-04-21.md) | ✅ PASSED | 10/10 |
+| Date | Result | Tests | AUD/SGD Rate |
+|------|--------|-------|--------------|
+| [2026-04-21](./2026-04-21.md) | ✅ PASSED | 14/14 | 1 AUD = 0.90993 SGD |
