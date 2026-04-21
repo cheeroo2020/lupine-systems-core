@@ -8,6 +8,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
 
     steps:
       - uses: actions/checkout@v4
@@ -23,12 +26,67 @@ jobs:
 
       - name: Run tests
         id: tests
-        run: pytest tests/test_aiva.py tests/test_rail.py tests/test_cloked.py -v
+        run: |
+          set +e
+          pytest tests/test_aiva.py tests/test_rail.py tests/test_cloked.py -v 2>&1 | tee /tmp/test_output.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
         env:
           PYTHONPATH: ${{ github.workspace }}
 
+      - name: Write daily results file
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          EXIT=${{ steps.tests.outputs.exit_code }}
+          STATUS=$([ "$EXIT" = "0" ] && echo "✅ PASSED" || echo "❌ FAILED")
+          TOTAL=$(grep -c "PASSED\|FAILED" /tmp/test_output.txt || echo "0")
+          PASSED=$(grep -c " PASSED" /tmp/test_output.txt || echo "0")
+          FAILED=$(grep -c " FAILED" /tmp/test_output.txt || echo "0")
+          DURATION=$(grep -oP '\d+\.\d+s' /tmp/test_output.txt | tail -1)
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          cat > test-results/${DATE}.md << EOF
+          # Test Run — ${DATE}
+
+          **Result: ${STATUS}**
+          **Tests: ${PASSED} passed, ${FAILED} failed**
+          **Duration: ${DURATION}**
+          **Run:** [View on GitHub Actions](${RUN_URL})
+
+          ---
+
+          ## Results
+
+          | Test | File | Result |
+          |------|------|--------|
+          $(grep -E "PASSED|FAILED" /tmp/test_output.txt | grep "::" | sed 's|tests/||' | awk -F'::' '{
+            file=$1; test=$2;
+            result=(index($0,"PASSED") > 0) ? "✅ PASSED" : "❌ FAILED";
+            print "| `" test "` | " file " | " result " |"
+          }')
+
+          ---
+
+          ## Raw output
+
+          \`\`\`
+          $(cat /tmp/test_output.txt)
+          \`\`\`
+          EOF
+
+          # Update the index table in README.md
+          RESULT_BADGE=$([ "$EXIT" = "0" ] && echo "✅ PASSED" || echo "❌ FAILED")
+          echo "| [${DATE}](./${DATE}.md) | ${RESULT_BADGE} | ${PASSED}/10 |" >> test-results/README.md
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add test-results/
+          git diff --staged --quiet || git commit -m "test-results: $(date +%Y-%m-%d) — $( [ '${{ steps.tests.outputs.exit_code }}' = '0' ] && echo 'PASSED' || echo 'FAILED' ) [skip ci]"
+          git push
+
       - name: Open issue if tests fail
-        if: failure()
+        if: ${{ steps.tests.outputs.exit_code != '0' }}
         uses: actions/github-script@v7
         with:
           script: |
