@@ -131,11 +131,16 @@ jobs:
         env:
           PYTHONPATH: ${{ github.workspace }}
 
-      - name: Commit results and news
+      - name: Generate website data
+        run: python scripts/generate_site_data.py
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Commit results, news, and site data
         run: |
           git config user.name "cheeroo2020"
           git config user.email "cheeroo2020@users.noreply.github.com"
-          git add test-results/ daily-news/
+          git add test-results/ daily-news/ website/data/
           git diff --staged --quiet || git commit -m "daily: $(date +%Y-%m-%d) [skip ci]"
           git push
 
