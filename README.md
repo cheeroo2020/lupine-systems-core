@@ -228,4 +228,4 @@ lupine-systems-core/
 ---
 
 ## License
-Internal experimental research prototype. Trademark Chris Gogoi.
+Internal experimental research prototype. Copyright Chirantan Gogoi.
