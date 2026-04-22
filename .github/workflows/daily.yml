@@ -49,10 +49,10 @@ jobs:
           LIVE_EXIT=${{ steps.live_tests.outputs.exit_code }}
           OVERALL=$([ "$UNIT_EXIT" = "0" ] && [ "$LIVE_EXIT" = "0" ] && echo "✅ PASSED" || echo "❌ FAILED")
 
-          UNIT_PASSED=$(grep -c " PASSED" /tmp/unit_output.txt || echo "0")
-          UNIT_FAILED=$(grep -c " FAILED" /tmp/unit_output.txt || echo "0")
-          LIVE_PASSED=$(grep -c " PASSED" /tmp/live_output.txt || echo "0")
-          LIVE_FAILED=$(grep -c " FAILED" /tmp/live_output.txt || echo "0")
+          UNIT_PASSED=$(grep -c " PASSED" /tmp/unit_output.txt || true)
+          UNIT_FAILED=$(grep -c " FAILED" /tmp/unit_output.txt || true)
+          LIVE_PASSED=$(grep -c " PASSED" /tmp/live_output.txt || true)
+          LIVE_FAILED=$(grep -c " FAILED" /tmp/live_output.txt || true)
           TOTAL_PASSED=$((UNIT_PASSED + LIVE_PASSED))
           TOTAL_FAILED=$((UNIT_FAILED + LIVE_FAILED))
 

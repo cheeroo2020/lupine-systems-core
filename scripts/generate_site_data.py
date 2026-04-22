@@ -74,11 +74,23 @@ def parse_health_file(path: Path) -> dict:
     elif "❌ FAILED" in text:
         status = "FAILED"
 
+    # Try header first: "**Tests: 14 passed, 0 failed**"
     passed = failed = 0
-    m = re.search(r"\*\*Tests.*?(\d+) passed", text)
-    if m: passed = int(m.group(1))
-    m = re.search(r"(\d+) failed\b", text)
-    if m: failed = int(m.group(1))
+    m = re.search(r"\*\*Tests:\s*(\d+)\s*passed,\s*(\d+)\s*failed", text)
+    if m:
+        passed, failed = int(m.group(1)), int(m.group(2))
+
+    # Fallback 1: sum pytest summary lines "===== N passed in 0.10s ====="
+    if passed == 0 and failed == 0:
+        for mm in re.finditer(r"(\d+)\s+passed\b", text):
+            passed += int(mm.group(1))
+        for mm in re.finditer(r"(\d+)\s+failed\b", text):
+            failed += int(mm.group(1))
+
+    # Fallback 2: markdown table rows "| ✅ PASSED |"
+    if passed == 0 and failed == 0:
+        passed = text.count("| ✅ PASSED |")
+        failed = text.count("| ❌ FAILED |")
 
     fx_rate = "unavailable"
     for pattern in [
