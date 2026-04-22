@@ -100,3 +100,4 @@ The live rate is embedded in the evidence chain and recorded in each daily file 
 | Date | Result | Tests | AUD/SGD Rate |
 |------|--------|-------|--------------|
 | [2026-04-21](./2026-04-21.md) | ✅ PASSED | 14/14 | 1 AUD = 0.90993 SGD |
+| [2026-04-22](./2026-04-22.md) | ✅ PASSED | /14 | 1 AUD = 0.91098 SGD |

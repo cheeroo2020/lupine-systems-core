@@ -17,3 +17,4 @@ No manual input needed. Fully automated.
 | Date | Top headline |
 |------|--------------|
 | [2026-04-21](./2026-04-21.md) | Crypto has become part of Iran's arsenal |
+| [2026-04-22](./2026-04-22.md) | What's in a name? Or a ticker symbol? |
