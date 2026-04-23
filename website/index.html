@@ -1,526 +1,332 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Lupine Systems — Move value with proof</title>
-<meta name="description" content="A movement decision engine for high-stakes cross-border transfers. Score routes. Pick the best. Prove every decision." />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lupine Systems — Move money right</title>
+<meta name="description" content="When large amounts of money need to move across borders, Lupine makes sure they move right. Best route. Clean process. Proof it happened."/>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --bg:       #FAF6EE;
-    --cream:    #FFFDF6;
-    --ink:      #0B0B14;
-    --muted:    #5E5E70;
-    --primary:  #4338CA;
-    --primary2: #7C3AED;
-    --accent:   #F59E0B;
-    --hl:       #FDE047;
-    --coral:    #FB7185;
-    --green:    #10B981;
-  }
-  html, body { background: var(--bg); color: var(--ink); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
-  .mono { font-family: 'JetBrains Mono', monospace; }
-  .highlight { background: linear-gradient(180deg, transparent 55%, var(--hl) 55%); padding: 0 .15em; }
-  .btn-primary { background: var(--ink); color: var(--cream); }
-  .btn-primary:hover { background: var(--primary); }
-  .card { background: var(--cream); border: 1px solid rgba(11,11,20,.08); box-shadow: 0 1px 2px rgba(11,11,20,.04); }
-  .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 28px -8px rgba(67,56,202,.18); border-color: rgba(67,56,202,.25); }
-  .card, .card-hover { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-  .dot-grid { background-image: radial-gradient(rgba(11,11,20,.08) 1px, transparent 1px); background-size: 22px 22px; }
-  @keyframes blob { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-40px) scale(1.1); } 66% { transform: translate(-20px,25px) scale(.95); } }
-  .blob { animation: blob 20s ease-in-out infinite; filter: blur(60px); }
-  @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
-  .pulse { animation: pulse-dot 2s ease-in-out infinite; }
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
-  .reveal.in { opacity: 1; transform: translateY(0); }
-  .weight-bar { transition: width .5s cubic-bezier(.65,.05,.36,1); }
-  .urgency-tab { transition: all .2s ease; }
-  .urgency-tab.active { background: var(--ink); color: var(--cream); box-shadow: 0 6px 16px -4px rgba(11,11,20,.35); }
-  .tick { box-shadow: 0 0 0 4px rgba(16,185,129,.15); }
-  details > summary { list-style: none; cursor: pointer; }
-  details > summary::-webkit-details-marker { display: none; }
+  body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background:#FFFEF9; color:#0D1117; }
+  .hl  { background:linear-gradient(180deg,transparent 58%,#FCD34D 58%); }
+  .btn-dark  { background:#0D1117; color:#FFFEF9; }
+  .btn-dark:hover  { background:#1d4ed8; }
+  .btn-light { background:#FFFEF9; color:#0D1117; }
+  .btn-light:hover { background:#f0f0e8; }
+  .card { background:#fff; border:1px solid rgba(13,17,23,.07); box-shadow:0 1px 4px rgba(13,17,23,.05); }
+  .lift { transition:transform .2s,box-shadow .2s; }
+  .lift:hover { transform:translateY(-5px); box-shadow:0 16px 40px -10px rgba(37,99,235,.15); }
+  @keyframes fade-up { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .fade-up { opacity:0; animation:fade-up .7s ease forwards; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .blink { animation:blink 2s ease-in-out infinite; }
+  details>summary { list-style:none; cursor:pointer; }
+  details>summary::-webkit-details-marker { display:none; }
+
+  /* Mobile nav */
+  #mobile-menu { display:none; }
+  #mobile-menu.open { display:flex; }
 </style>
 </head>
 <body class="antialiased">
 
-<!-- ── NAV ────────────────────────────────────────────────────────── -->
-<nav class="fixed top-0 w-full z-50" style="background:rgba(250,246,238,.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(11,11,20,.06)">
-  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="#" class="flex items-center gap-2">
-      <span class="w-8 h-8 rounded-xl flex items-center justify-center text-white font-black" style="background:var(--ink)">L</span>
-      <span class="font-bold tracking-tight">Lupine <span class="text-slate-500 font-medium ml-0.5">V0</span></span>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 border-b" style="background:rgba(255,254,249,.92);backdrop-filter:blur(10px);border-color:rgba(13,17,23,.07)">
+  <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2.5 font-black text-lg">
+      <span class="w-8 h-8 rounded-xl text-sm font-black flex items-center justify-center text-white" style="background:#0D1117">L</span>
+      Lupine
     </a>
-    <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-700">
-      <a href="#how"       class="hover:text-indigo-700 transition-colors">How it works</a>
-      <a href="#demo"      class="hover:text-indigo-700 transition-colors">Try it</a>
-      <a href="#news"      class="hover:text-indigo-700 transition-colors">News</a>
-      <a href="#health"    class="hover:text-indigo-700 transition-colors">Health</a>
-      <a href="https://github.com/cheeroo2020/lupine-systems-core" target="_blank" class="hover:text-indigo-700 transition-colors">GitHub ↗</a>
+    <!-- Desktop links -->
+    <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+      <a href="#how" class="hover:text-blue-700">How it works</a>
+      <a href="#news" class="hover:text-blue-700">Daily news</a>
+      <a href="#status" class="hover:text-blue-700">Status</a>
+      <a href="https://github.com/cheeroo2020/lupine-systems-core" target="_blank" class="hover:text-blue-700">GitHub ↗</a>
     </div>
-    <a href="#demo" class="btn-primary text-sm font-semibold px-4 py-2 rounded-full hover:opacity-90 transition-opacity">Try the demo</a>
+    <!-- Mobile hamburger -->
+    <button class="md:hidden p-2 rounded-lg hover:bg-slate-100" id="hamburger" aria-label="Menu">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="flex-col px-5 pb-4 gap-1 border-t" style="border-color:rgba(13,17,23,.07)">
+    <a href="#how"    class="block py-3 font-semibold text-slate-700 hover:text-blue-700" onclick="closeMobileMenu()">How it works</a>
+    <a href="#news"   class="block py-3 font-semibold text-slate-700 hover:text-blue-700" onclick="closeMobileMenu()">Daily news</a>
+    <a href="#status" class="block py-3 font-semibold text-slate-700 hover:text-blue-700" onclick="closeMobileMenu()">Status</a>
+    <a href="https://github.com/cheeroo2020/lupine-systems-core" target="_blank" class="block py-3 font-semibold text-slate-700 hover:text-blue-700">GitHub ↗</a>
   </div>
 </nav>
 
-<!-- ── HERO ───────────────────────────────────────────────────────── -->
-<section class="relative pt-36 pb-24 px-6 overflow-hidden">
-  <div class="absolute w-[480px] h-[480px] rounded-full blob -top-20 -left-20 opacity-50" style="background:radial-gradient(circle,#FDE047,#FB7185)"></div>
-  <div class="absolute w-[420px] h-[420px] rounded-full blob top-10 -right-24 opacity-40" style="background:radial-gradient(circle,#7C3AED,#4338CA); animation-delay:-8s"></div>
+<!-- HERO -->
+<section class="px-5 pt-20 pb-16 max-w-5xl mx-auto text-center">
+  <div class="inline-flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full mb-8 card" style="animation-delay:0s" >
+    <span class="blink w-2 h-2 rounded-full inline-block" style="background:#10b981"></span>
+    V0 is live · <span id="hero-fx" class="text-slate-500">fetching rate…</span>
+  </div>
+  <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight tracking-tight mb-6 fade-up" style="animation-delay:.1s">
+    When big money <span class="hl">moves</span>,<br/>
+    every decision matters.
+  </h1>
+  <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10 fade-up" style="animation-delay:.2s">
+    Lupine finds the best route for a cross-border transfer, runs it through a verified process, and leaves a permanent record of every decision. No black boxes.
+  </p>
+  <div class="flex flex-col sm:flex-row gap-3 justify-center fade-up" style="animation-delay:.3s">
+    <a href="#how" class="btn-dark font-bold px-8 py-4 rounded-full text-base hover:opacity-90 transition-all">See how it works →</a>
+    <a href="#status" class="btn-light border-2 border-slate-200 font-bold px-8 py-4 rounded-full text-base hover:border-slate-400 transition-all">Check system status</a>
+  </div>
+</section>
 
-  <div class="max-w-5xl mx-auto relative">
-    <div class="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full mb-8" style="background:var(--cream);border:1px solid rgba(11,11,20,.08)">
-      <span class="pulse w-2 h-2 rounded-full inline-block" style="background:var(--green)"></span>
-      <span>V0 is live</span>
-      <span class="text-slate-400">·</span>
-      <span class="text-slate-600 mono" id="hero-rate">AUD/SGD fetching…</span>
-    </div>
-
-    <h1 class="text-5xl md:text-7xl font-black leading-[1.05] tracking-tight mb-6">
-      Move <span class="highlight">half a million</span><br />
-      across borders, <span style="color:var(--primary)">with proof.</span>
-    </h1>
-    <p class="text-xl md:text-2xl text-slate-700 max-w-3xl leading-relaxed mb-10 font-medium">
-      Lupine scores every route for speed, cost, and reliability — picks the best one —
-      runs it through a strict state machine — and leaves a cryptographic paper trail of every decision.
+<!-- PROBLEM BANNER -->
+<section class="px-5 py-5">
+  <div class="max-w-6xl mx-auto rounded-3xl px-8 py-8 md:py-6 flex flex-col md:flex-row items-center justify-between gap-6" style="background:#0D1117;color:#FFFEF9">
+    <p class="text-base md:text-lg font-semibold leading-relaxed text-center md:text-left text-slate-300">
+      Banks move money through black boxes — no explanation, no route, no paper trail.
+      <span class="text-white"> That's fine for $50. Not for $500,000.</span>
     </p>
-
-    <div class="flex flex-wrap gap-3">
-      <a href="#demo" class="btn-primary text-base font-semibold px-7 py-3.5 rounded-full hover:opacity-90 transition-opacity">Try the scoring demo →</a>
-      <a href="#how"  class="text-base font-semibold px-7 py-3.5 rounded-full border-2 border-slate-900/10 hover:border-indigo-600 hover:text-indigo-700 transition-colors">How it works</a>
-    </div>
+    <span class="flex-shrink-0 text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-full" style="background:#FCD34D;color:#0D1117">That's the problem Lupine solves</span>
   </div>
 </section>
 
-<!-- ── STAT STRIP ─────────────────────────────────────────────────── -->
-<section class="px-6 pb-20">
-  <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-    <div class="card rounded-3xl p-6 reveal">
-      <div class="text-xs text-slate-500 font-semibold tracking-wider uppercase mb-2">Routes scored</div>
-      <div class="text-4xl font-black mono" data-count="3">0</div>
-      <div class="text-xs text-slate-500 mt-1">per movement</div>
-    </div>
-    <div class="card rounded-3xl p-6 reveal" style="transition-delay:.05s">
-      <div class="text-xs text-slate-500 font-semibold tracking-wider uppercase mb-2">States enforced</div>
-      <div class="text-4xl font-black mono" style="color:var(--primary)" data-count="5">0</div>
-      <div class="text-xs text-slate-500 mt-1">strict order · no skipping</div>
-    </div>
-    <div class="card rounded-3xl p-6 reveal" style="transition-delay:.1s">
-      <div class="text-xs text-slate-500 font-semibold tracking-wider uppercase mb-2">Daily tests</div>
-      <div class="text-4xl font-black mono" style="color:var(--green)" id="stat-tests">—</div>
-      <div class="text-xs text-slate-500 mt-1" id="stat-tests-sub">against live ECB rates</div>
-    </div>
-    <div class="card rounded-3xl p-6 reveal" style="transition-delay:.15s">
-      <div class="text-xs text-slate-500 font-semibold tracking-wider uppercase mb-2">AUD/SGD rate</div>
-      <div class="text-4xl font-black mono" style="color:var(--accent)" id="stat-fx">—</div>
-      <div class="text-xs text-slate-500 mt-1">live from Frankfurter</div>
-    </div>
+<!-- THREE BENEFITS -->
+<section id="how" class="px-5 py-20 max-w-6xl mx-auto">
+  <div class="text-center max-w-2xl mx-auto mb-14">
+    <div class="text-sm font-bold tracking-widest uppercase text-blue-700 mb-3">How it works</div>
+    <h2 class="text-3xl md:text-5xl font-black tracking-tight mb-4">Three things.<br/>Done properly.</h2>
+    <p class="text-lg text-slate-600">Every Lupine movement does exactly this — in order, every time.</p>
   </div>
-</section>
-<!-- more sections injected below -->
 
-<!-- ── HOW IT WORKS ───────────────────────────────────────────────── -->
-<section id="how" class="px-6 py-24" style="background:var(--cream)">
-  <div class="max-w-6xl mx-auto">
-    <div class="max-w-2xl mb-14">
-      <div class="text-sm font-bold tracking-widest uppercase mb-4" style="color:var(--primary)">How it works</div>
-      <h2 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Three layers.<br />Each one <span style="color:var(--primary2)">does one job.</span></h2>
-      <p class="text-lg text-slate-600 leading-relaxed">
-        AIVA picks the best route. RAIL runs it. CLOKED proves it happened. That's the whole system.
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="card lift rounded-3xl p-8">
+      <div class="text-4xl mb-5">🧭</div>
+      <h3 class="text-xl font-black mb-3">Find the best route</h3>
+      <p class="text-slate-600 leading-relaxed">
+        We look at every option — fast routes, cheap routes, reliable routes — and score them based on what matters most for your transfer. Speed vs cost vs reliability. You get the winner, not a guess.
       </p>
     </div>
-
-    <div class="grid md:grid-cols-3 gap-5">
-      <!-- AIVA -->
-      <div class="card card-hover rounded-3xl p-7 reveal">
-        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 text-2xl font-black text-white" style="background:var(--primary)">A</div>
-        <div class="text-xs font-bold tracking-widest uppercase text-slate-400 mb-2">Intelligence</div>
-        <h3 class="text-2xl font-bold mb-3">AIVA</h3>
-        <p class="text-slate-600 leading-relaxed mb-6">
-          Looks at the movement, generates three route candidates, scores them with an urgency-weighted composite utility function, and writes a plain-English rationale for the winner.
-        </p>
-        <div class="mono text-xs space-y-1.5 pt-4 border-t border-slate-200">
-          <div class="flex justify-between"><span class="text-slate-700">router.py</span><span class="text-slate-400">3 candidates</span></div>
-          <div class="flex justify-between"><span class="text-slate-700">scorer.py</span><span class="text-slate-400">weighted utility</span></div>
-          <div class="flex justify-between"><span class="text-slate-700">selector.py</span><span class="text-slate-400">winner + why</span></div>
-        </div>
-      </div>
-      <!-- RAIL -->
-      <div class="card card-hover rounded-3xl p-7 reveal" style="transition-delay:.1s">
-        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 text-2xl font-black text-white" style="background:var(--accent)">R</div>
-        <div class="text-xs font-bold tracking-widest uppercase text-slate-400 mb-2">Execution</div>
-        <h3 class="text-2xl font-bold mb-3">RAIL</h3>
-        <p class="text-slate-600 leading-relaxed mb-6">
-          Takes the chosen route and runs it through a strict 5-state machine. Cannot skip. Cannot reverse. Every transition is validated or it fails loudly.
-        </p>
-        <div class="flex flex-wrap gap-1.5 mono text-xs pt-4 border-t border-slate-200">
-          <span class="px-2 py-1 rounded-lg" style="background:#F3F0E6">initiated</span>
-          <span class="text-slate-400 self-center">›</span>
-          <span class="px-2 py-1 rounded-lg" style="background:#F3F0E6">scored</span>
-          <span class="text-slate-400 self-center">›</span>
-          <span class="px-2 py-1 rounded-lg" style="background:#F3F0E6">selected</span>
-          <span class="text-slate-400 self-center">›</span>
-          <span class="px-2 py-1 rounded-lg" style="background:#F3F0E6">executing</span>
-          <span class="text-slate-400 self-center">›</span>
-          <span class="px-2 py-1 rounded-lg text-white font-semibold" style="background:var(--green)">done</span>
-        </div>
-      </div>
-      <!-- CLOKED -->
-      <div class="card card-hover rounded-3xl p-7 reveal" style="transition-delay:.2s">
-        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 text-2xl font-black text-white" style="background:var(--coral)">C</div>
-        <div class="text-xs font-bold tracking-widest uppercase text-slate-400 mb-2">Evidence</div>
-        <h3 class="text-2xl font-bold mb-3">CLOKED</h3>
-        <p class="text-slate-600 leading-relaxed mb-6">
-          Every event — created, scored, executed — gets SHA-256 hashed and chained to the one before it. Tamper with anything, verification breaks instantly.
-        </p>
-        <div class="mono text-xs space-y-1 pt-4 border-t border-slate-200 text-slate-500">
-          <div>genesis → <span style="color:var(--coral)">a3f9…</span></div>
-          <div class="pl-3">request_created → <span style="color:var(--coral)">7c2b…</span></div>
-          <div class="pl-3">routes_scored → <span style="color:var(--coral)">1e4d…</span></div>
-          <div class="pl-3">execution_done → <span style="color:var(--coral)">9f8a…</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── INTERACTIVE DEMO ───────────────────────────────────────────── -->
-<section id="demo" class="px-6 py-24 relative dot-grid">
-  <div class="max-w-6xl mx-auto">
-    <div class="max-w-2xl mb-14 reveal">
-      <div class="text-sm font-bold tracking-widest uppercase mb-4" style="color:var(--primary)">Try it · live</div>
-      <h2 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Move the urgency dial.<br /><span style="color:var(--primary)">Watch the weights shift.</span></h2>
-      <p class="text-lg text-slate-600 leading-relaxed">
-        This is the real scoring algorithm running in your browser. Pick an urgency level — the weight profile updates, the three routes get re-scored, and the winner changes.
+    <div class="card lift rounded-3xl p-8">
+      <div class="text-4xl mb-5">⚙️</div>
+      <h3 class="text-xl font-black mb-3">Run a clean process</h3>
+      <p class="text-slate-600 leading-relaxed">
+        Every transfer goes through a strict sequence of steps. Nothing gets skipped. Nothing gets rushed. If something goes wrong at any point, it stops cleanly — not silently.
       </p>
     </div>
-
-    <div class="card rounded-3xl p-8 md:p-10 reveal">
-      <!-- Urgency tabs -->
-      <div class="mb-8">
-        <div class="text-xs font-bold tracking-widest uppercase text-slate-500 mb-3">Urgency</div>
-        <div class="flex flex-wrap gap-2" id="urgency-tabs">
-          <button data-u="low"      class="urgency-tab text-sm font-semibold px-5 py-2.5 rounded-full border border-slate-200">low</button>
-          <button data-u="normal"   class="urgency-tab text-sm font-semibold px-5 py-2.5 rounded-full border border-slate-200">normal</button>
-          <button data-u="high"     class="urgency-tab active text-sm font-semibold px-5 py-2.5 rounded-full border border-slate-200">high</button>
-          <button data-u="critical" class="urgency-tab text-sm font-semibold px-5 py-2.5 rounded-full border border-slate-200">critical</button>
-        </div>
-      </div>
-
-      <!-- Weight bars -->
-      <div class="grid md:grid-cols-3 gap-6 mb-10">
-        <div>
-          <div class="flex justify-between text-sm font-semibold mb-2"><span>Speed</span><span class="mono" id="w-speed">50%</span></div>
-          <div class="h-3 rounded-full overflow-hidden" style="background:#EEEAE0">
-            <div class="weight-bar h-full rounded-full" id="bar-speed" style="width:50%;background:var(--primary)"></div>
-          </div>
-        </div>
-        <div>
-          <div class="flex justify-between text-sm font-semibold mb-2"><span>Cost</span><span class="mono" id="w-cost">15%</span></div>
-          <div class="h-3 rounded-full overflow-hidden" style="background:#EEEAE0">
-            <div class="weight-bar h-full rounded-full" id="bar-cost" style="width:15%;background:var(--accent)"></div>
-          </div>
-        </div>
-        <div>
-          <div class="flex justify-between text-sm font-semibold mb-2"><span>Reliability</span><span class="mono" id="w-rel">35%</span></div>
-          <div class="h-3 rounded-full overflow-hidden" style="background:#EEEAE0">
-            <div class="weight-bar h-full rounded-full" id="bar-rel" style="width:35%;background:var(--coral)"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Route cards -->
-      <div class="text-xs font-bold tracking-widest uppercase text-slate-500 mb-3">Candidates · 500,000 AUD → SGD</div>
-      <div class="grid md:grid-cols-3 gap-4" id="routes"></div>
-
-      <div class="mt-6 pt-6 border-t border-slate-200 text-sm leading-relaxed" id="rationale"></div>
+    <div class="card lift rounded-3xl p-8">
+      <div class="text-4xl mb-5">🔒</div>
+      <h3 class="text-xl font-black mb-3">Prove it happened</h3>
+      <p class="text-slate-600 leading-relaxed">
+        Every decision is recorded, locked, and chained together. You can verify exactly what happened, when, and why — and nobody can change it after the fact.
+      </p>
     </div>
   </div>
 </section>
 
-<!-- ── DAILY BRIEFING ─────────────────────────────────────────────── -->
-<section id="news" class="px-6 py-24" style="background:var(--cream)">
-  <div class="max-w-6xl mx-auto">
-    <div class="flex items-end justify-between mb-14 gap-8 flex-wrap">
-      <div class="max-w-2xl reveal">
-        <div class="text-sm font-bold tracking-widest uppercase mb-4" style="color:var(--primary)">Daily briefing</div>
-        <h2 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Context that <span class="highlight">actually matters.</span></h2>
-        <p class="text-lg text-slate-600 leading-relaxed">Two stories every morning from PYMNTS and American Banker, filtered for what Lupine cares about: payments, corridors, rails, FX.</p>
-      </div>
-      <span class="flex items-center gap-2 text-sm font-semibold" style="color:var(--green)">
-        <span class="pulse w-2 h-2 rounded-full inline-block" style="background:var(--green)"></span>
-        Live · updated 9am UTC
-      </span>
+<!-- HOW URGENCY WORKS -->
+<section class="px-5 py-20" style="background:#F0F4FF">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center max-w-xl mx-auto mb-12">
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight mb-4">Not every transfer is the same.</h2>
+      <p class="text-lg text-slate-600">Tell Lupine how urgent it is. The scoring shifts automatically.</p>
     </div>
-    <div id="news-grid" class="grid md:grid-cols-2 gap-5">
-      <div class="card rounded-3xl p-7 h-56 animate-pulse"></div>
-      <div class="card rounded-3xl p-7 h-56 animate-pulse"></div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" id="urgency-cards">
+      <div class="card rounded-2xl p-5 cursor-pointer urgency-card border-2 border-transparent" data-u="low" onclick="setUrgency('low')">
+        <div class="text-2xl mb-2">🐢</div>
+        <div class="font-black text-base mb-1">Low</div>
+        <div class="text-xs text-slate-500">Save money<br/>Time isn't critical</div>
+      </div>
+      <div class="card rounded-2xl p-5 cursor-pointer urgency-card border-2 border-transparent" data-u="normal" onclick="setUrgency('normal')">
+        <div class="text-2xl mb-2">⚖️</div>
+        <div class="font-black text-base mb-1">Normal</div>
+        <div class="text-xs text-slate-500">Balance cost<br/>and speed</div>
+      </div>
+      <div class="card rounded-2xl p-5 cursor-pointer urgency-card border-2 border-transparent active" data-u="high" onclick="setUrgency('high')" style="border-color:#2563EB;background:#EFF6FF">
+        <div class="text-2xl mb-2">🚀</div>
+        <div class="font-black text-base mb-1">High</div>
+        <div class="text-xs text-slate-500">Speed matters<br/>more than cost</div>
+      </div>
+      <div class="card rounded-2xl p-5 cursor-pointer urgency-card border-2 border-transparent" data-u="critical" onclick="setUrgency('critical')">
+        <div class="text-2xl mb-2">🔴</div>
+        <div class="font-black text-base mb-1">Critical</div>
+        <div class="text-xs text-slate-500">Get there now.<br/>Cost is irrelevant.</div>
+      </div>
+    </div>
+    <div class="card rounded-3xl p-7 md:p-8">
+      <div class="text-sm font-bold text-slate-500 mb-6 uppercase tracking-wider">500,000 AUD → SGD · scored for <span id="urgency-label" class="text-blue-700">high</span> urgency</div>
+      <div class="grid md:grid-cols-3 gap-4" id="route-cards"></div>
+      <div class="mt-6 pt-5 border-t border-slate-100 text-slate-600 leading-relaxed text-sm" id="rationale-text"></div>
     </div>
   </div>
 </section>
 
-<!-- ── HEALTH ─────────────────────────────────────────────────────── -->
-<section id="health" class="px-6 py-24">
-  <div class="max-w-6xl mx-auto">
-    <div class="max-w-2xl mb-14 reveal">
-      <div class="text-sm font-bold tracking-widest uppercase mb-4" style="color:var(--primary)">System health</div>
-      <h2 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Tested <span style="color:var(--green)">every day</span> against real FX data.</h2>
-      <p class="text-lg text-slate-600 leading-relaxed">Automated pipeline runs every morning at 9am UTC. 14 tests covering routing, scoring, state transitions, chain integrity, and a live call to the European Central Bank via Frankfurter.</p>
-    </div>
-    <div id="health-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="card rounded-3xl p-6 h-28 animate-pulse"></div>
-      <div class="card rounded-3xl p-6 h-28 animate-pulse"></div>
-      <div class="card rounded-3xl p-6 h-28 animate-pulse"></div>
-      <div class="card rounded-3xl p-6 h-28 animate-pulse"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ── API ────────────────────────────────────────────────────────── -->
-<section class="px-6 py-24" style="background:var(--ink);color:var(--cream)">
-  <div class="max-w-6xl mx-auto">
-    <div class="max-w-2xl mb-14 reveal">
-      <div class="text-sm font-bold tracking-widest uppercase mb-4" style="color:var(--hl)">API · 5 steps</div>
-      <h2 class="text-4xl md:text-5xl font-black tracking-tight mb-4 text-white">Every movement <br />takes <span style="color:var(--hl)">the same path.</span></h2>
-      <p class="text-lg leading-relaxed text-slate-400">Ordered. Immutable. Cannot skip. Cannot rewind.</p>
-    </div>
-
-    <div class="grid md:grid-cols-5 gap-3 mb-10">
-      <div class="rounded-2xl p-5 reveal" style="background:#1a1a2e">
-        <div class="mono text-xs mb-3" style="color:var(--hl)">01 · POST</div>
-        <code class="text-sm font-bold text-white">/create-movement</code>
-        <p class="text-xs text-slate-400 mt-2 leading-relaxed">Opens the request and the evidence log.</p>
-      </div>
-      <div class="rounded-2xl p-5 reveal" style="background:#1a1a2e;transition-delay:.05s">
-        <div class="mono text-xs mb-3" style="color:var(--hl)">02 · GET</div>
-        <code class="text-sm font-bold text-white">/get-routes</code>
-        <p class="text-xs text-slate-400 mt-2 leading-relaxed">AIVA generates 3 candidates.</p>
-      </div>
-      <div class="rounded-2xl p-5 reveal" style="background:#1a1a2e;transition-delay:.1s">
-        <div class="mono text-xs mb-3" style="color:var(--hl)">03 · POST</div>
-        <code class="text-sm font-bold text-white">/score-routes</code>
-        <p class="text-xs text-slate-400 mt-2 leading-relaxed">Weighted scoring picks the winner.</p>
-      </div>
-      <div class="rounded-2xl p-5 reveal" style="background:#1a1a2e;transition-delay:.15s">
-        <div class="mono text-xs mb-3" style="color:var(--hl)">04 · POST</div>
-        <code class="text-sm font-bold text-white">/execute</code>
-        <p class="text-xs text-slate-400 mt-2 leading-relaxed">RAIL walks the state machine.</p>
-      </div>
-      <div class="rounded-2xl p-5 reveal" style="background:#1a1a2e;transition-delay:.2s">
-        <div class="mono text-xs mb-3" style="color:var(--hl)">05 · GET</div>
-        <code class="text-sm font-bold text-white">/log</code>
-        <p class="text-xs text-slate-400 mt-2 leading-relaxed">CLOKED returns the hash chain.</p>
-      </div>
-    </div>
-
-    <details class="rounded-2xl overflow-hidden" style="background:#1a1a2e">
-      <summary class="px-6 py-4 flex items-center justify-between font-semibold text-sm">
-        <span>Show quick-start script</span>
-        <span style="color:var(--hl)">→</span>
-      </summary>
-      <pre class="px-6 pb-6 text-sm mono overflow-x-auto leading-7 text-slate-300"><code><span class="text-slate-500"># Start</span>
-uvicorn src.api.main:app --reload
-
-<span class="text-slate-500"># Create a movement</span>
-curl -X POST "http://localhost:8000/create-movement?amount=500000&from_currency=AUD&to_currency=SGD&urgency=high"
-
-<span class="text-slate-500"># Get routes, score, execute, log</span>
-curl "http://localhost:8000/get-routes/{id}"
-curl -X POST "http://localhost:8000/score-routes/{id}"
-curl -X POST "http://localhost:8000/execute/{id}"
-curl "http://localhost:8000/log/{id}"</code></pre>
-    </details>
-  </div>
-</section>
-
-<!-- ── FOOTER ────────────────────────────────────────────────────── -->
-<footer class="px-6 py-12" style="background:var(--ink);color:var(--cream);border-top:1px solid rgba(255,255,255,.05)">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start justify-between gap-4">
+<!-- DAILY NEWS -->
+<section id="news" class="px-5 py-20 max-w-6xl mx-auto">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
     <div>
-      <div class="flex items-center gap-2 mb-2">
-        <span class="w-7 h-7 rounded-lg flex items-center justify-center font-black text-sm" style="background:var(--hl);color:var(--ink)">L</span>
-        <span class="font-bold">Lupine Systems · V0</span>
-      </div>
-      <div class="text-slate-500 text-sm max-w-md">Internal experimental research prototype. Copyright Chirantan Gogoi.</div>
+      <div class="text-sm font-bold tracking-widest uppercase text-blue-700 mb-3">Daily briefing</div>
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight mb-3">What's happening<br/>in global payments.</h2>
+      <p class="text-slate-600">Two stories every morning, picked for what matters to Lupine — cross-border payments, FX markets, and the future of moving money.</p>
     </div>
-    <div class="flex gap-6 text-sm text-slate-400">
+    <div class="flex items-center gap-2 text-sm font-bold flex-shrink-0" style="color:#10b981">
+      <span class="blink w-2 h-2 rounded-full" style="background:#10b981;display:inline-block"></span>
+      Updated 9am UTC
+    </div>
+  </div>
+  <div id="news-grid" class="grid md:grid-cols-2 gap-5">
+    <div class="card rounded-3xl p-7 h-52 animate-pulse"></div>
+    <div class="card rounded-3xl p-7 h-52 animate-pulse"></div>
+  </div>
+</section>
+
+<!-- STATUS -->
+<section id="status" class="px-5 py-20" style="background:#0D1117;color:#FFFEF9">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center max-w-xl mx-auto mb-12">
+      <div class="text-sm font-bold tracking-widest uppercase mb-3" style="color:#FCD34D">System status</div>
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight mb-4 text-white">Tested every day.<br/>Against real data.</h2>
+      <p style="color:#94a3b8">Every morning the full pipeline runs automatically against the live AUD/SGD exchange rate from the European Central Bank.</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="health-grid">
+      <div class="rounded-3xl p-6 h-28 animate-pulse" style="background:#1e293b"></div>
+      <div class="rounded-3xl p-6 h-28 animate-pulse" style="background:#1e293b"></div>
+      <div class="rounded-3xl p-6 h-28 animate-pulse" style="background:#1e293b"></div>
+      <div class="rounded-3xl p-6 h-28 animate-pulse" style="background:#1e293b"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="px-5 py-12" style="background:#0D1117;border-top:1px solid rgba(255,255,255,.06)">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start justify-between gap-6">
+    <div>
+      <div class="flex items-center gap-2 font-black text-white text-lg mb-2">
+        <span class="w-7 h-7 rounded-lg text-xs font-black flex items-center justify-center" style="background:#FCD34D;color:#0D1117">L</span>
+        Lupine Systems · V0
+      </div>
+      <div class="text-sm" style="color:#64748b">Copyright © 2026 Chirantan Gogoi. All rights reserved.</div>
+    </div>
+    <div class="flex gap-6 text-sm font-semibold" style="color:#64748b">
       <a href="https://github.com/cheeroo2020/lupine-systems-core" target="_blank" class="hover:text-white transition-colors">GitHub ↗</a>
-      <a href="https://github.com/cheeroo2020/lupine-systems-core/blob/main/docs/guide.md" target="_blank" class="hover:text-white transition-colors">Plain English guide ↗</a>
+      <a href="https://github.com/cheeroo2020/lupine-systems-core/blob/main/docs/guide.md" target="_blank" class="hover:text-white transition-colors">Documentation ↗</a>
     </div>
   </div>
 </footer>
 
 <script>
-// Scroll reveal
-const io = new IntersectionObserver((es)=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-// Count up numbers
-function countUp(el){
-  const t = +el.dataset.count; if(!t) return;
-  const start = performance.now(), d = 900;
-  const tick = (now)=>{
-    const p = Math.min(1,(now-start)/d);
-    el.textContent = Math.round(t * (1 - Math.pow(1-p, 3)));
-    if(p<1) requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
-}
-const coIO = new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ countUp(e.target); coIO.unobserve(e.target);} }),{threshold:.5});
-document.querySelectorAll('[data-count]').forEach(el=>coIO.observe(el));
-
-function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-// ── Interactive scoring demo ─────────────────────────────────────
-const WEIGHTS = {
-  low:      { speed: 15, cost: 55, rel: 30 },
-  normal:   { speed: 25, cost: 35, rel: 40 },
-  high:     { speed: 50, cost: 15, rel: 35 },
-  critical: { speed: 60, cost:  5, rel: 35 },
-};
-
-const ROUTES = [
-  { name: 'Fast Route',     time: 2.5, cost: 45, rel: 0.82 },
-  { name: 'Cheap Route',    time: 18,  cost: 12, rel: 0.71 },
-  { name: 'Balanced Route', time: 6,   cost: 28, rel: 0.93 },
-];
-
-function norm(v, arr, invert) {
-  const lo = Math.min(...arr), hi = Math.max(...arr);
-  const n = hi === lo ? 1 : (v - lo) / (hi - lo);
-  return invert ? 1 - n : n;
-}
-
-function scoreRoutes(urgency) {
-  const w = WEIGHTS[urgency];
-  const times = ROUTES.map(r => r.time);
-  const costs = ROUTES.map(r => r.cost);
-  return ROUTES.map(r => {
-    const sN = norm(r.time, times, true);
-    const cN = norm(r.cost, costs, true);
-    const rN = r.rel;
-    const score = (w.speed/100)*sN + (w.cost/100)*cN + (w.rel/100)*rN;
-    return { ...r, sN, cN, rN, score };
-  });
-}
-
-function renderDemo(urgency) {
-  const w = WEIGHTS[urgency];
-  document.getElementById('w-speed').textContent = w.speed + '%';
-  document.getElementById('w-cost').textContent  = w.cost  + '%';
-  document.getElementById('w-rel').textContent   = w.rel   + '%';
-  document.getElementById('bar-speed').style.width = w.speed + '%';
-  document.getElementById('bar-cost').style.width  = w.cost  + '%';
-  document.getElementById('bar-rel').style.width   = w.rel   + '%';
-
-  const scored = scoreRoutes(urgency).sort((a,b) => b.score - a.score);
-  const winner = scored[0];
-
-  document.getElementById('routes').innerHTML = scored.map((r,i) => {
-    const isWin = i === 0;
-    return `
-      <div class="rounded-2xl p-5 relative ${isWin ? 'tick' : ''}" style="background:${isWin ? '#ECFDF5' : '#FFFDF6'};border:2px solid ${isWin ? 'rgba(16,185,129,.4)' : 'rgba(11,11,20,.08)'}">
-        ${isWin ? '<div class="absolute -top-2 -right-2 text-xs font-bold text-white px-2.5 py-0.5 rounded-full" style="background:#10B981">WINNER</div>' : ''}
-        <div class="font-bold text-base mb-3">${r.name}</div>
-        <div class="mono text-xs space-y-1 text-slate-600">
-          <div class="flex justify-between"><span>Time</span><span>${r.time}h</span></div>
-          <div class="flex justify-between"><span>Cost</span><span>${r.cost}bps</span></div>
-          <div class="flex justify-between"><span>Reliability</span><span>${(r.rel*100).toFixed(0)}%</span></div>
-        </div>
-        <div class="mt-4 pt-3 border-t border-slate-200 flex justify-between items-baseline">
-          <span class="text-xs text-slate-500">Composite</span>
-          <span class="mono text-xl font-black ${isWin ? 'text-emerald-600' : ''}">${r.score.toFixed(3)}</span>
-        </div>
-      </div>`;
-  }).join('');
-
-  const sorted = [...scored].sort((a,b) => b.score - a.score);
-  const gap = (sorted[0].score - sorted[1].score).toFixed(3);
-  document.getElementById('rationale').innerHTML = `
-    <span style="color:var(--muted)">Rationale →</span>
-    <strong>${winner.name}</strong> wins with a composite score of <strong class="mono">${winner.score.toFixed(3)}</strong>
-    (beating ${sorted[1].name} by <span class="mono">${gap}</span>).
-    Weight profile for <em>${urgency}</em> urgency favoured
-    ${Object.entries(WEIGHTS[urgency]).sort((a,b) => b[1] - a[1])[0][0]} at
-    <span class="mono">${Math.max(...Object.values(WEIGHTS[urgency]))}%</span>.
-  `;
-}
-
-document.querySelectorAll('.urgency-tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.urgency-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderDemo(btn.dataset.u);
-  });
+// Mobile menu
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.toggle('open');
 });
-renderDemo('high');
+function closeMobileMenu() { document.getElementById('mobile-menu').classList.remove('open'); }
 
-// ── Load news ─────────────────────────────────────────────────────
-async function loadNews(){
+// Scoring demo
+const WEIGHTS = { low:{s:15,c:55,r:30}, normal:{s:25,c:35,r:40}, high:{s:50,c:15,r:35}, critical:{s:60,c:5,r:35} };
+const ROUTES  = [
+  { name:'Fast Route',     emoji:'⚡', time:'2.5 hours', cost:'0.45% fee', rel:.82 },
+  { name:'Cheap Route',    emoji:'💰', time:'18 hours',  cost:'0.12% fee', rel:.71 },
+  { name:'Balanced Route', emoji:'🎯', time:'6 hours',   cost:'0.28% fee', rel:.93 },
+];
+const RAW = [ {t:2.5,c:45,r:.82}, {t:18,c:12,r:.71}, {t:6,c:28,r:.93} ];
+
+function score(urgency) {
+  const w = WEIGHTS[urgency];
+  const ts = RAW.map(r=>r.t), cs = RAW.map(r=>r.c);
+  const hi = a=>Math.max(...a), lo = a=>Math.min(...a);
+  return RAW.map((r,i)=>{
+    const sN = 1-(r.t-lo(ts))/(hi(ts)-lo(ts));
+    const cN = 1-(r.c-lo(cs))/(hi(cs)-lo(cs));
+    const u  = (w.s/100)*sN + (w.c/100)*cN + (w.r/100)*r.r;
+    return { ...ROUTES[i], u, idx:i };
+  }).sort((a,b)=>b.u-a.u);
+}
+
+let currentUrgency = 'high';
+function setUrgency(u) {
+  currentUrgency = u;
+  document.querySelectorAll('.urgency-card').forEach(c => {
+    const active = c.dataset.u === u;
+    c.style.borderColor = active ? '#2563EB' : 'transparent';
+    c.style.background   = active ? '#EFF6FF' : '';
+  });
+  document.getElementById('urgency-label').textContent = u;
+  renderRoutes(u);
+}
+
+function renderRoutes(u) {
+  const scored = score(u);
+  const winner = scored[0];
+  document.getElementById('route-cards').innerHTML = scored.map((r,i) => `
+    <div class="rounded-2xl p-5 ${i===0?'border-2':'border'}" style="background:${i===0?'#F0FDF4':'#FAFAF5'};border-color:${i===0?'#10b981':'rgba(13,17,23,.08)'}">
+      ${i===0?'<div class="text-xs font-black text-emerald-600 mb-2 uppercase tracking-wider">✓ Best match</div>':''}
+      <div class="text-xl mb-1">${r.emoji}</div>
+      <div class="font-black text-base mb-3">${r.name}</div>
+      <div class="text-sm text-slate-600 space-y-1">
+        <div>🕐 ${r.time}</div>
+        <div>💸 ${r.cost}</div>
+        <div>✅ ${Math.round(r.rel*100)}% reliable</div>
+      </div>
+      <div class="mt-4 pt-3 border-t border-slate-200 text-xs font-bold text-slate-500">
+        Score: <span class="text-base font-black ${i===0?'text-emerald-600':'text-slate-700'}">${r.u.toFixed(3)}</span>
+      </div>
+    </div>`).join('');
+
+  const second = scored[1];
+  const gap = (winner.u - second.u).toFixed(3);
+  const phrases = { low:'cheapest fees matter most', normal:'a balance of speed and cost', high:'speed is the priority', critical:'speed above all else' };
+  document.getElementById('rationale-text').innerHTML =
+    `<strong>${winner.name}</strong> wins because ${phrases[u]}. It scores <strong>${winner.u.toFixed(3)}</strong> — ahead of ${second.name} by ${gap} points.`;
+}
+renderRoutes('high');
+
+function esc(s){ return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// Load news
+async function loadNews() {
   const grid = document.getElementById('news-grid');
   try {
-    const r = await fetch('./data/news.json');
-    if(!r.ok) throw 0;
-    const d = await r.json();
-    if(!d.stories?.length){ grid.innerHTML = '<p class="text-slate-500 col-span-2">No stories yet.</p>'; return; }
-    grid.innerHTML = d.stories.map(s => `
-      <div class="card card-hover rounded-3xl p-7 flex flex-col">
+    const d = await (await fetch('./data/news.json')).json();
+    if (!d.stories?.length) { grid.innerHTML='<p class="text-slate-500 col-span-2 py-4">Stories loading…</p>'; return; }
+    grid.innerHTML = d.stories.map(s=>`
+      <div class="card lift rounded-3xl p-7 flex flex-col">
         <div class="flex items-center gap-2 mb-4">
-          <span class="mono text-xs font-bold px-2.5 py-1 rounded-full" style="background:#EEF2FF;color:var(--primary)">${esc(s.source)}</span>
-          <span class="mono text-xs text-slate-500">${esc(s.pub_date)}</span>
+          <span class="text-xs font-bold px-3 py-1 rounded-full" style="background:#EFF6FF;color:#1d4ed8">${esc(s.source)}</span>
+          <span class="text-xs text-slate-400">${esc(s.pub_date)}</span>
         </div>
-        <h3 class="font-bold text-xl leading-snug mb-3">${esc(s.headline)}</h3>
-        <p class="text-slate-600 leading-relaxed flex-1">${esc(s.body)}</p>
+        <h3 class="font-black text-lg leading-snug mb-3">${esc(s.headline)}</h3>
+        <p class="text-slate-600 leading-relaxed text-sm flex-1">${esc(s.body)}</p>
       </div>`).join('');
-  } catch {
-    grid.innerHTML = '<p class="text-slate-500 col-span-2">News data loading…</p>';
-  }
+  } catch { grid.innerHTML='<p class="text-slate-500 col-span-2 py-4">News loading…</p>'; }
 }
 
-// ── Load health ───────────────────────────────────────────────────
-async function loadHealth(){
+// Load health
+async function loadHealth() {
   const grid = document.getElementById('health-grid');
   try {
-    const r = await fetch('./data/health.json');
-    if(!r.ok) throw 0;
-    const h = await r.json();
-    if (h.fx_rate && h.fx_rate !== 'unavailable') {
-      document.getElementById('stat-fx').textContent = h.fx_rate;
-      document.getElementById('hero-rate').textContent = `AUD/SGD ${h.fx_rate} · today`;
-    }
-    if (typeof h.passed === 'number') {
-      document.getElementById('stat-tests').textContent = `${h.passed}/14`;
-      document.getElementById('stat-tests-sub').textContent = h.failed ? `${h.failed} failed` : 'all passing';
-    }
-    const passed = h.status === 'PASSED';
-    const bg = passed ? '#ECFDF5' : '#FEF2F2';
-    const border = passed ? 'rgba(16,185,129,.4)' : 'rgba(239,68,68,.4)';
-    const color = passed ? '#059669' : '#DC2626';
+    const h = await (await fetch('./data/health.json')).json();
+    if(h.fx_rate && h.fx_rate!=='unavailable') document.getElementById('hero-fx').textContent = `AUD/SGD ${h.fx_rate}`;
+    const ok = h.status==='PASSED';
     grid.innerHTML = `
-      <div class="rounded-3xl p-6" style="background:${bg};border:2px solid ${border}">
-        <div class="text-xs font-bold tracking-widest uppercase text-slate-500 mb-2">Status</div>
-        <div class="text-3xl font-black mono" style="color:${color}">${esc(h.status||'—')}</div>
-        <div class="text-xs text-slate-500 mt-1 mono">${esc(h.date||'')}</div>
+      <div class="rounded-3xl p-6" style="background:${ok?'rgba(16,185,129,.12)':'rgba(239,68,68,.12)'}">
+        <div class="text-xs font-bold uppercase tracking-wider mb-2" style="color:${ok?'#10b981':'#ef4444'}">${ok?'✓ All good':'✗ Issues'}</div>
+        <div class="text-2xl font-black text-white">${esc(h.status||'—')}</div>
+        <div class="text-xs mt-1" style="color:#64748b">${esc(h.date||'')}</div>
       </div>
-      <div class="card rounded-3xl p-6">
-        <div class="text-xs font-bold tracking-widest uppercase text-slate-500 mb-2">Tests</div>
-        <div class="text-3xl font-black mono">${h.passed??'—'}<span class="text-slate-400 text-xl">/14</span></div>
-        <div class="text-xs text-slate-500 mt-1">${h.failed ? h.failed+' failed' : 'all passing'}</div>
+      <div class="rounded-3xl p-6" style="background:#1e293b">
+        <div class="text-xs font-bold uppercase tracking-wider mb-2" style="color:#64748b">Tests</div>
+        <div class="text-2xl font-black text-white">${h.passed??'—'}<span style="color:#475569" class="text-lg">/14</span></div>
+        <div class="text-xs mt-1" style="color:#64748b">passing today</div>
       </div>
-      <div class="card rounded-3xl p-6">
-        <div class="text-xs font-bold tracking-widest uppercase text-slate-500 mb-2">AUD / SGD</div>
-        <div class="text-3xl font-black mono" style="color:var(--primary)">${esc(h.fx_rate||'—')}</div>
-        <div class="text-xs text-slate-500 mt-1">Live ECB rate</div>
+      <div class="rounded-3xl p-6" style="background:#1e293b">
+        <div class="text-xs font-bold uppercase tracking-wider mb-2" style="color:#64748b">AUD/SGD</div>
+        <div class="text-2xl font-black" style="color:#FCD34D">${esc(h.fx_rate||'—')}</div>
+        <div class="text-xs mt-1" style="color:#64748b">live ECB rate</div>
       </div>
-      <div class="card rounded-3xl p-6">
-        <div class="text-xs font-bold tracking-widest uppercase text-slate-500 mb-2">500k AUD →</div>
-        <div class="text-2xl font-black mono" style="color:var(--accent)">${esc(h.sgd_converted||'—')}</div>
-        <div class="text-xs text-slate-500 mt-1">at today's rate</div>
+      <div class="rounded-3xl p-6" style="background:#1e293b">
+        <div class="text-xs font-bold uppercase tracking-wider mb-2" style="color:#64748b">500k AUD =</div>
+        <div class="text-xl font-black text-white">${esc(h.sgd_converted||'—')}</div>
+        <div class="text-xs mt-1" style="color:#64748b">at today's rate</div>
       </div>`;
-  } catch {
-    grid.innerHTML = '<p class="text-slate-500 col-span-4">Health data loading…</p>';
-  }
+  } catch { grid.innerHTML='<p style="color:#64748b" class="col-span-4 py-4">Status loading…</p>'; }
 }
 
 loadNews();
