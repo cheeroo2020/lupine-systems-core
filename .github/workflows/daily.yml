@@ -2,7 +2,7 @@ name: Daily Health Check
 
 on:
   schedule:
-    - cron: "0 9 * * *"  # 9am UTC every day
+    - cron: "0 18 * * *"  # 6pm UTC every day (adjust if you want local time)
   workflow_dispatch:       # trigger manually from the Actions tab
 
 jobs:

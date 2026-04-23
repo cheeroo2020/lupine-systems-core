@@ -1,16 +1,22 @@
 {
-  "date": "2026-04-22",
+  "date": "2026-04-23",
   "stories": [
     {
-      "headline": "What's in a name? Or a ticker symbol?",
-      "body": "LendingClub has decided to rebrand itself as Happen Bank. What will happen to its ticker symbol?",
-      "source": "American Banker",
-      "pub_date": "22 Apr 2026"
+      "headline": "Prediction: XRP (Ripple) Will Be Worth This Much in 12 Months",
+      "body": "Key PointsXRP is a centralized cryptocurrency designed to standardize transactions in the innovative Ripple Payments network.",
+      "source": "Nasdaq",
+      "pub_date": "23 Apr 2026"
     },
     {
-      "headline": "Banks Risk Slowing the Emerging Middle Market Firms Driving Growth",
-      "body": "Emerging mid-market growth is getting brake-checked, but not just by internal systems. Increasingly, it’s the financial infrastructure and product offerings supporting them. Findings in a new report, “The Emerging Middle Market: When Operational Complexity Grows Faster Than Financial Infrastructure,” a collaboration between PYMNTS Intelligence and i2c, show that 46% of high-growth mid-market firms surveyed report frequently missing opportunities […]",
+      "headline": "From Faster to Smarter: Real-Time Payments as a Consumer Cash Flow Tool",
+      "body": "Real-time payments are reaching new milestones, but the story behind their growth is evolving. Record transaction volumes on the RTP® network reflect more than rising adoption; they signal a shift in how consumers are using instant payments in everyday financial life. Increasingly, real-time payments are not just about speed or convenience. They are becoming tools […]",
       "source": "PYMNTS",
+      "pub_date": "23 Apr 2026"
+    },
+    {
+      "headline": "Office loan woes bite a pair of banks",
+      "body": "An uptick in problem loans within the heavily scrutinized office sector pushed down share prices at Rhode Island-based Washington Trust and Bank OZK in Little Rock, Arkansas, even though both banks reported solid profits.",
+      "source": "American Banker",
       "pub_date": "22 Apr 2026"
     }
   ]

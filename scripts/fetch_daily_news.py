@@ -25,8 +25,10 @@ NEWS_DIR = REPO_ROOT / "daily-news"
 README = NEWS_DIR / "README.md"
 
 SOURCES = [
-    ("PYMNTS", "https://www.pymnts.com/feed/"),
+    ("PYMNTS",          "https://www.pymnts.com/feed/"),
     ("American Banker", "https://www.americanbanker.com/feed?rss=true"),
+    ("CNBC Finance",    "https://www.cnbc.com/id/10000664/device/rss/rss.html"),
+    ("Nasdaq",          "https://www.nasdaq.com/feed/rssoutbound?category=Markets"),
 ]
 
 RELEVANCE_KEYWORDS = [
@@ -34,7 +36,10 @@ RELEVANCE_KEYWORDS = [
     "transfer", "fx", "foreign exchange", "currency", "fintech",
     "swift", "correspondent", "corridor", "stablecoin", "settlement",
     "clearing", "real-time payment", "rtp", "interbank", "wire",
-    "bank", "visa", "mastercard", "ripple", "treasury",
+    "bank", "banking", "visa", "mastercard", "ripple", "treasury",
+    "aud", "sgd", "dollar", "central bank", "interest rate",
+    "trade", "import", "export", "sanctions", "compliance",
+    "money", "financial", "lending", "credit", "liquidity",
 ]
 
 
@@ -183,7 +188,7 @@ def main() -> int:
         print(f"  {len(items)} relevant items")
         all_items.extend(items)
 
-    stories = pick_stories(all_items, n=2)
+    stories = pick_stories(all_items, n=3)
     path = write_digest(today, stories)
     update_index(today, stories)
     print(f"Wrote {len(stories)} stories → {path.relative_to(REPO_ROOT)}")
