@@ -1,0 +1,103 @@
+# Test Results
+
+Daily automated health check records for Lupine Systems V0.
+Every entry is written by GitHub Actions — no manual steps needed.
+
+---
+
+## How it works
+
+Every day at **9am UTC** GitHub Actions:
+1. Runs 10 deterministic tests against fixed simulation data
+2. Fetches the live AUD/SGD rate from [Frankfurter API](https://www.frankfurter.app)
+3. Runs 4 live tests against that day's real market rate
+4. Writes a dated `.md` file here with full results + raw output
+5. Commits and pushes it back to the repo under your account
+6. Opens a GitHub Issue automatically if anything fails
+
+---
+
+## Data sources
+
+### Deterministic dataset (fixed, always the same)
+Used by `test_aiva.py`, `test_rail.py`, `test_cloked.py`
+
+| Field | Value |
+|-------|-------|
+| Amount | 500,000 AUD |
+| To currency | SGD |
+| Urgency levels tested | high, low, normal |
+
+**Routes hardcoded in `src/aiva_lite/router.py`:**
+
+| Route | Time | Cost | Reliability |
+|-------|-----:|-----:|------------:|
+| Fast Route | 2.5h | 45bps | 0.82 |
+| Cheap Route | 18.0h | 12bps | 0.71 |
+| Balanced Route | 6.0h | 28bps | 0.93 |
+
+These are fixed so tests are always reproducible — same input, same output, every run.
+
+### Live dataset (changes daily)
+Used by `tests/test_live.py`
+
+| Field | Value |
+|-------|-------|
+| Source | [Frankfurter API](https://www.frankfurter.app) — free, no API key |
+| Endpoint | `https://api.frankfurter.app/latest?from=AUD&to=SGD` |
+| Updates | Every business day (ECB reference rates) |
+| What it tests | That the full V0 pipeline runs correctly against today's real AUD/SGD rate |
+
+The live rate is embedded in the evidence chain and recorded in each daily file — so you can look back and see what the market rate was on any given day.
+
+---
+
+## What each test covers
+
+### `test_aiva.py` — Intelligence layer
+| Test | What it checks |
+|------|----------------|
+| `test_generate_routes_returns_three` | Router always produces exactly 3 candidates |
+| `test_high_urgency_favours_fast_route` | Speed weight 50% → Fast Route wins |
+| `test_low_urgency_favours_cheap_route` | Cost weight 55% → Cheap Route preferred |
+| `test_scores_sum_correctly` | Composite score = exact weighted sum of components |
+
+### `test_rail.py` — Execution layer
+| Test | What it checks |
+|------|----------------|
+| `test_full_execution_completes` | State machine reaches `completed` in 5 steps |
+| `test_invalid_transition_raises` | Skipping states raises `ValueError` |
+| `test_state_history_tracks_all` | Every state recorded in history in correct order |
+
+### `test_cloked.py` — Evidence layer
+| Test | What it checks |
+|------|----------------|
+| `test_chain_integrity` | 3-entry chain verifies as valid |
+| `test_tampered_chain_fails` | Modifying a hash breaks `verify_chain()` |
+| `test_genesis_link` | First entry always links to `"genesis"` |
+
+### `test_live.py` — Live FX integration
+| Test | What it checks |
+|------|----------------|
+| `test_frankfurter_api_reachable` | API is online and returning a valid rate |
+| `test_live_aud_sgd_high_urgency` | Full pipeline with today's rate, urgency=high |
+| `test_live_aud_sgd_low_urgency` | Full pipeline with today's rate, urgency=low |
+| `test_live_evidence_chain_with_real_rate` | Evidence chain valid with live rate embedded |
+
+---
+
+## How to find the GitHub Actions run
+
+1. Go to `github.com/cheeroo2020/lupine-systems-core`
+2. Click the **Actions** tab
+3. Select **Daily Health Check** on the left
+4. Click any run to see the full output
+
+---
+
+## Results index
+
+| Date | Result | Tests | AUD/SGD Rate |
+|------|--------|-------|--------------|
+| [2026-04-21](./2026-04-21.md) | ✅ PASSED | 14/14 | 1 AUD = 0.90993 SGD |
+| [2026-04-22](./2026-04-22.md) | ✅ PASSED | /14 | 1 AUD = 0.91098 SGD |

@@ -2,12 +2,15 @@ name: Daily Health Check
 
 on:
   schedule:
-    - cron: "0 9 * * *"  # 9am UTC every day
-  workflow_dispatch:       # also lets you trigger it manually from GitHub
+    - cron: "0 8 * * *"   # 6pm Sydney (AEST = UTC+10)
+  workflow_dispatch:       # trigger manually from the Actions tab
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
 
     steps:
       - uses: actions/checkout@v4
@@ -21,14 +24,128 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run tests
-        id: tests
-        run: pytest tests/test_aiva.py tests/test_rail.py tests/test_cloked.py -v
+      - name: Run deterministic tests
+        id: unit_tests
+        run: |
+          set +e
+          pytest tests/test_aiva.py tests/test_rail.py tests/test_cloked.py -v -s 2>&1 | tee /tmp/unit_output.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
         env:
           PYTHONPATH: ${{ github.workspace }}
 
+      - name: Run live FX tests
+        id: live_tests
+        run: |
+          set +e
+          pytest tests/test_live.py -v -s 2>&1 | tee /tmp/live_output.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Write daily results file
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          UNIT_EXIT=${{ steps.unit_tests.outputs.exit_code }}
+          LIVE_EXIT=${{ steps.live_tests.outputs.exit_code }}
+          OVERALL=$([ "$UNIT_EXIT" = "0" ] && [ "$LIVE_EXIT" = "0" ] && echo "✅ PASSED" || echo "❌ FAILED")
+
+          UNIT_PASSED=$(grep -c " PASSED" /tmp/unit_output.txt || true)
+          UNIT_FAILED=$(grep -c " FAILED" /tmp/unit_output.txt || true)
+          LIVE_PASSED=$(grep -c " PASSED" /tmp/live_output.txt || true)
+          LIVE_FAILED=$(grep -c " FAILED" /tmp/live_output.txt || true)
+          TOTAL_PASSED=$((UNIT_PASSED + LIVE_PASSED))
+          TOTAL_FAILED=$((UNIT_FAILED + LIVE_FAILED))
+
+          FX_RATE=$(grep -oP '1 AUD = \K[0-9.]+' /tmp/live_output.txt | head -1 || echo "unavailable")
+          FX_DATE=$(grep -oP 'as of \K[0-9-]+' /tmp/live_output.txt | head -1 || echo "unavailable")
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          cat > test-results/${DATE}.md << MDEOF
+          # Test Run — ${DATE}
+
+          **Result: ${OVERALL}**
+          **Tests: ${TOTAL_PASSED} passed, ${TOTAL_FAILED} failed**
+          **Run:** [View on GitHub Actions](${RUN_URL})
+
+          ---
+
+          ## Live Market Data
+
+          | Field | Value |
+          |-------|-------|
+          | Source | [Frankfurter API](https://www.frankfurter.app) |
+          | AUD/SGD Rate | ${FX_RATE} |
+          | Rate Date | ${FX_DATE} |
+          | 500,000 AUD → SGD | $(python3 -c "r=${FX_RATE}; print(f'{500000*r:,.2f}' if r != 'unavailable' else 'N/A')") |
+
+          ---
+
+          ## Deterministic Tests (${UNIT_PASSED}/${UNIT_PASSED} expected)
+
+          | Test | File | Result |
+          |------|------|--------|
+          $(grep -E " PASSED| FAILED" /tmp/unit_output.txt | grep "::" | sed 's|tests/||' | awk -F'::' '{
+            file=$1; rest=$2;
+            test=gensub(/ .*/,"",1,rest);
+            result=(index($0,"PASSED") > 0) ? "✅ PASSED" : "❌ FAILED";
+            print "| \`" test "\` | " file " | " result " |"
+          }')
+
+          ## Live FX Tests (${LIVE_PASSED}/${LIVE_PASSED} expected)
+
+          | Test | File | Result |
+          |------|------|--------|
+          $(grep -E " PASSED| FAILED" /tmp/live_output.txt | grep "::" | sed 's|tests/||' | awk -F'::' '{
+            file=$1; rest=$2;
+            test=gensub(/ .*/,"",1,rest);
+            result=(index($0,"PASSED") > 0) ? "✅ PASSED" : "❌ FAILED";
+            print "| \`" test "\` | " file " | " result " |"
+          }')
+
+          ---
+
+          ## Raw Output
+
+          <details>
+          <summary>Deterministic tests</summary>
+
+          \`\`\`
+          $(cat /tmp/unit_output.txt)
+          \`\`\`
+          </details>
+
+          <details>
+          <summary>Live FX tests</summary>
+
+          \`\`\`
+          $(cat /tmp/live_output.txt)
+          \`\`\`
+          </details>
+          MDEOF
+
+          RESULT_BADGE=$([ "$UNIT_EXIT" = "0" ] && [ "$LIVE_EXIT" = "0" ] && echo "✅ PASSED" || echo "❌ FAILED")
+          echo "| [${DATE}](./${DATE}.md) | ${RESULT_BADGE} | ${TOTAL_PASSED}/14 | 1 AUD = ${FX_RATE} SGD |" >> test-results/README.md
+
+      - name: Fetch daily news
+        run: python scripts/fetch_daily_news.py
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Generate website data
+        run: python scripts/generate_site_data.py
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Commit results, news, and site data
+        run: |
+          git config user.name "cheeroo2020"
+          git config user.email "cheeroo2020@users.noreply.github.com"
+          git add test-results/ daily-news/ website/data/
+          git diff --staged --quiet || git commit -m "daily: $(date +%Y-%m-%d)"
+          git push
+
       - name: Open issue if tests fail
-        if: failure()
+        if: ${{ steps.unit_tests.outputs.exit_code != '0' || steps.live_tests.outputs.exit_code != '0' }}
         uses: actions/github-script@v7
         with:
           script: |
@@ -43,12 +160,7 @@ jobs:
                 `**Date:** ${date}`,
                 `**Run:** ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
                 '',
-                'One or more V0 tests failed. Check the run log above for details.',
-                '',
-                'Tests covered:',
-                '- `test_aiva.py` — routing, scoring, selection',
-                '- `test_rail.py` — state machine transitions',
-                '- `test_cloked.py` — evidence chain integrity',
+                'Check the run log and the daily results file in `test-results/` for details.',
               ].join('\n'),
               labels: ['bug'],
             });

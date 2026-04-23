@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    # Skip on daily automated commits — the daily workflow already runs tests
+    if: "!startsWith(github.event.head_commit.message, 'daily:')"
 
     steps:
       - uses: actions/checkout@v4
