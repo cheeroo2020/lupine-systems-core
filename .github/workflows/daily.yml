@@ -2,7 +2,7 @@ name: Daily Health Check
 
 on:
   schedule:
-    - cron: "0 18 * * *"  # 6pm UTC every day (adjust if you want local time)
+    - cron: "0 8 * * *"   # 6pm Sydney (AEST = UTC+10)
   workflow_dispatch:       # trigger manually from the Actions tab
 
 jobs:
@@ -141,7 +141,7 @@ jobs:
           git config user.name "cheeroo2020"
           git config user.email "cheeroo2020@users.noreply.github.com"
           git add test-results/ daily-news/ website/data/
-          git diff --staged --quiet || git commit -m "daily: $(date +%Y-%m-%d) [skip ci]"
+          git diff --staged --quiet || git commit -m "daily: $(date +%Y-%m-%d)"
           git push
 
       - name: Open issue if tests fail
