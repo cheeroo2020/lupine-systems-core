@@ -47,10 +47,12 @@ def _clean(text: str, limit: int | None = None) -> str:
     text = re.sub(r"<[^>]+>", " ", text)
     text = html.unescape(text)
     text = re.sub(r"\s+", " ", text).strip()
-    # Pymnts appends "The post X appeared first on …" — trim it
+    # Strip trailing read-more tokens that RSS feeds append
     text = re.sub(r"\s*The post .*?appeared first on.*$", "", text)
+    text = re.sub(r"\s*\[[\.…]+\]\s*$", "", text).strip()
+    text = re.sub(r"\s*…\s*$", "", text).strip()
     if limit and len(text) > limit:
-        text = text[:limit].rsplit(" ", 1)[0] + "…"
+        text = text[:limit].rsplit(" ", 1)[0]
     return text
 
 

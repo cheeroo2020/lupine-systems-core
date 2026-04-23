@@ -3,102 +3,84 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Lupine Systems — How money should move</title>
+<title>Lupine Systems — Move money right</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --cream:#FAF6ED;
-  --cream-2:#F3EEE0;
-  --ink:#14142B;
-  --ink-2:#4A4A68;
-  --mute:#8A8AA0;
-  --line:#E8E0CE;
-  --purple:#5B3FB4;
-  --purple-2:#8166D4;
-  --coral:#E87A5D;
-  --gold:#D4A437;
-  --teal:#2BA889;
+  --bg:#060B1E;
+  --bg2:#0C1230;
+  --card:#0F1729;
+  --border:rgba(255,255,255,.08);
+  --blue:#4F6EFF;
+  --purple:#9B5DE5;
+  --teal:#00D4AA;
+  --gold:#F5C842;
+  --coral:#FF6B6B;
+  --text:rgba(255,255,255,.9);
+  --mute:rgba(255,255,255,.45);
+  --line:rgba(255,255,255,.06);
 }
-html,body{background:var(--cream);color:var(--ink)}
-body{font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-.serif{font-family:'Fraunces',Georgia,serif;font-optical-sizing:auto;letter-spacing:-.02em}
+html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 .mono{font-family:'JetBrains Mono',monospace}
 
-/* floating currency symbols — subtle, warm */
-@keyframes drift{
-  0%  {transform:translateY(0) rotate(0deg);opacity:.14}
-  50% {transform:translateY(-36px) rotate(6deg);opacity:.08}
-  100%{transform:translateY(0) rotate(0deg);opacity:.14}
-}
-.drift{animation:drift ease-in-out infinite}
+/* gradient text */
+.grad{background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.7) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-blue{background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-teal{background:linear-gradient(135deg,var(--teal),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-/* travel dot — sends a spark across the corridor */
+/* glow blob */
+.blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+
+/* floating currency */
+@keyframes drift{
+  0%  {transform:translateY(0)   rotate(0deg);  opacity:.18}
+  50% {transform:translateY(-32px) rotate(5deg); opacity:.09}
+  100%{transform:translateY(0)   rotate(0deg);  opacity:.18}
+}
+.drift{animation:drift ease-in-out infinite;font-family:'Inter',sans-serif;font-weight:900;line-height:1}
+
+/* travel dot */
 @keyframes travel{
-  0%  {left:0;opacity:0}
+  0%  {left:0%;   opacity:0}
   8%  {opacity:1}
   92% {opacity:1}
-  100%{left:100%;opacity:0}
+  100%{left:100%; opacity:0}
 }
-.traveldot{position:absolute;width:10px;height:10px;border-radius:50%;top:50%;margin-top:-5px;
-           background:var(--coral);box-shadow:0 0 14px rgba(232,122,93,.6);
-           animation:travel 2.8s linear infinite}
+.dot{position:absolute;width:10px;height:10px;border-radius:50%;top:50%;margin-top:-5px;
+     animation:travel 2.8s linear infinite}
 
-/* pulsing live-dot */
-@keyframes pulse{
-  0%  {transform:scale(1);  opacity:.9}
-  70% {transform:scale(2.4);opacity:0}
-  100%{transform:scale(2.4);opacity:0}
-}
-.live-dot{position:relative;display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--teal)}
-.live-dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--teal);animation:pulse 1.8s ease-out infinite}
+/* pulse */
+@keyframes ping{0%{transform:scale(1);opacity:1}100%{transform:scale(2.8);opacity:0}}
+.ping{position:relative;display:inline-block;width:10px;height:10px;border-radius:50%}
+.ping::after{content:'';position:absolute;inset:0;border-radius:50%;animation:ping 1.8s ease-out infinite}
 
-/* soft reveal */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;animation:fadeUp .8s ease forwards}
+/* reveal */
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.rev{opacity:0;animation:up .75s ease forwards}
 
-/* underline on hover for nav */
-.nav-a{position:relative}
-.nav-a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;background:var(--ink);transition:width .3s}
-.nav-a:hover::after{width:100%}
-
-/* paper card */
-.paper{background:#fff;border:1px solid var(--line);border-radius:24px;
-       box-shadow:0 1px 0 rgba(20,20,43,.02),0 20px 40px -24px rgba(20,20,43,.12)}
-.lift{transition:transform .25s ease,box-shadow .25s ease}
-.lift:hover{transform:translateY(-3px);box-shadow:0 30px 60px -24px rgba(20,20,43,.22)}
+/* card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:24px;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 24px 48px rgba(0,0,0,.4)}
 
 /* buttons */
-.btn-ink  {background:var(--ink);color:var(--cream);border-radius:9999px;padding:14px 26px;font-weight:600;transition:transform .2s}
-.btn-ink:hover{transform:translateY(-1px);background:#000}
-.btn-ghost{border:1px solid var(--line);color:var(--ink);border-radius:9999px;padding:14px 26px;font-weight:600;transition:all .2s;background:rgba(255,255,255,.6)}
-.btn-ghost:hover{border-color:var(--ink);background:#fff}
+.btn-p{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-weight:700;border-radius:9999px;padding:14px 28px;transition:transform .2s,opacity .2s}
+.btn-p:hover{transform:translateY(-1px);opacity:.9}
+.btn-g{border:1px solid var(--border);color:var(--text);font-weight:600;border-radius:9999px;padding:14px 28px;background:rgba(255,255,255,.04);transition:all .2s}
+.btn-g:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.08)}
+
+/* chip */
+.chip{border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--mute);border-radius:9999px;padding:10px 20px;font-weight:600;font-size:14px;cursor:pointer;transition:all .2s}
+.chip:hover{border-color:rgba(255,255,255,.2);color:var(--text)}
+.chip.on{background:linear-gradient(135deg,var(--blue),var(--purple));border-color:transparent;color:#fff}
 
 /* marquee */
-@keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.marquee{animation:scroll-x 40s linear infinite;display:flex;gap:3rem;width:max-content}
+@keyframes sx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mq{animation:sx 44s linear infinite;display:flex;gap:3rem;width:max-content}
+.sep{width:4px;height:4px;background:var(--mute);border-radius:50%;display:inline-block;margin:0 14px;vertical-align:middle}
 
-/* ticker separator dot */
-.sep{width:4px;height:4px;border-radius:50%;background:var(--mute);display:inline-block;margin:0 14px;vertical-align:middle}
-
-/* urgency chips */
-.chip{border:1px solid var(--line);background:#fff;color:var(--ink-2);border-radius:9999px;padding:10px 20px;font-weight:600;font-size:14px;transition:all .2s;cursor:pointer}
-.chip:hover{border-color:var(--ink)}
-.chip.active{background:var(--ink);color:var(--cream);border-color:var(--ink)}
-
-/* section rule */
-.rule{height:1px;background:var(--line)}
-
-/* number markers */
-.nmark{font-family:'Fraunces',serif;font-weight:400;font-size:14px;color:var(--mute);letter-spacing:.1em}
-
-/* tag */
-.tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:9999px;
-     background:rgba(91,63,180,.08);color:var(--purple);font-weight:600;font-size:12px;
-     font-family:'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase}
-
-/* mobile menu */
+/* mobile nav */
 #mob{display:none}
 #mob.open{display:flex}
 </style>
@@ -106,26 +88,24 @@ body{font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smo
 <body>
 
 <!-- NAV -->
-<nav class="fixed top-0 w-full z-50" style="background:rgba(250,246,237,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)">
+<nav style="position:fixed;top:0;width:100%;z-index:50;background:rgba(6,11,30,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)">
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="#" class="flex items-center gap-2 font-black">
-      <span class="w-8 h-8 rounded-full flex items-center justify-center text-sm serif font-black" style="background:var(--ink);color:var(--cream)">L</span>
-      <span class="serif text-xl">Lupine</span>
+    <a href="#" class="flex items-center gap-2 font-black text-lg">
+      <span class="w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm" style="background:linear-gradient(135deg,var(--blue),var(--purple))">L</span>
+      Lupine
     </a>
-    <div class="hidden md:flex items-center gap-10 text-sm font-medium" style="color:var(--ink-2)">
-      <a href="#idea"   class="nav-a">The idea</a>
-      <a href="#engine" class="nav-a">Engine</a>
-      <a href="#demo"   class="nav-a">Try it</a>
-      <a href="#news"   class="nav-a">Pulse</a>
-      <a href="#status" class="nav-a">Status</a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium" style="color:var(--mute)">
+      <a href="#how"    class="hover:text-white transition-colors">How it works</a>
+      <a href="#demo"   class="hover:text-white transition-colors">Try it</a>
+      <a href="#news"   class="hover:text-white transition-colors">Pulse</a>
+      <a href="#status" class="hover:text-white transition-colors">Status</a>
     </div>
-    <button class="md:hidden p-2" onclick="document.getElementById('mob').classList.toggle('open')">
+    <button class="md:hidden p-2 rounded-lg" style="color:var(--mute)" onclick="document.getElementById('mob').classList.toggle('open')">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
   </div>
-  <div id="mob" class="flex-col px-6 pb-5 gap-1 border-t" style="border-color:var(--line)">
-    <a href="#idea"   class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">The idea</a>
-    <a href="#engine" class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Engine</a>
+  <div id="mob" class="flex-col px-6 pb-5 gap-1" style="border-top:1px solid var(--line)">
+    <a href="#how"    class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">How it works</a>
     <a href="#demo"   class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Try it</a>
     <a href="#news"   class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Pulse</a>
     <a href="#status" class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Status</a>
@@ -133,285 +113,240 @@ body{font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smo
 </nav>
 
 <!-- HERO -->
-<section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-  <!-- drifting currency symbols -->
-  <div class="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
-    <span class="drift absolute serif font-black" style="top:14%;left:6%;  font-size:72px; color:var(--purple);animation-duration:7.2s">$</span>
-    <span class="drift absolute serif font-black" style="top:22%;left:84%; font-size:60px; color:var(--coral); animation-duration:8.5s">¥</span>
-    <span class="drift absolute serif font-black" style="top:62%;left:3%;  font-size:88px; color:var(--gold);  animation-duration:9.8s">£</span>
-    <span class="drift absolute serif font-black" style="top:74%;left:88%; font-size:54px; color:var(--teal);  animation-duration:7.8s">€</span>
-    <span class="drift absolute serif font-black" style="top:42%;left:92%; font-size:48px; color:var(--purple);animation-duration:6.4s">₹</span>
-    <span class="drift absolute serif font-black" style="top:88%;left:42%; font-size:66px; color:var(--coral); animation-duration:10s">$</span>
-    <span class="drift absolute serif font-black" style="top:8%; left:48%; font-size:42px; color:var(--gold);  animation-duration:8.1s">€</span>
+<section style="position:relative;min-height:100vh;display:flex;align-items:center;padding-top:4rem;overflow:hidden">
+  <!-- glow blobs -->
+  <div class="blob" style="width:600px;height:600px;top:-100px;left:-200px;background:rgba(79,110,255,.15)"></div>
+  <div class="blob" style="width:500px;height:500px;bottom:-50px;right:-100px;background:rgba(155,93,229,.12)"></div>
+
+  <!-- floating currencies -->
+  <div style="position:absolute;inset:0;pointer-events:none;user-select:none" aria-hidden="true">
+    <span class="drift" style="position:absolute;top:12%;left:5%;font-size:80px;color:var(--blue);animation-duration:7s">$</span>
+    <span class="drift" style="position:absolute;top:20%;left:83%;font-size:64px;color:var(--purple);animation-duration:8.5s">¥</span>
+    <span class="drift" style="position:absolute;top:58%;left:3%;font-size:96px;color:var(--teal);animation-duration:10s">£</span>
+    <span class="drift" style="position:absolute;top:72%;left:87%;font-size:56px;color:var(--gold);animation-duration:7.8s">€</span>
+    <span class="drift" style="position:absolute;top:40%;left:91%;font-size:50px;color:var(--blue);animation-duration:6.5s">₹</span>
+    <span class="drift" style="position:absolute;top:85%;left:48%;font-size:70px;color:var(--purple);animation-duration:9.2s">$</span>
+    <span class="drift" style="position:absolute;top:6%; left:52%;font-size:44px;color:var(--teal);animation-duration:8s">€</span>
   </div>
 
-  <div class="relative z-10 max-w-6xl mx-auto px-6 grid md:grid-cols-12 gap-10 items-end">
-    <!-- LEFT: headline -->
-    <div class="md:col-span-8 reveal" style="animation-delay:.1s">
-      <div class="flex items-center gap-3 mb-8">
-        <span class="tag"><span class="live-dot"></span>V0 · live · AUD → SGD</span>
+  <div class="max-w-6xl mx-auto px-6 w-full" style="position:relative;z-index:10">
+    <div style="display:grid;grid-template-columns:1fr;gap:3rem;align-items:center" class="md:grid-cols-2">
+      <!-- LEFT -->
+      <div>
+        <div class="rev" style="animation-delay:.1s;display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:9999px;background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.2);margin-bottom:2rem">
+          <span class="ping" style="background:var(--teal)"><span style="background:var(--teal)" class="ping::after"></span></span>
+          <span class="mono" style="font-size:12px;color:var(--teal);letter-spacing:.05em">V0 · LIVE · AUD → SGD</span>
+        </div>
+        <h1 class="rev" style="animation-delay:.2s;font-size:clamp(3rem,7vw,5.5rem);font-weight:900;line-height:1;letter-spacing:-.03em;margin-bottom:1.5rem">
+          <span class="grad">Move money</span><br/>
+          <span class="grad-blue">the right way.</span>
+        </h1>
+        <p class="rev" style="animation-delay:.35s;font-size:1.2rem;line-height:1.7;color:var(--mute);max-width:480px;margin-bottom:2.5rem">
+          Tell Lupine how urgent your transfer is. It scores every rail — speed, cost, reliability — and picks the optimal path. Every decision is cryptographically signed.
+        </p>
+        <div class="rev" style="animation-delay:.5s;display:flex;flex-wrap:wrap;gap:1rem">
+          <a href="#demo" class="btn-p">Try the engine →</a>
+          <a href="#how"  class="btn-g">How it decides</a>
+        </div>
       </div>
-      <h1 class="serif font-black leading-[0.95] text-5xl md:text-7xl lg:text-[92px]" style="color:var(--ink)">
-        How money<br/>
-        <em class="font-normal" style="color:var(--purple)">should</em> move<br/>
-        across borders.
-      </h1>
-      <p class="mt-8 max-w-xl text-lg leading-relaxed" style="color:var(--ink-2)">
-        Lupine is a movement decision engine. Tell it what you need — fast, cheap, or critical — and it routes your money through the best path. No guessing. No overpaying.
-      </p>
-      <div class="mt-10 flex flex-wrap gap-4">
-        <a href="#demo"   class="btn-ink">Try the engine →</a>
-        <a href="#engine" class="btn-ghost">How it decides</a>
-      </div>
-    </div>
 
-    <!-- RIGHT: live card -->
-    <div class="md:col-span-4 reveal" style="animation-delay:.25s">
-      <div class="paper p-6">
-        <div class="flex items-center justify-between mb-5">
-          <span class="nmark">LIVE CORRIDOR</span>
-          <span class="live-dot"></span>
+      <!-- RIGHT: live card -->
+      <div class="rev" style="animation-delay:.35s">
+        <div class="card" style="padding:2rem">
+          <!-- corridor -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.75rem">
+            <div style="text-align:center">
+              <div style="font-size:3rem;line-height:1">🇦🇺</div>
+              <div class="mono" style="font-size:11px;color:var(--mute);margin-top:6px">SYDNEY</div>
+            </div>
+            <div style="position:relative;flex:1;height:2px;margin:0 1rem;background:linear-gradient(90deg,rgba(79,110,255,.3),rgba(155,93,229,.3))">
+              <div class="dot" style="background:var(--teal);box-shadow:0 0 12px var(--teal);animation-delay:0s"></div>
+              <div class="dot" style="background:var(--blue);box-shadow:0 0 12px var(--blue);animation-delay:.9s"></div>
+              <div class="dot" style="background:var(--purple);box-shadow:0 0 12px var(--purple);animation-delay:1.8s"></div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:3rem;line-height:1">🇸🇬</div>
+              <div class="mono" style="font-size:11px;color:var(--mute);margin-top:6px">SINGAPORE</div>
+            </div>
+          </div>
+          <!-- divider -->
+          <div style="height:1px;background:var(--line);margin-bottom:1.5rem"></div>
+          <div style="display:flex;flex-direction:column;gap:.875rem">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <span style="font-size:.8rem;color:var(--mute)">Live rate</span>
+              <span id="hero-rate" class="mono" style="font-size:1.5rem;font-weight:700;color:#fff">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <span style="font-size:.8rem;color:var(--mute)">A$500,000 converts to</span>
+              <span id="hero-sgd" class="mono" style="font-weight:600;color:var(--teal)">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <span style="font-size:.8rem;color:var(--mute)">Source</span>
+              <span class="mono" style="font-size:.75rem;color:var(--mute)">Frankfurter · ECB</span>
+            </div>
+          </div>
         </div>
-        <div class="flex items-center justify-between mb-6">
-          <div class="flex flex-col items-center">
-            <span class="text-4xl">🇦🇺</span>
-            <span class="mono text-xs mt-2" style="color:var(--mute)">AUD</span>
-          </div>
-          <div class="relative flex-1 h-px mx-3" style="background:var(--line)">
-            <div class="traveldot" style="animation-delay:0s"></div>
-            <div class="traveldot" style="animation-delay:.9s"></div>
-            <div class="traveldot" style="animation-delay:1.8s"></div>
-          </div>
-          <div class="flex flex-col items-center">
-            <span class="text-4xl">🇸🇬</span>
-            <span class="mono text-xs mt-2" style="color:var(--mute)">SGD</span>
-          </div>
-        </div>
-        <div class="rule mb-5"></div>
-        <div class="space-y-3">
-          <div class="flex items-baseline justify-between">
-            <span class="text-xs" style="color:var(--mute)">1 AUD buys</span>
-            <span id="hero-rate" class="serif text-2xl font-black">—</span>
-          </div>
-          <div class="flex items-baseline justify-between">
-            <span class="text-xs" style="color:var(--mute)">A$500,000 →</span>
-            <span id="hero-sgd"  class="mono text-sm" style="color:var(--ink)">—</span>
-          </div>
-        </div>
-        <div class="mt-5 text-[11px] mono" style="color:var(--mute)">source · frankfurter (ecb)</div>
       </div>
     </div>
   </div>
 
-  <!-- ticker / marquee -->
-  <div class="mt-20 overflow-hidden border-y py-5" style="border-color:var(--line);background:var(--cream-2)">
-    <div class="marquee mono text-sm" style="color:var(--ink-2)">
-      <span>AUD/SGD · cross-border · SWIFT MT103 · RTGS · NPP<span class="sep"></span>urgency-weighted routing<span class="sep"></span>AIVA decides<span class="sep"></span>RAIL executes<span class="sep"></span>CLOKED signs<span class="sep"></span>SHA-256 hash chain<span class="sep"></span>ECB-backed rates<span class="sep"></span>14/14 tests green<span class="sep"></span></span>
-      <span aria-hidden="true">AUD/SGD · cross-border · SWIFT MT103 · RTGS · NPP<span class="sep"></span>urgency-weighted routing<span class="sep"></span>AIVA decides<span class="sep"></span>RAIL executes<span class="sep"></span>CLOKED signs<span class="sep"></span>SHA-256 hash chain<span class="sep"></span>ECB-backed rates<span class="sep"></span>14/14 tests green<span class="sep"></span></span>
+  <!-- marquee ticker -->
+  <div style="position:absolute;bottom:0;left:0;right:0;border-top:1px solid var(--line);padding:14px 0;overflow:hidden;background:rgba(12,18,48,.6)">
+    <div class="mq mono" style="font-size:.8rem;color:var(--mute)">
+      <span>AUD/SGD corridor<span class="sep"></span>SWIFT MT103<span class="sep"></span>RTGS same-day<span class="sep"></span>NPP local clearing<span class="sep"></span>urgency-weighted routing<span class="sep"></span>AIVA · RAIL · CLOKED<span class="sep"></span>SHA-256 hash chain<span class="sep"></span>ECB-backed live rates<span class="sep"></span>14/14 tests passing<span class="sep"></span></span>
+      <span aria-hidden="true">AUD/SGD corridor<span class="sep"></span>SWIFT MT103<span class="sep"></span>RTGS same-day<span class="sep"></span>NPP local clearing<span class="sep"></span>urgency-weighted routing<span class="sep"></span>AIVA · RAIL · CLOKED<span class="sep"></span>SHA-256 hash chain<span class="sep"></span>ECB-backed live rates<span class="sep"></span>14/14 tests passing<span class="sep"></span></span>
     </div>
   </div>
 </section>
 
-<!-- THE IDEA — editorial pull-quote -->
-<section id="idea" class="py-24 md:py-32">
-  <div class="max-w-4xl mx-auto px-6">
-    <div class="nmark mb-8">§ 01 · THE PROBLEM</div>
-    <h2 class="serif font-black leading-[1.05] text-4xl md:text-6xl" style="color:var(--ink)">
-      Most cross-border money<br/>
-      takes <em class="font-normal" style="color:var(--coral)">the wrong route.</em>
-    </h2>
-    <div class="mt-10 grid md:grid-cols-3 gap-6">
-      <div class="md:col-span-2 text-lg leading-relaxed" style="color:var(--ink-2)">
-        <p class="mb-5">Every day, trillions move across borders — and nearly every transfer is routed on intuition, not evidence. Payroll picks the cheapest rail even when speed matters. Treasury picks the fastest even when it's overkill.</p>
-        <p>Lupine replaces that guesswork with a single, transparent decision. It reads your urgency, scores every viable path on speed, cost and reliability, and signs the outcome with a cryptographic receipt.</p>
-      </div>
-      <aside class="paper p-6">
-        <div class="nmark mb-3">WHAT CHANGES</div>
-        <ul class="space-y-3 text-sm" style="color:var(--ink)">
-          <li class="flex gap-3"><span style="color:var(--purple)">→</span> Optimal route, every time</li>
-          <li class="flex gap-3"><span style="color:var(--purple)">→</span> Auditable decision trail</li>
-          <li class="flex gap-3"><span style="color:var(--purple)">→</span> No manual ops required</li>
-          <li class="flex gap-3"><span style="color:var(--purple)">→</span> Urgency drives routing</li>
-        </ul>
-      </aside>
-    </div>
-  </div>
-</section>
-
-<!-- ENGINE — three layers as numbered editorial -->
-<section id="engine" class="py-24 md:py-32" style="background:var(--cream-2)">
+<!-- HOW IT WORKS -->
+<section id="how" style="padding:6rem 0;background:var(--bg2)">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="nmark mb-8">§ 02 · THE ENGINE</div>
-    <h2 class="serif font-black leading-[1.05] text-4xl md:text-6xl mb-16" style="color:var(--ink)">
-      Three layers.<br/>One decision.
-    </h2>
-
-    <div class="grid md:grid-cols-3 gap-6">
-      <!-- AIVA -->
-      <div class="paper lift p-8">
-        <div class="flex items-start justify-between mb-10">
-          <span class="serif text-6xl font-black" style="color:var(--purple)">01</span>
-          <span class="text-3xl">🧠</span>
-        </div>
-        <div class="tag mb-4">AIVA · INTELLIGENCE</div>
-        <h3 class="serif font-black text-2xl mb-3" style="color:var(--ink)">Thinks about your move.</h3>
-        <p class="leading-relaxed" style="color:var(--ink-2)">Weighs speed, cost and reliability against urgency. Scores every route using a composite utility function — and picks the winner.</p>
+    <div style="text-align:center;margin-bottom:4rem">
+      <div class="mono" style="font-size:.75rem;letter-spacing:.12em;color:var(--blue);text-transform:uppercase;margin-bottom:1rem">The engine</div>
+      <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em">Three layers.<br/><span class="grad-blue">One decision.</span></h2>
+    </div>
+    <div style="display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+      <div class="card" style="padding:2.5rem">
+        <div style="font-size:2.5rem;margin-bottom:1.25rem">🧠</div>
+        <div class="mono" style="font-size:.7rem;letter-spacing:.1em;color:var(--blue);text-transform:uppercase;margin-bottom:.75rem">AIVA · Intelligence</div>
+        <h3 style="font-size:1.4rem;font-weight:800;margin-bottom:.875rem">Thinks about your move.</h3>
+        <p style="color:var(--mute);line-height:1.7">Scores every available route on speed, cost and reliability. Weights shift with urgency — critical transfers maximise speed, routine ones minimise cost.</p>
       </div>
-
-      <!-- RAIL -->
-      <div class="paper lift p-8">
-        <div class="flex items-start justify-between mb-10">
-          <span class="serif text-6xl font-black" style="color:var(--coral)">02</span>
-          <span class="text-3xl">⚡</span>
-        </div>
-        <div class="tag mb-4" style="background:rgba(232,122,93,.1);color:var(--coral)">RAIL · EXECUTION</div>
-        <h3 class="serif font-black text-2xl mb-3" style="color:var(--ink)">Chooses the path.</h3>
-        <p class="leading-relaxed" style="color:var(--ink-2)">Simulates SWIFT, NPP, RTGS and local clearing. Selects the rail that matches your timeline and budget — not the default one.</p>
+      <div class="card" style="padding:2.5rem">
+        <div style="font-size:2.5rem;margin-bottom:1.25rem">⚡</div>
+        <div class="mono" style="font-size:.7rem;letter-spacing:.1em;color:var(--purple);text-transform:uppercase;margin-bottom:.75rem">RAIL · Execution</div>
+        <h3 style="font-size:1.4rem;font-weight:800;margin-bottom:.875rem">Chooses the path.</h3>
+        <p style="color:var(--mute);line-height:1.7">Simulates SWIFT, NPP, RTGS and local clearing. Picks the rail that fits your timeline and budget — not just the default.</p>
       </div>
-
-      <!-- CLOKED -->
-      <div class="paper lift p-8">
-        <div class="flex items-start justify-between mb-10">
-          <span class="serif text-6xl font-black" style="color:var(--teal)">03</span>
-          <span class="text-3xl">🔐</span>
-        </div>
-        <div class="tag mb-4" style="background:rgba(43,168,137,.1);color:var(--teal)">CLOKED · EVIDENCE</div>
-        <h3 class="serif font-black text-2xl mb-3" style="color:var(--ink)">Signs the decision.</h3>
-        <p class="leading-relaxed" style="color:var(--ink-2)">SHA-256 hash chain locks every move. An unbreakable audit trail — proof of why your money went the way it did.</p>
+      <div class="card" style="padding:2.5rem">
+        <div style="font-size:2.5rem;margin-bottom:1.25rem">🔐</div>
+        <div class="mono" style="font-size:.7rem;letter-spacing:.1em;color:var(--teal);text-transform:uppercase;margin-bottom:.75rem">CLOKED · Evidence</div>
+        <h3 style="font-size:1.4rem;font-weight:800;margin-bottom:.875rem">Signs the decision.</h3>
+        <p style="color:var(--mute);line-height:1.7">SHA-256 hash chain locks every move. An unbreakable audit trail proving exactly why your money went the way it did.</p>
       </div>
     </div>
-
-    <!-- utility formula -->
-    <div class="paper p-10 mt-10 text-center">
-      <div class="nmark mb-4">COMPOSITE UTILITY SCORE</div>
-      <div class="serif font-black text-2xl md:text-4xl" style="color:var(--ink)">
-        U = w<sub class="text-lg">1</sub>·<span style="color:var(--purple)">Speed</span> + w<sub class="text-lg">2</sub>·<span style="color:var(--coral)">Cost</span> + w<sub class="text-lg">3</sub>·<span style="color:var(--teal)">Reliability</span>
+    <!-- formula -->
+    <div class="card" style="padding:2.5rem;margin-top:1.5rem;text-align:center">
+      <div class="mono" style="font-size:.75rem;letter-spacing:.1em;color:var(--mute);text-transform:uppercase;margin-bottom:1rem">Composite utility score</div>
+      <div style="font-size:clamp(1.3rem,4vw,2.25rem);font-weight:900;letter-spacing:-.01em">
+        U&nbsp;=&nbsp;<span style="color:var(--blue)">w₁·Speed</span>&nbsp;+&nbsp;<span style="color:var(--purple)">w₂·Cost</span>&nbsp;+&nbsp;<span style="color:var(--teal)">w₃·Reliability</span>
       </div>
-      <p class="mt-4 text-sm max-w-xl mx-auto" style="color:var(--ink-2)">Weights shift with urgency. Critical transfers lean on speed; routine ones lean on cost.</p>
+      <p style="color:var(--mute);margin-top:.875rem;font-size:.9rem">Weights shift automatically based on urgency level.</p>
     </div>
   </div>
 </section>
-<!-- TRY IT — urgency demo -->
-<section id="demo" class="py-24 md:py-32">
-  <div class="max-w-5xl mx-auto px-6">
-    <div class="nmark mb-8">§ 03 · TRY IT</div>
-    <h2 class="serif font-black leading-[1.05] text-4xl md:text-6xl mb-4" style="color:var(--ink)">
-      Same transfer.<br/>
-      <em class="font-normal" style="color:var(--purple)">Different</em> urgency.
-    </h2>
-    <p class="text-lg mb-12 max-w-xl" style="color:var(--ink-2)">Pick how fast this A$500,000 needs to land in Singapore. Watch the route change.</p>
 
-    <div class="flex flex-wrap gap-3 mb-10">
+<!-- DEMO -->
+<section id="demo" style="padding:6rem 0">
+  <div class="max-w-5xl mx-auto px-6">
+    <div style="margin-bottom:3rem">
+      <div class="mono" style="font-size:.75rem;letter-spacing:.12em;color:var(--blue);text-transform:uppercase;margin-bottom:1rem">Try it</div>
+      <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em;margin-bottom:1rem">Same transfer.<br/><span class="grad-teal">Different urgency.</span></h2>
+      <p style="color:var(--mute);max-width:440px;line-height:1.7">Pick how fast A$500,000 needs to reach Singapore. Watch the route change.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:2.5rem">
       <button onclick="setU('low')"      class="chip" data-u="low">🐢 Low</button>
       <button onclick="setU('normal')"   class="chip" data-u="normal">🔵 Normal</button>
       <button onclick="setU('high')"     class="chip" data-u="high">🟡 High</button>
-      <button onclick="setU('critical')" class="chip active" data-u="critical">🔴 Critical</button>
+      <button onclick="setU('critical')" class="chip on" data-u="critical">🔴 Critical</button>
     </div>
-
-    <div class="paper p-8 md:p-12">
-      <div class="grid md:grid-cols-2 gap-12 items-start">
-        <!-- left: transfer visual -->
+    <div class="card" style="padding:2.5rem">
+      <div style="display:grid;grid-template-columns:1fr;gap:2.5rem" class="md:grid-cols-2">
         <div>
-          <div class="flex items-center gap-4 mb-8">
-            <span class="text-5xl">🇦🇺</span>
-            <div class="relative flex-1 h-px" style="background:var(--line)">
-              <div class="traveldot" style="animation-delay:0s"></div>
-              <div class="traveldot" style="animation-delay:1.4s"></div>
+          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
+            <span style="font-size:3rem">🇦🇺</span>
+            <div style="position:relative;flex:1;height:2px;background:var(--line)">
+              <div class="dot" style="background:var(--teal);box-shadow:0 0 10px var(--teal);animation-delay:0s"></div>
+              <div class="dot" style="background:var(--gold);box-shadow:0 0 10px var(--gold);animation-delay:1.4s"></div>
             </div>
-            <span class="text-5xl">🇸🇬</span>
+            <span style="font-size:3rem">🇸🇬</span>
           </div>
-          <div class="nmark mb-2">SENDING</div>
-          <div class="serif font-black text-5xl mb-1" style="color:var(--ink)">A$500,000</div>
-          <div id="demo-sgd" class="mono text-sm" style="color:var(--purple)">= S$—</div>
+          <div style="font-size:.75rem;color:var(--mute);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem">Sending</div>
+          <div style="font-size:2.75rem;font-weight:900;letter-spacing:-.02em;margin-bottom:.5rem">A$500,000</div>
+          <div id="demo-sgd" class="mono" style="color:var(--teal);font-weight:600">= S$—</div>
         </div>
-
-        <!-- right: route details -->
         <div>
-          <div class="flex items-center justify-between py-4 border-b" style="border-color:var(--line)">
-            <span class="text-sm" style="color:var(--mute)">Recommended rail</span>
-            <span id="demo-rail" class="mono font-bold text-sm">—</span>
+          <div style="display:flex;justify-content:space-between;padding:.875rem 0;border-bottom:1px solid var(--line)">
+            <span style="color:var(--mute);font-size:.875rem">Rail</span>
+            <span id="demo-rail" class="mono" style="font-weight:700;font-size:.875rem">—</span>
           </div>
-          <div class="flex items-center justify-between py-4 border-b" style="border-color:var(--line)">
-            <span class="text-sm" style="color:var(--mute)">Settlement</span>
-            <span id="demo-time" class="font-bold text-sm">—</span>
+          <div style="display:flex;justify-content:space-between;padding:.875rem 0;border-bottom:1px solid var(--line)">
+            <span style="color:var(--mute);font-size:.875rem">Settlement</span>
+            <span id="demo-time" style="font-weight:700;font-size:.875rem">—</span>
           </div>
-          <div class="flex items-center justify-between py-4 border-b" style="border-color:var(--line)">
-            <span class="text-sm" style="color:var(--mute)">Estimated cost</span>
-            <span id="demo-cost" class="font-bold text-sm">—</span>
+          <div style="display:flex;justify-content:space-between;padding:.875rem 0;border-bottom:1px solid var(--line)">
+            <span style="color:var(--mute);font-size:.875rem">Est. cost</span>
+            <span id="demo-cost" style="font-weight:700;font-size:.875rem">—</span>
           </div>
-          <div class="flex items-center justify-between py-4">
-            <span class="text-sm" style="color:var(--mute)">Utility score</span>
-            <span id="demo-score" class="serif font-black text-3xl" style="color:var(--purple)">—</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:.875rem 0">
+            <span style="color:var(--mute);font-size:.875rem">Utility score</span>
+            <span id="demo-score" style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">—</span>
           </div>
-
-          <!-- bar -->
-          <div class="mt-4">
-            <div class="w-full h-1.5 rounded-full overflow-hidden" style="background:var(--line)">
-              <div id="demo-bar" class="h-full rounded-full transition-all duration-700" style="width:0%;background:linear-gradient(90deg,var(--purple),var(--coral))"></div>
-            </div>
+          <div style="height:3px;border-radius:9999px;background:var(--line);overflow:hidden;margin-top:.5rem">
+            <div id="demo-bar" style="height:100%;border-radius:9999px;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .7s ease;width:0%"></div>
           </div>
         </div>
       </div>
-      <p id="demo-note" class="mt-10 pt-8 border-t text-base leading-relaxed" style="border-color:var(--line);color:var(--ink-2)"></p>
+      <p id="demo-note" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--mute);line-height:1.7;font-size:.95rem"></p>
     </div>
   </div>
 </section>
-<!-- PULSE — news as editorial column -->
-<section id="news" class="py-24 md:py-32" style="background:var(--cream-2)">
+
+<!-- NEWS -->
+<section id="news" style="padding:6rem 0;background:var(--bg2)">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:3rem">
       <div>
-        <div class="nmark mb-4">§ 04 · MARKET PULSE</div>
-        <h2 class="serif font-black leading-[1.05] text-4xl md:text-6xl" style="color:var(--ink)">From the desk.</h2>
+        <div class="mono" style="font-size:.75rem;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;margin-bottom:1rem">Market pulse</div>
+        <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em">From the desk.</h2>
       </div>
-      <div id="news-date" class="mono text-sm" style="color:var(--mute)"></div>
+      <div id="news-date" class="mono" style="font-size:.8rem;color:var(--mute)"></div>
     </div>
-    <div id="news-cards" class="grid md:grid-cols-2 gap-6">
-      <div class="paper p-8 animate-pulse"><div class="h-4 rounded mb-4 w-3/4" style="background:var(--line)"></div><div class="h-3 rounded mb-2" style="background:var(--line)"></div><div class="h-3 rounded w-2/3" style="background:var(--line)"></div></div>
-      <div class="paper p-8 animate-pulse"><div class="h-4 rounded mb-4 w-3/4" style="background:var(--line)"></div><div class="h-3 rounded mb-2" style="background:var(--line)"></div><div class="h-3 rounded w-2/3" style="background:var(--line)"></div></div>
+    <div id="news-cards" style="display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+      <div class="card" style="padding:2rem"><div style="height:1rem;background:var(--line);border-radius:4px;width:60%;margin-bottom:1rem"></div><div style="height:.75rem;background:var(--line);border-radius:4px;margin-bottom:.5rem"></div><div style="height:.75rem;background:var(--line);border-radius:4px;width:75%"></div></div>
+      <div class="card" style="padding:2rem"><div style="height:1rem;background:var(--line);border-radius:4px;width:60%;margin-bottom:1rem"></div><div style="height:.75rem;background:var(--line);border-radius:4px;margin-bottom:.5rem"></div><div style="height:.75rem;background:var(--line);border-radius:4px;width:75%"></div></div>
     </div>
   </div>
 </section>
 
 <!-- STATUS -->
-<section id="status" class="py-24 md:py-32">
-  <div class="max-w-5xl mx-auto px-6">
-    <div class="nmark mb-8">§ 05 · SYSTEM HEALTH</div>
-    <h2 class="serif font-black leading-[1.05] text-4xl md:text-6xl mb-12" style="color:var(--ink)">
-      All systems <em class="font-normal" style="color:var(--teal)">nominal.</em>
-    </h2>
-
-    <div class="paper p-10">
-      <div class="flex flex-col md:flex-row items-start md:items-center gap-8 mb-10">
-        <div class="flex items-center gap-4">
-          <span class="live-dot" style="width:14px;height:14px"></span>
+<section id="status" style="padding:6rem 0">
+  <div class="max-w-4xl mx-auto px-6">
+    <div style="text-align:center;margin-bottom:3rem">
+      <div class="mono" style="font-size:.75rem;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;margin-bottom:1rem">System health</div>
+      <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em"><span class="grad-teal">All systems</span> nominal.</h2>
+    </div>
+    <div class="card" style="padding:2.5rem">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:2rem;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--line)">
+        <div style="display:flex;align-items:center;gap:1rem">
+          <span id="status-icon" style="font-size:2rem">✅</span>
           <div>
-            <div id="status-label" class="serif font-black text-3xl" style="color:var(--ink)">Operational</div>
-            <div id="status-date"  class="mono text-xs mt-1" style="color:var(--mute)">—</div>
+            <div id="status-label" style="font-size:1.5rem;font-weight:800">Operational</div>
+            <div id="status-date"  class="mono" style="font-size:.75rem;color:var(--mute);margin-top:2px">—</div>
           </div>
         </div>
-        <div class="md:ml-auto">
-          <div id="status-score" class="serif font-black text-5xl" style="color:var(--purple)">—</div>
-          <div class="text-xs mono" style="color:var(--mute)">tests passing</div>
+        <div style="margin-left:auto;text-align:right">
+          <div id="status-score" style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">—</div>
+          <div class="mono" style="font-size:.75rem;color:var(--mute)">tests passing</div>
         </div>
       </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="text-center p-5 rounded-2xl" style="background:var(--cream-2)">
-          <div id="stat-passed" class="serif font-black text-3xl" style="color:var(--teal)">—</div>
-          <div class="text-xs mt-1" style="color:var(--mute)">passed</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem" class="md:grid-cols-4">
+        <div style="background:var(--bg);border-radius:16px;padding:1.25rem;text-align:center">
+          <div id="stat-passed" style="font-size:2rem;font-weight:900;color:var(--teal)">—</div>
+          <div style="font-size:.75rem;color:var(--mute);margin-top:4px">passed</div>
         </div>
-        <div class="text-center p-5 rounded-2xl" style="background:var(--cream-2)">
-          <div id="stat-failed" class="serif font-black text-3xl" style="color:var(--coral)">—</div>
-          <div class="text-xs mt-1" style="color:var(--mute)">failed</div>
+        <div style="background:var(--bg);border-radius:16px;padding:1.25rem;text-align:center">
+          <div id="stat-failed" style="font-size:2rem;font-weight:900;color:var(--coral)">—</div>
+          <div style="font-size:.75rem;color:var(--mute);margin-top:4px">failed</div>
         </div>
-        <div class="text-center p-5 rounded-2xl" style="background:var(--cream-2)">
-          <div id="stat-fx" class="mono font-bold text-xl mt-1" style="color:var(--ink)">—</div>
-          <div class="text-xs mt-1" style="color:var(--mute)">AUD/SGD</div>
+        <div style="background:var(--bg);border-radius:16px;padding:1.25rem;text-align:center">
+          <div id="stat-fx"    class="mono" style="font-size:1.2rem;font-weight:700;color:#fff;margin-top:4px">—</div>
+          <div style="font-size:.75rem;color:var(--mute);margin-top:4px">AUD/SGD</div>
         </div>
-        <div class="text-center p-5 rounded-2xl" style="background:var(--cream-2)">
-          <div id="stat-sgd" class="mono font-bold text-xl mt-1" style="color:var(--ink)">—</div>
-          <div class="text-xs mt-1" style="color:var(--mute)">500K AUD → SGD</div>
+        <div style="background:var(--bg);border-radius:16px;padding:1.25rem;text-align:center">
+          <div id="stat-sgd"  class="mono" style="font-size:1rem;font-weight:700;color:var(--gold);margin-top:4px">—</div>
+          <div style="font-size:.75rem;color:var(--mute);margin-top:4px">500K AUD → SGD</div>
         </div>
       </div>
     </div>
@@ -419,32 +354,31 @@ body{font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smo
 </section>
 
 <!-- FOOTER -->
-<footer class="py-16 border-t" style="border-color:var(--line)">
-  <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-    <div>
-      <div class="flex items-center gap-2 mb-3">
-        <span class="w-8 h-8 rounded-full flex items-center justify-center text-sm serif font-black" style="background:var(--ink);color:var(--cream)">L</span>
-        <span class="serif text-xl font-black">Lupine Systems</span>
-      </div>
-      <p class="text-sm max-w-sm" style="color:var(--ink-2)">A movement decision engine for cross-border transfers. V0 · AUD → SGD corridor.</p>
+<footer style="border-top:1px solid var(--line);padding:4rem 0">
+  <div class="max-w-6xl mx-auto px-6" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2rem">
+    <div style="display:flex;align-items:center;gap:.75rem;font-weight:900;font-size:1.1rem">
+      <span class="w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm" style="background:linear-gradient(135deg,var(--blue),var(--purple))">L</span>
+      Lupine Systems
     </div>
-    <div class="text-sm" style="color:var(--mute)">
-      <div class="mono text-xs mb-1">© 2026 Chirantan Gogoi</div>
-      <div class="mono text-xs">All rights reserved · AIVA · RAIL · CLOKED</div>
+    <div class="mono" style="font-size:.75rem;color:var(--mute);text-align:center">
+      V0 Movement Decision Engine · AUD → SGD<br/>
+      © 2026 Chirantan Gogoi · All rights reserved
     </div>
+    <div class="mono" style="font-size:.75rem;color:var(--mute)">AIVA · RAIL · CLOKED</div>
   </div>
 </footer>
 
 <script>
-/* ── urgency demo ── */
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
 const R={
-  low:     {rail:'NPP / Local',       time:'1–2 business days', cost:'A$8',  score:.72, note:'Low-urgency transfers favour cheap local clearing rails. Cost minimised — perfect for routine payroll or supplier runs.'},
-  normal:  {rail:'SWIFT MT103',       time:'1 business day',    cost:'A$22', score:.79, note:'Standard transfers balance speed and cost. SWIFT MT103 gives reliable same-day booking at a reasonable fee.'},
-  high:    {rail:'SWIFT Priority',    time:'4–6 hours',         cost:'A$55', score:.83, note:'High-urgency escalates to priority SWIFT. Speed weight rises, cost tolerance widens.'},
-  critical:{rail:'RTGS / Same-day',   time:'~2 hours',          cost:'A$40', score:.86, note:'Critical transfers hit real-time gross settlement. Fastest possible — non-negotiable when timing is everything.'},
+  low:     {rail:'NPP / Local',     time:'1–2 business days',cost:'A$8',  score:.72,note:'Low-urgency transfers use cheap local clearing rails. Cost is minimised — ideal for routine payroll or supplier runs.'},
+  normal:  {rail:'SWIFT MT103',     time:'1 business day',   cost:'A$22', score:.79,note:'Standard transfers balance speed and cost. SWIFT MT103 gives reliable same-day booking at a reasonable fee.'},
+  high:    {rail:'SWIFT Priority',  time:'4–6 hours',        cost:'A$55', score:.83,note:'High-urgency escalates to priority SWIFT. Speed weight rises, cost tolerance widens to match the need.'},
+  critical:{rail:'RTGS / Same-day', time:'~2 hours',         cost:'A$40', score:.86,note:'Critical transfers hit real-time gross settlement — the fastest possible rail. Non-negotiable when timing is everything.'},
 };
 function setU(u){
-  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.u===u));
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.u===u));
   const r=R[u],pct=Math.round(r.score*100);
   document.getElementById('demo-rail').textContent  = r.rail;
   document.getElementById('demo-time').textContent  = r.time;
@@ -455,11 +389,11 @@ function setU(u){
 }
 setU('critical');
 
-/* ── data loaders ── */
 async function loadHealth(){
   try{
     const r=await fetch('data/health.json');if(!r.ok)return;
-    const d=await r.json(), p=d.passed??0, f=d.failed??0;
+    const d=await r.json(),p=d.passed??0,f=d.failed??0;
+    document.getElementById('status-icon').textContent  = d.status==='PASSED'?'✅':'❌';
     document.getElementById('status-label').textContent = d.status==='PASSED'?'Operational':'Degraded';
     document.getElementById('status-date').textContent  = 'Last run · '+(d.date||'—');
     document.getElementById('status-score').textContent = p+'/'+(p+f);
@@ -468,46 +402,39 @@ async function loadHealth(){
     if(d.fx_rate){
       const rate=parseFloat(d.fx_rate).toFixed(5);
       document.getElementById('stat-fx').textContent   = rate;
-      document.getElementById('hero-rate').textContent = rate;
+      document.getElementById('hero-rate').textContent = '1 AUD = '+rate+' SGD';
       const sgd=(500000*parseFloat(d.fx_rate)).toLocaleString('en-AU',{maximumFractionDigits:0});
       document.getElementById('hero-sgd').textContent  = 'S$'+sgd;
       document.getElementById('demo-sgd').textContent  = '= S$'+sgd;
     }
-    if(d.sgd_converted){
+    if(d.sgd_converted)
       document.getElementById('stat-sgd').textContent = 'S$'+parseFloat(d.sgd_converted).toLocaleString('en-AU',{maximumFractionDigits:0});
-    }
-  }catch(e){console.warn('health',e)}
+  }catch(e){console.warn(e)}
 }
 async function loadNews(){
   try{
     const r=await fetch('data/news.json');if(!r.ok)return;
     const d=await r.json();
-    document.getElementById('news-date').textContent = d.date||'';
+    if(d.date) document.getElementById('news-date').textContent=d.date;
     const c=document.getElementById('news-cards');
-    if(!d.stories||!d.stories.length){c.innerHTML='<p style="color:var(--mute)">No news today.</p>';return}
-    c.innerHTML=d.stories.map((s,i)=>`
-      <article class="paper lift p-8 ${i===0?'md:col-span-2':''}">
-        <div class="flex items-center gap-3 mb-4">
-          <span class="tag" style="background:rgba(43,168,137,.1);color:var(--teal)">${esc(s.source)}</span>
-          <span class="mono text-xs" style="color:var(--mute)">${esc(s.pub_date||'')}</span>
+    if(!d.stories?.length){c.innerHTML='<p style="color:var(--mute)">No news today.</p>';return}
+    c.innerHTML=d.stories.map(s=>`
+      <div class="card" style="padding:2rem">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem">
+          <span class="mono" style="font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:9999px;background:rgba(0,212,170,.1);color:var(--teal)">${esc(s.source)}</span>
+          <span class="mono" style="font-size:.75rem;color:var(--mute)">${esc(s.pub_date||'')}</span>
         </div>
-        <h3 class="serif font-black ${i===0?'text-3xl':'text-xl'} leading-tight mb-3" style="color:var(--ink)">${esc(s.headline)}</h3>
-        <p class="leading-relaxed" style="color:var(--ink-2)">${esc(s.body)}</p>
-      </article>
-    `).join('');
-  }catch(e){console.warn('news',e)}
+        <h3 style="font-size:1.05rem;font-weight:700;line-height:1.45;margin-bottom:.875rem">${esc(s.headline)}</h3>
+        <p style="color:var(--mute);line-height:1.7;font-size:.9rem">${esc(s.body)}</p>
+      </div>`).join('');
+  }catch(e){console.warn(e)}
 }
 
-/* reveal */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';io.unobserve(e.target)}}),{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>{el.style.animationPlayState='paused';io.observe(el)});
+document.querySelectorAll('.rev').forEach(el=>{el.style.animationPlayState='paused';io.observe(el)});
 
 loadHealth();
 loadNews();
-</script>
-
-<script>
-function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 </script>
 </body>
 </html>
