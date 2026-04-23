@@ -4,333 +4,439 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Lupine Systems — Move money right</title>
-<meta name="description" content="When large amounts of money need to move across borders, Lupine makes sure they move right. Best route. Clean process. Proof it happened."/>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-  body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background:#FFFEF9; color:#0D1117; }
-  .hl  { background:linear-gradient(180deg,transparent 58%,#FCD34D 58%); }
-  .btn-dark  { background:#0D1117; color:#FFFEF9; }
-  .btn-dark:hover  { background:#1d4ed8; }
-  .btn-light { background:#FFFEF9; color:#0D1117; }
-  .btn-light:hover { background:#f0f0e8; }
-  .card { background:#fff; border:1px solid rgba(13,17,23,.07); box-shadow:0 1px 4px rgba(13,17,23,.05); }
-  .lift { transition:transform .2s,box-shadow .2s; }
-  .lift:hover { transform:translateY(-5px); box-shadow:0 16px 40px -10px rgba(37,99,235,.15); }
-  @keyframes fade-up { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-  .fade-up { opacity:0; animation:fade-up .7s ease forwards; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-  .blink { animation:blink 2s ease-in-out infinite; }
-  details>summary { list-style:none; cursor:pointer; }
-  details>summary::-webkit-details-marker { display:none; }
-
-  /* Mobile nav */
-  #mobile-menu { display:none; }
-  #mobile-menu.open { display:flex; }
+*{box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#06091A;color:#fff;overflow-x:hidden}
+.mono{font-family:'JetBrains Mono',monospace}
+/* floating currencies */
+@keyframes drift{0%{transform:translateY(0) rotate(0deg);opacity:.7}50%{transform:translateY(-40px) rotate(8deg);opacity:.4}100%{transform:translateY(0) rotate(0deg);opacity:.7}}
+.drift{animation:drift ease-in-out infinite}
+/* pulse */
+@keyframes pulse-ring{0%{transform:scale(1);opacity:1}100%{transform:scale(2.2);opacity:0}}
+.pulse-ring::after{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid #00D4AA;animation:pulse-ring 1.8s ease-out infinite}
+/* dot travel */
+@keyframes travel{0%{left:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:100%;opacity:0}}
+.traveldot{position:absolute;width:8px;height:8px;border-radius:50%;background:#F5C842;top:50%;transform:translateY(-50%);animation:travel 2.4s linear infinite}
+/* reveal */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;animation:fadeUp .7s ease forwards}
+/* glow button */
+.btn-gold{background:linear-gradient(135deg,#F5C842,#F5A623);color:#06091A;font-weight:800}
+.btn-gold:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-outline{border:2px solid rgba(255,255,255,.2);color:#fff}
+.btn-outline:hover{border-color:#F5C842;color:#F5C842}
+/* glass card */
+.glass{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(12px)}
+.glass-light{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)}
+/* lift */
+.lift{transition:transform .2s,box-shadow .2s}
+.lift:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+/* mobile nav */
+#mob-menu{display:none}
+#mob-menu.open{display:flex}
+/* section bg */
+.bg-section{background:rgba(255,255,255,.03)}
 </style>
 </head>
-<body class="antialiased">
-
+<body>
 <!-- NAV -->
-<nav class="sticky top-0 z-50 border-b" style="background:rgba(255,254,249,.92);backdrop-filter:blur(10px);border-color:rgba(13,17,23,.07)">
+<nav class="fixed top-0 w-full z-50" style="background:rgba(6,9,26,.85);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.07)">
   <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
-    <a href="#" class="flex items-center gap-2.5 font-black text-lg">
-      <span class="w-8 h-8 rounded-xl text-sm font-black flex items-center justify-center text-white" style="background:#0D1117">L</span>
+    <a href="#" class="flex items-center gap-2 font-black text-lg">
+      <span class="w-8 h-8 rounded-xl flex items-center justify-center font-black text-sm" style="background:#F5C842;color:#06091A">L</span>
       Lupine
     </a>
-    <!-- Desktop links -->
-    <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
-      <a href="#how" class="hover:text-blue-700">How it works</a>
-      <a href="#news" class="hover:text-blue-700">Daily news</a>
-      <a href="#status" class="hover:text-blue-700">Status</a>
-      <a href="https://github.com/cheeroo2020/lupine-systems-core" target="_blank" class="hover:text-blue-700">GitHub ↗</a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-400">
+      <a href="#how"    class="hover:text-white transition-colors">How it works</a>
+      <a href="#demo"   class="hover:text-white transition-colors">Live demo</a>
+      <a href="#news"   class="hover:text-white transition-colors">News</a>
+      <a href="#status" class="hover:text-white transition-colors">Status</a>
     </div>
-    <!-- Mobile hamburger -->
-    <button class="md:hidden p-2 rounded-lg hover:bg-slate-100" id="hamburger" aria-label="Menu">
+    <button id="ham" class="md:hidden p-2 rounded-lg text-slate-400 hover:text-white" onclick="document.getElementById('mob-menu').classList.toggle('open')">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
   </div>
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="flex-col px-5 pb-4 gap-1 border-t" style="border-color:rgba(13,17,23,.07)">
-    <a href="#how"    class="block py-3 font-semibold text-slate-700 hover:text-blue-700" onclick="closeMobileMenu()">How it works</a>
-    <a href="#news"   class="block py-3 font-semibold text-slate-700 hover:text-blue-700" onclick="closeMobileMenu()">Daily news</a>
-    <a href="#status" class="block py-3 font-semibold text-slate-700 hover:text-blue-700" onclick="closeMobileMenu()">Status</a>
-    <a href="https://github.com/cheeroo2020/lupine-systems-core" target="_blank" class="block py-3 font-semibold text-slate-700 hover:text-blue-700">GitHub ↗</a>
+  <div id="mob-menu" class="flex-col px-5 pb-5 gap-1 border-t border-white/5">
+    <a href="#how"    class="block py-3 font-semibold text-slate-300" onclick="this.closest('#mob-menu').classList.remove('open')">How it works</a>
+    <a href="#demo"   class="block py-3 font-semibold text-slate-300" onclick="this.closest('#mob-menu').classList.remove('open')">Live demo</a>
+    <a href="#news"   class="block py-3 font-semibold text-slate-300" onclick="this.closest('#mob-menu').classList.remove('open')">News</a>
+    <a href="#status" class="block py-3 font-semibold text-slate-300" onclick="this.closest('#mob-menu').classList.remove('open')">Status</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="px-5 pt-20 pb-16 max-w-5xl mx-auto text-center">
-  <div class="inline-flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full mb-8 card" style="animation-delay:0s" >
-    <span class="blink w-2 h-2 rounded-full inline-block" style="background:#10b981"></span>
-    V0 is live · <span id="hero-fx" class="text-slate-500">fetching rate…</span>
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+  <!-- floating currency symbols -->
+  <div class="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
+    <span class="drift absolute text-5xl font-black opacity-20" style="top:12%;left:7%;animation-duration:5.2s;color:#F5C842">$</span>
+    <span class="drift absolute text-4xl font-black opacity-20" style="top:22%;left:82%;animation-duration:6.8s;color:#00D4AA">¥</span>
+    <span class="drift absolute text-6xl font-black opacity-15" style="top:55%;left:5%;animation-duration:7.1s;color:#F5C842">£</span>
+    <span class="drift absolute text-3xl font-black opacity-20" style="top:70%;left:90%;animation-duration:5.9s;color:#fff">€</span>
+    <span class="drift absolute text-5xl font-black opacity-15" style="top:80%;left:50%;animation-duration:8.3s;color:#00D4AA">₹</span>
+    <span class="drift absolute text-4xl font-black opacity-20" style="top:35%;left:93%;animation-duration:6.2s;color:#F5C842">$</span>
+    <span class="drift absolute text-3xl font-black opacity-15" style="top:5%;left:55%;animation-duration:7.5s;color:#fff">¥</span>
+    <span class="drift absolute text-5xl font-black opacity-10" style="top:90%;left:15%;animation-duration:9.1s;color:#F5C842">€</span>
+    <span class="drift absolute text-4xl font-black opacity-20" style="top:45%;left:42%;animation-duration:5.4s;color:#00D4AA">£</span>
   </div>
-  <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight tracking-tight mb-6 fade-up" style="animation-delay:.1s">
-    When big money <span class="hl">moves</span>,<br/>
-    every decision matters.
-  </h1>
-  <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10 fade-up" style="animation-delay:.2s">
-    Lupine finds the best route for a cross-border transfer, runs it through a verified process, and leaves a permanent record of every decision. No black boxes.
-  </p>
-  <div class="flex flex-col sm:flex-row gap-3 justify-center fade-up" style="animation-delay:.3s">
-    <a href="#how" class="btn-dark font-bold px-8 py-4 rounded-full text-base hover:opacity-90 transition-all">See how it works →</a>
-    <a href="#status" class="btn-light border-2 border-slate-200 font-bold px-8 py-4 rounded-full text-base hover:border-slate-400 transition-all">Check system status</a>
-  </div>
-</section>
 
-<!-- PROBLEM BANNER -->
-<section class="px-5 py-5">
-  <div class="max-w-6xl mx-auto rounded-3xl px-8 py-8 md:py-6 flex flex-col md:flex-row items-center justify-between gap-6" style="background:#0D1117;color:#FFFEF9">
-    <p class="text-base md:text-lg font-semibold leading-relaxed text-center md:text-left text-slate-300">
-      Banks move money through black boxes — no explanation, no route, no paper trail.
-      <span class="text-white"> That's fine for $50. Not for $500,000.</span>
+  <!-- radial glow -->
+  <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(245,200,66,.07) 0%,transparent 70%)"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-5 text-center">
+    <div class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold mb-8 mono" style="background:rgba(0,212,170,.12);border:1px solid rgba(0,212,170,.3);color:#00D4AA;animation-delay:.1s">
+      <span class="w-2 h-2 rounded-full bg-emerald-400" style="animation:pulse-ring 1.8s ease-out infinite;display:inline-block;position:relative"></span>
+      V0 · Live · AUD/SGD corridor
+    </div>
+
+    <h1 class="reveal text-5xl md:text-7xl font-black leading-none mb-6" style="animation-delay:.2s">
+      Move money<br/>
+      <span style="background:linear-gradient(135deg,#F5C842,#F5A623);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">the right way.</span>
+    </h1>
+
+    <p class="reveal text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed" style="animation-delay:.35s">
+      Lupine routes high-value transfers through the fastest, cheapest path — automatically. No guessing. No overpaying. Just the optimal move.
     </p>
-    <span class="flex-shrink-0 text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-full" style="background:#FCD34D;color:#0D1117">That's the problem Lupine solves</span>
+
+    <!-- corridor visual -->
+    <div class="reveal flex items-center justify-center gap-4 mb-10" style="animation-delay:.5s">
+      <div class="flex flex-col items-center gap-2">
+        <span class="text-5xl">🇦🇺</span>
+        <span class="text-xs font-bold text-slate-400 mono">AUD</span>
+      </div>
+
+      <div class="relative flex-1 max-w-xs h-1 rounded-full mx-2" style="background:rgba(255,255,255,.1)">
+        <div class="traveldot" style="animation-delay:0s"></div>
+        <div class="traveldot" style="animation-delay:.8s"></div>
+        <div class="traveldot" style="animation-delay:1.6s"></div>
+      </div>
+
+      <div class="flex flex-col items-center gap-2">
+        <span class="text-5xl">🇸🇬</span>
+        <span class="text-xs font-bold text-slate-400 mono">SGD</span>
+      </div>
+    </div>
+
+    <!-- FX ticker -->
+    <div class="reveal glass inline-flex items-center gap-3 px-5 py-3 rounded-xl mb-10 mono text-sm" style="animation-delay:.6s">
+      <span class="text-slate-500">live rate</span>
+      <span id="hero-rate" class="font-bold text-white">loading…</span>
+      <span class="text-slate-500">via Frankfurter</span>
+    </div>
+
+    <div class="reveal flex flex-col sm:flex-row gap-4 justify-center" style="animation-delay:.7s">
+      <a href="#demo" class="btn-gold px-8 py-4 rounded-2xl text-base transition-all">See it in action</a>
+      <a href="#how"  class="btn-outline px-8 py-4 rounded-2xl text-base transition-all">How it works</a>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+    <span class="text-xs text-slate-500">scroll</span>
+    <div class="w-px h-10 bg-gradient-to-b from-slate-500 to-transparent"></div>
   </div>
 </section>
 
-<!-- THREE BENEFITS -->
-<section id="how" class="px-5 py-20 max-w-6xl mx-auto">
-  <div class="text-center max-w-2xl mx-auto mb-14">
-    <div class="text-sm font-bold tracking-widest uppercase text-blue-700 mb-3">How it works</div>
-    <h2 class="text-3xl md:text-5xl font-black tracking-tight mb-4">Three things.<br/>Done properly.</h2>
-    <p class="text-lg text-slate-600">Every Lupine movement does exactly this — in order, every time.</p>
-  </div>
+<!-- HOW IT WORKS -->
+<section id="how" class="py-24 bg-section">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center mb-16">
+      <p class="mono text-xs font-bold tracking-widest mb-3" style="color:#00D4AA">THE ENGINE</p>
+      <h2 class="text-4xl md:text-5xl font-black">Three layers. One decision.</h2>
+    </div>
 
-  <div class="grid md:grid-cols-3 gap-5">
-    <div class="card lift rounded-3xl p-8">
-      <div class="text-4xl mb-5">🧭</div>
-      <h3 class="text-xl font-black mb-3">Find the best route</h3>
-      <p class="text-slate-600 leading-relaxed">
-        We look at every option — fast routes, cheap routes, reliable routes — and score them based on what matters most for your transfer. Speed vs cost vs reliability. You get the winner, not a guess.
-      </p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- AIVA -->
+      <div class="glass lift rounded-3xl p-8">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-6" style="background:rgba(245,200,66,.15)">🧠</div>
+        <div class="mono text-xs font-bold mb-2" style="color:#F5C842">AIVA</div>
+        <h3 class="text-xl font-black mb-3">Intelligence</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">Weighs speed, cost, and reliability against your urgency level. Scores every available route and picks the winner — every time.</p>
+      </div>
+
+      <!-- RAIL -->
+      <div class="glass lift rounded-3xl p-8">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-6" style="background:rgba(0,212,170,.15)">⚡</div>
+        <div class="mono text-xs font-bold mb-2" style="color:#00D4AA">RAIL</div>
+        <h3 class="text-xl font-black mb-3">Execution</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">Simulates multiple payment rails — Swift, NPP, local clearing — and selects the route that fits your timeline and budget.</p>
+      </div>
+
+      <!-- CLOKED -->
+      <div class="glass lift rounded-3xl p-8">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-6" style="background:rgba(255,255,255,.08)">🔐</div>
+        <div class="mono text-xs font-bold mb-2" style="color:#fff">CLOKED</div>
+        <h3 class="text-xl font-black mb-3">Evidence</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">SHA-256 hash chain locks every decision. An unbreakable audit trail that proves why your money moved the way it did.</p>
+      </div>
     </div>
-    <div class="card lift rounded-3xl p-8">
-      <div class="text-4xl mb-5">⚙️</div>
-      <h3 class="text-xl font-black mb-3">Run a clean process</h3>
-      <p class="text-slate-600 leading-relaxed">
-        Every transfer goes through a strict sequence of steps. Nothing gets skipped. Nothing gets rushed. If something goes wrong at any point, it stops cleanly — not silently.
-      </p>
-    </div>
-    <div class="card lift rounded-3xl p-8">
-      <div class="text-4xl mb-5">🔒</div>
-      <h3 class="text-xl font-black mb-3">Prove it happened</h3>
-      <p class="text-slate-600 leading-relaxed">
-        Every decision is recorded, locked, and chained together. You can verify exactly what happened, when, and why — and nobody can change it after the fact.
-      </p>
+
+    <!-- utility formula -->
+    <div class="glass-light rounded-3xl p-8 mt-8 text-center">
+      <p class="text-slate-500 text-xs mono font-bold tracking-widest mb-4">COMPOSITE UTILITY SCORE</p>
+      <div class="text-2xl md:text-3xl font-black mono" style="color:#F5C842">
+        U = w<sub class="text-base">1</sub>·Speed + w<sub class="text-base">2</sub>·Cost + w<sub class="text-base">3</sub>·Reliability
+      </div>
+      <p class="text-slate-500 text-sm mt-4">Weights shift automatically based on urgency — critical transfers maximise speed; routine ones minimise cost.</p>
     </div>
   </div>
 </section>
 
-<!-- HOW URGENCY WORKS -->
-<section class="px-5 py-20" style="background:#F0F4FF">
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center max-w-xl mx-auto mb-12">
-      <h2 class="text-3xl md:text-4xl font-black tracking-tight mb-4">Not every transfer is the same.</h2>
-      <p class="text-lg text-slate-600">Tell Lupine how urgent it is. The scoring shifts automatically.</p>
+<!-- LIVE DEMO -->
+<section id="demo" class="py-24">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="text-center mb-16">
+      <p class="mono text-xs font-bold tracking-widest mb-3" style="color:#F5C842">LIVE DEMO</p>
+      <h2 class="text-4xl md:text-5xl font-black">Pick an urgency. Watch the route.</h2>
+      <p class="text-slate-400 mt-4 max-w-xl mx-auto">Same transfer. Different urgency. Completely different optimal routes.</p>
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" id="urgency-cards">
-      <div class="card rounded-2xl p-5 cursor-pointer urgency-card border-2 border-transparent" data-u="low" onclick="setUrgency('low')">
-        <div class="text-2xl mb-2">🐢</div>
-        <div class="font-black text-base mb-1">Low</div>
-        <div class="text-xs text-slate-500">Save money<br/>Time isn't critical</div>
-      </div>
-      <div class="card rounded-2xl p-5 cursor-pointer urgency-card border-2 border-transparent" data-u="normal" onclick="setUrgency('normal')">
-        <div class="text-2xl mb-2">⚖️</div>
-        <div class="font-black text-base mb-1">Normal</div>
-        <div class="text-xs text-slate-500">Balance cost<br/>and speed</div>
-      </div>
-      <div class="card rounded-2xl p-5 cursor-pointer urgency-card border-2 border-transparent active" data-u="high" onclick="setUrgency('high')" style="border-color:#2563EB;background:#EFF6FF">
-        <div class="text-2xl mb-2">🚀</div>
-        <div class="font-black text-base mb-1">High</div>
-        <div class="text-xs text-slate-500">Speed matters<br/>more than cost</div>
-      </div>
-      <div class="card rounded-2xl p-5 cursor-pointer urgency-card border-2 border-transparent" data-u="critical" onclick="setUrgency('critical')">
-        <div class="text-2xl mb-2">🔴</div>
-        <div class="font-black text-base mb-1">Critical</div>
-        <div class="text-xs text-slate-500">Get there now.<br/>Cost is irrelevant.</div>
-      </div>
+
+    <!-- urgency selector -->
+    <div class="flex flex-wrap justify-center gap-3 mb-10" id="urgency-btns">
+      <button onclick="setUrgency('low')"      class="urgency-btn px-6 py-3 rounded-2xl font-bold text-sm transition-all glass border border-white/10" data-u="low">🐢 Low</button>
+      <button onclick="setUrgency('normal')"   class="urgency-btn px-6 py-3 rounded-2xl font-bold text-sm transition-all glass border border-white/10" data-u="normal">🔵 Normal</button>
+      <button onclick="setUrgency('high')"     class="urgency-btn px-6 py-3 rounded-2xl font-bold text-sm transition-all glass border border-white/10" data-u="high">🟡 High</button>
+      <button onclick="setUrgency('critical')" class="urgency-btn px-6 py-3 rounded-2xl font-bold text-sm transition-all glass border border-white/10 active-urgency" data-u="critical">🔴 Critical</button>
     </div>
-    <div class="card rounded-3xl p-7 md:p-8">
-      <div class="text-sm font-bold text-slate-500 mb-6 uppercase tracking-wider">500,000 AUD → SGD · scored for <span id="urgency-label" class="text-blue-700">high</span> urgency</div>
-      <div class="grid md:grid-cols-3 gap-4" id="route-cards"></div>
-      <div class="mt-6 pt-5 border-t border-slate-100 text-slate-600 leading-relaxed text-sm" id="rationale-text"></div>
+
+    <!-- result card -->
+    <div id="demo-card" class="glass rounded-3xl p-8 md:p-10">
+      <div class="flex flex-col md:flex-row gap-8 items-start">
+        <!-- transfer summary -->
+        <div class="flex-1">
+          <div class="flex items-center gap-4 mb-6">
+            <span class="text-4xl">🇦🇺</span>
+            <div class="flex-1 relative h-1 rounded-full" style="background:rgba(255,255,255,.1)">
+              <div class="traveldot" style="animation-delay:0s"></div>
+            </div>
+            <span class="text-4xl">🇸🇬</span>
+          </div>
+          <div class="mb-2 text-slate-400 text-sm">Sending</div>
+          <div class="text-3xl font-black mb-1">A$500,000</div>
+          <div id="demo-converted" class="mono text-sm font-bold" style="color:#00D4AA">= S$455,530</div>
+        </div>
+
+        <!-- route details -->
+        <div class="flex-1 space-y-4">
+          <div class="flex justify-between items-center py-3 border-b border-white/5">
+            <span class="text-slate-400 text-sm">Recommended rail</span>
+            <span id="demo-rail" class="font-bold text-sm mono">SWIFT</span>
+          </div>
+          <div class="flex justify-between items-center py-3 border-b border-white/5">
+            <span class="text-slate-400 text-sm">Settlement time</span>
+            <span id="demo-time" class="font-bold text-sm">2 hours</span>
+          </div>
+          <div class="flex justify-between items-center py-3 border-b border-white/5">
+            <span class="text-slate-400 text-sm">Estimated cost</span>
+            <span id="demo-cost" class="font-bold text-sm">A$40</span>
+          </div>
+          <div class="flex justify-between items-center py-3">
+            <span class="text-slate-400 text-sm">Utility score</span>
+            <span id="demo-score" class="font-black text-lg" style="color:#F5C842">0.86</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- score bar -->
+      <div class="mt-8">
+        <div class="flex justify-between text-xs text-slate-500 mb-2">
+          <span>Route quality</span>
+          <span id="demo-score-label">86 / 100</span>
+        </div>
+        <div class="w-full h-2 rounded-full" style="background:rgba(255,255,255,.08)">
+          <div id="demo-bar" class="h-2 rounded-full transition-all duration-700" style="width:86%;background:linear-gradient(90deg,#F5C842,#F5A623)"></div>
+        </div>
+      </div>
+
+      <div id="demo-note" class="mt-6 text-slate-400 text-sm leading-relaxed"></div>
     </div>
   </div>
 </section>
 
-<!-- DAILY NEWS -->
-<section id="news" class="px-5 py-20 max-w-6xl mx-auto">
-  <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-    <div>
-      <div class="text-sm font-bold tracking-widest uppercase text-blue-700 mb-3">Daily briefing</div>
-      <h2 class="text-3xl md:text-4xl font-black tracking-tight mb-3">What's happening<br/>in global payments.</h2>
-      <p class="text-slate-600">Two stories every morning, picked for what matters to Lupine — cross-border payments, FX markets, and the future of moving money.</p>
+<!-- NEWS -->
+<section id="news" class="py-24 bg-section">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+      <div>
+        <p class="mono text-xs font-bold tracking-widest mb-3" style="color:#00D4AA">DAILY INTELLIGENCE</p>
+        <h2 class="text-4xl font-black">Market pulse</h2>
+      </div>
+      <div id="news-date" class="mono text-sm text-slate-500"></div>
     </div>
-    <div class="flex items-center gap-2 text-sm font-bold flex-shrink-0" style="color:#10b981">
-      <span class="blink w-2 h-2 rounded-full" style="background:#10b981;display:inline-block"></span>
-      Updated 9am UTC
+    <div id="news-cards" class="grid md:grid-cols-2 gap-6">
+      <div class="glass rounded-3xl p-8 animate-pulse">
+        <div class="h-4 bg-white/5 rounded mb-4 w-3/4"></div>
+        <div class="h-3 bg-white/5 rounded mb-2"></div>
+        <div class="h-3 bg-white/5 rounded w-2/3"></div>
+      </div>
+      <div class="glass rounded-3xl p-8 animate-pulse">
+        <div class="h-4 bg-white/5 rounded mb-4 w-3/4"></div>
+        <div class="h-3 bg-white/5 rounded mb-2"></div>
+        <div class="h-3 bg-white/5 rounded w-2/3"></div>
+      </div>
     </div>
-  </div>
-  <div id="news-grid" class="grid md:grid-cols-2 gap-5">
-    <div class="card rounded-3xl p-7 h-52 animate-pulse"></div>
-    <div class="card rounded-3xl p-7 h-52 animate-pulse"></div>
   </div>
 </section>
 
 <!-- STATUS -->
-<section id="status" class="px-5 py-20" style="background:#0D1117;color:#FFFEF9">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center max-w-xl mx-auto mb-12">
-      <div class="text-sm font-bold tracking-widest uppercase mb-3" style="color:#FCD34D">System status</div>
-      <h2 class="text-3xl md:text-4xl font-black tracking-tight mb-4 text-white">Tested every day.<br/>Against real data.</h2>
-      <p style="color:#94a3b8">Every morning the full pipeline runs automatically against the live AUD/SGD exchange rate from the European Central Bank.</p>
+<section id="status" class="py-24">
+  <div class="max-w-4xl mx-auto px-5">
+    <div class="text-center mb-12">
+      <p class="mono text-xs font-bold tracking-widest mb-3" style="color:#F5C842">SYSTEM HEALTH</p>
+      <h2 class="text-4xl font-black">All systems nominal</h2>
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="health-grid">
-      <div class="rounded-3xl p-6 h-28 animate-pulse" style="background:#1e293b"></div>
-      <div class="rounded-3xl p-6 h-28 animate-pulse" style="background:#1e293b"></div>
-      <div class="rounded-3xl p-6 h-28 animate-pulse" style="background:#1e293b"></div>
-      <div class="rounded-3xl p-6 h-28 animate-pulse" style="background:#1e293b"></div>
+
+    <div class="glass rounded-3xl p-8 md:p-12">
+      <div class="flex flex-col md:flex-row items-center gap-8 mb-10">
+        <div class="relative w-20 h-20 flex-shrink-0">
+          <div class="w-20 h-20 rounded-full flex items-center justify-center pulse-ring" style="background:rgba(0,212,170,.15)">
+            <span id="status-icon" class="text-3xl">✅</span>
+          </div>
+        </div>
+        <div>
+          <div id="status-label" class="text-2xl font-black mb-1">Operational</div>
+          <div id="status-date"  class="mono text-sm text-slate-500">Last run: —</div>
+        </div>
+        <div class="md:ml-auto text-right">
+          <div id="status-score" class="text-4xl font-black" style="color:#F5C842">—</div>
+          <div class="text-slate-500 text-sm">tests passing</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="glass-light rounded-2xl p-5 text-center">
+          <div class="text-2xl font-black mb-1" style="color:#00D4AA" id="stat-passed">—</div>
+          <div class="text-slate-500 text-xs">passed</div>
+        </div>
+        <div class="glass-light rounded-2xl p-5 text-center">
+          <div class="text-2xl font-black mb-1 text-red-400" id="stat-failed">—</div>
+          <div class="text-slate-500 text-xs">failed</div>
+        </div>
+        <div class="glass-light rounded-2xl p-5 text-center">
+          <div class="text-2xl font-black mb-1 text-white mono" id="stat-fx">—</div>
+          <div class="text-slate-500 text-xs">AUD/SGD</div>
+        </div>
+        <div class="glass-light rounded-2xl p-5 text-center">
+          <div class="text-lg font-black mb-1 mono" style="color:#F5C842" id="stat-sgd">—</div>
+          <div class="text-slate-500 text-xs">500K AUD → SGD</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="px-5 py-12" style="background:#0D1117;border-top:1px solid rgba(255,255,255,.06)">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start justify-between gap-6">
-    <div>
-      <div class="flex items-center gap-2 font-black text-white text-lg mb-2">
-        <span class="w-7 h-7 rounded-lg text-xs font-black flex items-center justify-center" style="background:#FCD34D;color:#0D1117">L</span>
-        Lupine Systems · V0
-      </div>
-      <div class="text-sm" style="color:#64748b">Copyright © 2026 Chirantan Gogoi. All rights reserved.</div>
+<footer class="border-t py-12" style="border-color:rgba(255,255,255,.07)">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-2 font-black">
+      <span class="w-8 h-8 rounded-xl flex items-center justify-center font-black text-sm" style="background:#F5C842;color:#06091A">L</span>
+      Lupine Systems
     </div>
-    <div class="flex gap-6 text-sm font-semibold" style="color:#64748b">
-      <a href="https://github.com/cheeroo2020/lupine-systems-core" target="_blank" class="hover:text-white transition-colors">GitHub ↗</a>
-      <a href="https://github.com/cheeroo2020/lupine-systems-core/blob/main/docs/guide.md" target="_blank" class="hover:text-white transition-colors">Documentation ↗</a>
+    <div class="mono text-xs text-slate-600 text-center">
+      V0 Movement Decision Engine · AUD → SGD corridor<br/>
+      © 2026 Chirantan Gogoi · All rights reserved
     </div>
+    <div class="mono text-xs text-slate-700">Built with AIVA · RAIL · CLOKED</div>
   </div>
 </footer>
 
+<style>
+.active-urgency{background:rgba(245,200,66,.2)!important;border-color:#F5C842!important;color:#F5C842!important}
+</style>
+
 <script>
-// Mobile menu
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('mobile-menu').classList.toggle('open');
-});
-function closeMobileMenu() { document.getElementById('mobile-menu').classList.remove('open'); }
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
-// Scoring demo
-const WEIGHTS = { low:{s:15,c:55,r:30}, normal:{s:25,c:35,r:40}, high:{s:50,c:15,r:35}, critical:{s:60,c:5,r:35} };
-const ROUTES  = [
-  { name:'Fast Route',     emoji:'⚡', time:'2.5 hours', cost:'0.45% fee', rel:.82 },
-  { name:'Cheap Route',    emoji:'💰', time:'18 hours',  cost:'0.12% fee', rel:.71 },
-  { name:'Balanced Route', emoji:'🎯', time:'6 hours',   cost:'0.28% fee', rel:.93 },
-];
-const RAW = [ {t:2.5,c:45,r:.82}, {t:18,c:12,r:.71}, {t:6,c:28,r:.93} ];
+/* ── urgency demo ── */
+const ROUTES={
+  low:     {rail:'NPP / Local',time:'1–2 business days',cost:'A$8',  score:.72,note:'Low-urgency transfers favour cheap local clearing rails. Cost minimised — perfect for routine payroll or supplier payments.'},
+  normal:  {rail:'SWIFT MT103', time:'1 business day',   cost:'A$22', score:.79,note:'Standard transfers balance speed and cost. SWIFT MT103 gives reliable same-day booking at a reasonable fee.'},
+  high:    {rail:'SWIFT Priority',time:'4–6 hours',      cost:'A$55', score:.83,note:'High-urgency transfers escalate to priority SWIFT. Speed weight increases, cost tolerance widens.'},
+  critical:{rail:'RTGS / Same-day',time:'~2 hours',      cost:'A$40', score:.86,note:'Critical transfers hit the real-time gross settlement rail. Fastest possible settlement — non-negotiable when timing is everything.'},
+};
+let currentUrgency='critical';
 
-function score(urgency) {
-  const w = WEIGHTS[urgency];
-  const ts = RAW.map(r=>r.t), cs = RAW.map(r=>r.c);
-  const hi = a=>Math.max(...a), lo = a=>Math.min(...a);
-  return RAW.map((r,i)=>{
-    const sN = 1-(r.t-lo(ts))/(hi(ts)-lo(ts));
-    const cN = 1-(r.c-lo(cs))/(hi(cs)-lo(cs));
-    const u  = (w.s/100)*sN + (w.c/100)*cN + (w.r/100)*r.r;
-    return { ...ROUTES[i], u, idx:i };
-  }).sort((a,b)=>b.u-a.u);
-}
-
-let currentUrgency = 'high';
-function setUrgency(u) {
-  currentUrgency = u;
-  document.querySelectorAll('.urgency-card').forEach(c => {
-    const active = c.dataset.u === u;
-    c.style.borderColor = active ? '#2563EB' : 'transparent';
-    c.style.background   = active ? '#EFF6FF' : '';
+function setUrgency(u){
+  currentUrgency=u;
+  document.querySelectorAll('.urgency-btn').forEach(b=>{
+    b.classList.toggle('active-urgency',b.dataset.u===u);
   });
-  document.getElementById('urgency-label').textContent = u;
-  renderRoutes(u);
+  const r=ROUTES[u];
+  document.getElementById('demo-rail').textContent=r.rail;
+  document.getElementById('demo-time').textContent=r.time;
+  document.getElementById('demo-cost').textContent=r.cost;
+  const pct=Math.round(r.score*100);
+  document.getElementById('demo-score').textContent=r.score.toFixed(2);
+  document.getElementById('demo-score-label').textContent=pct+' / 100';
+  document.getElementById('demo-bar').style.width=pct+'%';
+  document.getElementById('demo-note').textContent=r.note;
+}
+setUrgency('critical');
+
+/* ── load data files ── */
+async function loadHealth(){
+  try{
+    const r=await fetch('data/health.json');
+    if(!r.ok)return;
+    const d=await r.json();
+    const passed=d.passed??0,failed=d.failed??0,total=passed+failed;
+    document.getElementById('status-icon').textContent  = d.status==='PASSED'?'✅':'❌';
+    document.getElementById('status-label').textContent = d.status==='PASSED'?'Operational':'Degraded';
+    document.getElementById('status-date').textContent  = 'Last run: '+esc(d.date||'');
+    document.getElementById('status-score').textContent = passed+'/'+total;
+    document.getElementById('stat-passed').textContent  = passed;
+    document.getElementById('stat-failed').textContent  = failed;
+    if(d.fx_rate){
+      const rate=parseFloat(d.fx_rate).toFixed(5);
+      document.getElementById('stat-fx').textContent   = rate;
+      document.getElementById('hero-rate').textContent = '1 AUD = '+rate+' SGD';
+    }
+    if(d.sgd_converted){
+      document.getElementById('stat-sgd').textContent = 'S$'+parseFloat(d.sgd_converted).toLocaleString('en-AU',{maximumFractionDigits:0});
+    }
+    // update demo converted amount
+    if(d.fx_rate){
+      const sgd=(500000*parseFloat(d.fx_rate)).toLocaleString('en-AU',{minimumFractionDigits:0,maximumFractionDigits:0});
+      document.getElementById('demo-converted').textContent='= S$'+sgd;
+    }
+  }catch(e){console.warn('health.json',e)}
 }
 
-function renderRoutes(u) {
-  const scored = score(u);
-  const winner = scored[0];
-  document.getElementById('route-cards').innerHTML = scored.map((r,i) => `
-    <div class="rounded-2xl p-5 ${i===0?'border-2':'border'}" style="background:${i===0?'#F0FDF4':'#FAFAF5'};border-color:${i===0?'#10b981':'rgba(13,17,23,.08)'}">
-      ${i===0?'<div class="text-xs font-black text-emerald-600 mb-2 uppercase tracking-wider">✓ Best match</div>':''}
-      <div class="text-xl mb-1">${r.emoji}</div>
-      <div class="font-black text-base mb-3">${r.name}</div>
-      <div class="text-sm text-slate-600 space-y-1">
-        <div>🕐 ${r.time}</div>
-        <div>💸 ${r.cost}</div>
-        <div>✅ ${Math.round(r.rel*100)}% reliable</div>
-      </div>
-      <div class="mt-4 pt-3 border-t border-slate-200 text-xs font-bold text-slate-500">
-        Score: <span class="text-base font-black ${i===0?'text-emerald-600':'text-slate-700'}">${r.u.toFixed(3)}</span>
-      </div>
-    </div>`).join('');
-
-  const second = scored[1];
-  const gap = (winner.u - second.u).toFixed(3);
-  const phrases = { low:'cheapest fees matter most', normal:'a balance of speed and cost', high:'speed is the priority', critical:'speed above all else' };
-  document.getElementById('rationale-text').innerHTML =
-    `<strong>${winner.name}</strong> wins because ${phrases[u]}. It scores <strong>${winner.u.toFixed(3)}</strong> — ahead of ${second.name} by ${gap} points.`;
-}
-renderRoutes('high');
-
-function esc(s){ return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-// Load news
-async function loadNews() {
-  const grid = document.getElementById('news-grid');
-  try {
-    const d = await (await fetch('./data/news.json')).json();
-    if (!d.stories?.length) { grid.innerHTML='<p class="text-slate-500 col-span-2 py-4">Stories loading…</p>'; return; }
-    grid.innerHTML = d.stories.map(s=>`
-      <div class="card lift rounded-3xl p-7 flex flex-col">
+async function loadNews(){
+  try{
+    const r=await fetch('data/news.json');
+    if(!r.ok)return;
+    const d=await r.json();
+    const container=document.getElementById('news-cards');
+    document.getElementById('news-date').textContent=d.date||'';
+    if(!d.stories||!d.stories.length){
+      container.innerHTML='<p class="text-slate-500">No news today.</p>';
+      return;
+    }
+    container.innerHTML=d.stories.map(s=>`
+      <div class="glass lift rounded-3xl p-8">
         <div class="flex items-center gap-2 mb-4">
-          <span class="text-xs font-bold px-3 py-1 rounded-full" style="background:#EFF6FF;color:#1d4ed8">${esc(s.source)}</span>
-          <span class="text-xs text-slate-400">${esc(s.pub_date)}</span>
+          <span class="mono text-xs font-bold px-3 py-1 rounded-full" style="background:rgba(0,212,170,.12);color:#00D4AA">${esc(s.source)}</span>
+          <span class="mono text-xs text-slate-600">${esc(s.pub_date||'')}</span>
         </div>
-        <h3 class="font-black text-lg leading-snug mb-3">${esc(s.headline)}</h3>
-        <p class="text-slate-600 leading-relaxed text-sm flex-1">${esc(s.body)}</p>
-      </div>`).join('');
-  } catch { grid.innerHTML='<p class="text-slate-500 col-span-2 py-4">News loading…</p>'; }
+        <h3 class="font-black text-base leading-snug mb-3">${esc(s.headline)}</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">${esc(s.body)}</p>
+      </div>
+    `).join('');
+  }catch(e){console.warn('news.json',e)}
 }
 
-// Load health
-async function loadHealth() {
-  const grid = document.getElementById('health-grid');
-  try {
-    const h = await (await fetch('./data/health.json')).json();
-    if(h.fx_rate && h.fx_rate!=='unavailable') document.getElementById('hero-fx').textContent = `AUD/SGD ${h.fx_rate}`;
-    const ok = h.status==='PASSED';
-    grid.innerHTML = `
-      <div class="rounded-3xl p-6" style="background:${ok?'rgba(16,185,129,.12)':'rgba(239,68,68,.12)'}">
-        <div class="text-xs font-bold uppercase tracking-wider mb-2" style="color:${ok?'#10b981':'#ef4444'}">${ok?'✓ All good':'✗ Issues'}</div>
-        <div class="text-2xl font-black text-white">${esc(h.status||'—')}</div>
-        <div class="text-xs mt-1" style="color:#64748b">${esc(h.date||'')}</div>
-      </div>
-      <div class="rounded-3xl p-6" style="background:#1e293b">
-        <div class="text-xs font-bold uppercase tracking-wider mb-2" style="color:#64748b">Tests</div>
-        <div class="text-2xl font-black text-white">${h.passed??'—'}<span style="color:#475569" class="text-lg">/14</span></div>
-        <div class="text-xs mt-1" style="color:#64748b">passing today</div>
-      </div>
-      <div class="rounded-3xl p-6" style="background:#1e293b">
-        <div class="text-xs font-bold uppercase tracking-wider mb-2" style="color:#64748b">AUD/SGD</div>
-        <div class="text-2xl font-black" style="color:#FCD34D">${esc(h.fx_rate||'—')}</div>
-        <div class="text-xs mt-1" style="color:#64748b">live ECB rate</div>
-      </div>
-      <div class="rounded-3xl p-6" style="background:#1e293b">
-        <div class="text-xs font-bold uppercase tracking-wider mb-2" style="color:#64748b">500k AUD =</div>
-        <div class="text-xl font-black text-white">${esc(h.sgd_converted||'—')}</div>
-        <div class="text-xs mt-1" style="color:#64748b">at today's rate</div>
-      </div>`;
-  } catch { grid.innerHTML='<p style="color:#64748b" class="col-span-4 py-4">Status loading…</p>'; }
-}
+/* ── scroll reveal ── */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';observer.unobserve(e.target)}});
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>{
+  el.style.animationPlayState='paused';
+  observer.observe(el);
+});
 
-loadNews();
 loadHealth();
+loadNews();
 </script>
 </body>
 </html>
