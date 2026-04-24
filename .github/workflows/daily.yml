@@ -24,14 +24,23 @@ jobs:
         id: check
         run: |
           DATE=$(date -u +%Y-%m-%d)
+          # Three conditions must ALL be true to skip:
+          #   1. Today's test-results file exists
+          #   2. Today's news file exists
+          #   3. website/data/health.json is already dated today
           if [ -f "test-results/${DATE}.md" ] && \
-             grep -q "GitHub Actions" "test-results/${DATE}.md"; then
-            echo "Today (${DATE}) already has a workflow-generated result file — skipping."
+             [ -f "daily-news/${DATE}.md" ] && \
+             grep -q "\"date\": \"${DATE}\"" website/data/health.json 2>/dev/null; then
+            echo "Today (${DATE}) already fully processed — skipping."
             echo "skip=true" >> $GITHUB_OUTPUT
           else
-            echo "Today (${DATE}) is missing or only has a manual result — running full pipeline."
+            echo "Today (${DATE}) missing one or more outputs — running full pipeline."
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: Trigger Pages deploy if no commit needed
+        if: steps.check.outputs.skip == 'true'
+        run: echo "Already fresh — nothing to do."
 
       - name: Set up Python
         if: steps.check.outputs.skip != 'true'
