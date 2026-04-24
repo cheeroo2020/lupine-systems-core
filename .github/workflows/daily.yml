@@ -1,12 +1,13 @@
 name: Daily Health Check
 
-# SELF-HEALING: runs every 2 hours, but skips immediately if today's
-# results already exist. Even if GitHub skips most cron triggers, just
-# one of the 12 daily slots firing is enough to keep the data fresh.
+# SELF-HEALING: runs every hour, but skips immediately if today's
+# results already exist. 24 trigger slots per day means a single firing
+# is enough to keep the data fresh — GitHub would have to skip all 24
+# to cause a missed day (statistically ~zero).
 on:
   schedule:
-    - cron: "0 8 * * *"      # 6pm Sydney — primary intended run
-    - cron: "0 */2 * * *"    # every 2 hours — catch-up if primary missed
+    - cron: "0 8 * * *"    # 6pm Sydney — primary intended run
+    - cron: "0 * * * *"    # every hour — catch-up net
   workflow_dispatch:
 
 jobs:
