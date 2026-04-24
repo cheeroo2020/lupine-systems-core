@@ -182,7 +182,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
             </div>
             <div style="display:flex;justify-content:space-between;align-items:baseline">
               <span style="font-size:.8rem;color:var(--mute)">Source</span>
-              <span class="mono" style="font-size:.75rem;color:var(--mute)">Frankfurter · ECB</span>
+              <span id="hero-source" class="mono" style="font-size:.75rem;color:var(--mute)">Frankfurter · ECB</span>
             </div>
           </div>
         </div>
@@ -389,9 +389,37 @@ function setU(u){
 }
 setU('critical');
 
+/* paint FX numbers everywhere on the page */
+function paintFx(rate){
+  const r=parseFloat(rate);if(!r)return;
+  const fixed=r.toFixed(5);
+  const sgd=(500000*r).toLocaleString('en-AU',{maximumFractionDigits:0});
+  document.getElementById('stat-fx').textContent   = fixed;
+  document.getElementById('hero-rate').textContent = '1 AUD = '+fixed+' SGD';
+  document.getElementById('hero-sgd').textContent  = 'S$'+sgd;
+  document.getElementById('demo-sgd').textContent  = '= S$'+sgd;
+  document.getElementById('stat-sgd').textContent  = 'S$'+sgd;
+}
+
+/* live FX from Frankfurter — runs in browser, doesn't depend on the workflow */
+async function loadLiveFx(){
+  try{
+    const r=await fetch('https://api.frankfurter.app/latest?from=AUD&to=SGD',{cache:'no-store'});
+    if(!r.ok)return null;
+    const d=await r.json();
+    if(d?.rates?.SGD){
+      paintFx(d.rates.SGD);
+      const s=document.getElementById('hero-source');
+      if(s) s.textContent='Frankfurter · '+(d.date||'live');
+      return d;
+    }
+  }catch(e){console.warn('live fx',e)}
+  return null;
+}
+
 async function loadHealth(){
   try{
-    const r=await fetch('data/health.json');if(!r.ok)return;
+    const r=await fetch('data/health.json',{cache:'no-store'});if(!r.ok)return;
     const d=await r.json(),p=d.passed??0,f=d.failed??0;
     document.getElementById('status-icon').textContent  = d.status==='PASSED'?'✅':'❌';
     document.getElementById('status-label').textContent = d.status==='PASSED'?'Operational':'Degraded';
@@ -399,16 +427,9 @@ async function loadHealth(){
     document.getElementById('status-score').textContent = p+'/'+(p+f);
     document.getElementById('stat-passed').textContent  = p;
     document.getElementById('stat-failed').textContent  = f;
-    if(d.fx_rate){
-      const rate=parseFloat(d.fx_rate).toFixed(5);
-      document.getElementById('stat-fx').textContent   = rate;
-      document.getElementById('hero-rate').textContent = '1 AUD = '+rate+' SGD';
-      const sgd=(500000*parseFloat(d.fx_rate)).toLocaleString('en-AU',{maximumFractionDigits:0});
-      document.getElementById('hero-sgd').textContent  = 'S$'+sgd;
-      document.getElementById('demo-sgd').textContent  = '= S$'+sgd;
-    }
-    if(d.sgd_converted)
-      document.getElementById('stat-sgd').textContent = 'S$'+parseFloat(d.sgd_converted).toLocaleString('en-AU',{maximumFractionDigits:0});
+    /* fall back to last-known FX from the workflow if live fetch failed */
+    if(d.fx_rate && document.getElementById('hero-rate').textContent==='—')
+      paintFx(d.fx_rate);
   }catch(e){console.warn(e)}
 }
 async function loadNews(){
@@ -433,7 +454,8 @@ async function loadNews(){
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.rev').forEach(el=>{el.style.animationPlayState='paused';io.observe(el)});
 
-loadHealth();
+/* live FX first (always fresh), then health (fallback + status) */
+loadLiveFx().then(loadHealth);
 loadNews();
 </script>
 </body>
