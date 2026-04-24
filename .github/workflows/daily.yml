@@ -2,7 +2,8 @@ name: Daily Health Check
 
 on:
   schedule:
-    - cron: "0 8 * * *"   # 6pm Sydney (AEST = UTC+10)
+    - cron: "0 8 * * *"   # 6pm Sydney (AEST = UTC+10) — primary
+    - cron: "30 8 * * *"  # 6:30pm Sydney — backup if primary skipped
   workflow_dispatch:       # trigger manually from the Actions tab
 
 jobs:
