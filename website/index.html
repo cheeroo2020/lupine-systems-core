@@ -483,13 +483,15 @@ document.querySelectorAll('.rev').forEach(el=>{el.style.animationPlayState='paus
 loadLiveFx().then(loadHealth);
 loadNews();
 
-/* auto-upgrade brand mark to logo.png if it exists */
+/* auto-upgrade brand mark to logo.png if it exists.
+   Filter inverts dark-teal-on-white art so the white bg vanishes
+   into the dark navy site and the wolf renders in our cyan palette. */
 (function upgradeBrandMark(){
   const img=new Image();
   img.onload=()=>{
     const slot=document.getElementById('brand-mark');
     if(slot){
-      slot.innerHTML='<img src="logo.png" alt="Lupine" style="width:100%;height:100%;object-fit:contain"/>';
+      slot.innerHTML='<img src="logo.png" alt="Lupine" style="width:140%;height:140%;object-fit:contain;filter:invert(1) hue-rotate(160deg) saturate(1.5) brightness(1.15)"/>';
     }
   };
   img.src='logo.png';
