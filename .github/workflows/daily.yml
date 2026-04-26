@@ -16,6 +16,7 @@ jobs:
     permissions:
       contents: write
       issues: write
+      actions: write
 
     steps:
       - uses: actions/checkout@v4
@@ -180,3 +181,11 @@ jobs:
           git add test-results/ daily-news/ website/data/
           git diff --staged --quiet || git commit -m "daily: $(date -u +%Y-%m-%d)"
           git push
+
+      # GITHUB_TOKEN-pushed commits don't trigger other workflows.
+      # Manually dispatch pages.yml so the website actually deploys.
+      - name: Trigger Pages deploy
+        if: steps.check.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run pages.yml --ref main
