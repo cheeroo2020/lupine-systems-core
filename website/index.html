@@ -311,6 +311,11 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
           <div style="height:3px;border-radius:9999px;background:var(--line);overflow:hidden;margin-top:.5rem">
             <div id="demo-bar" style="height:100%;border-radius:9999px;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .7s ease;width:0%"></div>
           </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:.875rem 0;margin-top:.75rem;border-top:1px solid var(--line)">
+            <span style="color:var(--mute);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em">Evidence hash</span>
+            <span id="demo-hash" class="mono" style="font-size:.75rem;color:var(--teal)">—</span>
+          </div>
+          <div id="demo-source" style="font-size:.7rem;color:var(--mute);text-align:right;margin-top:.25rem">awaiting engine</div>
         </div>
       </div>
       <p id="demo-note" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--mute);line-height:1.7;font-size:.95rem"></p>
@@ -396,21 +401,56 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
 <script>
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
+/* Live decision engine — set window.LUPINE_API to your deployed Render URL */
+const LUPINE_API = window.LUPINE_API || 'https://lupine-api.onrender.com';
+
+/* Fallback scenarios shown instantly + when the API is sleeping/unreachable */
 const R={
-  low:     {rail:'NPP / Local',     time:'1–2 business days',cost:'A$8',  score:.72,note:'Low-urgency transfers use cheap local clearing rails. Cost is minimised — ideal for routine payroll or supplier runs.'},
-  normal:  {rail:'SWIFT MT103',     time:'1 business day',   cost:'A$22', score:.79,note:'Standard transfers balance speed and cost. SWIFT MT103 gives reliable same-day booking at a reasonable fee.'},
-  high:    {rail:'SWIFT Priority',  time:'4–6 hours',        cost:'A$55', score:.83,note:'High-urgency escalates to priority SWIFT. Speed weight rises, cost tolerance widens to match the need.'},
-  critical:{rail:'RTGS / Same-day', time:'~2 hours',         cost:'A$40', score:.86,note:'Critical transfers hit real-time gross settlement — the fastest possible rail. Non-negotiable when timing is everything.'},
+  low:     {rail:'Cheap Route',    time:'~18 hours',cost:'12 bps', score:.72,note:'Low urgency — cost weight 55%. Cheap Route wins via a regional pool, slower but minimal fee. Ideal for routine payroll or supplier runs.'},
+  normal:  {rail:'Balanced Route', time:'~6 hours', cost:'28 bps', score:.79,note:'Normal urgency — reliability weight 40%. Balanced Route gives the best mix of speed, cost, and a 0.93 reliability score.'},
+  high:    {rail:'Fast Route',     time:'~2.5 hours',cost:'45 bps',score:.83,note:'High urgency — speed weight 50%. Fast Route wins on a Tier 1 direct corridor. Cost tolerance widens to match the need.'},
+  critical:{rail:'Fast Route',     time:'~2.5 hours',cost:'45 bps',score:.86,note:'Critical urgency — speed weight 60%. Fast Route again, with cost weight collapsed to 5%. Non-negotiable when timing is everything.'},
 };
-function setU(u){
-  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.u===u));
-  const r=R[u],pct=Math.round(r.score*100);
-  document.getElementById('demo-rail').textContent  = r.rail;
-  document.getElementById('demo-time').textContent  = r.time;
-  document.getElementById('demo-cost').textContent  = r.cost;
-  document.getElementById('demo-score').textContent = r.score.toFixed(2);
+
+function paintDemo(rail,time,cost,score,note,hash,source){
+  const pct=Math.round(score*100);
+  document.getElementById('demo-rail').textContent  = rail;
+  document.getElementById('demo-time').textContent  = time;
+  document.getElementById('demo-cost').textContent  = cost;
+  document.getElementById('demo-score').textContent = score.toFixed(2);
   document.getElementById('demo-bar').style.width   = pct+'%';
-  document.getElementById('demo-note').textContent  = r.note;
+  document.getElementById('demo-note').textContent  = note;
+  document.getElementById('demo-hash').textContent  = hash;
+  document.getElementById('demo-source').textContent= source;
+}
+
+async function setU(u){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.u===u));
+
+  /* paint hardcoded fallback immediately so UI never stalls */
+  const f=R[u];
+  paintDemo(f.rail,f.time,f.cost,f.score,f.note,'awaiting engine…','fallback values');
+
+  /* try live engine */
+  try{
+    const resp=await fetch(LUPINE_API+'/recommend',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({amount:500000,from_currency:'AUD',to_currency:'SGD',urgency:u})
+    });
+    if(!resp.ok)return;
+    const d=await resp.json();
+    const sel=d.selected;
+    paintDemo(
+      sel.name,
+      sel.time_hours+' hours',
+      sel.cost_bps+' bps',
+      sel.composite_score,
+      d.rationale||f.note,
+      '0x'+(d.evidence_hash||'').slice(0,16)+'…',
+      'live · CLOKED chain '+(d.chain_valid?'verified ✓':'INVALID')
+    );
+  }catch(e){/* keep fallback */}
 }
 setU('critical');
 
