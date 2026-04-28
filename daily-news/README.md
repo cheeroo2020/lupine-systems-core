@@ -23,3 +23,4 @@ No manual input needed. Fully automated.
 | [2026-04-25](./2026-04-25.md) | — |
 | [2026-04-26](./2026-04-26.md) | Should You Buy Mastercard Stock Before the Investor Update? |
 | [2026-04-27](./2026-04-27.md) | Musk’s X Money App Moves Closer to Public Debut |
+| [2026-04-28](./2026-04-28.md) | LendingClub Expands Into Home Improvement After Q1 Originations Jum… |
