@@ -1,23 +1,23 @@
 {
-  "date": "2026-04-28",
+  "date": "2026-04-29",
   "stories": [
     {
-      "headline": "LendingClub Expands Into Home Improvement After Q1 Originations Jump 31%",
-      "body": "LendingClub saw growth across its business in the first quarter as it prepares to rebrand to Happen Bank and continues to expand its offerings into areas such as home improvement. “All of our consumer businesses showed strong growth, supported by the compelling experience and value we deliver,” LendingClub Chief Financial Officer Drew LaBenne said",
+      "headline": "Visa Earnings Spotlight Agentic Commerce as Next Growth Engine",
+      "body": "Visa’s latest earnings Tuesday (April 28) showed a company still getting plenty of lift from card spending while pushing deeper into stablecoins, blockchain and artificial intelligence-driven commerce. CEO Ryan McInerney set the tone early in the call by tying together the durability of the core business with the promise of newer rails. “Stablecoins and",
       "source": "PYMNTS",
+      "pub_date": "29 Apr 2026"
+    },
+    {
+      "headline": "Visa bets on World Cup, agentic AI, to boost earnings",
+      "body": "The payments giant is counting on the FIFA World Cup this summer for windfalls in its consumer and commercial businesses. Long-term, agentic commerce is creating a whole new ecosystem to which Visa can attach itself, Visa CEO Ryan McInerney said on a call with analysts.",
+      "source": "American Banker",
       "pub_date": "28 Apr 2026"
     },
     {
-      "headline": "These Stocks Could Be Vulnerable if Anthropic's Mythos Goes Haywire",
-      "body": "Key PointsCybersecurity stocks are already down amid concerns about AI.",
-      "source": "Nasdaq",
-      "pub_date": "28 Apr 2026"
-    },
-    {
-      "headline": "Saba Capital finds little appetite for tender offer of shares in Blue Owl, Starwood private credit funds",
-      "body": "Investors' disinterest in getting liquidity at a steep discount comes amid a quarter that saw elevated redemptions across most private-credit, non-traded BDCs.",
+      "headline": "This bank CEO let his AI clone handle an earnings call — now he's signing an OpenAI deal",
+      "body": "It's part of Customers Bank CEO Sam Sidhu's effort to get ahead in the industry's race to transform itself using AI agents as a new digital workforce",
       "source": "CNBC Finance",
-      "pub_date": "27 Apr 2026"
+      "pub_date": "28 Apr 2026"
     }
   ]
 }
