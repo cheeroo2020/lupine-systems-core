@@ -1,0 +1,194 @@
+{
+  "generated": "2026-04-29T00:00:00Z",
+  "date": "2026-04-26",
+  "fx_rate": 0.91191,
+  "fx_source": "Frankfurter API (ECB reference rate)",
+  "amount": 500000,
+  "corridor": "AUD/SGD",
+  "decisions": {
+    "low": {
+      "selected": "Airwallex",
+      "corridor": "AUD \u2192 SGD (Airwallex spread)",
+      "time_hours": 3.0,
+      "cost_bps": 30.0,
+      "composite_score": 0.898,
+      "saving_vs_bank": 11020.0,
+      "rationale": "Airwallex selected via AUD \u2192 SGD (Airwallex spread). Composite score: 0.898. Beat Wise by 0.016 (3.0h vs 1.0h, 30.0bps vs 45.0bps). Weights favoured cost (speed=15%, cost=55%, reliability=30%).",
+      "weights": {
+        "speed": 0.15,
+        "cost": 0.55,
+        "reliability": 0.3
+      },
+      "all_routes": [
+        {
+          "name": "Airwallex",
+          "speed": 0.917,
+          "cost": 0.88,
+          "reliability": 0.92,
+          "composite": 0.898,
+          "cost_bps": 30.0,
+          "time_hours": 3.0
+        },
+        {
+          "name": "Wise",
+          "speed": 0.972,
+          "cost": 0.82,
+          "reliability": 0.95,
+          "composite": 0.882,
+          "cost_bps": 45.0,
+          "time_hours": 1.0
+        },
+        {
+          "name": "Bank SWIFT",
+          "speed": 0.0,
+          "cost": 0.0,
+          "reliability": 0.88,
+          "composite": 0.264,
+          "cost_bps": 250.4,
+          "time_hours": 36.0
+        }
+      ],
+      "evidence_hash": "23a75a88c19da589b315a4081bca92300861ac5d490533f318b5353a2426df74",
+      "chain_valid": true,
+      "request_id": "244374d8-e314-439a-bc40-45bd3039b476"
+    },
+    "normal": {
+      "selected": "Wise",
+      "corridor": "AUD \u2192 SGD (mid-market + Wise fee)",
+      "time_hours": 1.0,
+      "cost_bps": 45.0,
+      "composite_score": 0.91,
+      "saving_vs_bank": 10270.0,
+      "rationale": "Wise selected via AUD \u2192 SGD (mid-market + Wise fee). Composite score: 0.910. Beat Airwallex by 0.005 (1.0h vs 3.0h, 45.0bps vs 30.0bps). Weights favoured reliability (speed=25%, cost=35%, reliability=40%).",
+      "weights": {
+        "speed": 0.25,
+        "cost": 0.35,
+        "reliability": 0.4
+      },
+      "all_routes": [
+        {
+          "name": "Wise",
+          "speed": 0.972,
+          "cost": 0.82,
+          "reliability": 0.95,
+          "composite": 0.91,
+          "cost_bps": 45.0,
+          "time_hours": 1.0
+        },
+        {
+          "name": "Airwallex",
+          "speed": 0.917,
+          "cost": 0.88,
+          "reliability": 0.92,
+          "composite": 0.905,
+          "cost_bps": 30.0,
+          "time_hours": 3.0
+        },
+        {
+          "name": "Bank SWIFT",
+          "speed": 0.0,
+          "cost": 0.0,
+          "reliability": 0.88,
+          "composite": 0.352,
+          "cost_bps": 250.4,
+          "time_hours": 36.0
+        }
+      ],
+      "evidence_hash": "f2b1a3a9fabb60d2428b02102b2e648abb22505284f79c2fcc38c954db73c374",
+      "chain_valid": true,
+      "request_id": "9057c857-6d28-49d3-8e91-348ccee3ab39"
+    },
+    "high": {
+      "selected": "Wise",
+      "corridor": "AUD \u2192 SGD (mid-market + Wise fee)",
+      "time_hours": 1.0,
+      "cost_bps": 45.0,
+      "composite_score": 0.942,
+      "saving_vs_bank": 10270.0,
+      "rationale": "Wise selected via AUD \u2192 SGD (mid-market + Wise fee). Composite score: 0.942. Beat Airwallex by 0.029 (1.0h vs 3.0h, 45.0bps vs 30.0bps). Weights favoured speed (speed=50%, cost=15%, reliability=35%).",
+      "weights": {
+        "speed": 0.5,
+        "cost": 0.15,
+        "reliability": 0.35
+      },
+      "all_routes": [
+        {
+          "name": "Wise",
+          "speed": 0.972,
+          "cost": 0.82,
+          "reliability": 0.95,
+          "composite": 0.942,
+          "cost_bps": 45.0,
+          "time_hours": 1.0
+        },
+        {
+          "name": "Airwallex",
+          "speed": 0.917,
+          "cost": 0.88,
+          "reliability": 0.92,
+          "composite": 0.912,
+          "cost_bps": 30.0,
+          "time_hours": 3.0
+        },
+        {
+          "name": "Bank SWIFT",
+          "speed": 0.0,
+          "cost": 0.0,
+          "reliability": 0.88,
+          "composite": 0.308,
+          "cost_bps": 250.4,
+          "time_hours": 36.0
+        }
+      ],
+      "evidence_hash": "1a2546449684c920ad33d89ee7fc73649537ae6dcabaf60ae8ea103435d7a7e3",
+      "chain_valid": true,
+      "request_id": "ff8cadc0-ef92-4af3-9d8b-5234ad8f4535"
+    },
+    "critical": {
+      "selected": "Wise",
+      "corridor": "AUD \u2192 SGD (mid-market + Wise fee)",
+      "time_hours": 1.0,
+      "cost_bps": 45.0,
+      "composite_score": 0.957,
+      "saving_vs_bank": 10270.0,
+      "rationale": "Wise selected via AUD \u2192 SGD (mid-market + Wise fee). Composite score: 0.957. Beat Airwallex by 0.041 (1.0h vs 3.0h, 45.0bps vs 30.0bps). Weights favoured speed (speed=60%, cost=5%, reliability=35%).",
+      "weights": {
+        "speed": 0.6,
+        "cost": 0.05,
+        "reliability": 0.35
+      },
+      "all_routes": [
+        {
+          "name": "Wise",
+          "speed": 0.972,
+          "cost": 0.82,
+          "reliability": 0.95,
+          "composite": 0.957,
+          "cost_bps": 45.0,
+          "time_hours": 1.0
+        },
+        {
+          "name": "Airwallex",
+          "speed": 0.917,
+          "cost": 0.88,
+          "reliability": 0.92,
+          "composite": 0.916,
+          "cost_bps": 30.0,
+          "time_hours": 3.0
+        },
+        {
+          "name": "Bank SWIFT",
+          "speed": 0.0,
+          "cost": 0.0,
+          "reliability": 0.88,
+          "composite": 0.308,
+          "cost_bps": 250.4,
+          "time_hours": 36.0
+        }
+      ],
+      "evidence_hash": "c4e07029706e8f378c836a4966b72ff573a8d1841f801163c9e97ed13c0c99ff",
+      "chain_valid": true,
+      "request_id": "565fbbf2-2f26-46d7-956e-0a4035956e19"
+    }
+  }
+}

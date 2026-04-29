@@ -25,13 +25,15 @@ jobs:
         id: check
         run: |
           DATE=$(date -u +%Y-%m-%d)
-          # Three conditions must ALL be true to skip:
+          # Four conditions must ALL be true to skip:
           #   1. Today's test-results file exists
           #   2. Today's news file exists
           #   3. website/data/health.json is already dated today
+          #   4. website/data/live_decisions.json is already dated today
           if [ -f "test-results/${DATE}.md" ] && \
              [ -f "daily-news/${DATE}.md" ] && \
-             grep -q "\"date\": \"${DATE}\"" website/data/health.json 2>/dev/null; then
+             grep -q "\"date\": \"${DATE}\"" website/data/health.json 2>/dev/null && \
+             grep -q "\"date\": \"${DATE}\"" website/data/live_decisions.json 2>/dev/null; then
             echo "Today (${DATE}) already fully processed — skipping."
             echo "skip=true" >> $GITHUB_OUTPUT
           else
@@ -164,6 +166,12 @@ jobs:
       - name: Fetch daily news
         if: steps.check.outputs.skip != 'true'
         run: python scripts/fetch_daily_news.py
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Generate live decisions
+        if: steps.check.outputs.skip != 'true'
+        run: python scripts/generate_live_decisions.py
         env:
           PYTHONPATH: ${{ github.workspace }}
 
