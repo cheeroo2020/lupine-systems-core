@@ -204,7 +204,7 @@ def recommend(req: RecommendRequest):
     except Exception:
         pass
 
-    routes = generate_routes(request)
+    routes = generate_routes(request, fx_rate=fx_rate)
     scored_routes, weights = score_routes(routes, request.urgency)
     decision = select_route(request.id, scored_routes, weights)
 

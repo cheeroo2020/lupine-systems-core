@@ -340,6 +340,69 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
   </div>
 </section>
 
+<!-- BACKTEST -->
+<section id="backtest" style="padding:6rem 0;background:var(--bg2)">
+  <div class="max-w-6xl mx-auto px-6">
+    <div style="text-align:center;margin-bottom:3rem">
+      <div class="mono" style="font-size:.75rem;letter-spacing:.12em;color:var(--blue);text-transform:uppercase;margin-bottom:1rem">Historical backtest · AUD/SGD · A$500,000</div>
+      <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em">What your bank<br/><span class="grad-blue">actually costs you.</span></h2>
+      <p style="color:var(--mute);margin-top:1rem;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7">
+        Every trading day for the last <span id="bt-days">—</span> days, Lupine ran the decision engine against the live ECB rate. Here's how it compares to a standard bank SWIFT transfer.
+      </p>
+    </div>
+
+    <!-- Saving stat cards -->
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2.5rem" class="md:grid-cols-4">
+      <div class="card rev" style="padding:1.75rem;text-align:center;animation-delay:.1s">
+        <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-bottom:.75rem">Low urgency winner</div>
+        <div id="bt-low-name" style="font-size:1.25rem;font-weight:800;color:var(--teal)">—</div>
+        <div id="bt-low-save" style="font-size:.9rem;color:var(--mute);margin-top:.4rem">saves —/transfer</div>
+      </div>
+      <div class="card rev" style="padding:1.75rem;text-align:center;animation-delay:.2s">
+        <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-bottom:.75rem">Normal urgency winner</div>
+        <div id="bt-normal-name" style="font-size:1.25rem;font-weight:800;color:var(--blue)">—</div>
+        <div id="bt-normal-save" style="font-size:.9rem;color:var(--mute);margin-top:.4rem">saves —/transfer</div>
+      </div>
+      <div class="card rev" style="padding:1.75rem;text-align:center;animation-delay:.3s">
+        <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-bottom:.75rem">High urgency winner</div>
+        <div id="bt-high-name" style="font-size:1.25rem;font-weight:800;color:var(--gold)">—</div>
+        <div id="bt-high-save" style="font-size:.9rem;color:var(--mute);margin-top:.4rem">saves —/transfer</div>
+      </div>
+      <div class="card rev" style="padding:1.75rem;text-align:center;animation-delay:.4s">
+        <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-bottom:.75rem">Critical urgency winner</div>
+        <div id="bt-crit-name" style="font-size:1.25rem;font-weight:800;color:var(--coral)">—</div>
+        <div id="bt-crit-save" style="font-size:.9rem;color:var(--mute);margin-top:.4rem">saves —/transfer</div>
+      </div>
+    </div>
+
+    <!-- Rate + decision table (last 14 days) -->
+    <div class="card" style="overflow:hidden">
+      <div style="padding:1.5rem 2rem;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center">
+        <div style="font-weight:700">Last 14 trading days</div>
+        <div style="font-size:.75rem;color:var(--mute)">at normal urgency · A$500,000 transfer</div>
+      </div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:.875rem">
+          <thead>
+            <tr style="color:var(--mute);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em">
+              <th style="padding:.75rem 1.5rem;text-align:left;font-weight:500">Date</th>
+              <th style="padding:.75rem 1rem;text-align:right;font-weight:500">AUD/SGD rate</th>
+              <th style="padding:.75rem 1rem;text-align:center;font-weight:500">Lupine pick</th>
+              <th style="padding:.75rem 1rem;text-align:right;font-weight:500">Cost (bps)</th>
+              <th style="padding:.75rem 1.5rem;text-align:right;font-weight:500">Saved vs bank</th>
+            </tr>
+          </thead>
+          <tbody id="bt-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <p style="margin-top:1.5rem;font-size:.8rem;color:var(--mute);text-align:center">
+      Rates: ECB reference via Frankfurter API · Provider fees: Wise public calculator, Airwallex business pricing, ANZ/CBA SWIFT schedule · Backtest updated weekly
+    </p>
+  </div>
+</section>
+
 <!-- STATUS -->
 <section id="status" style="padding:6rem 0">
   <div class="max-w-4xl mx-auto px-6">
@@ -519,9 +582,56 @@ async function loadNews(){
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.rev').forEach(el=>{el.style.animationPlayState='paused';io.observe(el)});
 
+function fmt(n){return'A$'+Math.round(n).toLocaleString('en-AU')}
+function providerColor(name){
+  return name==='Wise'?'var(--blue)':name==='Airwallex'?'var(--teal)':'var(--mute)'
+}
+
+async function loadBacktest(){
+  try{
+    const r=await fetch('data/backtest.json',{cache:'no-store'});
+    if(!r.ok)return;
+    const d=await r.json();
+    const s=d.summary;
+
+    document.getElementById('bt-days').textContent=d.n_days;
+
+    const map={low:'bt-low',normal:'bt-normal',high:'bt-high',critical:'bt-crit'};
+    for(const[u,id] of Object.entries(map)){
+      const su=s[u];
+      if(!su)continue;
+      const winner=Object.keys(su.provider_wins).sort((a,b)=>su.provider_wins[b]-su.provider_wins[a])[0];
+      const el=document.getElementById(id+'-name');
+      if(el){el.textContent=winner;el.style.color=providerColor(winner)}
+      const sv=document.getElementById(id+'-save');
+      if(sv)sv.textContent='saves '+fmt(su.avg_saving_per_transfer)+'/transfer';
+    }
+
+    /* last 14 trading days, normal urgency */
+    const recent=(d.days||[]).slice(-14).reverse();
+    const tbody=document.getElementById('bt-table');
+    if(!tbody)return;
+    tbody.innerHTML=recent.map((row,i)=>{
+      const dec=row.decisions?.normal||{};
+      const name=dec.selected||'—';
+      const saving=dec.saving_aud!=null?fmt(dec.saving_aud):'—';
+      const color=providerColor(name);
+      const bg=i%2===0?'transparent':'rgba(255,255,255,.02)';
+      return `<tr style="border-top:1px solid var(--line);background:${bg}">
+        <td style="padding:.75rem 1.5rem;color:var(--mute)">${row.date}</td>
+        <td class="mono" style="padding:.75rem 1rem;text-align:right">${row.rate}</td>
+        <td style="padding:.75rem 1rem;text-align:center;font-weight:700;color:${color}">${name}</td>
+        <td class="mono" style="padding:.75rem 1rem;text-align:right;color:var(--mute)">${dec.cost_bps||'—'}</td>
+        <td style="padding:.75rem 1.5rem;text-align:right;color:var(--teal);font-weight:600">${saving}</td>
+      </tr>`;
+    }).join('');
+  }catch(e){}
+}
+
 /* live FX first (always fresh), then health (fallback + status) */
 loadLiveFx().then(loadHealth);
 loadNews();
+loadBacktest();
 
 /* auto-upgrade brand mark to logo.png if it exists.
    Filter inverts dark-teal-on-white art so the white bg vanishes

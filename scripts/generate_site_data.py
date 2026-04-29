@@ -11,6 +11,8 @@ import json
 import re
 from datetime import date
 from pathlib import Path
+import subprocess
+import sys
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR  = REPO_ROOT / "website" / "data"
@@ -129,6 +131,18 @@ def latest_health() -> dict | None:
 
 # ── Main ──────────────────────────────────────────────────────────────
 
+def _backtest_is_stale() -> bool:
+    """Return True if backtest.json is missing or older than 7 days."""
+    p = DATA_DIR / "backtest.json"
+    if not p.exists():
+        return True
+    try:
+        generated = json.loads(p.read_text(encoding="utf-8")).get("generated", "")
+        return (date.today() - date.fromisoformat(generated)).days >= 7
+    except Exception:
+        return True
+
+
 def main() -> int:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -149,6 +163,16 @@ def main() -> int:
         print(f"health.json → {health['date']} {health['status']}")
     else:
         print("health.json → no test results found")
+
+    if _backtest_is_stale():
+        script = REPO_ROOT / "scripts" / "backtest.py"
+        r = subprocess.run([sys.executable, str(script)], capture_output=True, text=True)
+        if r.returncode == 0:
+            print("backtest.json → regenerated")
+        else:
+            print(f"backtest.json → FAILED ({r.stderr.strip()[:120]})")
+    else:
+        print("backtest.json → fresh (skipped)")
 
     return 0
 

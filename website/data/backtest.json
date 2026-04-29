@@ -1,0 +1,2420 @@
+{
+  "generated": "2026-04-29",
+  "corridor": "AUD/SGD",
+  "amount": 500000,
+  "n_days": 79,
+  "rate_range": {
+    "min": 0.88307,
+    "max": 0.913
+  },
+  "summary": {
+    "low": {
+      "total_saving_aud": 870580.0,
+      "avg_saving_per_transfer": 11020.0,
+      "bank_total_cost_aud": 989080.0,
+      "n_days": 79,
+      "provider_wins": {
+        "Airwallex": 79
+      }
+    },
+    "normal": {
+      "total_saving_aud": 811330.0,
+      "avg_saving_per_transfer": 10270.0,
+      "bank_total_cost_aud": 989080.0,
+      "n_days": 79,
+      "provider_wins": {
+        "Wise": 79
+      }
+    },
+    "high": {
+      "total_saving_aud": 811330.0,
+      "avg_saving_per_transfer": 10270.0,
+      "bank_total_cost_aud": 989080.0,
+      "n_days": 79,
+      "provider_wins": {
+        "Wise": 79
+      }
+    },
+    "critical": {
+      "total_saving_aud": 811330.0,
+      "avg_saving_per_transfer": 10270.0,
+      "bank_total_cost_aud": 989080.0,
+      "n_days": 79,
+      "provider_wins": {
+        "Wise": 79
+      }
+    }
+  },
+  "days": [
+    {
+      "date": "2026-01-06",
+      "rate": 0.88756,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-07",
+      "rate": 0.88776,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-08",
+      "rate": 0.88307,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-09",
+      "rate": 0.88669,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-12",
+      "rate": 0.88829,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-13",
+      "rate": 0.88835,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-14",
+      "rate": 0.88605,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-15",
+      "rate": 0.88686,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-16",
+      "rate": 0.88901,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-19",
+      "rate": 0.88664,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-20",
+      "rate": 0.8888,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-21",
+      "rate": 0.88643,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-22",
+      "rate": 0.88982,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-23",
+      "rate": 0.88773,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-26",
+      "rate": 0.8906,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-27",
+      "rate": 0.89324,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-28",
+      "rate": 0.89362,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-29",
+      "rate": 0.89352,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-01-30",
+      "rate": 0.88857,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-02",
+      "rate": 0.89305,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-03",
+      "rate": 0.89127,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-04",
+      "rate": 0.89017,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-05",
+      "rate": 0.89331,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-06",
+      "rate": 0.89462,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-09",
+      "rate": 0.89772,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-10",
+      "rate": 0.89341,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-11",
+      "rate": 0.89668,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-12",
+      "rate": 0.8878,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-13",
+      "rate": 0.89416,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-16",
+      "rate": 0.89513,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-17",
+      "rate": 0.89428,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-18",
+      "rate": 0.89777,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-19",
+      "rate": 0.89563,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-20",
+      "rate": 0.89838,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-23",
+      "rate": 0.89878,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-24",
+      "rate": 0.89513,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-25",
+      "rate": 0.89706,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-26",
+      "rate": 0.89754,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-02-27",
+      "rate": 0.89763,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-02",
+      "rate": 0.89671,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-03",
+      "rate": 0.89708,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-04",
+      "rate": 0.89985,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-05",
+      "rate": 0.8975,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-06",
+      "rate": 0.89855,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-09",
+      "rate": 0.90154,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-10",
+      "rate": 0.9017,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-11",
+      "rate": 0.90059,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-12",
+      "rate": 0.89847,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-13",
+      "rate": 0.89721,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-16",
+      "rate": 0.90176,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-17",
+      "rate": 0.90175,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-18",
+      "rate": 0.90405,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-19",
+      "rate": 0.90433,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-20",
+      "rate": 0.90189,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-23",
+      "rate": 0.90272,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-24",
+      "rate": 0.90339,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-25",
+      "rate": 0.90391,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-26",
+      "rate": 0.90501,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-27",
+      "rate": 0.90707,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-30",
+      "rate": 0.90556,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-03-31",
+      "rate": 0.90566,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-01",
+      "rate": 0.90479,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-02",
+      "rate": 0.9042,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-03",
+      "rate": 0.90457,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-06",
+      "rate": 0.905,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-07",
+      "rate": 0.90676,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-08",
+      "rate": 0.90883,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-09",
+      "rate": 0.90558,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-10",
+      "rate": 0.90561,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-13",
+      "rate": 0.90842,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-14",
+      "rate": 0.913,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-15",
+      "rate": 0.90623,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-16",
+      "rate": 0.90662,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-17",
+      "rate": 0.90849,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-20",
+      "rate": 0.90872,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-21",
+      "rate": 0.90993,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-22",
+      "rate": 0.90875,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-23",
+      "rate": 0.91106,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    },
+    {
+      "date": "2026-04-24",
+      "rate": 0.91106,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.898,
+          "saving_aud": 11020.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.91,
+          "saving_aud": 10270.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.942,
+          "saving_aud": 10270.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.957,
+          "saving_aud": 10270.0
+        }
+      }
+    }
+  ]
+}
