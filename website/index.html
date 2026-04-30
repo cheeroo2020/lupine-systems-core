@@ -34,10 +34,10 @@ html,body{
 }
 .mono{font-family:'JetBrains Mono',monospace}
 
-/* gradient text */
+/* gradient text — deeper variants of the Pantone palette for readable headlines on light bg */
 .grad{background:linear-gradient(135deg,#1A0800 0%,#4A1800 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.grad-blue{background:linear-gradient(135deg,var(--teal),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.grad-teal{background:linear-gradient(135deg,var(--teal),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-blue{background:linear-gradient(135deg,#C44A0A,#C03E5A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-teal{background:linear-gradient(135deg,#C44A0A,#1F5E80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
 /* glow blob */
 .blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
@@ -316,7 +316,7 @@ html,body{
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:.875rem 0">
             <span style="color:var(--mute);font-size:.875rem">Utility score</span>
-            <span id="demo-score" style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">—</span>
+            <span id="demo-score" style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#C44A0A,#C03E5A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">—</span>
           </div>
           <div style="height:3px;border-radius:9999px;background:var(--line);overflow:hidden;margin-top:.5rem">
             <div id="demo-bar" style="height:100%;border-radius:9999px;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .7s ease;width:0%"></div>
@@ -518,7 +518,7 @@ html,body{
           </div>
         </div>
         <div style="margin-left:auto;text-align:right">
-          <div id="status-score" style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">—</div>
+          <div id="status-score" style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,#C44A0A,#C03E5A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">—</div>
           <div class="mono" style="font-size:.75rem;color:var(--mute)">tests passing</div>
         </div>
       </div>
