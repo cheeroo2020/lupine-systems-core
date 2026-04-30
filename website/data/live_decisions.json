@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-29T00:00:00Z",
-  "date": "2026-04-26",
-  "fx_rate": 0.91191,
+  "generated": "2026-04-30T01:57:22Z",
+  "date": "2026-04-29",
+  "fx_rate": 0.91483,
   "fx_source": "Frankfurter API (ECB reference rate)",
   "amount": 500000,
   "corridor": "AUD/SGD",
@@ -48,9 +48,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "23a75a88c19da589b315a4081bca92300861ac5d490533f318b5353a2426df74",
+      "evidence_hash": "d943ab46cdb037f0ff738b684e81f636ecc33ba077ef6de25b9ec8a1d1c1a6e3",
       "chain_valid": true,
-      "request_id": "244374d8-e314-439a-bc40-45bd3039b476"
+      "request_id": "5ea26dd9-304e-4db4-9c2b-656685de40f9"
     },
     "normal": {
       "selected": "Wise",
@@ -94,9 +94,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "f2b1a3a9fabb60d2428b02102b2e648abb22505284f79c2fcc38c954db73c374",
+      "evidence_hash": "490510bdc1809d8e900496de96ddd533f02105c03bb8d5893592905ec6b4b259",
       "chain_valid": true,
-      "request_id": "9057c857-6d28-49d3-8e91-348ccee3ab39"
+      "request_id": "dd9b6b19-edee-4eb2-bf27-e5acd2fa9319"
     },
     "high": {
       "selected": "Wise",
@@ -140,9 +140,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "1a2546449684c920ad33d89ee7fc73649537ae6dcabaf60ae8ea103435d7a7e3",
+      "evidence_hash": "acfe931166cf5c5ba542c1a93c2b4f6f443d51884fbb16d61123cabf6fc9fb4e",
       "chain_valid": true,
-      "request_id": "ff8cadc0-ef92-4af3-9d8b-5234ad8f4535"
+      "request_id": "400b4d1b-0bc6-4a03-9258-1d973f3bb5ef"
     },
     "critical": {
       "selected": "Wise",
@@ -186,9 +186,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "c4e07029706e8f378c836a4966b72ff573a8d1841f801163c9e97ed13c0c99ff",
+      "evidence_hash": "148d1a2dcbc312b583dcf71f7c769c229fd2174567ca780af7e80b6c545724ca",
       "chain_valid": true,
-      "request_id": "565fbbf2-2f26-46d7-956e-0a4035956e19"
+      "request_id": "7c7c33e1-7af3-4030-9b92-173976d8d60c"
     }
   }
 }
