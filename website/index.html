@@ -973,7 +973,7 @@ loadWatcher();
       <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#F58220,#FF96A8);display:flex;align-items:center;justify-content:center;font-size:.95rem">🐺</div>
       <div>
         <div style="font-weight:800;font-size:.95rem">Lupine Analyst</div>
-        <div class="mono" style="font-size:.65rem;color:var(--mute);letter-spacing:.04em">claude-sonnet-4-6 · with engine tools</div>
+        <div class="mono" style="font-size:.65rem;color:var(--mute);letter-spacing:.04em">browser-side · zero cost · zero keys</div>
       </div>
     </div>
     <button onclick="chatToggle()" style="background:none;border:none;font-size:1.4rem;color:var(--mute);cursor:pointer;line-height:1">×</button>
@@ -988,16 +988,17 @@ loadWatcher();
 </div>
 
 <script>
-const CHAT_API = window.LUPINE_API || 'https://lupine-api.onrender.com';
-const _chatHistory = [];
+/* ── Lupine Analyst — rule-based, runs entirely in the browser ──────
+   Zero API keys, zero cost. Uses the in-page TR_PROVIDERS / trScore
+   engine plus the static JSON files (agent_signal, backtest, live_decisions). */
 
 function chatToggle(){
   const p=document.getElementById('chat-panel');
   const open=p.style.display==='flex';
   p.style.display=open?'none':'flex';
   if(!open){
-    if(!_chatHistory.length){
-      chatPaint('assistant',"Hi — I'm the Lupine analyst. I can check the live AUD/SGD rate, run the engine for any amount, and tell you what the autonomous Watcher thinks. What's on your mind?");
+    if(!document.getElementById('chat-log').children.length){
+      chatPaint('assistant',"Hi — I'm the Lupine analyst. Try asking:\n• What's the rate?\n• Should I transfer today?\n• Send 750k urgent\n• How much do I save vs my bank?");
     }
     setTimeout(()=>document.getElementById('chat-input').focus(),100);
   }
@@ -1008,24 +1009,122 @@ function chatPaint(role,text){
   const isUser=role==='user';
   const bubble=document.createElement('div');
   bubble.style.cssText=
-    'max-width:85%;padding:.65rem .9rem;border-radius:14px;font-size:.875rem;line-height:1.5;'+
+    'max-width:85%;padding:.65rem .9rem;border-radius:14px;font-size:.875rem;line-height:1.5;white-space:pre-wrap;'+
     (isUser
       ? 'background:linear-gradient(135deg,#F58220,#FF96A8);color:#fff;align-self:flex-end;border-bottom-right-radius:4px'
       : 'background:rgba(30,12,0,.04);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px');
   bubble.textContent=text;
   log.appendChild(bubble);
   log.scrollTop=log.scrollHeight;
-  return bubble;
 }
 
-function chatTyping(){
+function chatMeta(text){
   const log=document.getElementById('chat-log');
-  const dots=document.createElement('div');
-  dots.id='chat-typing';
-  dots.style.cssText='align-self:flex-start;padding:.65rem .9rem;background:rgba(30,12,0,.04);border-radius:14px;border-bottom-left-radius:4px;font-size:1.1rem;letter-spacing:2px;color:var(--mute)';
-  dots.textContent='● ● ●';
-  log.appendChild(dots);
+  const m=document.createElement('div');
+  m.style.cssText='align-self:flex-start;font-size:.65rem;color:var(--mute);font-family:JetBrains Mono,monospace;letter-spacing:.04em;margin-top:-.5rem;margin-left:.25rem';
+  m.textContent='• '+text;
+  log.appendChild(m);
   log.scrollTop=log.scrollHeight;
+}
+
+/* ── Intent extraction ─────────────────────────────────────────────── */
+function extractAmount(s){
+  /* matches "500000", "500k", "$500,000", "1.5m", "750K AUD" */
+  const m=s.match(/(?:a?\$\s*)?(\d{1,3}(?:[,\s]\d{3})*(?:\.\d+)?|\d+(?:\.\d+)?)\s*([kKmM])?/);
+  if(!m)return null;
+  let v=parseFloat(m[1].replace(/[,\s]/g,''));
+  const unit=(m[2]||'').toLowerCase();
+  if(unit==='k')v*=1000;
+  if(unit==='m')v*=1000000;
+  return v>=100?Math.round(v):null;  /* ignore tiny numbers (e.g. years) */
+}
+function extractUrgency(s){
+  const t=s.toLowerCase();
+  if(/\b(urgent|asap|now|critical|today|emergency|same.day|right.now)\b/.test(t))return'critical';
+  if(/\b(fast|quick|high|priority|hour|tomorrow)\b/.test(t))return'high';
+  if(/\b(cheap|cheapest|low|whenever|no.rush|routine|next.week|patient)\b/.test(t))return'low';
+  return'normal';
+}
+const fmtAud=v=>'A$'+Math.round(v).toLocaleString('en-AU');
+const fmtSgd=v=>'S$'+Math.round(v).toLocaleString('en-AU');
+
+/* ── Tool-style handlers ──────────────────────────────────────────── */
+async function loadJson(p){try{const r=await fetch(p,{cache:'no-store'});return r.ok?r.json():null}catch(e){return null}}
+
+async function answerRate(){
+  if(!_liveFxRate)return"I'm still fetching the live rate from ECB — try again in a moment.";
+  return`The live ECB rate is 1 AUD = ${_liveFxRate.toFixed(5)} SGD.\nA$500,000 → ${fmtSgd(500000*_liveFxRate)}\nSource: Frankfurter API (refreshed each business day).`;
+}
+
+async function answerWatcher(){
+  const d=await loadJson('data/agent_signal.json');
+  if(!d)return"The Watcher hasn't run yet — it cycles every hour.";
+  const a=d.analysis||{};
+  return`Watcher signal: ${d.signal}.\n${d.rationale}\n\nRate ${d.rate} is at the ${a.percentile_60d}th percentile of the last ${a.history_n} days (z-score ${a.z_score}, 3-day momentum ${a.momentum_3d_pips}p).\n\nVerifiable hash: 0x${(d.evidence_hash||'').slice(0,16)}…`;
+}
+
+async function answerRecommendation(amount,urgency){
+  const scored=trScore(urgency);
+  const winner=scored[0];
+  const bank=scored.find(p=>p.id==='bank');
+  const fee=amount*winner.bps/10000;
+  const sgd=(amount-fee)*(_liveFxRate||0.91);
+  const saving=amount*(bank.bps-winner.bps)/10000;
+  const w=TR_WEIGHTS[urgency];
+  const tid='LUP-'+Date.now().toString(36).toUpperCase();
+  const hash=await sha256(tid+':'+amount+':'+urgency+':'+(_liveFxRate||0));
+  return`For ${fmtAud(amount)} at ${urgency} urgency:\n\n→ ${winner.name} wins (composite ${winner.composite.toFixed(3)})\n  Fee: ~${fmtAud(fee)} (${winner.bps} bps)\n  Settles in ${winner.hours}h\n  Recipient gets: ~${fmtSgd(sgd)} SGD\n\nWeights: speed ${(w.speed*100).toFixed(0)}% · cost ${(w.cost*100).toFixed(0)}% · reliability ${(w.reliability*100).toFixed(0)}%\nSavings vs bank SWIFT: ${fmtAud(saving)}\n\nTransfer ID: ${tid}\nEvidence: 0x${hash.slice(0,16)}…`;
+}
+
+async function answerSavings(){
+  const d=await loadJson('data/backtest.json');
+  if(!d||!d.summary)return"The backtest hasn't been generated yet.";
+  const lines=Object.entries(d.summary).map(([u,s])=>{
+    const w=Object.entries(s.provider_wins||{}).map(([k,v])=>k+' '+v+'×').join(', ');
+    return`  ${u.padEnd(9)} → save ${fmtAud(s.avg_saving_per_transfer)}/transfer  (winners: ${w})`;
+  }).join('\n');
+  return`Across ${d.n_days} trading days of backtest (A$500K transfers):\n\n${lines}\n\nNote: bank SWIFT never wins — it's the slow, expensive baseline.`;
+}
+
+async function answerEvidence(){
+  return"Every Lupine decision creates a CLOKED audit chain:\n  0  genesis\n  1  fx_observed     (rate from ECB)\n  2  routes_scored   (all 3 providers)\n  3  route_selected  (winner + composite score)\n\nEach entry's SHA-256 hash links to the previous one. Tampering with any entry breaks the chain. Hashes are computed in-browser via SubtleCrypto and stored client-side per transfer.";
+}
+
+function answerHelp(){
+  return"I can help with:\n\n• Live rate — \"what's the rate?\"\n• Run the engine — \"send 750k urgent\" or \"transfer 250000 cheap\"\n• Watcher signal — \"should I transfer today?\"\n• Backtest — \"how much does it save?\"\n• Evidence chain — \"how does CLOKED work?\"\n\nI run entirely in your browser — no API key, no cost.";
+}
+
+/* ── Intent router ───────────────────────────────────────────────── */
+async function chatRoute(msg){
+  const t=msg.toLowerCase();
+
+  if(/\b(help|what.*can.*you|commands|capabilities)\b/.test(t))
+    return{text:answerHelp(),tools:['help']};
+
+  if(/\b(rate|aud[\/\s]?sgd|exchange|frankfurter|ecb|live\s+price)\b/.test(t)&&!/\b(send|transfer|move|wire|remit)\b/.test(t))
+    return{text:await answerRate(),tools:['get_live_rate']};
+
+  if(/\b(should|good\s+time|wait|now\s+a|watcher|signal|today|favourable|favorable)\b/.test(t)&&!extractAmount(t))
+    return{text:await answerWatcher(),tools:['get_watcher_signal']};
+
+  if(/\b(saving|save|vs\s+bank|cost|backtest|compared\s+to\s+bank|how\s+much.*bank|history)\b/.test(t)&&!extractAmount(t))
+    return{text:await answerSavings(),tools:['get_backtest']};
+
+  if(/\b(evidence|cloked|hash|audit|chain|verifiable|sha[\s-]?256|prove|tamper)\b/.test(t))
+    return{text:answerEvidence(),tools:['explain_cloked']};
+
+  /* recommendation: any message with an amount */
+  const amount=extractAmount(t);
+  if(amount){
+    const urgency=extractUrgency(t);
+    return{text:await answerRecommendation(amount,urgency),tools:['get_live_rate','get_recommendation']};
+  }
+
+  /* fallback */
+  if(/\b(hi|hello|hey|sup|yo|g'day)\b/.test(t))
+    return{text:"Hi! I'm the Lupine analyst. Type \"help\" to see what I can do, or just ask — try \"send 500k urgent\" or \"should I transfer today?\"",tools:[]};
+
+  return{text:"I'm not sure I caught that. I can answer:\n• rate questions (\"what's the rate?\")\n• transfer recommendations (\"send 750k urgent\")\n• Watcher signal (\"should I transfer today?\")\n• savings (\"how much vs bank?\")\n\nType \"help\" for the full list.",tools:[]};
 }
 
 async function chatSend(){
@@ -1034,38 +1133,21 @@ async function chatSend(){
   if(!text)return;
   input.value='';
   chatPaint('user',text);
-  _chatHistory.push({role:'user',content:text});
-  chatTyping();
-  document.getElementById('chat-send-btn').disabled=true;
-  try{
-    const r=await fetch(CHAT_API+'/chat',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({message:text,history:_chatHistory.slice(0,-1)}),
-    });
-    document.getElementById('chat-typing')?.remove();
-    if(!r.ok){
-      const reason=r.status===503?"The chat backend isn't deployed yet. Set ANTHROPIC_API_KEY on the API and redeploy.":'API returned '+r.status;
-      chatPaint('assistant',reason);
-      return;
-    }
-    const d=await r.json();
-    chatPaint('assistant',d.response);
-    _chatHistory.push({role:'assistant',content:d.response});
-    if(d.tool_calls&&d.tool_calls.length){
-      const tools=d.tool_calls.map(t=>'· '+t.tool).join('  ');
-      const meta=document.createElement('div');
-      meta.style.cssText='align-self:flex-start;font-size:.65rem;color:var(--mute);font-family:JetBrains Mono,monospace;letter-spacing:.04em;margin-top:-.5rem;margin-left:.25rem';
-      meta.textContent='tools used: '+tools;
-      document.getElementById('chat-log').appendChild(meta);
-    }
-  }catch(e){
-    document.getElementById('chat-typing')?.remove();
-    chatPaint('assistant',"Couldn't reach the chat backend. Make sure the API is running and CHAT_API points at it.");
-  }finally{
-    document.getElementById('chat-send-btn').disabled=false;
-    document.getElementById('chat-input').focus();
-  }
+
+  /* tiny delay for natural feel */
+  const log=document.getElementById('chat-log');
+  const dots=document.createElement('div');
+  dots.style.cssText='align-self:flex-start;padding:.5rem .9rem;background:rgba(30,12,0,.04);border-radius:14px;border-bottom-left-radius:4px;font-size:1.1rem;letter-spacing:2px;color:var(--mute)';
+  dots.textContent='●';
+  log.appendChild(dots);
+  log.scrollTop=log.scrollHeight;
+  await new Promise(r=>setTimeout(r,280+Math.random()*240));
+  dots.remove();
+
+  const {text:reply,tools}=await chatRoute(text);
+  chatPaint('assistant',reply);
+  if(tools&&tools.length)chatMeta('engine ops: '+tools.join('  ·  '));
+  document.getElementById('chat-input').focus();
 }
 </script>
 
