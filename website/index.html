@@ -4,41 +4,49 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Lupine Systems — Move money right</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='100' y2='100'%3E%3Cstop offset='0' stop-color='%2322D3EE'/%3E%3Cstop offset='1' stop-color='%230EA5E9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M22 82 L18 62 Q18 48 26 38 L30 24 L40 32 L46 16 L54 32 Q64 30 72 32 L86 22 L90 28 L80 38 L72 46 Q60 50 50 56 Q36 62 28 76 Z' fill='none' stroke='url(%23g)' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='42' cy='44' r='4' fill='%2322D3EE'/%3E%3Ccircle cx='60' cy='40' r='4' fill='%230EA5E9'/%3E%3Ccircle cx='48' cy='58' r='4' fill='%2300D4AA'/%3E%3C/svg%3E"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='100' y2='100'%3E%3Cstop offset='0' stop-color='%23F58220'/%3E%3Cstop offset='1' stop-color='%23FF96A8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M22 82 L18 62 Q18 48 26 38 L30 24 L40 32 L46 16 L54 32 Q64 30 72 32 L86 22 L90 28 L80 38 L72 46 Q60 50 50 56 Q36 62 28 76 Z' fill='none' stroke='url(%23g)' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='42' cy='44' r='4' fill='%23F58220'/%3E%3Ccircle cx='60' cy='40' r='4' fill='%23FF96A8'/%3E%3Ccircle cx='48' cy='58' r='4' fill='%23A8D8EA'/%3E%3C/svg%3E"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#060B1E;
-  --bg2:#0C1230;
-  --card:#0F1729;
-  --border:rgba(255,255,255,.08);
-  --blue:#22D3EE;
-  --purple:#0EA5E9;
-  --teal:#00D4AA;
-  --gold:#F5C842;
+  --bg:#FDFCF9;
+  --bg2:#FFF5EE;
+  --card:#FFFFFF;
+  --border:rgba(30,12,0,.1);
+  --blue:#A8D8EA;
+  --purple:#FF96A8;
+  --teal:#F58220;
+  --gold:#E8960A;
   --coral:#FF6B6B;
-  --text:rgba(255,255,255,.9);
-  --mute:rgba(255,255,255,.45);
-  --line:rgba(255,255,255,.06);
+  --text:rgba(25,10,0,.88);
+  --mute:rgba(25,10,0,.42);
+  --line:rgba(25,10,0,.08);
 }
-html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html,body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(rgba(245,130,32,.06) 1px,transparent 1px);
+  background-size:22px 22px;
+}
 .mono{font-family:'JetBrains Mono',monospace}
 
 /* gradient text */
-.grad{background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.7) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.grad-blue{background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad{background:linear-gradient(135deg,#1A0800 0%,#4A1800 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-blue{background:linear-gradient(135deg,var(--teal),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .grad-teal{background:linear-gradient(135deg,var(--teal),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
 /* glow blob */
-.blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
 
 /* floating currency */
 @keyframes drift{
-  0%  {transform:translateY(0)   rotate(0deg);  opacity:.18}
-  50% {transform:translateY(-32px) rotate(5deg); opacity:.09}
-  100%{transform:translateY(0)   rotate(0deg);  opacity:.18}
+  0%  {transform:translateY(0)   rotate(0deg);  opacity:.14}
+  50% {transform:translateY(-32px) rotate(5deg); opacity:.07}
+  100%{transform:translateY(0)   rotate(0deg);  opacity:.14}
 }
 .drift{animation:drift ease-in-out infinite;font-family:'Inter',sans-serif;font-weight:900;line-height:1}
 
@@ -62,19 +70,19 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
 .rev{opacity:0;animation:up .75s ease forwards}
 
 /* card */
-.card{background:var(--card);border:1px solid var(--border);border-radius:24px;transition:transform .25s,box-shadow .25s}
-.card:hover{transform:translateY(-4px);box-shadow:0 24px 48px rgba(0,0,0,.4)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:24px;transition:transform .25s,box-shadow .25s;box-shadow:0 2px 12px rgba(30,12,0,.06)}
+.card:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(30,12,0,.12)}
 
 /* buttons */
-.btn-p{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-weight:700;border-radius:9999px;padding:14px 28px;transition:transform .2s,opacity .2s}
+.btn-p{background:linear-gradient(135deg,var(--teal),var(--purple));color:#fff;font-weight:700;border-radius:9999px;padding:14px 28px;transition:transform .2s,opacity .2s}
 .btn-p:hover{transform:translateY(-1px);opacity:.9}
-.btn-g{border:1px solid var(--border);color:var(--text);font-weight:600;border-radius:9999px;padding:14px 28px;background:rgba(255,255,255,.04);transition:all .2s}
-.btn-g:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.08)}
+.btn-g{border:1.5px solid var(--border);color:var(--text);font-weight:600;border-radius:9999px;padding:14px 28px;background:rgba(30,12,0,.03);transition:all .2s}
+.btn-g:hover{border-color:rgba(30,12,0,.25);background:rgba(30,12,0,.06)}
 
 /* chip */
-.chip{border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--mute);border-radius:9999px;padding:10px 20px;font-weight:600;font-size:14px;cursor:pointer;transition:all .2s}
-.chip:hover{border-color:rgba(255,255,255,.2);color:var(--text)}
-.chip.on{background:linear-gradient(135deg,var(--blue),var(--purple));border-color:transparent;color:#fff}
+.chip{border:1.5px solid var(--border);background:rgba(30,12,0,.03);color:var(--mute);border-radius:9999px;padding:10px 20px;font-weight:600;font-size:14px;cursor:pointer;transition:all .2s}
+.chip:hover{border-color:rgba(30,12,0,.2);color:var(--text)}
+.chip.on{background:linear-gradient(135deg,var(--teal),var(--purple));border-color:transparent;color:#fff}
 
 /* marquee */
 @keyframes sx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -89,15 +97,15 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
 <body>
 
 <!-- NAV -->
-<nav style="position:fixed;top:0;width:100%;z-index:50;background:rgba(6,11,30,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)">
+<nav style="position:fixed;top:0;width:100%;z-index:50;background:rgba(253,252,249,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)">
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
     <a href="#" class="flex items-center gap-2 font-black text-lg">
       <span id="brand-mark" style="display:inline-flex;width:40px;height:40px;align-items:center;justify-content:center">
         <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <linearGradient id="lupGrad" x1="0" y1="0" x2="100" y2="100">
-              <stop offset="0" stop-color="#22D3EE"/>
-              <stop offset="1" stop-color="#0EA5E9"/>
+              <stop offset="0" stop-color="#F58220"/>
+              <stop offset="1" stop-color="#FF96A8"/>
             </linearGradient>
           </defs>
           <g fill="none" stroke="url(#lupGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
@@ -107,9 +115,9 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
             <path d="M 32 28 L 36 22 M 50 22 L 52 26"/>
           </g>
           <!-- circuit nodes -->
-          <circle cx="42" cy="44" r="3.5" fill="#22D3EE"/>
-          <circle cx="60" cy="40" r="3.5" fill="#0EA5E9"/>
-          <circle cx="48" cy="58" r="3.5" fill="#00D4AA"/>
+          <circle cx="42" cy="44" r="3.5" fill="#F58220"/>
+          <circle cx="60" cy="40" r="3.5" fill="#FF96A8"/>
+          <circle cx="48" cy="58" r="3.5" fill="#A8D8EA"/>
           <g stroke="url(#lupGrad)" stroke-width="1.5" stroke-linecap="round">
             <line x1="42" y1="44" x2="60" y2="40"/>
             <line x1="60" y1="40" x2="48" y2="58"/>
@@ -142,8 +150,8 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
 <!-- HERO -->
 <section style="position:relative;min-height:100vh;display:flex;align-items:center;padding-top:4rem;overflow:hidden">
   <!-- glow blobs -->
-  <div class="blob" style="width:600px;height:600px;top:-100px;left:-200px;background:rgba(34,211,238,.12)"></div>
-  <div class="blob" style="width:500px;height:500px;bottom:-50px;right:-100px;background:rgba(14,165,233,.10)"></div>
+  <div class="blob" style="width:600px;height:600px;top:-100px;left:-200px;background:rgba(245,130,32,.18)"></div>
+  <div class="blob" style="width:500px;height:500px;bottom:-50px;right:-100px;background:rgba(255,150,168,.15)"></div>
 
   <!-- floating currencies -->
   <div style="position:absolute;inset:0;pointer-events:none;user-select:none" aria-hidden="true">
@@ -201,7 +209,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
           <div style="display:flex;flex-direction:column;gap:.875rem">
             <div style="display:flex;justify-content:space-between;align-items:baseline">
               <span style="font-size:.8rem;color:var(--mute)">Live rate</span>
-              <span id="hero-rate" class="mono" style="font-size:1.5rem;font-weight:700;color:#fff">—</span>
+              <span id="hero-rate" class="mono" style="font-size:1.5rem;font-weight:700;color:var(--text)">—</span>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:baseline">
               <span style="font-size:.8rem;color:var(--mute)">A$500,000 converts to</span>
@@ -218,7 +226,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
   </div>
 
   <!-- marquee ticker -->
-  <div style="position:absolute;bottom:0;left:0;right:0;border-top:1px solid var(--line);padding:14px 0;overflow:hidden;background:rgba(12,18,48,.6)">
+  <div style="position:absolute;bottom:0;left:0;right:0;border-top:1px solid var(--line);padding:14px 0;overflow:hidden;background:rgba(255,245,238,.9)">
     <div class="mq mono" style="font-size:.8rem;color:var(--mute)">
       <span>AUD/SGD corridor<span class="sep"></span>SWIFT MT103<span class="sep"></span>RTGS same-day<span class="sep"></span>NPP local clearing<span class="sep"></span>urgency-weighted routing<span class="sep"></span>AIVA · RAIL · CLOKED<span class="sep"></span>SHA-256 hash chain<span class="sep"></span>ECB-backed live rates<span class="sep"></span>14/14 tests passing<span class="sep"></span></span>
       <span aria-hidden="true">AUD/SGD corridor<span class="sep"></span>SWIFT MT103<span class="sep"></span>RTGS same-day<span class="sep"></span>NPP local clearing<span class="sep"></span>urgency-weighted routing<span class="sep"></span>AIVA · RAIL · CLOKED<span class="sep"></span>SHA-256 hash chain<span class="sep"></span>ECB-backed live rates<span class="sep"></span>14/14 tests passing<span class="sep"></span></span>
@@ -524,7 +532,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
           <div style="font-size:.75rem;color:var(--mute);margin-top:4px">failed</div>
         </div>
         <div style="background:var(--bg);border-radius:16px;padding:1.25rem;text-align:center">
-          <div id="stat-fx"    class="mono" style="font-size:1.2rem;font-weight:700;color:#fff;margin-top:4px">—</div>
+          <div id="stat-fx"    class="mono" style="font-size:1.2rem;font-weight:700;color:var(--text);margin-top:4px">—</div>
           <div style="font-size:.75rem;color:var(--mute);margin-top:4px">AUD/SGD</div>
         </div>
         <div style="background:var(--bg);border-radius:16px;padding:1.25rem;text-align:center">
@@ -732,7 +740,7 @@ function animateRail(activeIdx,winner){
         <div style="width:28px;height:28px;border-radius:50%;border:2px solid ${col};display:flex;align-items:center;justify-content:center;font-size:.7rem;background:${active?'var(--teal)':done?'rgba(0,212,170,.15)':'transparent'};transition:all .4s">
           ${done?'✓':active?'●':i+1}
         </div>
-        <div class="mono" style="font-size:.6rem;color:${active?'var(--teal)':done?'rgba(255,255,255,.6)':'var(--mute)'};text-align:center;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap">${label}</div>
+        <div class="mono" style="font-size:.6rem;color:${active?'var(--teal)':done?'rgba(25,10,0,.55)':'var(--mute)'};text-align:center;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap">${label}</div>
       </div>
       ${connector}
     </div>`;
@@ -798,7 +806,7 @@ async function runTracker(){
     `<div style="margin-bottom:.4rem;color:var(--mute)">0 genesis → <span style="color:var(--teal)">${h1.slice(0,20)}…</span></div>`+
     `<div style="margin-bottom:.4rem;color:var(--mute)">1 fx_observed → <span style="color:var(--teal)">${h2.slice(0,20)}…</span></div>`+
     `<div style="margin-bottom:.4rem;color:var(--mute)">2 routes_scored → <span style="color:var(--teal)">${h3.slice(0,20)}…</span></div>`+
-    `<div style="color:#fff">3 route_selected → <span style="color:var(--teal)">${h4.slice(0,20)}…</span></div>`+
+    `<div style="color:var(--text)">3 route_selected → <span style="color:var(--teal)">${h4.slice(0,20)}…</span></div>`+
     `<div style="margin-top:.75rem;font-size:.65rem;color:var(--teal)">chain integrity: verified ✓</div>`;
 
   const timeLabel=winner.hours<2?winner.hours+' h':winner.hours>=24?(winner.hours/24).toFixed(0)+'d':winner.hours+'h';
@@ -817,7 +825,7 @@ async function runTracker(){
   const wrap=document.getElementById('tr-history-wrap');
   wrap.style.display='block';
   document.getElementById('tr-history').innerHTML=_trHistory.map((t,i)=>
-    `<tr style="border-top:1px solid var(--line);background:${i%2?'rgba(255,255,255,.02)':'transparent'}">
+    `<tr style="border-top:1px solid var(--line);background:${i%2?'rgba(30,12,0,.02)':'transparent'}">
       <td class="mono" style="padding:.75rem 1.25rem;font-size:.8rem;color:var(--blue)">${t.tid}</td>
       <td style="padding:.75rem 1rem;text-align:right">A$${t.amt.toLocaleString('en-AU')}</td>
       <td style="padding:.75rem 1rem;text-align:center;color:var(--mute);font-size:.8rem">${t.urgency}</td>
@@ -866,7 +874,7 @@ async function loadBacktest(){
       const name=dec.selected||'—';
       const saving=dec.saving_aud!=null?fmt(dec.saving_aud):'—';
       const color=providerColor(name);
-      const bg=i%2===0?'transparent':'rgba(255,255,255,.02)';
+      const bg=i%2===0?'transparent':'rgba(30,12,0,.02)';
       return `<tr style="border-top:1px solid var(--line);background:${bg}">
         <td style="padding:.75rem 1.5rem;color:var(--mute)">${row.date}</td>
         <td class="mono" style="padding:.75rem 1rem;text-align:right">${row.rate}</td>
@@ -892,7 +900,7 @@ loadLiveDecisions();
   img.onload=()=>{
     const slot=document.getElementById('brand-mark');
     if(slot){
-      slot.innerHTML='<img src="logo.png" alt="Lupine" style="width:140%;height:140%;object-fit:contain;filter:invert(1) hue-rotate(160deg) saturate(1.5) brightness(1.15)"/>';
+      slot.innerHTML='<img src="logo.png" alt="Lupine" style="width:140%;height:140%;object-fit:contain"/>';
     }
   };
   img.src='logo.png';
