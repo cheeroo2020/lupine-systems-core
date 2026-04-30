@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-30T14:59:11Z",
-  "date": "2026-04-29",
-  "fx_rate": 0.91483,
+  "generated": "2026-04-30T16:19:16Z",
+  "date": "2026-04-30",
+  "fx_rate": 0.91222,
   "fx_source": "Frankfurter API (ECB reference rate)",
   "amount": 500000,
   "corridor": "AUD/SGD",
@@ -48,9 +48,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "a4deedc975e0e7b35b445034a64ebb9e4aa37ee00590b5e8ea75b00a0605797e",
+      "evidence_hash": "8aae5bf0604df2fa6128091469695a12c99b0899c54d08adc0deece9df34e4cb",
       "chain_valid": true,
-      "request_id": "5a234956-8d7e-45de-97f8-9a05e0e18e65"
+      "request_id": "7688ddc6-371d-4712-8b5a-05efa7224dd2"
     },
     "normal": {
       "selected": "Wise",
@@ -94,9 +94,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "eb13fb9f02e3234ac83d490a5166c8c378fb96aab4516ee2fe96004d40e1176b",
+      "evidence_hash": "fd1882ff4efa625500164f0ab348e70839187fd743e563a304c647c0b91aa9b4",
       "chain_valid": true,
-      "request_id": "392eaa58-7557-4531-a1ef-3450c9e978ff"
+      "request_id": "9b62ea83-e3ea-4005-a388-46d4d40515e2"
     },
     "high": {
       "selected": "Wise",
@@ -140,9 +140,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "d1e2b9fdffb5128259cd1dc3650aa3f5f649fa8d0939b8b9ba48df8fc0f1458a",
+      "evidence_hash": "c7f3323dbd529cb691218f3458a9864660ba455b0d9676aea75a71ef75d898e1",
       "chain_valid": true,
-      "request_id": "6fbd7f38-8645-4aa0-8837-59ce062ab050"
+      "request_id": "1848ba5b-fc64-48c9-802b-950127088aa9"
     },
     "critical": {
       "selected": "Wise",
@@ -186,9 +186,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "e593db6f363af620f220dd3b44f608c2ed33bf025bfd81084add718d5cea8d0e",
+      "evidence_hash": "ac1d4e1cb35b528fd5901359d34ce573c29f4dde36342fea244f0e30103bb8c4",
       "chain_valid": true,
-      "request_id": "cfc14dd2-afe5-4daf-bc6c-241d83eddc13"
+      "request_id": "f62d8953-9f33-4c29-89c7-e3588803ac0e"
     }
   }
 }
