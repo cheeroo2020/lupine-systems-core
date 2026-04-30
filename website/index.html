@@ -234,6 +234,28 @@ html,body{
   </div>
 </section>
 
+<!-- WATCHER AGENT BANNER -->
+<section id="watcher" style="padding:3rem 0;background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="card" style="padding:2rem;display:grid;gap:1.5rem;grid-template-columns:1fr;align-items:center" id="watcher-card" class-md="md:grid-cols-[auto,1fr,auto]">
+      <div style="display:flex;align-items:center;gap:1rem">
+        <div id="watcher-orb" style="width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFD082,#F58220);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0">🤖</div>
+        <div>
+          <div class="mono" style="font-size:.7rem;letter-spacing:.1em;color:var(--mute);text-transform:uppercase">Lupine Watcher · autonomous agent</div>
+          <div style="font-size:1.1rem;font-weight:800;margin-top:.25rem">
+            <span id="watcher-signal" style="display:inline-block;padding:3px 12px;border-radius:9999px;font-size:.85rem;background:rgba(245,130,32,.15);color:#C44A0A">—</span>
+            <span id="watcher-headline" style="margin-left:.5rem">checking the market…</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div id="watcher-rationale" style="font-size:.95rem;color:var(--text);line-height:1.6">—</div>
+        <div id="watcher-meta" class="mono" style="font-size:.7rem;color:var(--mute);margin-top:.5rem">—</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- HOW IT WORKS -->
 <section id="how" style="padding:6rem 0;background:var(--bg2)">
   <div class="max-w-6xl mx-auto px-6">
@@ -886,11 +908,42 @@ async function loadBacktest(){
   }catch(e){}
 }
 
+async function loadWatcher(){
+  try{
+    const r=await fetch('data/agent_signal.json',{cache:'no-store'});
+    if(!r.ok)return;
+    const d=await r.json();
+    const colors={
+      STRIKE:  {bg:'rgba(20,150,80,.15)', txt:'#0E7C42', orb:'radial-gradient(circle at 30% 30%,#7DE8A1,#0EA85B)', emoji:'🟢'},
+      WATCH:   {bg:'rgba(245,130,32,.15)', txt:'#C44A0A', orb:'radial-gradient(circle at 30% 30%,#FFD082,#F58220)', emoji:'🟡'},
+      HOLD:    {bg:'rgba(220,80,80,.12)',  txt:'#A02525', orb:'radial-gradient(circle at 30% 30%,#FFB0B0,#D04545)', emoji:'🔴'},
+      NEUTRAL: {bg:'rgba(40,40,40,.10)',   txt:'#404040', orb:'radial-gradient(circle at 30% 30%,#D0D0D0,#707070)', emoji:'⚪'},
+    };
+    const c=colors[d.signal]||colors.NEUTRAL;
+
+    const sigEl=document.getElementById('watcher-signal');
+    sigEl.textContent=c.emoji+' '+d.signal;
+    sigEl.style.background=c.bg;
+    sigEl.style.color=c.txt;
+
+    document.getElementById('watcher-orb').style.background=c.orb;
+    document.getElementById('watcher-headline').textContent='AUD/SGD '+d.rate.toFixed(5)+' · '+d.analysis.percentile_60d+'th percentile (60d)';
+    document.getElementById('watcher-rationale').textContent=d.rationale;
+    const ts=d.generated.replace('T',' ').replace('Z',' UTC');
+    document.getElementById('watcher-meta').textContent=
+      'z-score '+d.analysis.z_score+
+      ' · momentum 3d '+d.analysis.momentum_3d_pips+'p / 7d '+d.analysis.momentum_7d_pips+'p'+
+      ' · CLOKED 0x'+d.evidence_hash.slice(0,12)+'… '+(d.chain_valid?'✓':'✗')+
+      ' · ran '+ts;
+  }catch(e){}
+}
+
 /* live FX first (always fresh), then health (fallback + status) */
 loadLiveFx().then(loadHealth);
 loadNews();
 loadBacktest();
 loadLiveDecisions();
+loadWatcher();
 
 /* auto-upgrade brand mark to logo.png if it exists.
    Filter inverts dark-teal-on-white art so the white bg vanishes
@@ -906,5 +959,115 @@ loadLiveDecisions();
   img.src='logo.png';
 })();
 </script>
+
+<!-- LUPINE ANALYST CHAT (Tier 2 agent) -->
+<div id="chat-launcher" onclick="chatToggle()" style="position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#F58220,#FF96A8);box-shadow:0 6px 24px rgba(245,130,32,.35);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;transition:transform .2s" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</div>
+
+<div id="chat-panel" style="position:fixed;bottom:96px;right:24px;width:380px;max-width:calc(100vw - 48px);height:540px;max-height:calc(100vh - 120px);background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 64px rgba(30,12,0,.18);z-index:100;display:none;flex-direction:column;overflow:hidden">
+  <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(245,130,32,.08),transparent)">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#F58220,#FF96A8);display:flex;align-items:center;justify-content:center;font-size:.95rem">🐺</div>
+      <div>
+        <div style="font-weight:800;font-size:.95rem">Lupine Analyst</div>
+        <div class="mono" style="font-size:.65rem;color:var(--mute);letter-spacing:.04em">claude-sonnet-4-6 · with engine tools</div>
+      </div>
+    </div>
+    <button onclick="chatToggle()" style="background:none;border:none;font-size:1.4rem;color:var(--mute);cursor:pointer;line-height:1">×</button>
+  </div>
+  <div id="chat-log" style="flex:1;padding:1rem 1.25rem;overflow-y:auto;display:flex;flex-direction:column;gap:.75rem"></div>
+  <form onsubmit="event.preventDefault();chatSend()" style="padding:1rem 1.25rem;border-top:1px solid var(--line);display:flex;gap:.5rem">
+    <input id="chat-input" type="text" placeholder="Should I transfer 750k today?" autocomplete="off"
+      style="flex:1;background:var(--bg);border:1px solid var(--border);border-radius:9999px;padding:.6rem 1rem;font-size:.875rem;color:var(--text);font-family:inherit;outline:none"/>
+    <button type="submit" id="chat-send-btn"
+      style="background:linear-gradient(135deg,#F58220,#FF96A8);color:#fff;border:none;border-radius:9999px;padding:.6rem 1rem;font-weight:700;font-size:.85rem;cursor:pointer">Send</button>
+  </form>
+</div>
+
+<script>
+const CHAT_API = window.LUPINE_API || 'https://lupine-api.onrender.com';
+const _chatHistory = [];
+
+function chatToggle(){
+  const p=document.getElementById('chat-panel');
+  const open=p.style.display==='flex';
+  p.style.display=open?'none':'flex';
+  if(!open){
+    if(!_chatHistory.length){
+      chatPaint('assistant',"Hi — I'm the Lupine analyst. I can check the live AUD/SGD rate, run the engine for any amount, and tell you what the autonomous Watcher thinks. What's on your mind?");
+    }
+    setTimeout(()=>document.getElementById('chat-input').focus(),100);
+  }
+}
+
+function chatPaint(role,text){
+  const log=document.getElementById('chat-log');
+  const isUser=role==='user';
+  const bubble=document.createElement('div');
+  bubble.style.cssText=
+    'max-width:85%;padding:.65rem .9rem;border-radius:14px;font-size:.875rem;line-height:1.5;'+
+    (isUser
+      ? 'background:linear-gradient(135deg,#F58220,#FF96A8);color:#fff;align-self:flex-end;border-bottom-right-radius:4px'
+      : 'background:rgba(30,12,0,.04);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px');
+  bubble.textContent=text;
+  log.appendChild(bubble);
+  log.scrollTop=log.scrollHeight;
+  return bubble;
+}
+
+function chatTyping(){
+  const log=document.getElementById('chat-log');
+  const dots=document.createElement('div');
+  dots.id='chat-typing';
+  dots.style.cssText='align-self:flex-start;padding:.65rem .9rem;background:rgba(30,12,0,.04);border-radius:14px;border-bottom-left-radius:4px;font-size:1.1rem;letter-spacing:2px;color:var(--mute)';
+  dots.textContent='● ● ●';
+  log.appendChild(dots);
+  log.scrollTop=log.scrollHeight;
+}
+
+async function chatSend(){
+  const input=document.getElementById('chat-input');
+  const text=input.value.trim();
+  if(!text)return;
+  input.value='';
+  chatPaint('user',text);
+  _chatHistory.push({role:'user',content:text});
+  chatTyping();
+  document.getElementById('chat-send-btn').disabled=true;
+  try{
+    const r=await fetch(CHAT_API+'/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:text,history:_chatHistory.slice(0,-1)}),
+    });
+    document.getElementById('chat-typing')?.remove();
+    if(!r.ok){
+      const reason=r.status===503?"The chat backend isn't deployed yet. Set ANTHROPIC_API_KEY on the API and redeploy.":'API returned '+r.status;
+      chatPaint('assistant',reason);
+      return;
+    }
+    const d=await r.json();
+    chatPaint('assistant',d.response);
+    _chatHistory.push({role:'assistant',content:d.response});
+    if(d.tool_calls&&d.tool_calls.length){
+      const tools=d.tool_calls.map(t=>'· '+t.tool).join('  ');
+      const meta=document.createElement('div');
+      meta.style.cssText='align-self:flex-start;font-size:.65rem;color:var(--mute);font-family:JetBrains Mono,monospace;letter-spacing:.04em;margin-top:-.5rem;margin-left:.25rem';
+      meta.textContent='tools used: '+tools;
+      document.getElementById('chat-log').appendChild(meta);
+    }
+  }catch(e){
+    document.getElementById('chat-typing')?.remove();
+    chatPaint('assistant',"Couldn't reach the chat backend. Make sure the API is running and CHAT_API points at it.");
+  }finally{
+    document.getElementById('chat-send-btn').disabled=false;
+    document.getElementById('chat-input').focus();
+  }
+}
+</script>
+
 </body>
 </html>

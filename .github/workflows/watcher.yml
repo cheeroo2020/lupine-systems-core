@@ -1,0 +1,81 @@
+name: Lupine Watcher Agent
+
+# Autonomous AUD/SGD market watcher. Runs every hour:
+# perceives → reasons → decides → acts (writes signal, opens issues on STRIKE).
+
+on:
+  schedule:
+    - cron: "30 * * * *"   # every hour at :30
+  workflow_dispatch:
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      actions: write
+    concurrency:
+      group: watcher
+      cancel-in-progress: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run watcher agent
+        id: watcher
+        run: python scripts/watcher.py
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Open issue on STRIKE signal
+        if: steps.watcher.outputs.signal == 'STRIKE'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Avoid duplicate issues — check for an open STRIKE issue from today
+          DATE=$(date -u +%Y-%m-%d)
+          EXISTING=$(gh issue list --state open --search "STRIKE in:title ${DATE}" --json number --jq 'length')
+          if [ "$EXISTING" = "0" ]; then
+            gh issue create \
+              --title "STRIKE — favourable AUD→SGD transfer day (${DATE}, rate ${{ steps.watcher.outputs.rate }})" \
+              --label "watcher,strike" \
+              --body "$(cat <<EOF
+          The Lupine Watcher detected a favourable transfer window.
+
+          **Live AUD/SGD rate:** ${{ steps.watcher.outputs.rate }}
+          **60-day percentile:** ${{ steps.watcher.outputs.percentile }}%
+          **Reasoning:** ${{ steps.watcher.outputs.rationale }}
+
+          Full signal & evidence chain: \`website/data/agent_signal.json\`
+
+          Live dashboard: https://cheeroo2020.github.io/lupine-systems-core/#watcher
+
+          ---
+          *Opened automatically by the Lupine Watcher agent. Close when actioned or no longer relevant.*
+          EOF
+          )"
+          else
+            echo "STRIKE issue for ${DATE} already exists — skipping."
+          fi
+
+      - name: Commit signal
+        run: |
+          git config user.name  "lupine-watcher"
+          git config user.email "lupine-watcher@users.noreply.github.com"
+          git add website/data/agent_signal.json
+          git diff --staged --quiet || git commit -m "watcher: $(date -u +'%Y-%m-%d %H:%M') signal=${{ steps.watcher.outputs.signal }}"
+          git push || true
+
+      - name: Trigger Pages deploy
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run pages.yml --ref main || true
