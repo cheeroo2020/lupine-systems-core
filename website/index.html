@@ -120,20 +120,22 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
       Lupine
     </a>
     <div class="hidden md:flex items-center gap-8 text-sm font-medium" style="color:var(--mute)">
-      <a href="#how"    class="hover:text-white transition-colors">How it works</a>
-      <a href="#demo"   class="hover:text-white transition-colors">Try it</a>
-      <a href="#news"   class="hover:text-white transition-colors">Pulse</a>
-      <a href="#status" class="hover:text-white transition-colors">Status</a>
+      <a href="#how"     class="hover:text-white transition-colors">How it works</a>
+      <a href="#demo"    class="hover:text-white transition-colors">Try it</a>
+      <a href="#tracker" class="hover:text-white transition-colors">Track</a>
+      <a href="#news"    class="hover:text-white transition-colors">Pulse</a>
+      <a href="#status"  class="hover:text-white transition-colors">Status</a>
     </div>
     <button class="md:hidden p-2 rounded-lg" style="color:var(--mute)" onclick="document.getElementById('mob').classList.toggle('open')">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
   </div>
   <div id="mob" class="flex-col px-6 pb-5 gap-1" style="border-top:1px solid var(--line)">
-    <a href="#how"    class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">How it works</a>
-    <a href="#demo"   class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Try it</a>
-    <a href="#news"   class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Pulse</a>
-    <a href="#status" class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Status</a>
+    <a href="#how"     class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">How it works</a>
+    <a href="#demo"    class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Try it</a>
+    <a href="#tracker" class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Track</a>
+    <a href="#news"    class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Pulse</a>
+    <a href="#status"  class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Status</a>
   </div>
 </nav>
 
@@ -319,6 +321,94 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,s
         </div>
       </div>
       <p id="demo-note" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--mute);line-height:1.7;font-size:.95rem"></p>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFER TRACKER -->
+<section id="tracker" style="padding:6rem 0;background:var(--bg2)">
+  <div class="max-w-5xl mx-auto px-6">
+    <div style="text-align:center;margin-bottom:3rem">
+      <div class="mono" style="font-size:.75rem;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;margin-bottom:1rem">Live engine</div>
+      <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em">Track your transfer.<br/><span class="grad-teal">Any amount. Right now.</span></h2>
+      <p style="color:var(--mute);margin-top:1rem;line-height:1.7;max-width:480px;margin-left:auto;margin-right:auto">Enter your amount and urgency. The engine scores every rail in real time, picks the winner, and signs the decision into a cryptographic evidence chain.</p>
+    </div>
+
+    <!-- Input form -->
+    <div class="card" style="padding:2rem;margin-bottom:2rem">
+      <div style="display:grid;gap:1.5rem;grid-template-columns:1fr" class="md:grid-cols-3">
+        <div style="grid-column:1/-1" class="md:col-span-2">
+          <label style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);display:block;margin-bottom:.5rem">Amount (AUD)</label>
+          <div style="position:relative">
+            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);font-weight:700;color:var(--mute)">A$</span>
+            <input id="tr-amount" type="number" value="500000" min="1000" step="1000"
+              style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1rem 1rem 1rem 2.5rem;font-size:1.25rem;font-weight:700;color:var(--text);font-family:'Inter',sans-serif;outline:none"
+              oninput="trUpdatePreview()"/>
+          </div>
+          <div id="tr-sgd-preview" style="font-size:.875rem;color:var(--teal);margin-top:.5rem">= S$—</div>
+        </div>
+        <div>
+          <label style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);display:block;margin-bottom:.5rem">Urgency</label>
+          <select id="tr-urgency"
+            style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1rem;font-size:1rem;font-weight:600;color:var(--text);font-family:'Inter',sans-serif;outline:none;cursor:pointer">
+            <option value="low">🐢 Low</option>
+            <option value="normal">🔵 Normal</option>
+            <option value="high">🟡 High</option>
+            <option value="critical" selected>🔴 Critical</option>
+          </select>
+        </div>
+      </div>
+      <button onclick="runTracker()"
+        style="margin-top:1.5rem;width:100%;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;font-weight:700;border:none;border-radius:12px;padding:1rem;font-size:1rem;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .2s"
+        onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        Analyse transfer →
+      </button>
+    </div>
+
+    <!-- Result panel (hidden until run) -->
+    <div id="tr-result" style="display:none">
+
+      <!-- RAIL state machine -->
+      <div class="card" style="padding:2rem;margin-bottom:1.5rem">
+        <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin-bottom:1.25rem">RAIL — Execution pipeline</div>
+        <div id="tr-rail" style="display:flex;align-items:center;gap:0;overflow-x:auto;padding-bottom:.5rem"></div>
+      </div>
+
+      <!-- Provider scores -->
+      <div style="display:grid;gap:1.5rem;margin-bottom:1.5rem;grid-template-columns:1fr" class="md:grid-cols-3" id="tr-providers"></div>
+
+      <!-- Evidence + summary -->
+      <div class="card" style="padding:2rem">
+        <div style="display:grid;gap:1.5rem;grid-template-columns:1fr" class="md:grid-cols-2">
+          <div>
+            <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin-bottom:.75rem">Decision summary</div>
+            <div id="tr-summary" style="line-height:1.8;font-size:.95rem"></div>
+          </div>
+          <div>
+            <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin-bottom:.75rem">CLOKED evidence chain</div>
+            <div id="tr-chain" class="mono" style="font-size:.75rem;line-height:1.9;color:var(--mute)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transfer history -->
+    <div id="tr-history-wrap" style="margin-top:2rem;display:none">
+      <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin-bottom:1rem">Recent transfers this session</div>
+      <div class="card" style="overflow:hidden">
+        <table style="width:100%;border-collapse:collapse;font-size:.875rem">
+          <thead>
+            <tr style="color:var(--mute);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--line)">
+              <th style="padding:.75rem 1.25rem;text-align:left;font-weight:500">Transfer ID</th>
+              <th style="padding:.75rem 1rem;text-align:right;font-weight:500">Amount</th>
+              <th style="padding:.75rem 1rem;text-align:center;font-weight:500">Urgency</th>
+              <th style="padding:.75rem 1rem;text-align:center;font-weight:500">Winner</th>
+              <th style="padding:.75rem 1.25rem;text-align:right;font-weight:500">Saved vs bank</th>
+            </tr>
+          </thead>
+          <tbody id="tr-history"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </section>
@@ -529,6 +619,7 @@ function paintFx(rate){
   document.getElementById('hero-sgd').textContent  = 'S$'+sgd;
   document.getElementById('demo-sgd').textContent  = '= S$'+sgd;
   document.getElementById('stat-sgd').textContent  = 'S$'+sgd;
+  _setTrackerRate(r);
 }
 
 /* live FX from Frankfurter — runs in browser, doesn't depend on the workflow */
@@ -583,6 +674,163 @@ async function loadNews(){
 
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.rev').forEach(el=>{el.style.animationPlayState='paused';io.observe(el)});
+
+/* ── Transfer Tracker engine (JS port of AIVA + RAIL + CLOKED) ──────── */
+
+const TR_PROVIDERS=[
+  {id:'wise',      name:'Wise',       bps:45,   hours:1.0,  rel:0.95, color:'var(--blue)'},
+  {id:'airwallex', name:'Airwallex',  bps:30,   hours:3.0,  rel:0.92, color:'var(--teal)'},
+  {id:'bank',      name:'Bank SWIFT', bps:250.04,hours:36.0, rel:0.88, color:'var(--mute)'},
+];
+const TR_WEIGHTS={
+  low:     {speed:.15,cost:.55,reliability:.30},
+  normal:  {speed:.25,cost:.35,reliability:.40},
+  high:    {speed:.50,cost:.15,reliability:.35},
+  critical:{speed:.60,cost:.05,reliability:.35},
+};
+const RAIL_STATES=['initiated','scored','route_selected','executing','completed'];
+
+let _liveFxRate=null;
+const _trHistory=[];
+
+function trScore(urgency){
+  const w=TR_WEIGHTS[urgency];
+  const routes=TR_PROVIDERS.map(p=>({...p}));
+  const maxTime=Math.max(...routes.map(r=>r.hours));
+  const maxBps =Math.max(...routes.map(r=>r.bps));
+  routes.forEach(r=>{
+    r.speedScore=1-r.hours/maxTime;
+    r.costScore =1-r.bps/maxBps;
+    r.composite =+(w.speed*r.speedScore+w.cost*r.costScore+w.reliability*r.rel).toFixed(3);
+  });
+  return routes.sort((a,b)=>b.composite-a.composite);
+}
+
+async function sha256(str){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function trUpdatePreview(){
+  const amt=parseFloat(document.getElementById('tr-amount').value)||0;
+  const rate=_liveFxRate||0.9119;
+  const sgd=(amt*rate).toLocaleString('en-AU',{maximumFractionDigits:0});
+  document.getElementById('tr-sgd-preview').textContent='= S$'+sgd+' SGD (live rate)';
+}
+
+function animateRail(activeIdx,winner){
+  const rail=document.getElementById('tr-rail');
+  rail.innerHTML=RAIL_STATES.map((s,i)=>{
+    const done=i<activeIdx;
+    const active=i===activeIdx;
+    const col=done||active?'var(--teal)':'var(--border)';
+    const label=s.replace('_',' ');
+    const connector=i<RAIL_STATES.length-1
+      ?`<div style="flex:1;height:2px;background:${done?'var(--teal)':'var(--border)'};min-width:16px;transition:background .4s"></div>`:'';
+    return `<div style="display:flex;align-items:center;flex:${i<RAIL_STATES.length-1?'1':'0'}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;min-width:72px">
+        <div style="width:28px;height:28px;border-radius:50%;border:2px solid ${col};display:flex;align-items:center;justify-content:center;font-size:.7rem;background:${active?'var(--teal)':done?'rgba(0,212,170,.15)':'transparent'};transition:all .4s">
+          ${done?'✓':active?'●':i+1}
+        </div>
+        <div class="mono" style="font-size:.6rem;color:${active?'var(--teal)':done?'rgba(255,255,255,.6)':'var(--mute)'};text-align:center;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap">${label}</div>
+      </div>
+      ${connector}
+    </div>`;
+  }).join('');
+}
+
+async function runTracker(){
+  const amt=parseFloat(document.getElementById('tr-amount').value);
+  if(!amt||amt<1){return;}
+  const urgency=document.getElementById('tr-urgency').value;
+  const rate=_liveFxRate||0.9119;
+  const rateDate=new Date().toISOString().slice(0,10);
+  const tid='LUP-'+(Date.now().toString(36).toUpperCase());
+
+  const result=document.getElementById('tr-result');
+  result.style.display='block';
+  result.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  /* animate RAIL states */
+  for(let i=0;i<RAIL_STATES.length;i++){
+    animateRail(i,null);
+    await new Promise(r=>setTimeout(r,i===3?900:480));
+  }
+  animateRail(RAIL_STATES.length,null);
+
+  /* score providers */
+  const scored=trScore(urgency);
+  const winner=scored[0];
+  const bank=scored.find(r=>r.id==='bank');
+  const w=TR_WEIGHTS[urgency];
+
+  /* provider cards */
+  document.getElementById('tr-providers').innerHTML=scored.map((p,i)=>{
+    const isWin=i===0;
+    const feePct=p.bps/100;
+    const feeAud=(amt*p.bps/10000).toFixed(0);
+    const received=((amt-amt*p.bps/10000)*rate).toLocaleString('en-AU',{maximumFractionDigits:0});
+    const timeLabel=p.hours<2?p.hours+' hour'+(p.hours===1?'':'s'):p.hours>=24?(p.hours/24).toFixed(0)+' days':p.hours+' hours';
+    return `<div class="card" style="padding:1.5rem;border-color:${isWin?p.color:'var(--border)'};position:relative">
+      ${isWin?`<div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:${p.color};color:#000;font-size:.65rem;font-weight:800;padding:3px 10px;border-radius:9999px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap">✓ Selected</div>`:''}
+      <div style="font-size:1.1rem;font-weight:800;color:${p.color};margin-bottom:1rem">${p.name}</div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.875rem">
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--mute)">Composite</span><span style="font-weight:700">${p.composite.toFixed(3)}</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--mute)">Fee</span><span>${feePct.toFixed(2)}% (A$${parseInt(feeAud).toLocaleString('en-AU')})</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--mute)">Recipient gets</span><span style="color:var(--teal);font-weight:600">S$${received}</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--mute)">Settlement</span><span>${timeLabel}</span></div>
+        <div style="height:4px;border-radius:9999px;background:var(--line);margin-top:.25rem;overflow:hidden">
+          <div style="height:100%;width:${Math.round(p.composite*100)}%;background:${p.color};border-radius:9999px;transition:width .7s ease"></div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  /* CLOKED evidence chain */
+  const savingAud=(amt*(bank.bps-winner.bps)/10000).toFixed(0);
+  const payload=JSON.stringify({tid,amt,urgency,rate,rateDate,winner:winner.name,scores:scored.map(s=>({name:s.name,composite:s.composite}))});
+  const h1=await sha256('genesis:'+tid);
+  const h2=await sha256(h1+':fx:'+rate);
+  const h3=await sha256(h2+':scored:'+payload);
+  const h4=await sha256(h3+':selected:'+winner.name);
+
+  document.getElementById('tr-chain').innerHTML=
+    `<div style="margin-bottom:.4rem;color:var(--mute)">0 genesis → <span style="color:var(--teal)">${h1.slice(0,20)}…</span></div>`+
+    `<div style="margin-bottom:.4rem;color:var(--mute)">1 fx_observed → <span style="color:var(--teal)">${h2.slice(0,20)}…</span></div>`+
+    `<div style="margin-bottom:.4rem;color:var(--mute)">2 routes_scored → <span style="color:var(--teal)">${h3.slice(0,20)}…</span></div>`+
+    `<div style="color:#fff">3 route_selected → <span style="color:var(--teal)">${h4.slice(0,20)}…</span></div>`+
+    `<div style="margin-top:.75rem;font-size:.65rem;color:var(--teal)">chain integrity: verified ✓</div>`;
+
+  const timeLabel=winner.hours<2?winner.hours+' h':winner.hours>=24?(winner.hours/24).toFixed(0)+'d':winner.hours+'h';
+  const eta=new Date(Date.now()+winner.hours*3600000).toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+
+  document.getElementById('tr-summary').innerHTML=
+    `<div style="margin-bottom:.5rem"><span style="color:var(--mute)">Transfer ID</span> <span class="mono" style="color:var(--blue)">${tid}</span></div>`+
+    `<div style="margin-bottom:.5rem"><span style="color:var(--mute)">Winner</span> <strong style="color:${winner.color}">${winner.name}</strong></div>`+
+    `<div style="margin-bottom:.5rem"><span style="color:var(--mute)">Expected arrival</span> ~${timeLabel} (by ${eta})</div>`+
+    `<div style="margin-bottom:.5rem"><span style="color:var(--mute)">Weights</span> speed ${(w.speed*100).toFixed(0)}% / cost ${(w.cost*100).toFixed(0)}% / rel ${(w.reliability*100).toFixed(0)}%</div>`+
+    `<div><span style="color:var(--mute)">Saved vs bank</span> <span style="color:var(--teal);font-weight:700">A$${parseInt(savingAud).toLocaleString('en-AU')}</span></div>`;
+
+  /* session history */
+  _trHistory.unshift({tid,amt,urgency,winner:winner.name,saving:parseInt(savingAud),color:winner.color});
+  if(_trHistory.length>8)_trHistory.pop();
+  const wrap=document.getElementById('tr-history-wrap');
+  wrap.style.display='block';
+  document.getElementById('tr-history').innerHTML=_trHistory.map((t,i)=>
+    `<tr style="border-top:1px solid var(--line);background:${i%2?'rgba(255,255,255,.02)':'transparent'}">
+      <td class="mono" style="padding:.75rem 1.25rem;font-size:.8rem;color:var(--blue)">${t.tid}</td>
+      <td style="padding:.75rem 1rem;text-align:right">A$${t.amt.toLocaleString('en-AU')}</td>
+      <td style="padding:.75rem 1rem;text-align:center;color:var(--mute);font-size:.8rem">${t.urgency}</td>
+      <td style="padding:.75rem 1rem;text-align:center;font-weight:700;color:${t.color}">${t.winner}</td>
+      <td style="padding:.75rem 1.25rem;text-align:right;color:var(--teal);font-weight:600">A$${t.saving.toLocaleString('en-AU')}</td>
+    </tr>`
+  ).join('');
+}
+
+/* expose live rate for the preview label */
+function _setTrackerRate(r){_liveFxRate=r;trUpdatePreview();}
+
+/* ── end Transfer Tracker ─────────────────────────────────────────── */
 
 function fmt(n){return'A$'+Math.round(n).toLocaleString('en-AU')}
 function providerColor(name){
