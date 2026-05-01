@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-30T16:19:16Z",
+  "generated": "2026-05-01T01:59:24Z",
   "date": "2026-04-30",
   "fx_rate": 0.91222,
   "fx_source": "Frankfurter API (ECB reference rate)",
@@ -48,9 +48,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "8aae5bf0604df2fa6128091469695a12c99b0899c54d08adc0deece9df34e4cb",
+      "evidence_hash": "7d7ad7df992c0f1c31dfdc9d47af09e3f8dee33747dd23915a999d64a11cf582",
       "chain_valid": true,
-      "request_id": "7688ddc6-371d-4712-8b5a-05efa7224dd2"
+      "request_id": "68fea4e6-6489-430e-a427-f6ce2ac162eb"
     },
     "normal": {
       "selected": "Wise",
@@ -94,9 +94,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "fd1882ff4efa625500164f0ab348e70839187fd743e563a304c647c0b91aa9b4",
+      "evidence_hash": "e8f45b0543f1305905a2ff948f914db00c03936edef9a97b5ba5aa3b7ac35e65",
       "chain_valid": true,
-      "request_id": "9b62ea83-e3ea-4005-a388-46d4d40515e2"
+      "request_id": "23ea3f57-edbf-445a-910f-65050eb7c8b5"
     },
     "high": {
       "selected": "Wise",
@@ -140,9 +140,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "c7f3323dbd529cb691218f3458a9864660ba455b0d9676aea75a71ef75d898e1",
+      "evidence_hash": "a350ba505f47ac6e76e5a1df6914093298c5176261292a514180690316c6a8a1",
       "chain_valid": true,
-      "request_id": "1848ba5b-fc64-48c9-802b-950127088aa9"
+      "request_id": "7d9e807b-7741-4ecc-a987-89676adb33ea"
     },
     "critical": {
       "selected": "Wise",
@@ -186,9 +186,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "ac1d4e1cb35b528fd5901359d34ce573c29f4dde36342fea244f0e30103bb8c4",
+      "evidence_hash": "6fd154095a40802c220c0034e5c470a2dada58ba8d1e2e66bc4e26922affac0b",
       "chain_valid": true,
-      "request_id": "f62d8953-9f33-4c29-89c7-e3588803ac0e"
+      "request_id": "3594adb3-17c1-4c49-ba04-defc4800f043"
     }
   }
 }

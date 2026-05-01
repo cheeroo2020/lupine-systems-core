@@ -26,3 +26,4 @@ No manual input needed. Fully automated.
 | [2026-04-28](./2026-04-28.md) | LendingClub Expands Into Home Improvement After Q1 Originations Jum… |
 | [2026-04-29](./2026-04-29.md) | Visa Earnings Spotlight Agentic Commerce as Next Growth Engine |
 | [2026-04-30](./2026-04-30.md) | A New Chapter in AI’s Most Powerful Partnership |
+| [2026-05-01](./2026-05-01.md) | Labcorp (LH) Q1 2026 Earnings Call Transcript |
