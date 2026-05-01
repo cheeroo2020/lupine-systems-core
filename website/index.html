@@ -405,7 +405,7 @@ html,body{
       </div>
 
       <!-- Provider scores -->
-      <div style="display:grid;gap:1.5rem;margin-bottom:1.5rem;grid-template-columns:1fr" class="md:grid-cols-3" id="tr-providers"></div>
+      <div style="display:grid;gap:1.25rem;margin-bottom:1.5rem;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))" id="tr-providers"></div>
 
       <!-- Evidence + summary -->
       <div class="card" style="padding:2rem">
@@ -518,7 +518,7 @@ html,body{
     </div>
 
     <p style="margin-top:1.5rem;font-size:.8rem;color:var(--mute);text-align:center">
-      Rates: ECB reference via Frankfurter API · Provider fees: Wise public calculator, Airwallex business pricing, ANZ/CBA SWIFT schedule · Backtest updated weekly
+      Rates: ECB reference via Frankfurter API · 13 providers compared: Nium, Airwallex, WorldFirst, Revolut Business, Wise, TorFX, OFX, CurrencyFair, DBS Remit, XE, Western Union, MoneyGram, Bank SWIFT · Backtest updated weekly
     </p>
   </div>
 </section>
@@ -601,10 +601,10 @@ function paintDemo(rail,time,cost,score,note,hash,source){
 
 /* Seed shown instantly before JSON loads */
 const SEED={
-  low:     {rail:'Airwallex',  time:'3 hours',   cost:'30 bps', score:.898,note:'Low urgency — cost weight 55%. Airwallex wins with a tighter spread (30 bps). Ideal for routine payroll or supplier runs.'},
-  normal:  {rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.910,note:'Normal urgency — reliability weight 40%. Wise wins on speed (1 h) and a 0.95 reliability score despite slightly higher fee.'},
-  high:    {rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.942,note:'High urgency — speed weight 50%. Wise dominates. 1-hour settlement vs 3 hours for Airwallex and 36 hours for any bank.'},
-  critical:{rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.957,note:'Critical urgency — speed weight 60%. Wise wins by the widest margin. Cost weight collapses to 5% — getting there is all that matters.'},
+  low:     {rail:'Airwallex',  time:'3 hours',   cost:'30 bps', score:.901,note:'Low urgency — cost weight 55%. Airwallex (30 bps) edges out Nium on reliability across 13 providers. Ideal for routine payroll or supplier runs.'},
+  normal:  {rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.912,note:'Normal urgency — reliability weight 40%. Wise wins on its 0.95 reliability score and 1-hour settlement, beating Nium and Airwallex.'},
+  high:    {rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.945,note:'High urgency — speed weight 50%. Wise dominates with 1-hour settlement. Nium (2 h) and Revolut (2 h) are next, but reliability gap favours Wise.'},
+  critical:{rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.961,note:'Critical urgency — speed weight 60%. Wise wins by the widest margin across all 13 providers. Cost weight collapses to 5% — getting there is all that matters.'},
 };
 
 function setU(u){
@@ -708,9 +708,23 @@ document.querySelectorAll('.rev').forEach(el=>{el.style.animationPlayState='paus
 /* ── Transfer Tracker engine (JS port of AIVA + RAIL + CLOKED) ──────── */
 
 const TR_PROVIDERS=[
-  {id:'wise',      name:'Wise',       bps:45,   hours:1.0,  rel:0.95, color:'var(--blue)'},
-  {id:'airwallex', name:'Airwallex',  bps:30,   hours:3.0,  rel:0.92, color:'var(--teal)'},
-  {id:'bank',      name:'Bank SWIFT', bps:250.04,hours:36.0, rel:0.88, color:'var(--mute)'},
+  // ── Digital-first / lowest cost ──
+  {id:'nium',        name:'Nium',             bps:25,    hours:2.0,  rel:0.87, color:'#10B981'},
+  {id:'airwallex',   name:'Airwallex',         bps:30,    hours:3.0,  rel:0.92, color:'#F58220'},
+  {id:'worldfirst',  name:'WorldFirst',        bps:35,    hours:24.0, rel:0.90, color:'#8B5CF6'},
+  {id:'revolut',     name:'Revolut Business',  bps:40,    hours:2.0,  rel:0.86, color:'#0EA5E9'},
+  {id:'wise',        name:'Wise',              bps:45,    hours:1.0,  rel:0.95, color:'#22D3EE'},
+  {id:'torfx',       name:'TorFX',             bps:45,    hours:24.0, rel:0.88, color:'#D97706'},
+  {id:'ofx',         name:'OFX',               bps:50,    hours:24.0, rel:0.91, color:'#0891B2'},
+  {id:'currencyfair',name:'CurrencyFair',      bps:55,    hours:48.0, rel:0.84, color:'#DB2777'},
+  // ── Bank digital / regional ──
+  {id:'dbs',         name:'DBS Remit',         bps:80,    hours:18.0, rel:0.90, color:'#DC2626'},
+  {id:'xe',          name:'XE Money Transfer', bps:90,    hours:48.0, rel:0.86, color:'#6B7280'},
+  // ── Legacy / high cost ──
+  {id:'wu',          name:'Western Union',     bps:120,   hours:24.0, rel:0.83, color:'#CA8A04'},
+  {id:'moneygram',   name:'MoneyGram',         bps:160,   hours:48.0, rel:0.79, color:'#7C3AED'},
+  // ── Traditional banking ──
+  {id:'bank',        name:'Bank SWIFT',        bps:250.04,hours:36.0, rel:0.88, color:'#9CA3AF'},
 ];
 const TR_WEIGHTS={
   low:     {speed:.15,cost:.55,reliability:.30},
@@ -864,7 +878,8 @@ function _setTrackerRate(r){_liveFxRate=r;trUpdatePreview();}
 
 function fmt(n){return'A$'+Math.round(n).toLocaleString('en-AU')}
 function providerColor(name){
-  return name==='Wise'?'var(--blue)':name==='Airwallex'?'var(--teal)':'var(--mute)'
+  const p=TR_PROVIDERS.find(p=>p.name===name);
+  return p?p.color:'var(--mute)';
 }
 
 async function loadBacktest(){
@@ -1087,7 +1102,7 @@ async function answerSavings(){
 }
 
 async function answerEvidence(){
-  return"Every Lupine decision creates a CLOKED audit chain:\n  0  genesis\n  1  fx_observed     (rate from ECB)\n  2  routes_scored   (all 3 providers)\n  3  route_selected  (winner + composite score)\n\nEach entry's SHA-256 hash links to the previous one. Tampering with any entry breaks the chain. Hashes are computed in-browser via SubtleCrypto and stored client-side per transfer.";
+  return"Every Lupine decision creates a CLOKED audit chain:\n  0  genesis\n  1  fx_observed     (rate from ECB)\n  2  routes_scored   (all 13 providers)\n  3  route_selected  (winner + composite score)\n\nEach entry's SHA-256 hash links to the previous one. Tampering with any entry breaks the chain. Hashes are computed in-browser via SubtleCrypto and stored client-side per transfer.";
 }
 
 function answerHelp(){
