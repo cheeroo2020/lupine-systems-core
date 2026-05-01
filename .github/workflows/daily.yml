@@ -25,15 +25,15 @@ jobs:
         id: check
         run: |
           DATE=$(date -u +%Y-%m-%d)
-          # Four conditions must ALL be true to skip:
+          # Three conditions must ALL be true to skip:
           #   1. Today's test-results file exists
           #   2. Today's news file exists
           #   3. website/data/health.json is already dated today
-          #   4. website/data/live_decisions.json is already dated today
+          # live_decisions.json is excluded — it's updated opportunistically
+          # when Frankfurter is reachable and should not gate the skip check.
           if [ -f "test-results/${DATE}.md" ] && \
              [ -f "daily-news/${DATE}.md" ] && \
-             grep -q "\"date\": \"${DATE}\"" website/data/health.json 2>/dev/null && \
-             grep -q "\"date\": \"${DATE}\"" website/data/live_decisions.json 2>/dev/null; then
+             grep -q "\"date\": \"${DATE}\"" website/data/health.json 2>/dev/null; then
             echo "Today (${DATE}) already fully processed — skipping."
             echo "skip=true" >> $GITHUB_OUTPUT
           else
@@ -82,7 +82,10 @@ jobs:
           DATE=$(date -u +%Y-%m-%d)
           UNIT_EXIT=${{ steps.unit_tests.outputs.exit_code }}
           LIVE_EXIT=${{ steps.live_tests.outputs.exit_code }}
-          OVERALL=$([ "$UNIT_EXIT" = "0" ] && [ "$LIVE_EXIT" = "0" ] && echo "✅ PASSED" || echo "❌ FAILED")
+          # Unit tests are deterministic — they gate PASSED/FAILED.
+          # Live API tests are advisory (Frankfurter may be unreachable in CI).
+          OVERALL=$([ "$UNIT_EXIT" = "0" ] && echo "✅ PASSED" || echo "❌ FAILED")
+          LIVE_STATUS=$([ "$LIVE_EXIT" = "0" ] && echo "✅ online" || echo "⚠️ unreachable")
 
           UNIT_PASSED=$(grep -c " PASSED" /tmp/unit_output.txt || true)
           UNIT_FAILED=$(grep -c " FAILED" /tmp/unit_output.txt || true)
@@ -158,9 +161,8 @@ jobs:
           </details>
           MDEOF
 
-          RESULT_BADGE=$([ "$UNIT_EXIT" = "0" ] && [ "$LIVE_EXIT" = "0" ] && echo "✅ PASSED" || echo "❌ FAILED")
           if ! grep -q "\[${DATE}\]" test-results/README.md; then
-            echo "| [${DATE}](./${DATE}.md) | ${RESULT_BADGE} | ${TOTAL_PASSED}/14 | 1 AUD = ${FX_RATE} SGD |" >> test-results/README.md
+            echo "| [${DATE}](./${DATE}.md) | ${OVERALL} | ${TOTAL_PASSED}/14 | 1 AUD = ${FX_RATE} SGD |" >> test-results/README.md
           fi
 
       - name: Fetch daily news
@@ -171,12 +173,14 @@ jobs:
 
       - name: Generate live decisions
         if: steps.check.outputs.skip != 'true'
+        continue-on-error: true
         run: python scripts/generate_live_decisions.py
         env:
           PYTHONPATH: ${{ github.workspace }}
 
       - name: Generate website data
         if: steps.check.outputs.skip != 'true'
+        continue-on-error: true
         run: python scripts/generate_site_data.py
         env:
           PYTHONPATH: ${{ github.workspace }}

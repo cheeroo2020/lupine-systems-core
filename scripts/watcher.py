@@ -189,8 +189,12 @@ def main() -> int:
         current, rate_date = fetch_live()
         history            = fetch_history()
     except Exception as e:
-        print(f"ERROR perceiving environment: {e}")
-        return 1
+        # Frankfurter is intermittently unreachable. The previous signal is
+        # still valid for short outages — exit cleanly so the hourly cron
+        # doesn't flag every network blip as a workflow failure.
+        print(f"WARNING: Frankfurter unreachable — {e}")
+        print("Keeping last signal; skipping this run.")
+        return 0
 
     analysis    = compute_analysis(history, current)
     news_flags  = read_news_signals()

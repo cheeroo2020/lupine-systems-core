@@ -96,8 +96,14 @@ def main() -> int:
     try:
         fx_rate, fx_date = fetch_live_rate()
     except Exception as e:
-        print(f"ERROR: {e}")
-        return 1
+        # Frankfurter is occasionally unreachable in CI. Keep the last good
+        # file rather than failing the whole workflow with a network blip.
+        print(f"WARNING: Frankfurter API unreachable — {e}")
+        if OUT_PATH.exists():
+            print("Keeping existing live_decisions.json unchanged.")
+        else:
+            print("No prior live_decisions.json to preserve — site will show stale data.")
+        return 0
 
     print(f"Rate: 1 AUD = {fx_rate} SGD ({fx_date})")
 
