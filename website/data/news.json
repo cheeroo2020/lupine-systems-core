@@ -2,8 +2,14 @@
   "date": "2026-05-01",
   "stories": [
     {
-      "headline": "FTSE 100 Moderately Lower As Bank, Mining Stocks Shed Ground",
-      "body": "(RTTNews) - The UK stock market's benchmark index FTSE 100 fell on Friday, weighed down by losses in financial and mining sectors. Worries about the impact of the ongoing conflict in the Middle East weighed as well on sentiment.",
+      "headline": "Powell is right to stay at the Fed; the central bank needs continuity",
+      "body": "Jerome Powell has indicated that he will buck tradition by remaining on the Federal Reserve Board after his term as chair expires. Given the circumstances, he's making the responsible call.",
+      "source": "American Banker",
+      "pub_date": "01 May 2026"
+    },
+    {
+      "headline": "Worried About \"The Big Print\"? Buy These 3 Cryptocurrencies Right Now.",
+      "body": "Key PointsThe government will likely need to print some money to pay its interest expenses.",
       "source": "Nasdaq",
       "pub_date": "01 May 2026"
     },
@@ -12,12 +18,6 @@
       "body": "For many growth-company CFOs, working capital is no longer a back-office cushion, but a strategic lever. That is a central finding from “The 2025-2026 Growth Corporates Working Capital Index,” a Visa and PYMNTS Intelligence report based on a survey of 1,457 CFOs and treasurers across 23 countries, five regions and 10 industry groups. The report",
       "source": "PYMNTS",
       "pub_date": "01 May 2026"
-    },
-    {
-      "headline": "C&I loan growth is surging. Are private credit woes the driver?",
-      "body": "The recent uptick in commercial-and-industrial lending is the result of disruption in the private credit sector, one economist argues. Bank analysts say the upheaval in private credit is one factor among many.",
-      "source": "American Banker",
-      "pub_date": "30 Apr 2026"
     }
   ]
 }
