@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-01T12:54:39Z",
+  "generated": "2026-05-02T01:48:15Z",
   "date": "2026-04-30",
   "fx_rate": 0.91222,
   "fx_source": "Frankfurter API (ECB reference rate)",
@@ -11,9 +11,9 @@
       "corridor": "AUD \u2192 SGD (Airwallex spread)",
       "time_hours": 3.0,
       "cost_bps": 30.0,
-      "composite_score": 0.898,
+      "composite_score": 0.901,
       "saving_vs_bank": 11020.0,
-      "rationale": "Airwallex selected via AUD \u2192 SGD (Airwallex spread). Composite score: 0.898. Beat Wise by 0.016 (3.0h vs 1.0h, 30.0bps vs 45.0bps). Weights favoured cost (speed=15%, cost=55%, reliability=30%).",
+      "rationale": "Airwallex selected via AUD \u2192 SGD (Airwallex spread). Composite score: 0.901. Beat Nium by 0.001 (3.0h vs 2.0h, 30.0bps vs 25.0bps). Weights favoured cost (speed=15%, cost=55%, reliability=30%).",
       "weights": {
         "speed": 0.15,
         "cost": 0.55,
@@ -22,44 +22,134 @@
       "all_routes": [
         {
           "name": "Airwallex",
-          "speed": 0.917,
+          "speed": 0.938,
           "cost": 0.88,
           "reliability": 0.92,
-          "composite": 0.898,
+          "composite": 0.901,
           "cost_bps": 30.0,
           "time_hours": 3.0
         },
         {
+          "name": "Nium",
+          "speed": 0.958,
+          "cost": 0.9,
+          "reliability": 0.87,
+          "composite": 0.9,
+          "cost_bps": 25.0,
+          "time_hours": 2.0
+        },
+        {
           "name": "Wise",
-          "speed": 0.972,
+          "speed": 0.979,
           "cost": 0.82,
           "reliability": 0.95,
-          "composite": 0.882,
+          "composite": 0.883,
           "cost_bps": 45.0,
           "time_hours": 1.0
         },
         {
-          "name": "Bank SWIFT",
+          "name": "Revolut Business",
+          "speed": 0.958,
+          "cost": 0.84,
+          "reliability": 0.86,
+          "composite": 0.864,
+          "cost_bps": 40.0,
+          "time_hours": 2.0
+        },
+        {
+          "name": "WorldFirst",
+          "speed": 0.5,
+          "cost": 0.86,
+          "reliability": 0.9,
+          "composite": 0.818,
+          "cost_bps": 35.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "TorFX",
+          "speed": 0.5,
+          "cost": 0.82,
+          "reliability": 0.88,
+          "composite": 0.79,
+          "cost_bps": 45.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "OFX",
+          "speed": 0.5,
+          "cost": 0.8,
+          "reliability": 0.91,
+          "composite": 0.788,
+          "cost_bps": 50.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "DBS Remit",
+          "speed": 0.625,
+          "cost": 0.681,
+          "reliability": 0.9,
+          "composite": 0.738,
+          "cost_bps": 80.0,
+          "time_hours": 18.0
+        },
+        {
+          "name": "CurrencyFair",
           "speed": 0.0,
+          "cost": 0.78,
+          "reliability": 0.84,
+          "composite": 0.681,
+          "cost_bps": 55.0,
+          "time_hours": 48.0
+        },
+        {
+          "name": "Western Union",
+          "speed": 0.5,
+          "cost": 0.521,
+          "reliability": 0.83,
+          "composite": 0.61,
+          "cost_bps": 120.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "XE Money Transfer",
+          "speed": 0.0,
+          "cost": 0.641,
+          "reliability": 0.86,
+          "composite": 0.61,
+          "cost_bps": 90.0,
+          "time_hours": 48.0
+        },
+        {
+          "name": "MoneyGram",
+          "speed": 0.0,
+          "cost": 0.361,
+          "reliability": 0.79,
+          "composite": 0.436,
+          "cost_bps": 160.0,
+          "time_hours": 48.0
+        },
+        {
+          "name": "Bank SWIFT",
+          "speed": 0.25,
           "cost": 0.0,
           "reliability": 0.88,
-          "composite": 0.264,
+          "composite": 0.301,
           "cost_bps": 250.4,
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "04c8e0993b61ffffff2a5ae72c9bd4095393e0184f3b965ef5153896b8520611",
+      "evidence_hash": "b12a068fba9f87176a9bb5a3d291b7e62f12cec95a22dd96636f96bd0460d533",
       "chain_valid": true,
-      "request_id": "9400139b-7b15-4c63-9266-bce13a69925e"
+      "request_id": "676a922b-c359-4e5c-bd7b-1d461c098804"
     },
     "normal": {
       "selected": "Wise",
       "corridor": "AUD \u2192 SGD (mid-market + Wise fee)",
       "time_hours": 1.0,
       "cost_bps": 45.0,
-      "composite_score": 0.91,
+      "composite_score": 0.912,
       "saving_vs_bank": 10270.0,
-      "rationale": "Wise selected via AUD \u2192 SGD (mid-market + Wise fee). Composite score: 0.910. Beat Airwallex by 0.005 (1.0h vs 3.0h, 45.0bps vs 30.0bps). Weights favoured reliability (speed=25%, cost=35%, reliability=40%).",
+      "rationale": "Wise selected via AUD \u2192 SGD (mid-market + Wise fee). Composite score: 0.912. Beat Airwallex by 0.001 (1.0h vs 3.0h, 45.0bps vs 30.0bps). Weights favoured reliability (speed=25%, cost=35%, reliability=40%).",
       "weights": {
         "speed": 0.25,
         "cost": 0.35,
@@ -68,44 +158,134 @@
       "all_routes": [
         {
           "name": "Wise",
-          "speed": 0.972,
+          "speed": 0.979,
           "cost": 0.82,
           "reliability": 0.95,
-          "composite": 0.91,
+          "composite": 0.912,
           "cost_bps": 45.0,
           "time_hours": 1.0
         },
         {
           "name": "Airwallex",
-          "speed": 0.917,
+          "speed": 0.938,
           "cost": 0.88,
           "reliability": 0.92,
-          "composite": 0.905,
+          "composite": 0.91,
           "cost_bps": 30.0,
           "time_hours": 3.0
         },
         {
-          "name": "Bank SWIFT",
+          "name": "Nium",
+          "speed": 0.958,
+          "cost": 0.9,
+          "reliability": 0.87,
+          "composite": 0.903,
+          "cost_bps": 25.0,
+          "time_hours": 2.0
+        },
+        {
+          "name": "Revolut Business",
+          "speed": 0.958,
+          "cost": 0.84,
+          "reliability": 0.86,
+          "composite": 0.878,
+          "cost_bps": 40.0,
+          "time_hours": 2.0
+        },
+        {
+          "name": "WorldFirst",
+          "speed": 0.5,
+          "cost": 0.86,
+          "reliability": 0.9,
+          "composite": 0.786,
+          "cost_bps": 35.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "OFX",
+          "speed": 0.5,
+          "cost": 0.8,
+          "reliability": 0.91,
+          "composite": 0.769,
+          "cost_bps": 50.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "TorFX",
+          "speed": 0.5,
+          "cost": 0.82,
+          "reliability": 0.88,
+          "composite": 0.764,
+          "cost_bps": 45.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "DBS Remit",
+          "speed": 0.625,
+          "cost": 0.681,
+          "reliability": 0.9,
+          "composite": 0.754,
+          "cost_bps": 80.0,
+          "time_hours": 18.0
+        },
+        {
+          "name": "Western Union",
+          "speed": 0.5,
+          "cost": 0.521,
+          "reliability": 0.83,
+          "composite": 0.639,
+          "cost_bps": 120.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "CurrencyFair",
           "speed": 0.0,
+          "cost": 0.78,
+          "reliability": 0.84,
+          "composite": 0.609,
+          "cost_bps": 55.0,
+          "time_hours": 48.0
+        },
+        {
+          "name": "XE Money Transfer",
+          "speed": 0.0,
+          "cost": 0.641,
+          "reliability": 0.86,
+          "composite": 0.568,
+          "cost_bps": 90.0,
+          "time_hours": 48.0
+        },
+        {
+          "name": "MoneyGram",
+          "speed": 0.0,
+          "cost": 0.361,
+          "reliability": 0.79,
+          "composite": 0.442,
+          "cost_bps": 160.0,
+          "time_hours": 48.0
+        },
+        {
+          "name": "Bank SWIFT",
+          "speed": 0.25,
           "cost": 0.0,
           "reliability": 0.88,
-          "composite": 0.352,
+          "composite": 0.415,
           "cost_bps": 250.4,
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "7d66973eb517dc62d0540912d190e64ac13ceb2017c7b2ecf61f98a6e6bbf69c",
+      "evidence_hash": "b1cec24cb22132fd33cd502c9c68c0e62abe5e1397183340bb9e820ac85407ff",
       "chain_valid": true,
-      "request_id": "232ff4b5-ac81-4054-b44e-1a3dcab321ba"
+      "request_id": "efc74379-ffd6-4387-9b6a-d19a23aab4f7"
     },
     "high": {
       "selected": "Wise",
       "corridor": "AUD \u2192 SGD (mid-market + Wise fee)",
       "time_hours": 1.0,
       "cost_bps": 45.0,
-      "composite_score": 0.942,
+      "composite_score": 0.945,
       "saving_vs_bank": 10270.0,
-      "rationale": "Wise selected via AUD \u2192 SGD (mid-market + Wise fee). Composite score: 0.942. Beat Airwallex by 0.029 (1.0h vs 3.0h, 45.0bps vs 30.0bps). Weights favoured speed (speed=50%, cost=15%, reliability=35%).",
+      "rationale": "Wise selected via AUD \u2192 SGD (mid-market + Wise fee). Composite score: 0.945. Beat Airwallex by 0.022 (1.0h vs 3.0h, 45.0bps vs 30.0bps). Weights favoured speed (speed=50%, cost=15%, reliability=35%).",
       "weights": {
         "speed": 0.5,
         "cost": 0.15,
@@ -114,44 +294,134 @@
       "all_routes": [
         {
           "name": "Wise",
-          "speed": 0.972,
+          "speed": 0.979,
           "cost": 0.82,
           "reliability": 0.95,
-          "composite": 0.942,
+          "composite": 0.945,
           "cost_bps": 45.0,
           "time_hours": 1.0
         },
         {
           "name": "Airwallex",
-          "speed": 0.917,
+          "speed": 0.938,
           "cost": 0.88,
           "reliability": 0.92,
-          "composite": 0.912,
+          "composite": 0.923,
           "cost_bps": 30.0,
           "time_hours": 3.0
         },
         {
+          "name": "Nium",
+          "speed": 0.958,
+          "cost": 0.9,
+          "reliability": 0.87,
+          "composite": 0.919,
+          "cost_bps": 25.0,
+          "time_hours": 2.0
+        },
+        {
+          "name": "Revolut Business",
+          "speed": 0.958,
+          "cost": 0.84,
+          "reliability": 0.86,
+          "composite": 0.906,
+          "cost_bps": 40.0,
+          "time_hours": 2.0
+        },
+        {
+          "name": "DBS Remit",
+          "speed": 0.625,
+          "cost": 0.681,
+          "reliability": 0.9,
+          "composite": 0.73,
+          "cost_bps": 80.0,
+          "time_hours": 18.0
+        },
+        {
+          "name": "WorldFirst",
+          "speed": 0.5,
+          "cost": 0.86,
+          "reliability": 0.9,
+          "composite": 0.694,
+          "cost_bps": 35.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "OFX",
+          "speed": 0.5,
+          "cost": 0.8,
+          "reliability": 0.91,
+          "composite": 0.689,
+          "cost_bps": 50.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "TorFX",
+          "speed": 0.5,
+          "cost": 0.82,
+          "reliability": 0.88,
+          "composite": 0.681,
+          "cost_bps": 45.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "Western Union",
+          "speed": 0.5,
+          "cost": 0.521,
+          "reliability": 0.83,
+          "composite": 0.619,
+          "cost_bps": 120.0,
+          "time_hours": 24.0
+        },
+        {
           "name": "Bank SWIFT",
-          "speed": 0.0,
+          "speed": 0.25,
           "cost": 0.0,
           "reliability": 0.88,
-          "composite": 0.308,
+          "composite": 0.433,
           "cost_bps": 250.4,
           "time_hours": 36.0
+        },
+        {
+          "name": "CurrencyFair",
+          "speed": 0.0,
+          "cost": 0.78,
+          "reliability": 0.84,
+          "composite": 0.411,
+          "cost_bps": 55.0,
+          "time_hours": 48.0
+        },
+        {
+          "name": "XE Money Transfer",
+          "speed": 0.0,
+          "cost": 0.641,
+          "reliability": 0.86,
+          "composite": 0.397,
+          "cost_bps": 90.0,
+          "time_hours": 48.0
+        },
+        {
+          "name": "MoneyGram",
+          "speed": 0.0,
+          "cost": 0.361,
+          "reliability": 0.79,
+          "composite": 0.331,
+          "cost_bps": 160.0,
+          "time_hours": 48.0
         }
       ],
-      "evidence_hash": "29fb7020f2c55860383b11071a36b9f92f765afccfc3b8d113762a995507bcd2",
+      "evidence_hash": "f75fee184f3a70a3a1b2aa0590eac76cf794df7fad2caafa17cc044c92faee55",
       "chain_valid": true,
-      "request_id": "ce247789-60a7-4287-9fe2-45e396d0255f"
+      "request_id": "79b162fe-0194-4017-bffc-0f1672b087ac"
     },
     "critical": {
       "selected": "Wise",
       "corridor": "AUD \u2192 SGD (mid-market + Wise fee)",
       "time_hours": 1.0,
       "cost_bps": 45.0,
-      "composite_score": 0.957,
+      "composite_score": 0.961,
       "saving_vs_bank": 10270.0,
-      "rationale": "Wise selected via AUD \u2192 SGD (mid-market + Wise fee). Composite score: 0.957. Beat Airwallex by 0.041 (1.0h vs 3.0h, 45.0bps vs 30.0bps). Weights favoured speed (speed=60%, cost=5%, reliability=35%).",
+      "rationale": "Wise selected via AUD \u2192 SGD (mid-market + Wise fee). Composite score: 0.961. Beat Airwallex by 0.033 (1.0h vs 3.0h, 45.0bps vs 30.0bps). Weights favoured speed (speed=60%, cost=5%, reliability=35%).",
       "weights": {
         "speed": 0.6,
         "cost": 0.05,
@@ -160,35 +430,125 @@
       "all_routes": [
         {
           "name": "Wise",
-          "speed": 0.972,
+          "speed": 0.979,
           "cost": 0.82,
           "reliability": 0.95,
-          "composite": 0.957,
+          "composite": 0.961,
           "cost_bps": 45.0,
           "time_hours": 1.0
         },
         {
           "name": "Airwallex",
-          "speed": 0.917,
+          "speed": 0.938,
           "cost": 0.88,
           "reliability": 0.92,
-          "composite": 0.916,
+          "composite": 0.929,
           "cost_bps": 30.0,
           "time_hours": 3.0
         },
         {
+          "name": "Nium",
+          "speed": 0.958,
+          "cost": 0.9,
+          "reliability": 0.87,
+          "composite": 0.925,
+          "cost_bps": 25.0,
+          "time_hours": 2.0
+        },
+        {
+          "name": "Revolut Business",
+          "speed": 0.958,
+          "cost": 0.84,
+          "reliability": 0.86,
+          "composite": 0.918,
+          "cost_bps": 40.0,
+          "time_hours": 2.0
+        },
+        {
+          "name": "DBS Remit",
+          "speed": 0.625,
+          "cost": 0.681,
+          "reliability": 0.9,
+          "composite": 0.724,
+          "cost_bps": 80.0,
+          "time_hours": 18.0
+        },
+        {
+          "name": "OFX",
+          "speed": 0.5,
+          "cost": 0.8,
+          "reliability": 0.91,
+          "composite": 0.659,
+          "cost_bps": 50.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "WorldFirst",
+          "speed": 0.5,
+          "cost": 0.86,
+          "reliability": 0.9,
+          "composite": 0.658,
+          "cost_bps": 35.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "TorFX",
+          "speed": 0.5,
+          "cost": 0.82,
+          "reliability": 0.88,
+          "composite": 0.649,
+          "cost_bps": 45.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "Western Union",
+          "speed": 0.5,
+          "cost": 0.521,
+          "reliability": 0.83,
+          "composite": 0.617,
+          "cost_bps": 120.0,
+          "time_hours": 24.0
+        },
+        {
           "name": "Bank SWIFT",
-          "speed": 0.0,
+          "speed": 0.25,
           "cost": 0.0,
           "reliability": 0.88,
-          "composite": 0.308,
+          "composite": 0.458,
           "cost_bps": 250.4,
           "time_hours": 36.0
+        },
+        {
+          "name": "XE Money Transfer",
+          "speed": 0.0,
+          "cost": 0.641,
+          "reliability": 0.86,
+          "composite": 0.333,
+          "cost_bps": 90.0,
+          "time_hours": 48.0
+        },
+        {
+          "name": "CurrencyFair",
+          "speed": 0.0,
+          "cost": 0.78,
+          "reliability": 0.84,
+          "composite": 0.333,
+          "cost_bps": 55.0,
+          "time_hours": 48.0
+        },
+        {
+          "name": "MoneyGram",
+          "speed": 0.0,
+          "cost": 0.361,
+          "reliability": 0.79,
+          "composite": 0.295,
+          "cost_bps": 160.0,
+          "time_hours": 48.0
         }
       ],
-      "evidence_hash": "a6f79089664d4691d3e16efadeb2c859ec508c924f7b3e7a4b6c174d341cb867",
+      "evidence_hash": "80a82838668fd9fa8281f99ef79b03d93ae15f51be51c4cc17ac66eaffd4ef9f",
       "chain_valid": true,
-      "request_id": "365a2954-278c-4423-9e05-6c87fb201ad2"
+      "request_id": "d5bce0de-5a0b-43ed-830a-a7207a305cd0"
     }
   }
 }
