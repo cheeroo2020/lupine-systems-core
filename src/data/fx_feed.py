@@ -13,6 +13,8 @@ and require no API key.
 """
 from __future__ import annotations
 
+from datetime import datetime, timezone
+
 import requests
 
 _TIMEOUT = 8
@@ -46,9 +48,16 @@ def _from_open_er_api(frm: str, to: str) -> dict | None:
         rate = d.get("rates", {}).get(to)
         if rate is None:
             return None
+        # time_last_update_utc is RFC-2822 ("Sat, 02 May 2026 00:00:00 +0000");
+        # the Unix field is a clean integer we can format ourselves.
+        ts = d.get("time_last_update_unix")
+        date_iso = (
+            datetime.fromtimestamp(int(ts), tz=timezone.utc).strftime("%Y-%m-%d")
+            if ts else ""
+        )
         return {
             "from": frm, "to": to, "rate": float(rate),
-            "date": d.get("time_last_update_utc", "")[:10] or "",
+            "date": date_iso,
             "source": "open.er-api.com",
         }
     except Exception:

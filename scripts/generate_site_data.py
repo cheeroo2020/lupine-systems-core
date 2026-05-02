@@ -132,13 +132,18 @@ def latest_health() -> dict | None:
 # ── Main ──────────────────────────────────────────────────────────────
 
 def _backtest_is_stale() -> bool:
-    """Return True if backtest.json is missing or older than 7 days."""
+    """Return True if backtest.json is missing or not generated today.
+
+    Refreshing daily keeps the 14-day "Last trading days" table in sync
+    with the calendar. The backtest is cheap (~one Frankfurter call plus
+    a few hundred deterministic engine runs) so daily rebuilds are fine.
+    """
     p = DATA_DIR / "backtest.json"
     if not p.exists():
         return True
     try:
         generated = json.loads(p.read_text(encoding="utf-8")).get("generated", "")
-        return (date.today() - date.fromisoformat(generated)).days >= 7
+        return date.fromisoformat(generated) < date.today()
     except Exception:
         return True
 
