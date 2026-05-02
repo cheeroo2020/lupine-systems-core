@@ -25,6 +25,7 @@ import requests
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.cloked_lite.logger import create_evidence_log, append_evidence, verify_chain
+from src.data.fx_feed import fetch_fx_rate
 
 REPO_ROOT     = Path(__file__).resolve().parent.parent
 SIGNAL_PATH   = REPO_ROOT / "website" / "data" / "agent_signal.json"
@@ -54,13 +55,10 @@ SIGNAL_KEYWORDS = {
 
 # ── Perception ────────────────────────────────────────────────────────
 
-def fetch_live() -> tuple[float, str]:
-    r = requests.get(
-        "https://api.frankfurter.app/latest?from=AUD&to=SGD", timeout=10
-    )
-    r.raise_for_status()
-    d = r.json()
-    return float(d["rates"]["SGD"]), d["date"]
+def fetch_live() -> tuple[float, str, str]:
+    """Fetch the live AUD/SGD rate via the multi-source fallback chain."""
+    fx = fetch_fx_rate("AUD", "SGD")
+    return float(fx["rate"]), fx.get("date", ""), fx.get("source", "unknown")
 
 
 def fetch_history() -> dict[str, float]:
@@ -186,7 +184,7 @@ def main() -> int:
     print(f"Lupine Watcher · {datetime.utcnow().isoformat()}Z")
 
     try:
-        current, rate_date = fetch_live()
+        current, rate_date, fx_source = fetch_live()
         history            = fetch_history()
     except Exception as e:
         # Frankfurter is intermittently unreachable. The previous signal is
@@ -213,6 +211,7 @@ def main() -> int:
         "generated":     datetime.utcnow().isoformat()[:19] + "Z",
         "rate":          current,
         "rate_date":     rate_date,
+        "fx_source":     fx_source,
         "signal":        signal,
         "rationale":     rationale,
         "analysis":      analysis,

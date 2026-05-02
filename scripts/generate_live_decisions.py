@@ -25,6 +25,7 @@ from src.aiva_lite.router import generate_routes
 from src.aiva_lite.scorer import score_routes
 from src.aiva_lite.selector import select_route
 from src.cloked_lite.logger import create_evidence_log, append_evidence, verify_chain
+from src.data.fx_feed import fetch_fx_rate
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 OUT_PATH  = REPO_ROOT / "website" / "data" / "live_decisions.json"
@@ -34,12 +35,9 @@ FROM_CCY = "AUD"
 TO_CCY   = "SGD"
 
 
-def fetch_live_rate() -> tuple[float, str]:
-    url = f"https://api.frankfurter.app/latest?from={FROM_CCY}&to={TO_CCY}"
-    r = requests.get(url, timeout=10)
-    r.raise_for_status()
-    d = r.json()
-    return d["rates"][TO_CCY], d["date"]
+def fetch_live_rate() -> tuple[float, str, str]:
+    fx = fetch_fx_rate(FROM_CCY, TO_CCY)
+    return float(fx["rate"]), fx.get("date", ""), fx.get("source", "unknown")
 
 
 def run_decision(fx_rate: float, urgency: Urgency) -> dict:
@@ -94,7 +92,7 @@ def run_decision(fx_rate: float, urgency: Urgency) -> dict:
 def main() -> int:
     print("Fetching live AUD/SGD rate…")
     try:
-        fx_rate, fx_date = fetch_live_rate()
+        fx_rate, fx_date, fx_source = fetch_live_rate()
     except Exception as e:
         # Frankfurter is occasionally unreachable in CI. Keep the last good
         # file rather than failing the whole workflow with a network blip.
@@ -119,7 +117,7 @@ def main() -> int:
         "generated":    datetime.utcnow().isoformat()[:19] + "Z",
         "date":         fx_date,
         "fx_rate":      fx_rate,
-        "fx_source":    "Frankfurter API (ECB reference rate)",
+        "fx_source":    fx_source,
         "amount":       AMOUNT,
         "corridor":     f"{FROM_CCY}/{TO_CCY}",
         "decisions":    decisions,

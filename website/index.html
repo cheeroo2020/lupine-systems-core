@@ -10,18 +10,18 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#FDFCF9;
-  --bg2:#FFF5EE;
-  --card:#FFFFFF;
-  --border:rgba(30,12,0,.1);
+  --bg:#E8DFCB;
+  --bg2:#D9CDB0;
+  --card:#F2EAD3;
+  --border:rgba(30,12,0,.22);
   --blue:#A8D8EA;
   --purple:#FF96A8;
   --teal:#F58220;
   --gold:#E8960A;
   --coral:#FF6B6B;
-  --text:rgba(25,10,0,.88);
-  --mute:rgba(25,10,0,.42);
-  --line:rgba(25,10,0,.08);
+  --text:rgba(20,8,0,.94);
+  --mute:rgba(20,8,0,.55);
+  --line:rgba(20,8,0,.16);
 }
 html,body{
   background:var(--bg);
@@ -29,7 +29,7 @@ html,body{
   font-family:'Inter',system-ui,sans-serif;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
-  background-image:radial-gradient(rgba(245,130,32,.06) 1px,transparent 1px);
+  background-image:radial-gradient(rgba(245,130,32,.10) 1px,transparent 1px);
   background-size:22px 22px;
 }
 .mono{font-family:'JetBrains Mono',monospace}
@@ -228,8 +228,8 @@ html,body{
   <!-- marquee ticker -->
   <div style="position:absolute;bottom:0;left:0;right:0;border-top:1px solid var(--line);padding:14px 0;overflow:hidden;background:rgba(255,245,238,.9)">
     <div class="mq mono" style="font-size:.8rem;color:var(--mute)">
-      <span>AUD/SGD corridor<span class="sep"></span>SWIFT MT103<span class="sep"></span>RTGS same-day<span class="sep"></span>NPP local clearing<span class="sep"></span>urgency-weighted routing<span class="sep"></span>AIVA · RAIL · CLOKED<span class="sep"></span>SHA-256 hash chain<span class="sep"></span>ECB-backed live rates<span class="sep"></span>14/14 tests passing<span class="sep"></span></span>
-      <span aria-hidden="true">AUD/SGD corridor<span class="sep"></span>SWIFT MT103<span class="sep"></span>RTGS same-day<span class="sep"></span>NPP local clearing<span class="sep"></span>urgency-weighted routing<span class="sep"></span>AIVA · RAIL · CLOKED<span class="sep"></span>SHA-256 hash chain<span class="sep"></span>ECB-backed live rates<span class="sep"></span>14/14 tests passing<span class="sep"></span></span>
+      <span>AUD/SGD corridor<span class="sep"></span>21 providers compared<span class="sep"></span>fintech · banks · SWIFT<span class="sep"></span>multi-source live FX<span class="sep"></span>urgency-weighted routing<span class="sep"></span>AIVA · RAIL · CLOKED<span class="sep"></span>SHA-256 hash chain<span class="sep"></span>14/14 tests passing<span class="sep"></span></span>
+      <span aria-hidden="true">AUD/SGD corridor<span class="sep"></span>21 providers compared<span class="sep"></span>fintech · banks · SWIFT<span class="sep"></span>multi-source live FX<span class="sep"></span>urgency-weighted routing<span class="sep"></span>AIVA · RAIL · CLOKED<span class="sep"></span>SHA-256 hash chain<span class="sep"></span>14/14 tests passing<span class="sep"></span></span>
     </div>
   </div>
 </section>
@@ -518,7 +518,7 @@ html,body{
     </div>
 
     <p style="margin-top:1.5rem;font-size:.8rem;color:var(--mute);text-align:center">
-      Rates: ECB reference via Frankfurter API · 13 providers compared: Nium, Airwallex, WorldFirst, Revolut Business, Wise, TorFX, OFX, CurrencyFair, DBS Remit, XE, Western Union, MoneyGram, Bank SWIFT · Backtest updated weekly
+      Rates: live multi-source feed (exchangerate.host → open.er-api.com → jsdelivr → Frankfurter/ECB) · 21 providers compared: Nium, Airwallex, WorldFirst, Revolut, Wise, TorFX, OFX, CurrencyFair, DBS Remit, XE, Western Union, MoneyGram, HSBC, Citi, ANZ, NAB, Westpac, CBA, OCBC, UOB, Bank SWIFT · Backtest updated weekly
     </p>
   </div>
 </section>
@@ -601,10 +601,10 @@ function paintDemo(rail,time,cost,score,note,hash,source){
 
 /* Seed shown instantly before JSON loads */
 const SEED={
-  low:     {rail:'Airwallex',  time:'3 hours',   cost:'30 bps', score:.901,note:'Low urgency — cost weight 55%. Airwallex (30 bps) edges out Nium on reliability across 13 providers. Ideal for routine payroll or supplier runs.'},
-  normal:  {rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.912,note:'Normal urgency — reliability weight 40%. Wise wins on its 0.95 reliability score and 1-hour settlement, beating Nium and Airwallex.'},
-  high:    {rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.945,note:'High urgency — speed weight 50%. Wise dominates with 1-hour settlement. Nium (2 h) and Revolut (2 h) are next, but reliability gap favours Wise.'},
-  critical:{rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.961,note:'Critical urgency — speed weight 60%. Wise wins by the widest margin across all 13 providers. Cost weight collapses to 5% — getting there is all that matters.'},
+  low:     {rail:'Airwallex',  time:'3 hours',   cost:'30 bps', score:.901,note:'Low urgency — cost weight 55%. Airwallex (30 bps) edges out Nium on reliability across 21 providers (incl. HSBC, ANZ, CBA, NAB, Westpac, OCBC, UOB). Ideal for routine payroll.'},
+  normal:  {rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.912,note:'Normal urgency — reliability weight 40%. Wise wins on its 0.95 reliability and 1-hour settlement, beating Airwallex by 0.002. Banks fall well behind.'},
+  high:    {rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.945,note:'High urgency — speed weight 50%. Wise dominates with 1-hour settlement. Nium (2 h) and Revolut (2 h) next; major banks all 24-36 h.'},
+  critical:{rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.961,note:'Critical urgency — speed weight 60%. Wise wins by the widest margin across all 21 providers. Cost weight collapses to 5% — getting there is all that matters.'},
 };
 
 function setU(u){
@@ -709,22 +709,32 @@ document.querySelectorAll('.rev').forEach(el=>{el.style.animationPlayState='paus
 
 const TR_PROVIDERS=[
   // ── Digital-first / lowest cost ──
-  {id:'nium',        name:'Nium',             bps:25,    hours:2.0,  rel:0.87, color:'#10B981'},
-  {id:'airwallex',   name:'Airwallex',         bps:30,    hours:3.0,  rel:0.92, color:'#F58220'},
-  {id:'worldfirst',  name:'WorldFirst',        bps:35,    hours:24.0, rel:0.90, color:'#8B5CF6'},
-  {id:'revolut',     name:'Revolut Business',  bps:40,    hours:2.0,  rel:0.86, color:'#0EA5E9'},
-  {id:'wise',        name:'Wise',              bps:45,    hours:1.0,  rel:0.95, color:'#22D3EE'},
-  {id:'torfx',       name:'TorFX',             bps:45,    hours:24.0, rel:0.88, color:'#D97706'},
-  {id:'ofx',         name:'OFX',               bps:50,    hours:24.0, rel:0.91, color:'#0891B2'},
-  {id:'currencyfair',name:'CurrencyFair',      bps:55,    hours:48.0, rel:0.84, color:'#DB2777'},
+  {id:'nium',        name:'Nium',                  bps:25,    hours:2.0,  rel:0.87, color:'#10B981'},
+  {id:'airwallex',   name:'Airwallex',              bps:30,    hours:3.0,  rel:0.92, color:'#F58220'},
+  {id:'worldfirst',  name:'WorldFirst',             bps:35,    hours:24.0, rel:0.90, color:'#8B5CF6'},
+  {id:'revolut',     name:'Revolut Business',       bps:40,    hours:2.0,  rel:0.86, color:'#0EA5E9'},
+  {id:'wise',        name:'Wise',                   bps:45,    hours:1.0,  rel:0.95, color:'#22D3EE'},
+  {id:'torfx',       name:'TorFX',                  bps:45,    hours:24.0, rel:0.88, color:'#D97706'},
+  {id:'ofx',         name:'OFX',                    bps:50,    hours:24.0, rel:0.91, color:'#0891B2'},
+  {id:'currencyfair',name:'CurrencyFair',           bps:55,    hours:48.0, rel:0.84, color:'#DB2777'},
   // ── Bank digital / regional ──
-  {id:'dbs',         name:'DBS Remit',         bps:80,    hours:18.0, rel:0.90, color:'#DC2626'},
-  {id:'xe',          name:'XE Money Transfer', bps:90,    hours:48.0, rel:0.86, color:'#6B7280'},
+  {id:'dbs',         name:'DBS Remit',              bps:80,    hours:18.0, rel:0.90, color:'#DC2626'},
+  {id:'xe',          name:'XE Money Transfer',      bps:90,    hours:48.0, rel:0.86, color:'#6B7280'},
   // ── Legacy / high cost ──
-  {id:'wu',          name:'Western Union',     bps:120,   hours:24.0, rel:0.83, color:'#CA8A04'},
-  {id:'moneygram',   name:'MoneyGram',         bps:160,   hours:48.0, rel:0.79, color:'#7C3AED'},
-  // ── Traditional banking ──
-  {id:'bank',        name:'Bank SWIFT',        bps:250.04,hours:36.0, rel:0.88, color:'#9CA3AF'},
+  {id:'wu',          name:'Western Union',          bps:120,   hours:24.0, rel:0.83, color:'#CA8A04'},
+  {id:'moneygram',   name:'MoneyGram',              bps:160,   hours:48.0, rel:0.79, color:'#7C3AED'},
+  // ── Major banks — sender side (Australia) ──
+  {id:'hsbc',        name:'HSBC Premier',           bps:150,   hours:24.0, rel:0.93, color:'#DB0011'},
+  {id:'citi',        name:'Citibank',               bps:180,   hours:24.0, rel:0.91, color:'#003B70'},
+  {id:'anz',         name:'ANZ International',      bps:200,   hours:36.0, rel:0.92, color:'#004B87'},
+  {id:'nab',         name:'NAB International',      bps:210,   hours:36.0, rel:0.92, color:'#E50000'},
+  {id:'westpac',     name:'Westpac International',  bps:215,   hours:36.0, rel:0.91, color:'#CC0000'},
+  {id:'cba',         name:'CBA International',      bps:225,   hours:36.0, rel:0.91, color:'#FFCC00'},
+  // ── Major banks — receiver side (Singapore) ──
+  {id:'ocbc',        name:'OCBC Wire',              bps:200,   hours:24.0, rel:0.92, color:'#E60012'},
+  {id:'uob',         name:'UOB Wire',               bps:205,   hours:24.0, rel:0.92, color:'#005EB8'},
+  // ── Generic SWIFT (worst case bank with flat fee) ──
+  {id:'bank',        name:'Bank SWIFT',             bps:250.04,hours:36.0, rel:0.88, color:'#6B7280'},
 ];
 const TR_WEIGHTS={
   low:     {speed:.15,cost:.55,reliability:.30},
@@ -1102,7 +1112,7 @@ async function answerSavings(){
 }
 
 async function answerEvidence(){
-  return"Every Lupine decision creates a CLOKED audit chain:\n  0  genesis\n  1  fx_observed     (rate from ECB)\n  2  routes_scored   (all 13 providers)\n  3  route_selected  (winner + composite score)\n\nEach entry's SHA-256 hash links to the previous one. Tampering with any entry breaks the chain. Hashes are computed in-browser via SubtleCrypto and stored client-side per transfer.";
+  return"Every Lupine decision creates a CLOKED audit chain:\n  0  genesis\n  1  fx_observed     (rate from multi-source feed)\n  2  routes_scored   (all 21 providers)\n  3  route_selected  (winner + composite score)\n\nEach entry's SHA-256 hash links to the previous one. Tampering with any entry breaks the chain. Hashes are computed in-browser via SubtleCrypto and stored client-side per transfer.";
 }
 
 function answerHelp(){

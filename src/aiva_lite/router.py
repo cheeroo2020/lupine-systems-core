@@ -114,10 +114,68 @@ def _real_model_routes(request: MovementRequest, fx_rate: float) -> list[RouteOp
             estimated_cost_bps=160.0,
             reliability_score=0.79,
         ),
-        # ── Traditional banking ───────────────────────────────────────
+        # ── Major banks — Australia (sender side) ────────────────────
+        RouteOption(
+            name="HSBC Premier",
+            corridor=f"{request.from_currency} → {request.to_currency} (HSBC Premier wire)",
+            estimated_time_hours=24.0,
+            estimated_cost_bps=150.0,
+            reliability_score=0.93,
+        ),
+        RouteOption(
+            name="Citibank",
+            corridor=f"{request.from_currency} → {request.to_currency} (Citi global wire)",
+            estimated_time_hours=24.0,
+            estimated_cost_bps=180.0,
+            reliability_score=0.91,
+        ),
+        RouteOption(
+            name="ANZ International",
+            corridor=f"{request.from_currency} → {request.to_currency} (ANZ International)",
+            estimated_time_hours=36.0,
+            estimated_cost_bps=200.0,
+            reliability_score=0.92,
+        ),
+        RouteOption(
+            name="NAB International",
+            corridor=f"{request.from_currency} → {request.to_currency} (NAB International)",
+            estimated_time_hours=36.0,
+            estimated_cost_bps=210.0,
+            reliability_score=0.92,
+        ),
+        RouteOption(
+            name="Westpac International",
+            corridor=f"{request.from_currency} → {request.to_currency} (Westpac International)",
+            estimated_time_hours=36.0,
+            estimated_cost_bps=215.0,
+            reliability_score=0.91,
+        ),
+        RouteOption(
+            name="CBA International",
+            corridor=f"{request.from_currency} → {request.to_currency} (CommBank International)",
+            estimated_time_hours=36.0,
+            estimated_cost_bps=225.0,
+            reliability_score=0.91,
+        ),
+        # ── Major banks — Singapore (receiver side) ──────────────────
+        RouteOption(
+            name="OCBC Wire",
+            corridor=f"{request.from_currency} → {request.to_currency} (OCBC global wire)",
+            estimated_time_hours=24.0,
+            estimated_cost_bps=200.0,
+            reliability_score=0.92,
+        ),
+        RouteOption(
+            name="UOB Wire",
+            corridor=f"{request.from_currency} → {request.to_currency} (UOB global wire)",
+            estimated_time_hours=24.0,
+            estimated_cost_bps=205.0,
+            reliability_score=0.92,
+        ),
+        # ── Generic SWIFT (worst case bank with flat fee) ────────────
         RouteOption(
             name="Bank SWIFT",
-            corridor=f"{request.from_currency} → USD → {request.to_currency} (SWIFT MT103)",
+            corridor=f"{request.from_currency} → USD → {request.to_currency} (generic SWIFT MT103)",
             estimated_time_hours=36.0,
             estimated_cost_bps=bank_bps,
             reliability_score=0.88,

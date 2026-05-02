@@ -1,50 +1,126 @@
 """
-Live FX rate feed — Frankfurter API (free, no key required).
-https://www.frankfurter.app
+Live FX rate feed — multi-source fallback chain.
 
-Used by daily health checks to test the V0 pipeline against
-real market data rather than hardcoded values.
+Sources (in priority order):
+  1. exchangerate.host        — updates every few minutes
+  2. open.er-api.com           — hourly updates, no key
+  3. jsdelivr currency-api     — daily snapshots, public CDN
+  4. Frankfurter (ECB)         — daily reference rates
+
+Each source is tried in order. Network errors cascade through the chain
+so a single source outage never breaks the system. All sources are free
+and require no API key.
 """
+from __future__ import annotations
+
 import requests
 
-_BASE_URL = "https://api.frankfurter.app"
+_TIMEOUT = 8
+
+
+def _from_exchangerate_host(frm: str, to: str) -> dict | None:
+    try:
+        r = requests.get(
+            "https://api.exchangerate.host/latest",
+            params={"base": frm, "symbols": to},
+            timeout=_TIMEOUT,
+        )
+        r.raise_for_status()
+        d = r.json()
+        rate = d.get("rates", {}).get(to)
+        if rate is None:
+            return None
+        return {
+            "from": frm, "to": to, "rate": float(rate),
+            "date": d.get("date", ""), "source": "exchangerate.host",
+        }
+    except Exception:
+        return None
+
+
+def _from_open_er_api(frm: str, to: str) -> dict | None:
+    try:
+        r = requests.get(f"https://open.er-api.com/v6/latest/{frm}", timeout=_TIMEOUT)
+        r.raise_for_status()
+        d = r.json()
+        rate = d.get("rates", {}).get(to)
+        if rate is None:
+            return None
+        return {
+            "from": frm, "to": to, "rate": float(rate),
+            "date": d.get("time_last_update_utc", "")[:10] or "",
+            "source": "open.er-api.com",
+        }
+    except Exception:
+        return None
+
+
+def _from_jsdelivr(frm: str, to: str) -> dict | None:
+    try:
+        url = f"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/{frm.lower()}.json"
+        r = requests.get(url, timeout=_TIMEOUT)
+        r.raise_for_status()
+        d = r.json()
+        rate = d.get(frm.lower(), {}).get(to.lower())
+        if rate is None:
+            return None
+        return {
+            "from": frm, "to": to, "rate": float(rate),
+            "date": d.get("date", ""), "source": "jsdelivr currency-api",
+        }
+    except Exception:
+        return None
+
+
+def _from_frankfurter(frm: str, to: str) -> dict | None:
+    try:
+        r = requests.get(
+            "https://api.frankfurter.app/latest",
+            params={"from": frm, "to": to},
+            timeout=_TIMEOUT,
+        )
+        r.raise_for_status()
+        d = r.json()
+        rate = d.get("rates", {}).get(to)
+        if rate is None:
+            return None
+        return {
+            "from": frm, "to": to, "rate": float(rate),
+            "date": d.get("date", ""), "source": "Frankfurter (ECB)",
+        }
+    except Exception:
+        return None
+
+
+_SOURCES = (_from_exchangerate_host, _from_open_er_api, _from_jsdelivr, _from_frankfurter)
 
 
 def fetch_fx_rate(from_currency: str, to_currency: str) -> dict:
-    """
-    Fetch the latest FX rate between two currencies.
-    Returns rate, date, and both currency codes.
-    """
-    response = requests.get(
-        f"{_BASE_URL}/latest",
-        params={"from": from_currency, "to": to_currency},
-        timeout=10,
+    """Try each source in priority order; return the first successful result."""
+    errors: list[str] = []
+    for fn in _SOURCES:
+        result = fn(from_currency, to_currency)
+        if result:
+            return result
+        errors.append(fn.__name__)
+    raise RuntimeError(
+        f"All FX sources failed for {from_currency}/{to_currency}: "
+        + ", ".join(errors)
     )
-    response.raise_for_status()
-    data = response.json()
-    return {
-        "from": from_currency,
-        "to": to_currency,
-        "rate": data["rates"][to_currency],
-        "date": data["date"],
-    }
 
 
 def fetch_historical_rate(from_currency: str, to_currency: str, date: str) -> dict:
-    """
-    Fetch FX rate for a specific date (YYYY-MM-DD).
-    Useful for replaying past test runs against the same market data.
-    """
-    response = requests.get(
-        f"{_BASE_URL}/{date}",
+    """Historical rate for a specific YYYY-MM-DD (Frankfurter is reliable for this)."""
+    r = requests.get(
+        f"https://api.frankfurter.app/{date}",
         params={"from": from_currency, "to": to_currency},
-        timeout=10,
+        timeout=_TIMEOUT,
     )
-    response.raise_for_status()
-    data = response.json()
+    r.raise_for_status()
+    d = r.json()
     return {
         "from": from_currency,
         "to": to_currency,
-        "rate": data["rates"][to_currency],
-        "date": data["date"],
+        "rate": float(d["rates"][to_currency]),
+        "date": d["date"],
     }
