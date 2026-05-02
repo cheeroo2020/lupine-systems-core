@@ -709,32 +709,32 @@ document.querySelectorAll('.rev').forEach(el=>{el.style.animationPlayState='paus
 
 const TR_PROVIDERS=[
   // ── Digital-first / lowest cost ──
-  {id:'nium',        name:'Nium',                  bps:25,    hours:2.0,  rel:0.87, color:'#10B981'},
-  {id:'airwallex',   name:'Airwallex',              bps:30,    hours:3.0,  rel:0.92, color:'#F58220'},
-  {id:'worldfirst',  name:'WorldFirst',             bps:35,    hours:24.0, rel:0.90, color:'#8B5CF6'},
-  {id:'revolut',     name:'Revolut Business',       bps:40,    hours:2.0,  rel:0.86, color:'#0EA5E9'},
-  {id:'wise',        name:'Wise',                   bps:45,    hours:1.0,  rel:0.95, color:'#22D3EE'},
-  {id:'torfx',       name:'TorFX',                  bps:45,    hours:24.0, rel:0.88, color:'#D97706'},
-  {id:'ofx',         name:'OFX',                    bps:50,    hours:24.0, rel:0.91, color:'#0891B2'},
-  {id:'currencyfair',name:'CurrencyFair',           bps:55,    hours:48.0, rel:0.84, color:'#DB2777'},
+  {id:'nium',        name:'Nium',                  bps:25,    hours:2.0,  rel:0.87, color:'#10B981', logo:'https://logo.clearbit.com/nium.com'},
+  {id:'airwallex',   name:'Airwallex',              bps:30,    hours:3.0,  rel:0.92, color:'#F58220', logo:'https://logo.clearbit.com/airwallex.com'},
+  {id:'worldfirst',  name:'WorldFirst',             bps:35,    hours:24.0, rel:0.90, color:'#8B5CF6', logo:'https://logo.clearbit.com/worldfirst.com'},
+  {id:'revolut',     name:'Revolut Business',       bps:40,    hours:2.0,  rel:0.86, color:'#0EA5E9', logo:'https://logo.clearbit.com/revolut.com'},
+  {id:'wise',        name:'Wise',                   bps:45,    hours:1.0,  rel:0.95, color:'#22D3EE', logo:'https://logo.clearbit.com/wise.com'},
+  {id:'torfx',       name:'TorFX',                  bps:45,    hours:24.0, rel:0.88, color:'#D97706', logo:'https://logo.clearbit.com/torfx.com'},
+  {id:'ofx',         name:'OFX',                    bps:50,    hours:24.0, rel:0.91, color:'#0891B2', logo:'https://logo.clearbit.com/ofx.com'},
+  {id:'currencyfair',name:'CurrencyFair',           bps:55,    hours:48.0, rel:0.84, color:'#DB2777', logo:'https://logo.clearbit.com/currencyfair.com'},
   // ── Bank digital / regional ──
-  {id:'dbs',         name:'DBS Remit',              bps:80,    hours:18.0, rel:0.90, color:'#DC2626'},
-  {id:'xe',          name:'XE Money Transfer',      bps:90,    hours:48.0, rel:0.86, color:'#6B7280'},
+  {id:'dbs',         name:'DBS Remit',              bps:80,    hours:18.0, rel:0.90, color:'#DC2626', logo:'https://logo.clearbit.com/dbs.com'},
+  {id:'xe',          name:'XE Money Transfer',      bps:90,    hours:48.0, rel:0.86, color:'#6B7280', logo:'https://logo.clearbit.com/xe.com'},
   // ── Legacy / high cost ──
-  {id:'wu',          name:'Western Union',          bps:120,   hours:24.0, rel:0.83, color:'#CA8A04'},
-  {id:'moneygram',   name:'MoneyGram',              bps:160,   hours:48.0, rel:0.79, color:'#7C3AED'},
+  {id:'wu',          name:'Western Union',          bps:120,   hours:24.0, rel:0.83, color:'#CA8A04', logo:'https://logo.clearbit.com/westernunion.com'},
+  {id:'moneygram',   name:'MoneyGram',              bps:160,   hours:48.0, rel:0.79, color:'#7C3AED', logo:'https://logo.clearbit.com/moneygram.com'},
   // ── Major banks — sender side (Australia) ──
-  {id:'hsbc',        name:'HSBC Premier',           bps:150,   hours:24.0, rel:0.93, color:'#DB0011'},
-  {id:'citi',        name:'Citibank',               bps:180,   hours:24.0, rel:0.91, color:'#003B70'},
-  {id:'anz',         name:'ANZ International',      bps:200,   hours:36.0, rel:0.92, color:'#004B87'},
-  {id:'nab',         name:'NAB International',      bps:210,   hours:36.0, rel:0.92, color:'#E50000'},
-  {id:'westpac',     name:'Westpac International',  bps:215,   hours:36.0, rel:0.91, color:'#CC0000'},
-  {id:'cba',         name:'CBA International',      bps:225,   hours:36.0, rel:0.91, color:'#FFCC00'},
+  {id:'hsbc',        name:'HSBC Premier',           bps:150,   hours:24.0, rel:0.93, color:'#DB0011', logo:'https://logo.clearbit.com/hsbc.com'},
+  {id:'citi',        name:'Citibank',               bps:180,   hours:24.0, rel:0.91, color:'#003B70', logo:'https://logo.clearbit.com/citi.com'},
+  {id:'anz',         name:'ANZ International',      bps:200,   hours:36.0, rel:0.92, color:'#004B87', logo:'https://logo.clearbit.com/anz.com'},
+  {id:'nab',         name:'NAB International',      bps:210,   hours:36.0, rel:0.92, color:'#E50000', logo:'https://logo.clearbit.com/nab.com.au'},
+  {id:'westpac',     name:'Westpac International',  bps:215,   hours:36.0, rel:0.91, color:'#CC0000', logo:'https://logo.clearbit.com/westpac.com.au'},
+  {id:'cba',         name:'CBA International',      bps:225,   hours:36.0, rel:0.91, color:'#FFCC00', logo:'https://logo.clearbit.com/commbank.com.au'},
   // ── Major banks — receiver side (Singapore) ──
-  {id:'ocbc',        name:'OCBC Wire',              bps:200,   hours:24.0, rel:0.92, color:'#E60012'},
-  {id:'uob',         name:'UOB Wire',               bps:205,   hours:24.0, rel:0.92, color:'#005EB8'},
+  {id:'ocbc',        name:'OCBC Wire',              bps:200,   hours:24.0, rel:0.92, color:'#E60012', logo:'https://logo.clearbit.com/ocbc.com'},
+  {id:'uob',         name:'UOB Wire',               bps:205,   hours:24.0, rel:0.92, color:'#005EB8', logo:'https://logo.clearbit.com/uob.com'},
   // ── Generic SWIFT (worst case bank with flat fee) ──
-  {id:'bank',        name:'Bank SWIFT',             bps:250.04,hours:36.0, rel:0.88, color:'#6B7280'},
+  {id:'bank',        name:'Bank SWIFT',             bps:250.04,hours:36.0, rel:0.88, color:'#6B7280', logo:null},
 ];
 const TR_WEIGHTS={
   low:     {speed:.15,cost:.55,reliability:.30},
@@ -827,7 +827,10 @@ async function runTracker(){
     const timeLabel=p.hours<2?p.hours+' hour'+(p.hours===1?'':'s'):p.hours>=24?(p.hours/24).toFixed(0)+' days':p.hours+' hours';
     return `<div class="card" style="padding:1.5rem;border-color:${isWin?p.color:'var(--border)'};position:relative">
       ${isWin?`<div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:${p.color};color:#000;font-size:.65rem;font-weight:800;padding:3px 10px;border-radius:9999px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap">✓ Selected</div>`:''}
-      <div style="font-size:1.1rem;font-weight:800;color:${p.color};margin-bottom:1rem">${p.name}</div>
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem">
+        ${p.logo?`<img src="${p.logo}" alt="${p.name}" width="28" height="28" style="object-fit:contain;border-radius:5px;background:#fff;padding:2px;flex-shrink:0" onerror="this.style.display='none'">`:'<div style="width:28px;height:28px;border-radius:5px;background:var(--line);flex-shrink:0"></div>'}
+        <div style="font-size:1.05rem;font-weight:800;color:${p.color};line-height:1.2">${p.name}</div>
+      </div>
       <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.875rem">
         <div style="display:flex;justify-content:space-between"><span style="color:var(--mute)">Composite</span><span style="font-weight:700">${p.composite.toFixed(3)}</span></div>
         <div style="display:flex;justify-content:space-between"><span style="color:var(--mute)">Fee</span><span>${feePct.toFixed(2)}% (A$${parseInt(feeAud).toLocaleString('en-AU')})</span></div>
