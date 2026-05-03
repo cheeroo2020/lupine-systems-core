@@ -1,8 +1,8 @@
 {
-  "generated": "2026-05-02T01:48:15Z",
-  "date": "2026-04-30",
-  "fx_rate": 0.91222,
-  "fx_source": "Frankfurter API (ECB reference rate)",
+  "generated": "2026-05-03T01:51:09Z",
+  "date": "2026-05-03",
+  "fx_rate": 0.914451,
+  "fx_source": "open.er-api.com",
   "amount": 500000,
   "corridor": "AUD/SGD",
   "decisions": {
@@ -120,6 +120,42 @@
           "time_hours": 48.0
         },
         {
+          "name": "HSBC Premier",
+          "speed": 0.5,
+          "cost": 0.401,
+          "reliability": 0.93,
+          "composite": 0.575,
+          "cost_bps": 150.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "Citibank",
+          "speed": 0.5,
+          "cost": 0.281,
+          "reliability": 0.91,
+          "composite": 0.503,
+          "cost_bps": 180.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "OCBC Wire",
+          "speed": 0.5,
+          "cost": 0.201,
+          "reliability": 0.92,
+          "composite": 0.462,
+          "cost_bps": 200.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "UOB Wire",
+          "speed": 0.5,
+          "cost": 0.181,
+          "reliability": 0.92,
+          "composite": 0.451,
+          "cost_bps": 205.0,
+          "time_hours": 24.0
+        },
+        {
           "name": "MoneyGram",
           "speed": 0.0,
           "cost": 0.361,
@@ -127,6 +163,42 @@
           "composite": 0.436,
           "cost_bps": 160.0,
           "time_hours": 48.0
+        },
+        {
+          "name": "ANZ International",
+          "speed": 0.25,
+          "cost": 0.201,
+          "reliability": 0.92,
+          "composite": 0.424,
+          "cost_bps": 200.0,
+          "time_hours": 36.0
+        },
+        {
+          "name": "NAB International",
+          "speed": 0.25,
+          "cost": 0.161,
+          "reliability": 0.92,
+          "composite": 0.402,
+          "cost_bps": 210.0,
+          "time_hours": 36.0
+        },
+        {
+          "name": "Westpac International",
+          "speed": 0.25,
+          "cost": 0.141,
+          "reliability": 0.91,
+          "composite": 0.388,
+          "cost_bps": 215.0,
+          "time_hours": 36.0
+        },
+        {
+          "name": "CBA International",
+          "speed": 0.25,
+          "cost": 0.101,
+          "reliability": 0.91,
+          "composite": 0.366,
+          "cost_bps": 225.0,
+          "time_hours": 36.0
         },
         {
           "name": "Bank SWIFT",
@@ -138,9 +210,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "b12a068fba9f87176a9bb5a3d291b7e62f12cec95a22dd96636f96bd0460d533",
+      "evidence_hash": "713c92d364eb515474750f1dd3f36d2edfb130766a4b9721a54cb9180e4452b7",
       "chain_valid": true,
-      "request_id": "676a922b-c359-4e5c-bd7b-1d461c098804"
+      "request_id": "8cedbf53-262d-4e2d-a87b-352a84dd1d6c"
     },
     "normal": {
       "selected": "Wise",
@@ -238,6 +310,15 @@
           "time_hours": 24.0
         },
         {
+          "name": "HSBC Premier",
+          "speed": 0.5,
+          "cost": 0.401,
+          "reliability": 0.93,
+          "composite": 0.637,
+          "cost_bps": 150.0,
+          "time_hours": 24.0
+        },
+        {
           "name": "CurrencyFair",
           "speed": 0.0,
           "cost": 0.78,
@@ -247,6 +328,15 @@
           "time_hours": 48.0
         },
         {
+          "name": "Citibank",
+          "speed": 0.5,
+          "cost": 0.281,
+          "reliability": 0.91,
+          "composite": 0.587,
+          "cost_bps": 180.0,
+          "time_hours": 24.0
+        },
+        {
           "name": "XE Money Transfer",
           "speed": 0.0,
           "cost": 0.641,
@@ -254,6 +344,60 @@
           "composite": 0.568,
           "cost_bps": 90.0,
           "time_hours": 48.0
+        },
+        {
+          "name": "OCBC Wire",
+          "speed": 0.5,
+          "cost": 0.201,
+          "reliability": 0.92,
+          "composite": 0.563,
+          "cost_bps": 200.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "UOB Wire",
+          "speed": 0.5,
+          "cost": 0.181,
+          "reliability": 0.92,
+          "composite": 0.556,
+          "cost_bps": 205.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "ANZ International",
+          "speed": 0.25,
+          "cost": 0.201,
+          "reliability": 0.92,
+          "composite": 0.501,
+          "cost_bps": 200.0,
+          "time_hours": 36.0
+        },
+        {
+          "name": "NAB International",
+          "speed": 0.25,
+          "cost": 0.161,
+          "reliability": 0.92,
+          "composite": 0.487,
+          "cost_bps": 210.0,
+          "time_hours": 36.0
+        },
+        {
+          "name": "Westpac International",
+          "speed": 0.25,
+          "cost": 0.141,
+          "reliability": 0.91,
+          "composite": 0.476,
+          "cost_bps": 215.0,
+          "time_hours": 36.0
+        },
+        {
+          "name": "CBA International",
+          "speed": 0.25,
+          "cost": 0.101,
+          "reliability": 0.91,
+          "composite": 0.462,
+          "cost_bps": 225.0,
+          "time_hours": 36.0
         },
         {
           "name": "MoneyGram",
@@ -274,9 +418,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "b1cec24cb22132fd33cd502c9c68c0e62abe5e1397183340bb9e820ac85407ff",
+      "evidence_hash": "8ea68f128a49a758a9a5d8c1d1329f3d52bb6eac668da394ba6b171158dfd308",
       "chain_valid": true,
-      "request_id": "efc74379-ffd6-4387-9b6a-d19a23aab4f7"
+      "request_id": "3ac0d9e8-b917-43b8-b0b8-eae1a4c45875"
     },
     "high": {
       "selected": "Wise",
@@ -365,6 +509,15 @@
           "time_hours": 24.0
         },
         {
+          "name": "HSBC Premier",
+          "speed": 0.5,
+          "cost": 0.401,
+          "reliability": 0.93,
+          "composite": 0.636,
+          "cost_bps": 150.0,
+          "time_hours": 24.0
+        },
+        {
           "name": "Western Union",
           "speed": 0.5,
           "cost": 0.521,
@@ -372,6 +525,69 @@
           "composite": 0.619,
           "cost_bps": 120.0,
           "time_hours": 24.0
+        },
+        {
+          "name": "Citibank",
+          "speed": 0.5,
+          "cost": 0.281,
+          "reliability": 0.91,
+          "composite": 0.611,
+          "cost_bps": 180.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "OCBC Wire",
+          "speed": 0.5,
+          "cost": 0.201,
+          "reliability": 0.92,
+          "composite": 0.602,
+          "cost_bps": 200.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "UOB Wire",
+          "speed": 0.5,
+          "cost": 0.181,
+          "reliability": 0.92,
+          "composite": 0.599,
+          "cost_bps": 205.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "ANZ International",
+          "speed": 0.25,
+          "cost": 0.201,
+          "reliability": 0.92,
+          "composite": 0.477,
+          "cost_bps": 200.0,
+          "time_hours": 36.0
+        },
+        {
+          "name": "NAB International",
+          "speed": 0.25,
+          "cost": 0.161,
+          "reliability": 0.92,
+          "composite": 0.471,
+          "cost_bps": 210.0,
+          "time_hours": 36.0
+        },
+        {
+          "name": "Westpac International",
+          "speed": 0.25,
+          "cost": 0.141,
+          "reliability": 0.91,
+          "composite": 0.465,
+          "cost_bps": 215.0,
+          "time_hours": 36.0
+        },
+        {
+          "name": "CBA International",
+          "speed": 0.25,
+          "cost": 0.101,
+          "reliability": 0.91,
+          "composite": 0.459,
+          "cost_bps": 225.0,
+          "time_hours": 36.0
         },
         {
           "name": "Bank SWIFT",
@@ -410,9 +626,9 @@
           "time_hours": 48.0
         }
       ],
-      "evidence_hash": "f75fee184f3a70a3a1b2aa0590eac76cf794df7fad2caafa17cc044c92faee55",
+      "evidence_hash": "bdd1e22e879ce046cd30072bb200824d4ceeb93fc1deb7e99b0031e328ee4904",
       "chain_valid": true,
-      "request_id": "79b162fe-0194-4017-bffc-0f1672b087ac"
+      "request_id": "dea33d7b-e924-470b-8413-373f42f50a6d"
     },
     "critical": {
       "selected": "Wise",
@@ -501,6 +717,42 @@
           "time_hours": 24.0
         },
         {
+          "name": "HSBC Premier",
+          "speed": 0.5,
+          "cost": 0.401,
+          "reliability": 0.93,
+          "composite": 0.646,
+          "cost_bps": 150.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "Citibank",
+          "speed": 0.5,
+          "cost": 0.281,
+          "reliability": 0.91,
+          "composite": 0.633,
+          "cost_bps": 180.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "OCBC Wire",
+          "speed": 0.5,
+          "cost": 0.201,
+          "reliability": 0.92,
+          "composite": 0.632,
+          "cost_bps": 200.0,
+          "time_hours": 24.0
+        },
+        {
+          "name": "UOB Wire",
+          "speed": 0.5,
+          "cost": 0.181,
+          "reliability": 0.92,
+          "composite": 0.631,
+          "cost_bps": 205.0,
+          "time_hours": 24.0
+        },
+        {
           "name": "Western Union",
           "speed": 0.5,
           "cost": 0.521,
@@ -508,6 +760,42 @@
           "composite": 0.617,
           "cost_bps": 120.0,
           "time_hours": 24.0
+        },
+        {
+          "name": "ANZ International",
+          "speed": 0.25,
+          "cost": 0.201,
+          "reliability": 0.92,
+          "composite": 0.482,
+          "cost_bps": 200.0,
+          "time_hours": 36.0
+        },
+        {
+          "name": "NAB International",
+          "speed": 0.25,
+          "cost": 0.161,
+          "reliability": 0.92,
+          "composite": 0.48,
+          "cost_bps": 210.0,
+          "time_hours": 36.0
+        },
+        {
+          "name": "Westpac International",
+          "speed": 0.25,
+          "cost": 0.141,
+          "reliability": 0.91,
+          "composite": 0.476,
+          "cost_bps": 215.0,
+          "time_hours": 36.0
+        },
+        {
+          "name": "CBA International",
+          "speed": 0.25,
+          "cost": 0.101,
+          "reliability": 0.91,
+          "composite": 0.474,
+          "cost_bps": 225.0,
+          "time_hours": 36.0
         },
         {
           "name": "Bank SWIFT",
@@ -546,9 +834,9 @@
           "time_hours": 48.0
         }
       ],
-      "evidence_hash": "80a82838668fd9fa8281f99ef79b03d93ae15f51be51c4cc17ac66eaffd4ef9f",
+      "evidence_hash": "9d4ce95f0ad9ee8faaa5ae652ef6c5ef45c1f0affbb68ed2893088faeee45633",
       "chain_valid": true,
-      "request_id": "d5bce0de-5a0b-43ed-830a-a7207a305cd0"
+      "request_id": "8faa6375-7ed1-49e9-9378-c6535934bd9b"
     }
   }
 }

@@ -28,3 +28,4 @@ No manual input needed. Fully automated.
 | [2026-04-30](./2026-04-30.md) | A New Chapter in AI’s Most Powerful Partnership |
 | [2026-05-01](./2026-05-01.md) | Labcorp (LH) Q1 2026 Earnings Call Transcript |
 | [2026-05-02](./2026-05-02.md) | Tillis, Alsobrooks drop new stablecoin yield compromise |
+| [2026-05-03](./2026-05-03.md) | Why Wix.com Stock Plummeted in April |

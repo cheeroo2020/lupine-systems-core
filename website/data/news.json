@@ -1,23 +1,23 @@
 {
-  "date": "2026-05-02",
+  "date": "2026-05-03",
   "stories": [
     {
-      "headline": "Tillis, Alsobrooks drop new stablecoin yield compromise",
-      "body": "Sens. Thom Tillis, R-N.C., and Angela Alsobrooks, D-Md., have released compromise language on stablecoin yield for a long-awaited crypto market structure bill, clearing the way for a markup in the near future.",
-      "source": "American Banker",
+      "headline": "Why Wix.com Stock Plummeted in April",
+      "body": "Key PointsIt also completed a piece of financial engineering that investors didn't consider beneficial.",
+      "source": "Nasdaq",
+      "pub_date": "03 May 2026"
+    },
+    {
+      "headline": "JPMorgan's Jamie Dimon issued vague credit recession warning, but the bond market has more pressing issues",
+      "body": "As fears about a credit crisis rise, bond investors may be too complacent with Kevin Warsh to become next Fed chair and volatility in rates likely to follow.",
+      "source": "CNBC Finance",
       "pub_date": "02 May 2026"
     },
     {
-      "headline": "OpenAI CFO Says Company Hits Core Targets Despite Stretch Goals",
-      "body": "OpenAI Chief Financial Officer Sarah Friar said Thursday (April 30) that the company is meeting its objectives. Interviewed by Bloomberg for a report published Thursday, Friar said that if anything is slowing OpenAI down at all, it’s not a lack of demand, but a lack of compute. Friar’s remarks came three days after the Wall Street Journal reported Monday (April 27) that",
+      "headline": "Mother’s Day, but Make It Platinum",
+      "body": "Mother’s Day is the annual moment when otherwise rational adults look into the maw of modern commerce and ask a spiritually revealing question: Is brunch enough? Usually, yes. But at the far edge of the digital economy, Mother’s Day has quietly become a glorious, over-caffeinated payments event: part emotion, part logistics, part luxury checkout",
       "source": "PYMNTS",
       "pub_date": "02 May 2026"
-    },
-    {
-      "headline": "The AI Boom and the Future of Investing",
-      "body": "In this episode of Motley Fool Money, Rule Breakers strategy senior vice president Brian Richards sits down with Morgan Housel, bestselling author of The Psychology of Money, Same As Ever, and The Art of Spending Money, for a conversation about how the AI boom is intersecting wit",
-      "source": "Nasdaq",
-      "pub_date": "01 May 2026"
     }
   ]
 }
