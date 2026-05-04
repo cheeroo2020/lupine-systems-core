@@ -1,9 +1,15 @@
 {
-  "date": "2026-05-03",
+  "date": "2026-05-04",
   "stories": [
     {
-      "headline": "Why Wix.com Stock Plummeted in April",
-      "body": "Key PointsIt also completed a piece of financial engineering that investors didn't consider beneficial.",
+      "headline": "Citi Debuts Platform to Bring AI Agents to Banking Work",
+      "body": "Banking giant Citi has debuted a platform to let it launch artificial intelligence agents throughout the company. The agents created through the new Arc platform “enhance human judgment by taking on tasks such as research, synthesis, preparation, and execution,” Citi said in its announcement last week, thus “reducing manual effort and accelerating how teams",
+      "source": "PYMNTS",
+      "pub_date": "04 May 2026"
+    },
+    {
+      "headline": "Pfizer Stock: Still Priced Like It's Dead Money",
+      "body": "Key PointsPfizer is facing headwinds today, which is why investors seem to be ignoring the stock.",
       "source": "Nasdaq",
       "pub_date": "03 May 2026"
     },
@@ -11,12 +17,6 @@
       "headline": "JPMorgan's Jamie Dimon issued vague credit recession warning, but the bond market has more pressing issues",
       "body": "As fears about a credit crisis rise, bond investors may be too complacent with Kevin Warsh to become next Fed chair and volatility in rates likely to follow.",
       "source": "CNBC Finance",
-      "pub_date": "02 May 2026"
-    },
-    {
-      "headline": "Mother’s Day, but Make It Platinum",
-      "body": "Mother’s Day is the annual moment when otherwise rational adults look into the maw of modern commerce and ask a spiritually revealing question: Is brunch enough? Usually, yes. But at the far edge of the digital economy, Mother’s Day has quietly become a glorious, over-caffeinated payments event: part emotion, part logistics, part luxury checkout",
-      "source": "PYMNTS",
       "pub_date": "02 May 2026"
     }
   ]

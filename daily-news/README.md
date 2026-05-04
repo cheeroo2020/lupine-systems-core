@@ -29,3 +29,4 @@ No manual input needed. Fully automated.
 | [2026-05-01](./2026-05-01.md) | Labcorp (LH) Q1 2026 Earnings Call Transcript |
 | [2026-05-02](./2026-05-02.md) | Tillis, Alsobrooks drop new stablecoin yield compromise |
 | [2026-05-03](./2026-05-03.md) | Why Wix.com Stock Plummeted in April |
+| [2026-05-04](./2026-05-04.md) | Citi Debuts Platform to Bring AI Agents to Banking Work |
