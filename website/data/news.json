@@ -1,23 +1,23 @@
 {
-  "date": "2026-05-04",
+  "date": "2026-05-05",
   "stories": [
     {
-      "headline": "Citi Debuts Platform to Bring AI Agents to Banking Work",
-      "body": "Banking giant Citi has debuted a platform to let it launch artificial intelligence agents throughout the company. The agents created through the new Arc platform “enhance human judgment by taking on tasks such as research, synthesis, preparation, and execution,” Citi said in its announcement last week, thus “reducing manual effort and accelerating how teams",
+      "headline": "FIS and Anthropic Collaborate to Enable Agent-First Banks",
+      "body": "FIS and Anthropic have developed a Financial Crimes AI Agent and plan to build additional artificial intelligence agents for bank-grade operations. The companies built the first agent with Anthropic’s Applied AI team and forward-deployed engineers (FDEs) embedded with FIS, they said in a Monday (May 4) press release. The Financial Crimes AI Agent accelerates",
       "source": "PYMNTS",
-      "pub_date": "04 May 2026"
+      "pub_date": "05 May 2026"
     },
     {
-      "headline": "Pfizer Stock: Still Priced Like It's Dead Money",
-      "body": "Key PointsPfizer is facing headwinds today, which is why investors seem to be ignoring the stock.",
+      "headline": "Cloud Computing Isn't the Only Exciting Catalyst for Amazon Stock. Here's One More.",
+      "body": "Key PointsAmazon's advertising revenue rose 22% year over year on a constant-currency basis in Q1.",
       "source": "Nasdaq",
-      "pub_date": "03 May 2026"
+      "pub_date": "05 May 2026"
     },
     {
-      "headline": "JPMorgan's Jamie Dimon issued vague credit recession warning, but the bond market has more pressing issues",
-      "body": "As fears about a credit crisis rise, bond investors may be too complacent with Kevin Warsh to become next Fed chair and volatility in rates likely to follow.",
-      "source": "CNBC Finance",
-      "pub_date": "02 May 2026"
+      "headline": "BofA shareholders vote not to separate CEO, board chair roles",
+      "body": "Brian Moynihan will continue to wear two hats, thanks to the support of almost 70% of Bank of America's shareholders.",
+      "source": "American Banker",
+      "pub_date": "04 May 2026"
     }
   ]
 }
