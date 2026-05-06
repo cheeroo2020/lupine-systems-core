@@ -31,3 +31,4 @@ No manual input needed. Fully automated.
 | [2026-05-03](./2026-05-03.md) | Why Wix.com Stock Plummeted in April |
 | [2026-05-04](./2026-05-04.md) | Citi Debuts Platform to Bring AI Agents to Banking Work |
 | [2026-05-05](./2026-05-05.md) | FIS and Anthropic Collaborate to Enable Agent-First Banks |
+| [2026-05-06](./2026-05-06.md) | Meta Develops Easy-to-Use AI Agent for Consumers |

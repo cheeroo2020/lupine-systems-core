@@ -1,23 +1,23 @@
 {
-  "date": "2026-05-05",
+  "date": "2026-05-06",
   "stories": [
     {
-      "headline": "FIS and Anthropic Collaborate to Enable Agent-First Banks",
-      "body": "FIS and Anthropic have developed a Financial Crimes AI Agent and plan to build additional artificial intelligence agents for bank-grade operations. The companies built the first agent with Anthropic’s Applied AI team and forward-deployed engineers (FDEs) embedded with FIS, they said in a Monday (May 4) press release. The Financial Crimes AI Agent accelerates",
+      "headline": "Meta Develops Easy-to-Use AI Agent for Consumers",
+      "body": "Meta plans to build an agentic artificial intelligence assistant for consumers that is comparable to OpenClaw but easier to use, The Financial Times (FT) reported Tuesday (May 5), citing unnamed sources. The assistant is being trialed internally by some staff, and Meta outlined its plan for the project at a companywide meeting last week,",
       "source": "PYMNTS",
-      "pub_date": "05 May 2026"
+      "pub_date": "06 May 2026"
     },
     {
-      "headline": "Cloud Computing Isn't the Only Exciting Catalyst for Amazon Stock. Here's One More.",
-      "body": "Key PointsAmazon's advertising revenue rose 22% year over year on a constant-currency basis in Q1.",
+      "headline": "Is XRP Too Risky to Own -- or Too Cheap to Ignore?",
+      "body": "Key PointsIn more than a decade, XRP has never traded higher than a price of $3.84.",
       "source": "Nasdaq",
-      "pub_date": "05 May 2026"
+      "pub_date": "06 May 2026"
     },
     {
-      "headline": "BofA shareholders vote not to separate CEO, board chair roles",
-      "body": "Brian Moynihan will continue to wear two hats, thanks to the support of almost 70% of Bank of America's shareholders.",
+      "headline": "Boston-area mutual bank agrees to buy New Hampshire lender",
+      "body": "Opportunity favors the prepared, and Cambridge Savings Bank had been saving for years to buy a nearby rival. Now, as the mutual bank announces plans to acquire First Seacoast Bank, it says it's found \"the right deal at the right time.\"",
       "source": "American Banker",
-      "pub_date": "04 May 2026"
+      "pub_date": "05 May 2026"
     }
   ]
 }
