@@ -32,3 +32,4 @@ No manual input needed. Fully automated.
 | [2026-05-04](./2026-05-04.md) | Citi Debuts Platform to Bring AI Agents to Banking Work |
 | [2026-05-05](./2026-05-05.md) | FIS and Anthropic Collaborate to Enable Agent-First Banks |
 | [2026-05-06](./2026-05-06.md) | Meta Develops Easy-to-Use AI Agent for Consumers |
+| [2026-05-07](./2026-05-07.md) | Bermuda Moves to Next Phase of On-Chain Economy Initiative |
