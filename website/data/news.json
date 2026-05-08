@@ -1,23 +1,23 @@
 {
-  "date": "2026-05-07",
+  "date": "2026-05-08",
   "stories": [
     {
-      "headline": "Bermuda Moves to Next Phase of On-Chain Economy Initiative",
-      "body": "Bermuda is accelerating its effort to make stablecoins a part of everyday commerce, Bermuda Premier David Burt said Wednesday (May 6). Speaking at CoinDesk’s Consensus Miami 2026, Burt said the country plans to do another airdrop of USDC stablecoin this year and to onboard merchants that can accept digital payments, CoinDesk reported Wednesday. Bermuda",
+      "headline": "Mercado Libre Sacrifices Short-Term Profits to Fuel Growth",
+      "body": "Mercado Libre’s investments in free shipping, a Mercado Pago credit card, first-party selection and cross-border trade drove a 49% year-over-year increase in net revenue and financial income in the first quarter, the company said in a Thursday (May 7) earnings release. That increase brought the Latin American eCommerce and FinTech’s net revenue and financial",
       "source": "PYMNTS",
-      "pub_date": "07 May 2026"
+      "pub_date": "08 May 2026"
     },
     {
-      "headline": "Novavax (NVAX) Q3 2025 Earnings Transcript",
+      "headline": "Treasury meets with life insurers to discuss private credit",
+      "body": "The Treasury Department held a high-stakes huddle with state insurance officials to discuss risks associated with the rapid growth of private credit in the economy and whether those investments could pose systemic vulnerabilities.",
+      "source": "American Banker",
+      "pub_date": "08 May 2026"
+    },
+    {
+      "headline": "Axcelis (ACLS) Q1 2026 Earnings Call Transcript",
       "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
       "source": "Nasdaq",
-      "pub_date": "07 May 2026"
-    },
-    {
-      "headline": "Domino effect: How Iran war impacts farms, transport and banks",
-      "body": "As gas prices surge, small businesses — particularly in agriculture and transportation — have struggled to keep up. For banks, this has brought a combination of short-term benefits and long-term concerns.",
-      "source": "American Banker",
-      "pub_date": "06 May 2026"
+      "pub_date": "08 May 2026"
     }
   ]
 }
