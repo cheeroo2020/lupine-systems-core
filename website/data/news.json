@@ -1,23 +1,23 @@
 {
-  "date": "2026-05-12",
+  "date": "2026-05-13",
   "stories": [
     {
-      "headline": "Japanese Market Significantly Higher",
-      "body": "(RTTNews) - The Japanese stock market is trading significantly higher on Tuesday, reversing some of the losses in the previous two sessions, following the broadly positive cues from Wall Street on Monday, with the Nikkei 225 moving above the 62,800 level, with gains in exporters,",
-      "source": "Nasdaq",
+      "headline": "JPMorganChase Funds 7 Organizations to Combat Scammers",
+      "body": "JPMorganChase is making nearly $14 million in philanthropic investments to support seven organizations that are combating fraud and scams through consumer awareness and real-time prevention. These investments build on the bank’s artificial intelligence-driven defenses, real-time monitoring and rapid incident response by helping build a coordinated defense system, JPMorganChase said in a Tuesday (May 12)",
+      "source": "PYMNTS",
+      "pub_date": "13 May 2026"
+    },
+    {
+      "headline": "Eagle Bancorp hires Western Alliance executive as next CEO",
+      "body": "Stephen Curley, who was the chief banking officer at Phoenix-based Western Alliance, will join Maryland-based Eagle Bancorp as president and CEO in July. Eagle's current CEO previously announced plans to retire after the bank racked up big losses in office loans.",
+      "source": "American Banker",
       "pub_date": "12 May 2026"
     },
     {
-      "headline": "SoFi Acquires Capital Markets Partner PrimaryBid",
-      "body": "PrimaryBid, a U.K. FinTech company that powers retail inclusion in global capital markets, has reportedly been acquired by SoFi Technologies. A message on PrimaryBid’s website dated Friday (May 8) says: “PrimaryBid’s technology has been acquired by SoFi Technologies Inc, a US-listed financial services company.” Reached by PYMNTS, a SoFi spokesperson confirmed that SoFi has",
-      "source": "PYMNTS",
-      "pub_date": "11 May 2026"
-    },
-    {
-      "headline": "Boston-area bank will host retail incubator in new branch",
-      "body": "The Village Bank is already mulling expanding the concept to other locations if the one planned for its Wellesley, Mass., office lives up to expectations.",
-      "source": "American Banker",
-      "pub_date": "11 May 2026"
+      "headline": "Traders believe inflation could near 5% this year",
+      "body": "Prediction market traders see two-in-three odds that inflation will go above 4.5% this year, and nearly 40% odds that prices will accelerate above 5%.",
+      "source": "CNBC Finance",
+      "pub_date": "12 May 2026"
     }
   ]
 }
