@@ -40,3 +40,4 @@ No manual input needed. Fully automated.
 | [2026-05-12](./2026-05-12.md) | Japanese Market Significantly Higher |
 | [2026-05-13](./2026-05-13.md) | JPMorganChase Funds 7 Organizations to Combat Scammers |
 | [2026-05-14](./2026-05-14.md) | Lawmakers Move to Exempt More Banks From Debit Card Fee Caps |
+| [2026-05-15](./2026-05-15.md) | Chase Opens 18 Branches in May Amid Multibillion-Dollar Expansion |
