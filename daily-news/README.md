@@ -41,3 +41,4 @@ No manual input needed. Fully automated.
 | [2026-05-13](./2026-05-13.md) | JPMorganChase Funds 7 Organizations to Combat Scammers |
 | [2026-05-14](./2026-05-14.md) | Lawmakers Move to Exempt More Banks From Debit Card Fee Caps |
 | [2026-05-15](./2026-05-15.md) | Chase Opens 18 Branches in May Amid Multibillion-Dollar Expansion |
+| [2026-05-16](./2026-05-16.md) | This Trade School Stock Is Up 135%. Here’s Why a Fund Still Bought … |
