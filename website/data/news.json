@@ -1,22 +1,22 @@
 {
-  "date": "2026-05-16",
+  "date": "2026-05-17",
   "stories": [
     {
-      "headline": "This Trade School Stock Is Up 135%. Here’s Why a Fund Still Bought 459,000 Shares",
-      "body": "Key PointsNicholas Investment Partners bought 459,509 shares of Lincoln Educational Services Corporation in the first quarter; the estimated transaction value was $14.46 million (based on quarterly average prices).",
+      "headline": "Analyst Predicts Nvidia Stock Should Be 42% Higher",
+      "body": "Key PointsBank of America analyst Vivek Arya has increased Nvidia’s target price from $300 to $320.",
       "source": "Nasdaq",
+      "pub_date": "17 May 2026"
+    },
+    {
+      "headline": "Kevin Warsh comes into the Fed facing a big 'family fight' over cutting interest rates",
+      "body": "With inflation spiking and Treasury yields surging, Warsh is likely to confront a Federal Open Market Committee in no mood to ease.",
+      "source": "CNBC Finance",
       "pub_date": "16 May 2026"
     },
     {
       "headline": "FPC Says Clear Dispute Rules Pave Way for Trusted Instant Payments",
       "body": "A clear and consistent dispute resolution process is essential to building trust and promoting the growth of instant payments, according to two contributors to a report released Friday (May 15) by the U.S. Faster Payments Council (FPC). The report, “Instant Payments Fraud Dispute Resolution: Guidance Principles for the U.S.,” addresses the unique challenges of fraud dispute",
       "source": "PYMNTS",
-      "pub_date": "15 May 2026"
-    },
-    {
-      "headline": "Newsom taps Chopra to lead new California oversight agency",
-      "body": "In a move seen to bolster his 2028 presidential run, California Governor Gavin Newsom named Rohit Chopra, the former director of the Consumer Financial Protection Bureau, to lead a new oversight agency; a Pine Bluff, Arkansas, bank employee was sentenced to 36 months in federal prison for bank theft; a Fairfax, Virginia, security administrator has been charged with allegedly stealing more than $6.6 million from his employer; and more in this week's banking news roundup.",
-      "source": "American Banker",
       "pub_date": "15 May 2026"
     }
   ]
