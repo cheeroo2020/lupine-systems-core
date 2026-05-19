@@ -1,23 +1,23 @@
 {
-  "date": "2026-05-18",
+  "date": "2026-05-19",
   "stories": [
     {
-      "headline": "Earnings Reveal New Race to Control the Merchant Stack",
-      "body": "For years, merchant services centered on moving money from cardholder to business. The current earnings season gives proof that business has become far broader, encompassing everything from payments to back-office efficiency. Across quarterly updates from Block, PayPal, Shopify and Fiserv, executives described merchants grappling with rising operating complexity, fragmented sales channels and pressure to",
+      "headline": "Japanese Market Modestly Higher",
+      "body": "(RTTNews) - The Japanese stock market is trading modestly higher on Tuesday, snapping a three-session losing streak, following the mixed cues from Wall Street on Monday, with the Nikkei 225 moving above the 60,950 level, with gains in financial stocks partially offset by weakness",
+      "source": "Nasdaq",
+      "pub_date": "19 May 2026"
+    },
+    {
+      "headline": "BBVA Takes Its Banking Experience Into ChatGPT",
+      "body": "Most banks build an app and ask customers to come to them. BBVA is trying something different. The Spanish banking group launched a conversational app directly inside ChatGPT for users in Italy and Germany, letting customers ask questions about accounts, cards and savings products without leaving the assistant, BBVA reported. The app handles informational",
       "source": "PYMNTS",
-      "pub_date": "18 May 2026"
+      "pub_date": "19 May 2026"
     },
     {
-      "headline": "Kevin Warsh comes into the Fed facing a big 'family fight' over cutting interest rates",
-      "body": "With inflation spiking and Treasury yields surging, Warsh is likely to confront a Federal Open Market Committee in no mood to ease.",
-      "source": "CNBC Finance",
-      "pub_date": "16 May 2026"
-    },
-    {
-      "headline": "Newsom taps Chopra to lead new California oversight agency",
-      "body": "In a move seen to bolster his 2028 presidential run, California Governor Gavin Newsom named Rohit Chopra, the former director of the Consumer Financial Protection Bureau, to lead a new oversight agency; a Pine Bluff, Arkansas, bank employee was sentenced to 36 months in federal prison for bank theft; a Fairfax, Virginia, security administrator has been charged with allegedly stealing more than $6.6 million from his employer; and more in this week's banking news roundup.",
+      "headline": "Citing bad loans, USDA bars a group of lenders from lending program",
+      "body": "The move comes about a year after rising delinquency levels prompted SBA to raise lender fees and tightened underwriting standards in its flagship 7(a) program.",
       "source": "American Banker",
-      "pub_date": "15 May 2026"
+      "pub_date": "18 May 2026"
     }
   ]
 }

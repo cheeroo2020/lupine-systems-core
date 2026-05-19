@@ -44,3 +44,4 @@ No manual input needed. Fully automated.
 | [2026-05-16](./2026-05-16.md) | This Trade School Stock Is Up 135%. Here’s Why a Fund Still Bought … |
 | [2026-05-17](./2026-05-17.md) | Analyst Predicts Nvidia Stock Should Be 42% Higher |
 | [2026-05-18](./2026-05-18.md) | Earnings Reveal New Race to Control the Merchant Stack |
+| [2026-05-19](./2026-05-19.md) | Japanese Market Modestly Higher |
