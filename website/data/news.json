@@ -1,23 +1,23 @@
 {
-  "date": "2026-05-19",
+  "date": "2026-05-20",
   "stories": [
     {
-      "headline": "Japanese Market Modestly Higher",
-      "body": "(RTTNews) - The Japanese stock market is trading modestly higher on Tuesday, snapping a three-session losing streak, following the mixed cues from Wall Street on Monday, with the Nikkei 225 moving above the 60,950 level, with gains in financial stocks partially offset by weakness",
-      "source": "Nasdaq",
-      "pub_date": "19 May 2026"
-    },
-    {
-      "headline": "BBVA Takes Its Banking Experience Into ChatGPT",
-      "body": "Most banks build an app and ask customers to come to them. BBVA is trying something different. The Spanish banking group launched a conversational app directly inside ChatGPT for users in Italy and Germany, letting customers ask questions about accounts, cards and savings products without leaving the assistant, BBVA reported. The app handles informational",
+      "headline": "White House Pushes FinTech Access to Payment Rails",
+      "body": "The White House is pushing federal financial regulators to take a fresh look at the rules that shape how FinTechs work with banks, payment systems and the broader financial services sector. President Trump signed an executive order Tuesday (May 19) directing federal regulators to review existing regulations, guidance, supervisory practices and application processes that",
       "source": "PYMNTS",
-      "pub_date": "19 May 2026"
+      "pub_date": "20 May 2026"
     },
     {
-      "headline": "Citing bad loans, USDA bars a group of lenders from lending program",
-      "body": "The move comes about a year after rising delinquency levels prompted SBA to raise lender fees and tightened underwriting standards in its flagship 7(a) program.",
-      "source": "American Banker",
-      "pub_date": "18 May 2026"
+      "headline": "Strong Gains, Full Exit — What H World's China Bet Could Mean Now",
+      "body": "Key PointsSold 536,000 shares of H World Group; estimated trade size $27.33 million (estimate based on quarterly average price)",
+      "source": "Nasdaq",
+      "pub_date": "20 May 2026"
+    },
+    {
+      "headline": "Fed to hike? When traders see a rate increase coming",
+      "body": "Traders on prediction market platforms see increasing odds that an interest rate hike from the central bank comes by July 2027.",
+      "source": "CNBC Finance",
+      "pub_date": "19 May 2026"
     }
   ]
 }
