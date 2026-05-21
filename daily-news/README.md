@@ -46,3 +46,4 @@ No manual input needed. Fully automated.
 | [2026-05-18](./2026-05-18.md) | Earnings Reveal New Race to Control the Merchant Stack |
 | [2026-05-19](./2026-05-19.md) | Japanese Market Modestly Higher |
 | [2026-05-20](./2026-05-20.md) | White House Pushes FinTech Access to Payment Rails |
+| [2026-05-21](./2026-05-21.md) | Nvidia Posts Record $82B Quarter as Agentic AI Arrives |
