@@ -1,6 +1,6 @@
 {
   "agent": "lupine-watcher-v1",
-  "generated": "2026-05-22T09:56:26Z",
+  "generated": "2026-05-22T12:38:41Z",
   "rate": 0.913097,
   "rate_date": "2026-05-22",
   "fx_source": "open.er-api.com",
@@ -26,5 +26,5 @@
   ],
   "evidence_hash": "b63de4f63e5bf74407ce5ef064a3c2ba1e98f1d02b494e31513d79b623c52518",
   "chain_valid": true,
-  "request_id": "watcher-2026-05-22-095626"
+  "request_id": "watcher-2026-05-22-123841"
 }
