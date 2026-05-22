@@ -1,6 +1,6 @@
 {
   "agent": "lupine-watcher-v1",
-  "generated": "2026-05-22T12:38:41Z",
+  "generated": "2026-05-22T16:01:28Z",
   "rate": 0.913097,
   "rate_date": "2026-05-22",
   "fx_source": "open.er-api.com",
@@ -8,13 +8,13 @@
   "rationale": "Above mean with confirming news (bullish AUD or weak SGD).",
   "analysis": {
     "rate": 0.9131,
-    "mean_60d": 0.90495,
-    "mean_30d": 0.91287,
-    "stdev_60d": 0.01037,
-    "z_score": 0.79,
+    "mean_60d": 0.90527,
+    "mean_30d": 0.91334,
+    "stdev_60d": 0.01028,
+    "z_score": 0.76,
     "percentile_60d": 76.7,
-    "momentum_3d_pips": 7.6,
-    "momentum_7d_pips": -30.1,
+    "momentum_3d_pips": 7.7,
+    "momentum_7d_pips": -14.9,
     "history_n": 60
   },
   "news_signals": [
@@ -24,7 +24,7 @@
       "file": "2026-05-20"
     }
   ],
-  "evidence_hash": "b63de4f63e5bf74407ce5ef064a3c2ba1e98f1d02b494e31513d79b623c52518",
+  "evidence_hash": "e30aab71805a94e03fe38b9edb57c1704045f4d2065f374fa2e10541362de046",
   "chain_valid": true,
-  "request_id": "watcher-2026-05-22-123841"
+  "request_id": "watcher-2026-05-22-160128"
 }
