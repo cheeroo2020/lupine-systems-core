@@ -1,23 +1,23 @@
 {
-  "date": "2026-05-21",
+  "date": "2026-05-22",
   "stories": [
     {
-      "headline": "Nvidia Posts Record $82B Quarter as Agentic AI Arrives",
-      "body": "For years, artificial intelligence in business meant a feature. A smarter search bar. A fraud score. A recommendation engine tucked inside a larger product. What’s arriving now is different. AI agents take instructions, break them into steps and finish the job. A finance team’s AI agent doesn’t flag an anomaly and wait for a",
+      "headline": "Coupa Acquires Tonkean to Expand AI Spend Management",
+      "body": "Coupa is expanding its agentic artificial intelligence ambitions with the acquisition of Tonkean, a deal aimed at making procurement and global trade workflows more autonomous from request to payment. The cloud-native spend management company said Wednesday (May 21) that it acquired Tonkean, an AI-native intake and orchestration platform used by enterprise procurement, legal and",
       "source": "PYMNTS",
+      "pub_date": "22 May 2026"
+    },
+    {
+      "headline": "Miner Perpetua Resources secures $2.9 billion U.S. loan for Idaho gold, antimony project",
+      "body": "Mining company Perpetua Resources has secured a $2.9 billion loan from the U.S. Export-Import Bank as the U.S. looks to secure access to critical minerals.",
+      "source": "CNBC Finance",
       "pub_date": "21 May 2026"
     },
     {
-      "headline": "Japanese Market Sharply Higher",
-      "body": "(RTTNews) - The Japanese market is trading sharply higher on Thursday, snapping a five-session losing streak, following the broadly positive cues from Wall Street overnight. The Nikkei 225 is moving well above the 61,850 level, with gains across most sectors led by financial and",
+      "headline": "Upstart: A Risky Bet or a Future Leader in Lending?",
+      "body": "Explore the exciting world of Upstart (NASDAQ: UPST) with our contributing expert analysts in this Motley Fool Scoreboard episode. Check out the video below to gain valuable insights into market trends and potential investment opportunities!*Stock prices used were the prices of M",
       "source": "Nasdaq",
       "pub_date": "21 May 2026"
-    },
-    {
-      "headline": "More Citi shareholders vote 'no' on say-on-pay",
-      "body": "Support for Citi's annual say-on-pay resolution fell steeply, with about 60% of shareholders voting in favor of the bank's 2025 executive-compensation program. The decline is likely related to a one-time equity award to CEO Jane Fraser and concerns about how the bank determines incentive pay.",
-      "source": "American Banker",
-      "pub_date": "20 May 2026"
     }
   ]
 }
