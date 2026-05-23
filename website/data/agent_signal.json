@@ -1,30 +1,24 @@
 {
   "agent": "lupine-watcher-v1",
-  "generated": "2026-05-22T23:38:46Z",
-  "rate": 0.913097,
-  "rate_date": "2026-05-22",
+  "generated": "2026-05-23T04:24:39Z",
+  "rate": 0.912505,
+  "rate_date": "2026-05-23",
   "fx_source": "open.er-api.com",
-  "signal": "STRIKE",
-  "rationale": "Above mean with confirming news (bullish AUD or weak SGD).",
+  "signal": "WATCH",
+  "rationale": "Above mean but not yet in top decile. Hold for confirmation.",
   "analysis": {
-    "rate": 0.9131,
+    "rate": 0.91251,
     "mean_60d": 0.90527,
     "mean_30d": 0.91334,
     "stdev_60d": 0.01028,
-    "z_score": 0.76,
-    "percentile_60d": 76.7,
-    "momentum_3d_pips": 7.7,
-    "momentum_7d_pips": -14.9,
+    "z_score": 0.7,
+    "percentile_60d": 71.7,
+    "momentum_3d_pips": 1.8,
+    "momentum_7d_pips": -20.8,
     "history_n": 60
   },
-  "news_signals": [
-    {
-      "category": "bullish_aud",
-      "keyword": "rate hike",
-      "file": "2026-05-20"
-    }
-  ],
-  "evidence_hash": "e30aab71805a94e03fe38b9edb57c1704045f4d2065f374fa2e10541362de046",
+  "news_signals": [],
+  "evidence_hash": "eee5df2111561d38bbf9eb8911a220c7070945b85a345cca892a217026305b50",
   "chain_valid": true,
-  "request_id": "watcher-2026-05-22-233846"
+  "request_id": "watcher-2026-05-23-042439"
 }
