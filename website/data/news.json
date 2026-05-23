@@ -1,23 +1,23 @@
 {
-  "date": "2026-05-22",
+  "date": "2026-05-23",
   "stories": [
     {
-      "headline": "Coupa Acquires Tonkean to Expand AI Spend Management",
-      "body": "Coupa is expanding its agentic artificial intelligence ambitions with the acquisition of Tonkean, a deal aimed at making procurement and global trade workflows more autonomous from request to payment. The cloud-native spend management company said Wednesday (May 21) that it acquired Tonkean, an AI-native intake and orchestration platform used by enterprise procurement, legal and",
+      "headline": "Why Peloton Stock Popped Today",
+      "body": "Key PointsTraders are driving up Peloton's stock price ahead of its inclusion in a leading small-cap index.",
+      "source": "Nasdaq",
+      "pub_date": "23 May 2026"
+    },
+    {
+      "headline": "OpenAI and MoonPay Let ChatGPT Users Buy Crypto Without Leaving Chats",
+      "body": "Crypto payments company MoonPay is now live in ChatGPT’s App Store. “We are officially the first and only crypto onramp integrated in ChatGPT,” the company said in a Friday (May 22) post on X. With this integration, ChatGPT users can search “MoonPay” in Apps, connect, and buy any token, according to the post. The MoonPay app in ChatGPT lets users buy crypto with",
       "source": "PYMNTS",
       "pub_date": "22 May 2026"
     },
     {
-      "headline": "Miner Perpetua Resources secures $2.9 billion U.S. loan for Idaho gold, antimony project",
-      "body": "Mining company Perpetua Resources has secured a $2.9 billion loan from the U.S. Export-Import Bank as the U.S. looks to secure access to critical minerals.",
-      "source": "CNBC Finance",
-      "pub_date": "21 May 2026"
-    },
-    {
-      "headline": "Upstart: A Risky Bet or a Future Leader in Lending?",
-      "body": "Explore the exciting world of Upstart (NASDAQ: UPST) with our contributing expert analysts in this Motley Fool Scoreboard episode. Check out the video below to gain valuable insights into market trends and potential investment opportunities!*Stock prices used were the prices of M",
-      "source": "Nasdaq",
-      "pub_date": "21 May 2026"
+      "headline": "Amerant names new CEO, Illinois community banks agree to merge",
+      "body": "Amerant Bancorp in Coral Gables, Florida, appointed Carlos Iafigliola its permanent president and CEO; Morton Community Bank in Illinois reached a deal to buy a three-branch franchise in the Land of Lincoln; Bank First in Manitowoc, Wisconsin, agreed to acquire PSB Holdings; and more in this week's banking news roundup.",
+      "source": "American Banker",
+      "pub_date": "22 May 2026"
     }
   ]
 }

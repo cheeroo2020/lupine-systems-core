@@ -1,10 +1,10 @@
 {
-  "generated": "2026-05-22",
+  "generated": "2026-05-23",
   "corridor": "AUD/SGD",
   "amount": 500000,
   "n_days": 83,
   "rate_range": {
-    "min": 0.87376,
+    "min": 0.87792,
     "max": 0.92239
   },
   "summary": {
@@ -46,40 +46,6 @@
     }
   },
   "days": [
-    {
-      "date": "2026-01-22",
-      "rate": 0.87376,
-      "decisions": {
-        "low": {
-          "selected": "Airwallex",
-          "cost_bps": 30.0,
-          "composite": 0.901,
-          "saving_aud": 11020.0,
-          "bank_cost": 12520.0
-        },
-        "normal": {
-          "selected": "Wise",
-          "cost_bps": 45.0,
-          "composite": 0.912,
-          "saving_aud": 10270.0,
-          "bank_cost": 12520.0
-        },
-        "high": {
-          "selected": "Wise",
-          "cost_bps": 45.0,
-          "composite": 0.945,
-          "saving_aud": 10270.0,
-          "bank_cost": 12520.0
-        },
-        "critical": {
-          "selected": "Wise",
-          "cost_bps": 45.0,
-          "composite": 0.961,
-          "saving_aud": 10270.0,
-          "bank_cost": 12520.0
-        }
-      }
-    },
     {
       "date": "2026-01-23",
       "rate": 0.87792,
@@ -2837,6 +2803,40 @@
     {
       "date": "2026-05-21",
       "rate": 0.91243,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.901,
+          "saving_aud": 11020.0,
+          "bank_cost": 12520.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.912,
+          "saving_aud": 10270.0,
+          "bank_cost": 12520.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.945,
+          "saving_aud": 10270.0,
+          "bank_cost": 12520.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.961,
+          "saving_aud": 10270.0,
+          "bank_cost": 12520.0
+        }
+      }
+    },
+    {
+      "date": "2026-05-22",
+      "rate": 0.91175,
       "decisions": {
         "low": {
           "selected": "Airwallex",

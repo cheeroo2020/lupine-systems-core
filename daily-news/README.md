@@ -48,3 +48,4 @@ No manual input needed. Fully automated.
 | [2026-05-20](./2026-05-20.md) | White House Pushes FinTech Access to Payment Rails |
 | [2026-05-21](./2026-05-21.md) | Nvidia Posts Record $82B Quarter as Agentic AI Arrives |
 | [2026-05-22](./2026-05-22.md) | Coupa Acquires Tonkean to Expand AI Spend Management |
+| [2026-05-23](./2026-05-23.md) | Why Peloton Stock Popped Today |
