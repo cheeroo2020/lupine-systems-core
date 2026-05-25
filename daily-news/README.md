@@ -50,3 +50,4 @@ No manual input needed. Fully automated.
 | [2026-05-22](./2026-05-22.md) | Coupa Acquires Tonkean to Expand AI Spend Management |
 | [2026-05-23](./2026-05-23.md) | Why Peloton Stock Popped Today |
 | [2026-05-24](./2026-05-24.md) | Why This Fund Sold $11 Million of BILL Stock Despite a $1 Billion B… |
+| [2026-05-25](./2026-05-25.md) | Nasdaq Rebound: 3 Stocks to Buy Before They Hit New All-Time Highs |
