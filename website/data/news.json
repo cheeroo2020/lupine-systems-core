@@ -1,23 +1,23 @@
 {
-  "date": "2026-05-27",
+  "date": "2026-05-28",
   "stories": [
     {
-      "headline": "The SpaceX IPO Could Be the Biggest in History. Here's What Investors Should Know Before It Lists",
-      "body": "Key PointsSpaceX filed its IPO paperwork earlier this month and plans to trade on the Nasdaq as SPCX.",
-      "source": "Nasdaq",
-      "pub_date": "27 May 2026"
-    },
-    {
-      "headline": "Google Pay Adds Faster Checkout Tools for Android Apps",
-      "body": "Google now enables developers to enhance Android checkout by leveraging users’ stored credentials, including payment and address, from Google Wallet. The company has done so by bringing Express checkout with Google Pay for Android native apps, according to a Monday (May 26) blog post. Developers can now implement in Android applications callbacks with which",
+      "headline": "United Texas Bank Becomes Nationally Chartered to Serve Crypto Industry",
+      "body": "United Texas Bank aims to become the bridge between the cryptocurrency industry and traditional financial institutions now that it secured approval from the Office of the Comptroller of the Currency (OCC) to become a nationally chartered bank, CoinDesk reported Wednesday (May 27). Before the conversion enabled by this approval, the bank was a state-chartered",
       "source": "PYMNTS",
-      "pub_date": "27 May 2026"
+      "pub_date": "28 May 2026"
     },
     {
-      "headline": "Even JPMorgan Payments feels pressure to compete with fintechs",
-      "body": "JPMorgan Payments processes about $12 trillion in payments per day globally. It is also the largest credit card issuer and merchant acquirer in the country. But to stay on top, the banking behemoth has made it its business to work with, and think like, nimbler fintechs.",
+      "headline": "Thai Stock Market May Extend Winning Streak",
+      "body": "(RTTNews) - The Thai stock market has finished higher in six straight trading days, advancing almost 55 points or 3.7 percent along the way. The Stock Exchange of Thailand now sits just above the 1,570-point plateau and it's got a green light again for Thursday's trade.",
+      "source": "Nasdaq",
+      "pub_date": "28 May 2026"
+    },
+    {
+      "headline": "CFPB sued over new rule that would weaken fair-lending laws",
+      "body": "Housing advocates and compliance firms are suing to block a rule from the Consumer Financial Protection Bureau that they say guts the Equal Credit Opportunity Act.",
       "source": "American Banker",
-      "pub_date": "26 May 2026"
+      "pub_date": "27 May 2026"
     }
   ]
 }
