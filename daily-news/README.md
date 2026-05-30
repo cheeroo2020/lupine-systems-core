@@ -55,3 +55,4 @@ No manual input needed. Fully automated.
 | [2026-05-27](./2026-05-27.md) | The SpaceX IPO Could Be the Biggest in History. Here's What Investo… |
 | [2026-05-28](./2026-05-28.md) | United Texas Bank Becomes Nationally Chartered to Serve Crypto Indu… |
 | [2026-05-29](./2026-05-29.md) | Investors Can Now Trade Directly Inside AI Chatbots |
+| [2026-05-30](./2026-05-30.md) | What to Know About This Fund's $140 Million FTI Consulting Bet Amid… |
