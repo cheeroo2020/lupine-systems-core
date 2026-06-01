@@ -57,3 +57,4 @@ No manual input needed. Fully automated.
 | [2026-05-29](./2026-05-29.md) | Investors Can Now Trade Directly Inside AI Chatbots |
 | [2026-05-30](./2026-05-30.md) | What to Know About This Fund's $140 Million FTI Consulting Bet Amid… |
 | [2026-05-31](./2026-05-31.md) | Skip XRP and Buy This Top Cryptocurrency Instead |
+| [2026-06-01](./2026-06-01.md) | Your 401(k) Default Fund Could Quietly Be Costing You Thousands of … |
