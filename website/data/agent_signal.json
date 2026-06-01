@@ -1,24 +1,24 @@
 {
   "agent": "lupine-watcher-v1",
-  "generated": "2026-06-01T13:15:01Z",
+  "generated": "2026-06-01T19:06:17Z",
   "rate": 0.916406,
   "rate_date": "2026-06-01",
   "fx_source": "open.er-api.com",
   "signal": "STRIKE",
-  "rationale": "+0.95\u03c3 above 60-day mean with positive 3-day momentum. Favourable window.",
+  "rationale": "+0.92\u03c3 above 60-day mean with positive 3-day momentum. Favourable window.",
   "analysis": {
     "rate": 0.91641,
-    "mean_60d": 0.90656,
-    "mean_30d": 0.91483,
-    "stdev_60d": 0.01032,
-    "z_score": 0.95,
-    "percentile_60d": 88.3,
-    "momentum_3d_pips": 38.3,
-    "momentum_7d_pips": 30.7,
+    "mean_60d": 0.90685,
+    "mean_30d": 0.91495,
+    "stdev_60d": 0.01036,
+    "z_score": 0.92,
+    "percentile_60d": 86.7,
+    "momentum_3d_pips": 19.5,
+    "momentum_7d_pips": 24.6,
     "history_n": 60
   },
   "news_signals": [],
-  "evidence_hash": "3013be1ca4394b242edddce753d135722404d9ea99500c5332030b091aa7ef4a",
+  "evidence_hash": "a3635d7a986186f861493a26d2ccb119883b7f89e2d9bac1b297fb880bee0473",
   "chain_valid": true,
-  "request_id": "watcher-2026-06-01-131501"
+  "request_id": "watcher-2026-06-01-190617"
 }
