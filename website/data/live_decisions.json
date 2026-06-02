@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-01T02:55:38Z",
+  "generated": "2026-06-02T00:06:02Z",
   "date": "2026-06-01",
   "fx_rate": 0.916406,
   "fx_source": "open.er-api.com",
@@ -210,9 +210,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "273ae207d5b8d9cf0f66895bf64ac3bf34b990b67e8bdaeb532c7d251fbf9326",
+      "evidence_hash": "29f240442b41bf4f3bb70c60c8710ddd9841eb5d1bfaf14c85f53ca73ff22123",
       "chain_valid": true,
-      "request_id": "b67ad38a-85ae-493c-aa20-e6042ee898ba"
+      "request_id": "7df69421-dd4b-47f8-bacf-a73682754236"
     },
     "normal": {
       "selected": "Wise",
@@ -418,9 +418,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "3e074ca03e36208c8a02b948d8334dac27ede01455b02556e2f6b62dbbffaf24",
+      "evidence_hash": "0303f2e96dd33e35c2e3af7a4ad4faf8484a62bb2523400f0fd70eb37da75810",
       "chain_valid": true,
-      "request_id": "f6cc3da8-8784-438b-8f8f-85555863d877"
+      "request_id": "f38f8656-b6a4-474a-b74f-a0283e7a4535"
     },
     "high": {
       "selected": "Wise",
@@ -626,9 +626,9 @@
           "time_hours": 48.0
         }
       ],
-      "evidence_hash": "42d44e34e0c63b6cfd2f99aadaf474db4d8ed9aaec6d147114e548b2ed38a23d",
+      "evidence_hash": "f20a596982a97c10dce9103b78265ebd333f69f641f3d118284f7e6b3df68b98",
       "chain_valid": true,
-      "request_id": "293c82ea-aa30-4873-a16d-870d5681e8bf"
+      "request_id": "f933baa6-acac-4dcb-9029-55445e608915"
     },
     "critical": {
       "selected": "Wise",
@@ -834,9 +834,9 @@
           "time_hours": 48.0
         }
       ],
-      "evidence_hash": "24481a18ad9e72b962b6be033e19b26a7945ee81aa90f9d339e6b1d47c25cbac",
+      "evidence_hash": "6b63d4353118a78963a1ab7b9b9fa514fe6b06f163e32cc6514ec7ee70bbac90",
       "chain_valid": true,
-      "request_id": "f9d8e2fc-840c-4da6-bc0d-8fe90fc2ad98"
+      "request_id": "5b5b6c3c-f46e-4ef2-a2ad-662234b6008a"
     }
   }
 }
