@@ -1,23 +1,23 @@
 {
-  "date": "2026-06-02",
+  "date": "2026-06-03",
   "stories": [
     {
-      "headline": "HPE Q2 2026 Earnings Call Transcript",
-      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
+      "headline": "Fed Chair Warsh makes first hires at central bank, including ‘Project 2025’ author",
+      "body": "The new Fed chair has made his first hires. One wrote the Fed chapter in conservative policy blueprint \"Project 2025.\"",
+      "source": "CNBC Finance",
+      "pub_date": "03 Jun 2026"
+    },
+    {
+      "headline": "Texas Instruments Appoints Julie Knecht To Succeed Rafael Lizardi As CFO",
+      "body": "(RTTNews) - Texas Instruments Inc. (TXN) announced that it has appointed Julie Knecht as chief financial officer, effective August 1, 2026. Knecht succeeds Rafael Lizardi, who will retire after 25 years with the company. Lizardi will provide continued support in an advisory role",
       "source": "Nasdaq",
-      "pub_date": "01 Jun 2026"
+      "pub_date": "03 Jun 2026"
     },
     {
-      "headline": "Just 5% of U.S. family offices say next generation is prepared: UBS",
-      "body": "Amid geopolitical uncertainty and fears of a trade war, family offices also show a preference in investing in developed markets.",
-      "source": "American Banker",
-      "pub_date": "01 Jun 2026"
-    },
-    {
-      "headline": "Apple Set to Accelerate Wallet War With Automated Bill Splitting",
-      "body": "An upcoming iPhone feature will enable users to split bills by photographing a receipt, assigning items to different people, and then generating payments requests, Bloomberg reported Monday (June 1), citing unnamed sources. The feature is tied to the Apple Cash peer-to-peer payments system, will be available through the Wallet app or within Messages, and",
+      "headline": "ChatGPT Hits 1 Billion Users Faster Than Any App in History",
+      "body": "OpenAI’s ChatGPT app reached 1 billion global monthly active users faster than any other app, Reuters reported Tuesday (June 2), citing data from Sensor Tower. The ChatGPT app reached that milestone in May, about three years after its launch, according to the report. The app is seeing year-over-year growth of 62%. Anthropic’s Claude app",
       "source": "PYMNTS",
-      "pub_date": "01 Jun 2026"
+      "pub_date": "03 Jun 2026"
     }
   ]
 }
