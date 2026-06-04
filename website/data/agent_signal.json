@@ -1,24 +1,24 @@
 {
   "agent": "lupine-watcher-v1",
-  "generated": "2026-06-04T00:13:14Z",
-  "rate": 0.918114,
-  "rate_date": "2026-06-03",
+  "generated": "2026-06-04T05:21:27Z",
+  "rate": 0.917019,
+  "rate_date": "2026-06-04",
   "fx_source": "open.er-api.com",
-  "signal": "STRIKE",
-  "rationale": "+1.02\u03c3 above 60-day mean with positive 3-day momentum. Favourable window.",
+  "signal": "WATCH",
+  "rationale": "Above mean but not yet in top decile. Hold for confirmation.",
   "analysis": {
-    "rate": 0.91811,
+    "rate": 0.91702,
     "mean_60d": 0.90749,
     "mean_30d": 0.91546,
     "stdev_60d": 0.01043,
-    "z_score": 1.02,
-    "percentile_60d": 88.3,
-    "momentum_3d_pips": 5.0,
-    "momentum_7d_pips": 29.4,
+    "z_score": 0.91,
+    "percentile_60d": 85.0,
+    "momentum_3d_pips": -6.0,
+    "momentum_7d_pips": 18.5,
     "history_n": 60
   },
   "news_signals": [],
-  "evidence_hash": "bf0384b487bb4430dfab568729d6be5460d3492fda942b32f6de6afa13a51cfe",
+  "evidence_hash": "c6480f09fe3e2ada08bd716cc1ae034fd33b16ad3098f86e4ae0f0127e710612",
   "chain_valid": true,
-  "request_id": "watcher-2026-06-03-001314"
+  "request_id": "watcher-2026-06-04-052127"
 }
