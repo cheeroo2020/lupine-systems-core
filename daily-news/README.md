@@ -60,3 +60,4 @@ No manual input needed. Fully automated.
 | [2026-06-01](./2026-06-01.md) | Your 401(k) Default Fund Could Quietly Be Costing You Thousands of … |
 | [2026-06-02](./2026-06-02.md) | HPE Q2 2026 Earnings Call Transcript |
 | [2026-06-03](./2026-06-03.md) | Fed Chair Warsh makes first hires at central bank, including ‘Proje… |
+| [2026-06-04](./2026-06-04.md) | JPMorgan Chase Simulcast Woos Wealthy Investors for Record SpaceX IPO |
