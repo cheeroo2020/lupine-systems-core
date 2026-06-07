@@ -63,3 +63,4 @@ No manual input needed. Fully automated.
 | [2026-06-04](./2026-06-04.md) | JPMorgan Chase Simulcast Woos Wealthy Investors for Record SpaceX IPO |
 | [2026-06-05](./2026-06-05.md) | Thai Shares May Crack 1,600 Points On Friday |
 | [2026-06-06](./2026-06-06.md) | Why Nvidia, Intel, Marvell, and Other AI Stocks Plunged Today |
+| [2026-06-07](./2026-06-07.md) | The SpaceX IPO Could Spark a "Risk-On" Rally: Here Are 2 Stocks Tha… |
