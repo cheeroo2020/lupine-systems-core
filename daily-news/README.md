@@ -68,3 +68,4 @@ No manual input needed. Fully automated.
 | [2026-06-09](./2026-06-09.md) | CFPB Deletes Thousands of Webpages Amid Agency Remake |
 | [2026-06-10](./2026-06-10.md) | Lincoln National vs. MetLife: Which Financial Stock Is a Better Buy… |
 | [2026-06-11](./2026-06-11.md) | Bots Run the Internet. Now Someone Has to Run Them. |
+| [2026-06-12](./2026-06-12.md) | FDIC Stablecoin Rulemaking Shows Differences on Fees and Deposits |

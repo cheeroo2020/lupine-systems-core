@@ -1,23 +1,23 @@
 {
-  "date": "2026-06-11",
+  "date": "2026-06-12",
   "stories": [
     {
-      "headline": "Bots Run the Internet. Now Someone Has to Run Them.",
-      "body": "Bots now generate more web traffic than people do. Automated systems account for 57.4% of all web requests worldwide, according to a Thursday (June 4) report from NBC, which cited new data from Cloudflare. In North America, that number reaches 68.6%, NBC reported. The web’s security rules, identity systems and payment rails were all",
+      "headline": "FDIC Stablecoin Rulemaking Shows Differences on Fees and Deposits",
+      "body": "Regulating new technology has never been as easy as it is necessary. And U.S. federal banking agencies gave stablecoin regulation their strongest shot during the recent rulemaking period for the federal GENIUS Act’s implementation. On Tuesday (June 9), the comment period for the Federal Deposit Insurance Corp.’s (FDIC) proposed GENIUS Act framework closed. The agency’s proposed GENIUS",
       "source": "PYMNTS",
-      "pub_date": "10 Jun 2026"
+      "pub_date": "11 Jun 2026"
     },
     {
-      "headline": "Oracle ORCL Q4 2026 Earnings Call Transcript",
-      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
-      "source": "Nasdaq",
-      "pub_date": "10 Jun 2026"
+      "headline": "California financier arrested for $100 million bank fraud",
+      "body": "Federal prosecutors arrested and charged Mahender Makhijani, 44, with orchestrating a $100 million bank fraud against Western Alliance Bancorp.",
+      "source": "American Banker",
+      "pub_date": "11 Jun 2026"
     },
     {
-      "headline": "Citigroup shares outperform down market after Trump endorsement",
-      "body": "Jane Fraser-led Citi fell 1%, less than the rest of the market and some other major banks, after Trump lauded its turnaround in a social media post.",
+      "headline": "SpaceX to close above $2 trillion market cap on its debut, prediction market traders say",
+      "body": "Traders on Polymarket think it's likely SpaceX will join a group of just six companies with a market value beyond $2 trillion.",
       "source": "CNBC Finance",
-      "pub_date": "10 Jun 2026"
+      "pub_date": "11 Jun 2026"
     }
   ]
 }
