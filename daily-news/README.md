@@ -70,3 +70,4 @@ No manual input needed. Fully automated.
 | [2026-06-11](./2026-06-11.md) | Bots Run the Internet. Now Someone Has to Run Them. |
 | [2026-06-12](./2026-06-12.md) | FDIC Stablecoin Rulemaking Shows Differences on Fees and Deposits |
 | [2026-06-13](./2026-06-13.md) | Bitcoin Perpetual Futures Are Now Available for Trading. Here's Wha… |
+| [2026-06-14](./2026-06-14.md) | Elon Musk Is Now the World's First Trillionaire. For Tesla Sharehol… |
