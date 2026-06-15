@@ -1,9 +1,15 @@
 {
-  "date": "2026-06-14",
+  "date": "2026-06-15",
   "stories": [
     {
-      "headline": "Elon Musk Is Now the World's First Trillionaire. For Tesla Shareholders, the More Important Question Is What Comes Next.",
-      "body": "Key PointsMusk's stake in SpaceX is now worth more than twice his stake in Tesla.",
+      "headline": "Anthropic Suspends Mythos Access Following Government Security Concerns",
+      "body": "Anthropic has disabled some access to its Fable 5 and Mythos 5 AI models. The move came Friday (June 12) in response to a U.S. government export control directive which cited unspecified “national security authorities,” the company wrote in its announcement. It added that the directive called on Anthropic to suspend access to those",
+      "source": "PYMNTS",
+      "pub_date": "14 Jun 2026"
+    },
+    {
+      "headline": "Toast Stock: A High-Conviction Restaurant Tech Winner Facing Near-Term Headwinds",
+      "body": "Key PointsToast is building a full-stack restaurant platform, expanding beyond payments into key back-office tools.",
       "source": "Nasdaq",
       "pub_date": "14 Jun 2026"
     },
@@ -11,12 +17,6 @@
       "headline": "House Republicans rally around regional Fed banks",
       "body": "Lawmakers from both parties defended regional Federal Reserve banks against potential consolidation, arguing local economic perspectives are essential to ensure monetary policy remains sound.",
       "source": "American Banker",
-      "pub_date": "12 Jun 2026"
-    },
-    {
-      "headline": "3 Identity Trends Pushing KYC Beyond Compliance",
-      "body": "Compliance executives have traditionally evaluated identity programs by asking whether they satisfied regulators and prevented fraud. But PYMNTS Intelligence research, done in collaboration with Trulioo, indicates that the way companies organize know your customer (KYC), know your business (KYB) and emerging know your agent (KYA) functions can affect operating costs, approval rates and expansion opportunities",
-      "source": "PYMNTS",
       "pub_date": "12 Jun 2026"
     }
   ]
