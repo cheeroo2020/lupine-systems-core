@@ -1,23 +1,23 @@
 {
-  "date": "2026-06-15",
+  "date": "2026-06-16",
   "stories": [
     {
-      "headline": "Anthropic Suspends Mythos Access Following Government Security Concerns",
-      "body": "Anthropic has disabled some access to its Fable 5 and Mythos 5 AI models. The move came Friday (June 12) in response to a U.S. government export control directive which cited unspecified “national security authorities,” the company wrote in its announcement. It added that the directive called on Anthropic to suspend access to those",
+      "headline": "Cybersecurity Experts Ask Feds to Lift Restrictions on Mythos",
+      "body": "More than 120 cybersecurity and other tech professionals have signed an open letter asking the federal government to lift the export control directives on Anthropic’s Fable and Mythos large language models and commit to a new process for assessing artificial intelligence (AI) risk. The open letter is dated Sunday (June 14) and addressed to Commerce Secretary Howard W. Lutnick and National",
       "source": "PYMNTS",
-      "pub_date": "14 Jun 2026"
+      "pub_date": "15 Jun 2026"
     },
     {
-      "headline": "Toast Stock: A High-Conviction Restaurant Tech Winner Facing Near-Term Headwinds",
-      "body": "Key PointsToast is building a full-stack restaurant platform, expanding beyond payments into key back-office tools.",
+      "headline": "CFTC chair Selig defends decision to approve ‘perps’ in U.S.",
+      "body": "Michael Selig said that incumbents will always fear the future, but it's important to develop the new asset class domestically rather than only offshore.",
+      "source": "CNBC Finance",
+      "pub_date": "15 Jun 2026"
+    },
+    {
+      "headline": "Dave and Busters PLAY Q1 2026 Earnings Transcript",
+      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
       "source": "Nasdaq",
-      "pub_date": "14 Jun 2026"
-    },
-    {
-      "headline": "House Republicans rally around regional Fed banks",
-      "body": "Lawmakers from both parties defended regional Federal Reserve banks against potential consolidation, arguing local economic perspectives are essential to ensure monetary policy remains sound.",
-      "source": "American Banker",
-      "pub_date": "12 Jun 2026"
+      "pub_date": "15 Jun 2026"
     }
   ]
 }
