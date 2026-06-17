@@ -73,3 +73,4 @@ No manual input needed. Fully automated.
 | [2026-06-14](./2026-06-14.md) | Elon Musk Is Now the World's First Trillionaire. For Tesla Sharehol… |
 | [2026-06-15](./2026-06-15.md) | Anthropic Suspends Mythos Access Following Government Security Conc… |
 | [2026-06-16](./2026-06-16.md) | Cybersecurity Experts Ask Feds to Lift Restrictions on Mythos |
+| [2026-06-17](./2026-06-17.md) | Tesla's AI5 Chip Recently Completed Tape-Out. Here's Why This Could… |

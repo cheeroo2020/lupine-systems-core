@@ -1,23 +1,23 @@
 {
-  "date": "2026-06-16",
+  "date": "2026-06-17",
   "stories": [
     {
-      "headline": "Cybersecurity Experts Ask Feds to Lift Restrictions on Mythos",
-      "body": "More than 120 cybersecurity and other tech professionals have signed an open letter asking the federal government to lift the export control directives on Anthropic’s Fable and Mythos large language models and commit to a new process for assessing artificial intelligence (AI) risk. The open letter is dated Sunday (June 14) and addressed to Commerce Secretary Howard W. Lutnick and National",
-      "source": "PYMNTS",
-      "pub_date": "15 Jun 2026"
-    },
-    {
-      "headline": "CFTC chair Selig defends decision to approve ‘perps’ in U.S.",
-      "body": "Michael Selig said that incumbents will always fear the future, but it's important to develop the new asset class domestically rather than only offshore.",
-      "source": "CNBC Finance",
-      "pub_date": "15 Jun 2026"
-    },
-    {
-      "headline": "Dave and Busters PLAY Q1 2026 Earnings Transcript",
-      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
+      "headline": "Tesla's AI5 Chip Recently Completed Tape-Out. Here's Why This Could Be the Most Important Development in the Company's Transition From Automaker to AI Giant.",
+      "body": "Key PointsTesla CEO Elon Musk confirmed the AI5's design phase has officially concluded.",
       "source": "Nasdaq",
-      "pub_date": "15 Jun 2026"
+      "pub_date": "16 Jun 2026"
+    },
+    {
+      "headline": "Embedded FX Gives SMBs a New Edge in Cross-Border Payments",
+      "body": "Small and medium-sized businesses that once sourced domestically now purchase inventory, components and services from factories and vendors scattered across Asia, Europe and Latin America. The challenge lies not in finding suppliers abroad but in paying them efficiently. PYMNTS Intelligence research conducted with Mastercard found that 57% of U.S. SMBs source goods or inputs",
+      "source": "PYMNTS",
+      "pub_date": "16 Jun 2026"
+    },
+    {
+      "headline": "Bipartisan, bicameral housing deal emerges with bank riders",
+      "body": "The first bipartisan, bicameral housing compromise includes a suite of community banking provisions long sought by the industry.",
+      "source": "American Banker",
+      "pub_date": "16 Jun 2026"
     }
   ]
 }
