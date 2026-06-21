@@ -77,3 +77,4 @@ No manual input needed. Fully automated.
 | [2026-06-18](./2026-06-18.md) | Is Simply Good Foods Stock Too Cheap to Pass Up? |
 | [2026-06-19](./2026-06-19.md) | Banking Groups Push to Reduce Basel Proposal Capital Charges |
 | [2026-06-20](./2026-06-20.md) | Finastra Sells Core Banking Business to Focus on Payments and Lending |
+| [2026-06-21](./2026-06-21.md) | Are Your Investments Losing Money? This Is Often Your Best Move |
