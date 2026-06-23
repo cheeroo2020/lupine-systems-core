@@ -1,23 +1,23 @@
 {
-  "date": "2026-06-22",
+  "date": "2026-06-23",
   "stories": [
     {
-      "headline": "Polymarket Reportedly Paid Creators to Promote Fake Wins",
-      "body": "Polymarket reportedly paid content creators to film themselves making fake trades and scoring phony wins. That’s according to an investigation by The Wall Street Journal (WSJ) published Sunday (June 21), based on an analysis of more than 1,100 videos by the publication, along with instructional materials and interviews with creators who have worked with",
-      "source": "PYMNTS",
-      "pub_date": "21 Jun 2026"
-    },
-    {
-      "headline": "You Can't Buy Anthropic Stock Yet, but You Can Buy These 4 AI Stocks Instead",
-      "body": "Key PointsAnthropic's Claude has experienced a sharp acceleration in demand in 2026.",
+      "headline": "Asian Markets Trade Mostly Lower",
+      "body": "(RTTNews) - Asian stock markets are trading mostly lower on Tuesday, following the mixed cues from Wall Street overnight, amid continued uncertainty about the progress in the ongoing peace talks to end the Middle East war and the related complete opening of the Strait of Hormuz.",
       "source": "Nasdaq",
-      "pub_date": "21 Jun 2026"
+      "pub_date": "23 Jun 2026"
     },
     {
-      "headline": "The new oil? Inside the effort to turn AI computing power into a tradeable commodity",
-      "body": "AI compute futures could eventually rival some of the world's largest commodity markets, Silicon Data's Carmen Li believes.",
-      "source": "CNBC Finance",
-      "pub_date": "21 Jun 2026"
+      "headline": "Banks Replace Real Customers With AI Clones for Product Testing",
+      "body": "Testing a new credit card or banking product once required months of regulatory vetting and customer recruitment. Now banks build the customer instead. Financial institutions are replacing live customers with artificial intelligence-generated stand-ins — synthetic profiles that cost almost nothing and carry none of the compliance exposure tied to real customer data, Global Finance",
+      "source": "PYMNTS",
+      "pub_date": "23 Jun 2026"
+    },
+    {
+      "headline": "Housing bill sails through Senate, cruising toward passage",
+      "body": "The Senate passed a bipartisan housing package, which includes certain community bank provisions, in an 85-5 vote. The House is set to vote on the package Wednesday.",
+      "source": "American Banker",
+      "pub_date": "23 Jun 2026"
     }
   ]
 }
