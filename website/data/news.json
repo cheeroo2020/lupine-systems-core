@@ -1,23 +1,23 @@
 {
-  "date": "2026-06-23",
+  "date": "2026-06-24",
   "stories": [
     {
-      "headline": "Asian Markets Trade Mostly Lower",
-      "body": "(RTTNews) - Asian stock markets are trading mostly lower on Tuesday, following the mixed cues from Wall Street overnight, amid continued uncertainty about the progress in the ongoing peace talks to end the Middle East war and the related complete opening of the Strait of Hormuz.",
-      "source": "Nasdaq",
-      "pub_date": "23 Jun 2026"
-    },
-    {
-      "headline": "Banks Replace Real Customers With AI Clones for Product Testing",
-      "body": "Testing a new credit card or banking product once required months of regulatory vetting and customer recruitment. Now banks build the customer instead. Financial institutions are replacing live customers with artificial intelligence-generated stand-ins — synthetic profiles that cost almost nothing and carry none of the compliance exposure tied to real customer data, Global Finance",
+      "headline": "FedEx Beats Global Trade Headwinds as Package Volumes Surge",
+      "body": "FedEx saw its package volume increase during the quarter ended May 31, in both its U.S. domestic business and its international export business, as it helped customers navigate a dynamic macro environment. These gains were only partially offset by the impact of changes in global trade policy, the company said in a Tuesday (June 23)",
       "source": "PYMNTS",
-      "pub_date": "23 Jun 2026"
+      "pub_date": "24 Jun 2026"
     },
     {
-      "headline": "Housing bill sails through Senate, cruising toward passage",
-      "body": "The Senate passed a bipartisan housing package, which includes certain community bank provisions, in an 85-5 vote. The House is set to vote on the package Wednesday.",
+      "headline": "Japanese Market Notably Lower",
+      "body": "(RTTNews) - The Japanese stock market is trading notably lower on Wednesday, extending the strong losses in the previous session, following the broadly negative cues from Wall Street overnight. The Nikkei 225 is falling well below the 69,450 level, with weakness in financial stoc",
+      "source": "Nasdaq",
+      "pub_date": "24 Jun 2026"
+    },
+    {
+      "headline": "Housing bill passes House, goes to Trump's desk",
+      "body": "The bipartisan legislation aimed at reducing barriers to new home construction, which included certain community bank riders, passed the lower chamber by a 358-32 vote.",
       "source": "American Banker",
-      "pub_date": "23 Jun 2026"
+      "pub_date": "24 Jun 2026"
     }
   ]
 }
