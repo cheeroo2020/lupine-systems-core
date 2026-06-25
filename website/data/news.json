@@ -1,21 +1,21 @@
 {
-  "date": "2026-06-24",
+  "date": "2026-06-25",
   "stories": [
     {
-      "headline": "FedEx Beats Global Trade Headwinds as Package Volumes Surge",
-      "body": "FedEx saw its package volume increase during the quarter ended May 31, in both its U.S. domestic business and its international export business, as it helped customers navigate a dynamic macro environment. These gains were only partially offset by the impact of changes in global trade policy, the company said in a Tuesday (June 23)",
+      "headline": "CFPB Revises Complaint Portal After Credit Reporting Surge",
+      "body": "The Consumer Financial Protection Bureau (CFPB) said Wednesday (June 24) that it has made several changes to improve its consumer complaint process, which has been made less effective by a growing number of users who abuse the process. The regulator has developed a standardized process for credit reporting agencies (CRAs) to follow when addressing complaints, enhanced identity protections,",
       "source": "PYMNTS",
       "pub_date": "24 Jun 2026"
     },
     {
-      "headline": "Japanese Market Notably Lower",
-      "body": "(RTTNews) - The Japanese stock market is trading notably lower on Wednesday, extending the strong losses in the previous session, following the broadly negative cues from Wall Street overnight. The Nikkei 225 is falling well below the 69,450 level, with weakness in financial stoc",
-      "source": "Nasdaq",
+      "headline": "JPMorgan Chase unveils $50 billion buyback, Goldman Sachs raises dividend after Fed stress test",
+      "body": "The announcements followed the release of the Federal Reserve's annual stress test, which found that all 32 large banks weathered a hypothetical recession.",
+      "source": "CNBC Finance",
       "pub_date": "24 Jun 2026"
     },
     {
-      "headline": "Housing bill passes House, goes to Trump's desk",
-      "body": "The bipartisan legislation aimed at reducing barriers to new home construction, which included certain community bank riders, passed the lower chamber by a 358-32 vote.",
+      "headline": "Deal would merge 2 banks in Michigan's Upper Peninsula",
+      "body": "Keweenaw Financial plans to acquire neighboring Range Financial in a transaction that would create an institution with nearly $1.7 billion of assets.",
       "source": "American Banker",
       "pub_date": "24 Jun 2026"
     }
