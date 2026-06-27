@@ -1,23 +1,23 @@
 {
-  "date": "2026-06-26",
+  "date": "2026-06-27",
   "stories": [
     {
-      "headline": "Nvidia Wants Banks to Hunt Fraud Rings, Not Just Bad Charges",
-      "body": "Banks have spent decades building fraud systems that see one transaction at a time. A charge either looks suspicious or it doesn’t. Fraud rings built their business model around that gap, spreading activity across thousands of payments using stolen cards, mule accounts, shared devices and synthetic identities so no single transaction trips a filter. The",
-      "source": "PYMNTS",
-      "pub_date": "26 Jun 2026"
-    },
-    {
-      "headline": "JPMorgan Chase Pairs a 10% Dividend Hike With a New $50 Billion Buyback After Clearing the Fed's Stress Test",
-      "body": "Key PointsThe monster bank aced the Federal Reserve's annual stress tests this year, which leaves more room for capital allocation.",
+      "headline": "Apogee (APOG) Q1 2027 Earnings Call Transcript",
+      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
       "source": "Nasdaq",
-      "pub_date": "26 Jun 2026"
+      "pub_date": "27 Jun 2026"
     },
     {
-      "headline": "CFPB makes changes to complaint portal, citing abuse",
-      "body": "The Consumer Financial Protection Bureau is overhauling its consumer complaint portal after receiving 6.6 million complaints last year, more than double the 3.2 million in 2024, citing abuse by credit repair firms and social media influencers.",
+      "headline": "Wedbush Says Missing ROI Metrics Threaten Further Enterprise AI Deployment",
+      "body": "Many enterprises have not developed a way to determine whether they have gained a good return on investment on the artificial intelligence (AI) tools they have deployed, Wedbush Securities analysts said, according to a Friday (June 26) report by Seeking Alpha. That is perhaps the most important finding that came out of discussions at Wedbush Securities’ Disruptive Technology Conference",
+      "source": "PYMNTS",
+      "pub_date": "27 Jun 2026"
+    },
+    {
+      "headline": "Clash of titans: GSIB proposal pits megabank against megabank",
+      "body": "JPMorganChase and Bank of America raised concerns about the proposed removal of risk-weighted assets from the denominator of the short-term wholesale funding component of the GSIB surcharge — changes backed by Goldman Sachs and Morgan Stanley.",
       "source": "American Banker",
-      "pub_date": "25 Jun 2026"
+      "pub_date": "26 Jun 2026"
     }
   ]
 }

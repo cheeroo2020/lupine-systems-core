@@ -83,3 +83,4 @@ No manual input needed. Fully automated.
 | [2026-06-24](./2026-06-24.md) | FedEx Beats Global Trade Headwinds as Package Volumes Surge |
 | [2026-06-25](./2026-06-25.md) | CFPB Revises Complaint Portal After Credit Reporting Surge |
 | [2026-06-26](./2026-06-26.md) | Nvidia Wants Banks to Hunt Fraud Rings, Not Just Bad Charges |
+| [2026-06-27](./2026-06-27.md) | Apogee (APOG) Q1 2027 Earnings Call Transcript |
