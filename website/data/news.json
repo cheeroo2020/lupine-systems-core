@@ -1,10 +1,16 @@
 {
-  "date": "2026-06-27",
+  "date": "2026-06-28",
   "stories": [
     {
-      "headline": "Apogee (APOG) Q1 2027 Earnings Call Transcript",
-      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
+      "headline": "Should You Buy Bitcoin While It's Under $70,000? The Answer Might Surprise You.",
+      "body": "Key PointsBitcoin has plummeted by 50% from last year's record high, and it's becoming harder to make a bullish case for the cryptocurrency.",
       "source": "Nasdaq",
+      "pub_date": "28 Jun 2026"
+    },
+    {
+      "headline": "Why investors may want to prioritize bond markets outside the U.S.",
+      "body": "Allspring Global Investments is pushing clients toward countries with central banks that are raising interest rates or have different inflation dynamics.",
+      "source": "CNBC Finance",
       "pub_date": "27 Jun 2026"
     },
     {
@@ -12,12 +18,6 @@
       "body": "Many enterprises have not developed a way to determine whether they have gained a good return on investment on the artificial intelligence (AI) tools they have deployed, Wedbush Securities analysts said, according to a Friday (June 26) report by Seeking Alpha. That is perhaps the most important finding that came out of discussions at Wedbush Securities’ Disruptive Technology Conference",
       "source": "PYMNTS",
       "pub_date": "27 Jun 2026"
-    },
-    {
-      "headline": "Clash of titans: GSIB proposal pits megabank against megabank",
-      "body": "JPMorganChase and Bank of America raised concerns about the proposed removal of risk-weighted assets from the denominator of the short-term wholesale funding component of the GSIB surcharge — changes backed by Goldman Sachs and Morgan Stanley.",
-      "source": "American Banker",
-      "pub_date": "26 Jun 2026"
     }
   ]
 }
