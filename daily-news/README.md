@@ -86,3 +86,4 @@ No manual input needed. Fully automated.
 | [2026-06-27](./2026-06-27.md) | Apogee (APOG) Q1 2027 Earnings Call Transcript |
 | [2026-06-28](./2026-06-28.md) | Should You Buy Bitcoin While It's Under $70,000? The Answer Might S… |
 | [2026-06-29](./2026-06-29.md) | Asian Markets Track Wall Street Lower |
+| [2026-06-30](./2026-06-30.md) | Japanese Market Slightly Higher |
