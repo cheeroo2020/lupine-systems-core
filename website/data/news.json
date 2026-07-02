@@ -1,23 +1,23 @@
 {
-  "date": "2026-07-01",
+  "date": "2026-07-02",
   "stories": [
     {
-      "headline": "Google Cloud Pursues Financial Markets in FactSet Alliance",
-      "body": "Google Cloud and FactSet, a provider of data and artificial intelligence solutions to the financial markets, plan to jointly develop AI agents designed to assist with portfolio operations, deal advisory and corporate finance. The agents are one of three areas of focus the companies will pursue in a new partnership that will bring new AI-powered",
+      "headline": "Credit Card Payments Outpace Debit for First Time Since 2000",
+      "body": "Cards continued to account for the greatest number of noncash payments in the United States in 2024, while ACH payments continued to account for the highest value of noncash payments. Both of those trends were true by a wider margin than three years earlier, according to the latest Federal Reserve Payments Study (FRPS). The FRPS",
       "source": "PYMNTS",
-      "pub_date": "01 Jul 2026"
+      "pub_date": "02 Jul 2026"
     },
     {
-      "headline": "Big payment firms, banks and fintechs add heft to Open USD stablecoin",
-      "body": "BNY, Huntington Bank, U.S. Bank, American Express, Visa, Mastercard, Stripe, and Coinbase are just a few of the companies that have signed on to use the dollar-backed stablecoin issued by technology firm Open Standard.",
+      "headline": "This Palantir Rival Could Soar 36% in a Year, According to Wall Street. Is It a Buy Right Now?",
+      "body": "Key PointsBigBear.ai is forecasting an improvement in its financial performance in 2026.",
+      "source": "Nasdaq",
+      "pub_date": "02 Jul 2026"
+    },
+    {
+      "headline": "Fannie, Freddie release FICO 10T historical data",
+      "body": "This data release means another milestone for the use of updated credit score models than the current FICO Classic has been met by Fannie Mae and Freddie Mac.",
       "source": "American Banker",
-      "pub_date": "30 Jun 2026"
-    },
-    {
-      "headline": "China's economy picks up in June on rebounding U.S. exports, analysts say",
-      "body": "China's economy is showing signs of picking up after a sluggish few months — thanks in part to a rebound in shipments to the U.S.",
-      "source": "CNBC Finance",
-      "pub_date": "29 Jun 2026"
+      "pub_date": "01 Jul 2026"
     }
   ]
 }

@@ -88,3 +88,4 @@ No manual input needed. Fully automated.
 | [2026-06-29](./2026-06-29.md) | Asian Markets Track Wall Street Lower |
 | [2026-06-30](./2026-06-30.md) | Japanese Market Slightly Higher |
 | [2026-07-01](./2026-07-01.md) | Google Cloud Pursues Financial Markets in FactSet Alliance |
+| [2026-07-02](./2026-07-02.md) | Credit Card Payments Outpace Debit for First Time Since 2000 |
