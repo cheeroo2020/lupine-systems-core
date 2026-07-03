@@ -1,22 +1,22 @@
 {
-  "date": "2026-07-02",
+  "date": "2026-07-03",
   "stories": [
     {
-      "headline": "Credit Card Payments Outpace Debit for First Time Since 2000",
-      "body": "Cards continued to account for the greatest number of noncash payments in the United States in 2024, while ACH payments continued to account for the highest value of noncash payments. Both of those trends were true by a wider margin than three years earlier, according to the latest Federal Reserve Payments Study (FRPS). The FRPS",
+      "headline": "PayPal Secures EPC Seat to Help Guide Future of European Payments",
+      "body": "PayPal said Thursday (July 2) that it has secured a seat at the table to influence the future of payments in Europe by joining the European Payments Council (EPC). EPC brings together organizations that are involved with the rules, standards and infrastructure underpinning European payments. The council manages the rules for payment systems used across the Single",
       "source": "PYMNTS",
-      "pub_date": "02 Jul 2026"
+      "pub_date": "03 Jul 2026"
     },
     {
-      "headline": "This Palantir Rival Could Soar 36% in a Year, According to Wall Street. Is It a Buy Right Now?",
-      "body": "Key PointsBigBear.ai is forecasting an improvement in its financial performance in 2026.",
-      "source": "Nasdaq",
-      "pub_date": "02 Jul 2026"
-    },
-    {
-      "headline": "Fannie, Freddie release FICO 10T historical data",
-      "body": "This data release means another milestone for the use of updated credit score models than the current FICO Classic has been met by Fannie Mae and Freddie Mac.",
+      "headline": "Warren asks Eric Trump about CFPB pick, Capital One lawsuit",
+      "body": "Sen. Elizabeth Warren, D-Mass., is asking President Trump's son Eric if he plans to refile a lawsuit against Capital One Financial for allegedly \"debanking\" hundreds of Trump Organization accounts. The letter follows President Trump's nomination of a Capital One executive to lead the Consumer Financial Protection Bureau.",
       "source": "American Banker",
+      "pub_date": "02 Jul 2026"
+    },
+    {
+      "headline": "Prolific tech analyst Dan Ives is exiting Wedbush for a new venture",
+      "body": "Ives said the new firm will seek to build what he described as a \"modern merchant bank.\"",
+      "source": "CNBC Finance",
       "pub_date": "01 Jul 2026"
     }
   ]

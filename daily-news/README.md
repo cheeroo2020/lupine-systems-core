@@ -89,3 +89,4 @@ No manual input needed. Fully automated.
 | [2026-06-30](./2026-06-30.md) | Japanese Market Slightly Higher |
 | [2026-07-01](./2026-07-01.md) | Google Cloud Pursues Financial Markets in FactSet Alliance |
 | [2026-07-02](./2026-07-02.md) | Credit Card Payments Outpace Debit for First Time Since 2000 |
+| [2026-07-03](./2026-07-03.md) | PayPal Secures EPC Seat to Help Guide Future of European Payments |
