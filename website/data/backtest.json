@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-06",
+  "generated": "2026-07-08",
   "corridor": "AUD/SGD",
   "amount": 500000,
   "n_days": 83,
@@ -46,74 +46,6 @@
     }
   },
   "days": [
-    {
-      "date": "2026-03-06",
-      "rate": 0.89752,
-      "decisions": {
-        "low": {
-          "selected": "Airwallex",
-          "cost_bps": 30.0,
-          "composite": 0.901,
-          "saving_aud": 11020.0,
-          "bank_cost": 12520.0
-        },
-        "normal": {
-          "selected": "Wise",
-          "cost_bps": 45.0,
-          "composite": 0.912,
-          "saving_aud": 10270.0,
-          "bank_cost": 12520.0
-        },
-        "high": {
-          "selected": "Wise",
-          "cost_bps": 45.0,
-          "composite": 0.945,
-          "saving_aud": 10270.0,
-          "bank_cost": 12520.0
-        },
-        "critical": {
-          "selected": "Wise",
-          "cost_bps": 45.0,
-          "composite": 0.961,
-          "saving_aud": 10270.0,
-          "bank_cost": 12520.0
-        }
-      }
-    },
-    {
-      "date": "2026-03-09",
-      "rate": 0.89839,
-      "decisions": {
-        "low": {
-          "selected": "Airwallex",
-          "cost_bps": 30.0,
-          "composite": 0.901,
-          "saving_aud": 11020.0,
-          "bank_cost": 12520.0
-        },
-        "normal": {
-          "selected": "Wise",
-          "cost_bps": 45.0,
-          "composite": 0.912,
-          "saving_aud": 10270.0,
-          "bank_cost": 12520.0
-        },
-        "high": {
-          "selected": "Wise",
-          "cost_bps": 45.0,
-          "composite": 0.945,
-          "saving_aud": 10270.0,
-          "bank_cost": 12520.0
-        },
-        "critical": {
-          "selected": "Wise",
-          "cost_bps": 45.0,
-          "composite": 0.961,
-          "saving_aud": 10270.0,
-          "bank_cost": 12520.0
-        }
-      }
-    },
     {
       "date": "2026-03-10",
       "rate": 0.90553,
@@ -2837,6 +2769,74 @@
     {
       "date": "2026-07-03",
       "rate": 0.89539,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.901,
+          "saving_aud": 11020.0,
+          "bank_cost": 12520.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.912,
+          "saving_aud": 10270.0,
+          "bank_cost": 12520.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.945,
+          "saving_aud": 10270.0,
+          "bank_cost": 12520.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.961,
+          "saving_aud": 10270.0,
+          "bank_cost": 12520.0
+        }
+      }
+    },
+    {
+      "date": "2026-07-06",
+      "rate": 0.89691,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.901,
+          "saving_aud": 11020.0,
+          "bank_cost": 12520.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.912,
+          "saving_aud": 10270.0,
+          "bank_cost": 12520.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.945,
+          "saving_aud": 10270.0,
+          "bank_cost": 12520.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.961,
+          "saving_aud": 10270.0,
+          "bank_cost": 12520.0
+        }
+      }
+    },
+    {
+      "date": "2026-07-07",
+      "rate": 0.89723,
       "decisions": {
         "low": {
           "selected": "Airwallex",

@@ -94,3 +94,4 @@ No manual input needed. Fully automated.
 | [2026-07-05](./2026-07-05.md) | SpaceX Is Set to Join the Nasdaq-100 on July 7. Here's Where Histor… |
 | [2026-07-06](./2026-07-06.md) | Palantir Is Down 38% From Its High -- and It Just Got a Wall Street… |
 | [2026-07-07](./2026-07-07.md) | Thrive Holdings Raises $2 Billion to Buy and Rewire Services Firms … |
+| [2026-07-08](./2026-07-08.md) | Fed Joins Banking Regulators to Overhaul Financial Crime-Fighting R… |
