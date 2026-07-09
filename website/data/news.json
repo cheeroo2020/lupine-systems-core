@@ -1,23 +1,23 @@
 {
-  "date": "2026-07-08",
+  "date": "2026-07-09",
   "stories": [
     {
-      "headline": "Fed Joins Banking Regulators to Overhaul Financial Crime-Fighting Rules",
-      "body": "The Federal Reserve Board plans to amend its requirements for banks to maintain anti-money laundering (AML) programs to, among other things, require them to focus their AML resources based on risk. In addition to requiring bank to give more attention to higher-risk customers and activities, the Federal Reserve Board plans to require banks to incorporate",
-      "source": "PYMNTS",
-      "pub_date": "08 Jul 2026"
+      "headline": "China warns about AI risks with Anthropic's Claude Code",
+      "body": "China said specific versions of Claude Code posed back-door vulnerabilities that could send sensitive information to a remote server.",
+      "source": "CNBC Finance",
+      "pub_date": "09 Jul 2026"
     },
     {
-      "headline": "Kura Sushi (KRUS) Q3 2026 Earnings Call Transcript",
-      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
+      "headline": "Why Kingsoft Cloud Holdings Stock Jumped Today",
+      "body": "Key PointsInvestors are undervaluing Kingsoft's stock, according to a leading investment bank.",
       "source": "Nasdaq",
-      "pub_date": "08 Jul 2026"
+      "pub_date": "09 Jul 2026"
     },
     {
-      "headline": "Axos to buy San Francisco fintech and its AI technology",
-      "body": "The Las Vegas bank's deal for Arc Technologies comes three months after Capital One paid $5 billion for AI-native payments firm Brex.",
-      "source": "American Banker",
-      "pub_date": "07 Jul 2026"
+      "headline": "Nium Acquires Cypher to Bridge Fiat and Crypto",
+      "body": "Nium has acquired Cypher to further develop Nium as the core infrastructure layer for compliant money movement and value exchange that bridges fiat and digital assets. The acquisition brings together Nium’s cross-border payments infrastructure and Cypher’s crypto-native non-custodial wallet and issuing capabilities, Nium said in a Wednesday (July 8) press release. The combination will help",
+      "source": "PYMNTS",
+      "pub_date": "09 Jul 2026"
     }
   ]
 }
