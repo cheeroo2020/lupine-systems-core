@@ -96,3 +96,4 @@ No manual input needed. Fully automated.
 | [2026-07-07](./2026-07-07.md) | Thrive Holdings Raises $2 Billion to Buy and Rewire Services Firms … |
 | [2026-07-08](./2026-07-08.md) | Fed Joins Banking Regulators to Overhaul Financial Crime-Fighting R… |
 | [2026-07-09](./2026-07-09.md) | China warns about AI risks with Anthropic's Claude Code |
+| [2026-07-10](./2026-07-10.md) | Financial Firms Ban Employee Prediction Market Trading as Complianc… |

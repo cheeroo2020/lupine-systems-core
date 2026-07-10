@@ -1,22 +1,22 @@
 {
-  "date": "2026-07-09",
+  "date": "2026-07-10",
   "stories": [
     {
-      "headline": "China warns about AI risks with Anthropic's Claude Code",
-      "body": "China said specific versions of Claude Code posed back-door vulnerabilities that could send sensitive information to a remote server.",
-      "source": "CNBC Finance",
-      "pub_date": "09 Jul 2026"
-    },
-    {
-      "headline": "Why Kingsoft Cloud Holdings Stock Jumped Today",
-      "body": "Key PointsInvestors are undervaluing Kingsoft's stock, according to a leading investment bank.",
-      "source": "Nasdaq",
-      "pub_date": "09 Jul 2026"
-    },
-    {
-      "headline": "Nium Acquires Cypher to Bridge Fiat and Crypto",
-      "body": "Nium has acquired Cypher to further develop Nium as the core infrastructure layer for compliant money movement and value exchange that bridges fiat and digital assets. The acquisition brings together Nium’s cross-border payments infrastructure and Cypher’s crypto-native non-custodial wallet and issuing capabilities, Nium said in a Wednesday (July 8) press release. The combination will help",
+      "headline": "Financial Firms Ban Employee Prediction Market Trading as Compliance Concerns Spread",
+      "body": "Goldman Sachs Group has updated its personal trading policy to ban employees from trading on event contracts related to specific companies, election outcomes or the performance of any financial market, Bloomberg reported Thursday (July 9). The policy also bans trading on event contracts having to do with the dates of ceasefires in conflicts, the price",
       "source": "PYMNTS",
+      "pub_date": "10 Jul 2026"
+    },
+    {
+      "headline": "Australian Market Slightly Higher",
+      "body": "(RTTNews) - The Australian stock market is trading slightly higher on Friday, snapping a four-session losing streak, following the broadly positive cues from Wall Street overnight. The benchmark S&P/ASX 200 is mocing well above the 8,750 level, with gains in financial, mining and",
+      "source": "Nasdaq",
+      "pub_date": "10 Jul 2026"
+    },
+    {
+      "headline": "Security Home Mortgage, CCBank to rebrand as Accordia",
+      "body": "The move is designed to align the two Utah-based businesses under a single unique name and comes two years after the bank acquired the home lender in 2024.",
+      "source": "American Banker",
       "pub_date": "09 Jul 2026"
     }
   ]
