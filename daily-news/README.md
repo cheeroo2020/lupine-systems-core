@@ -98,3 +98,4 @@ No manual input needed. Fully automated.
 | [2026-07-09](./2026-07-09.md) | China warns about AI risks with Anthropic's Claude Code |
 | [2026-07-10](./2026-07-10.md) | Financial Firms Ban Employee Prediction Market Trading as Complianc… |
 | [2026-07-11](./2026-07-11.md) | Circle Just Won a U.S. National Bank Charter. Here's Why It Matters… |
+| [2026-07-12](./2026-07-12.md) | These underperforming trades could yield big returns over next six … |
