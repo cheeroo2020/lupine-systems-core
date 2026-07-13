@@ -1,23 +1,23 @@
 {
-  "date": "2026-07-12",
+  "date": "2026-07-13",
   "stories": [
+    {
+      "headline": "3 Dividend Stocks Leading 2026's Rotation Into Value",
+      "body": "Key PointsMoney is rotating out of 2026's tech winners and into cheaper, defensive stocks.",
+      "source": "Nasdaq",
+      "pub_date": "13 Jul 2026"
+    },
+    {
+      "headline": "Stablecoin Market Cap Suffers Biggest Decline in 4 Years",
+      "body": "The stablecoin market saw its largest decline in nearly four years last month. That’s according to a report Sunday (July 12) by CoinDesk, which calls the downturn a sign that on-chain liquidity has dipped as crypto markets continue to consolidate near this year’s lows. Stablecoins’ market capitalization dropped by $7.7 billion in June, the report",
+      "source": "PYMNTS",
+      "pub_date": "13 Jul 2026"
+    },
     {
       "headline": "These underperforming trades could yield big returns over next six months",
       "body": "ETF Action's Mike Akins is encouraging investors to boost exposure to groups that underperformed compared with major artificial intelligence stocks.",
       "source": "CNBC Finance",
       "pub_date": "11 Jul 2026"
-    },
-    {
-      "headline": "The Weekender: Honey, I Shrunk the Unicorn",
-      "body": "The startup org chart used to look like a wedding seating plan: founders, engineers, sales, marketing, finance, legal, HR, three advisors no one could identify and a “growth person” whose job was mostly interpretive dance with dashboards. Now it looks more like a group chat: founder, co-founder, Claude, Stripe, Midjourney, one very nervous lawyer and",
-      "source": "PYMNTS",
-      "pub_date": "11 Jul 2026"
-    },
-    {
-      "headline": "Smallest standalone bank in America fails",
-      "body": "The failure of Kentland Federal Savings and Loan, the nation's smallest standalone bank at $3.7 million of assets, will cause an estimated $1.2 million hit to the deposit insurance fund, according to the Federal Deposit Insurance Corp. Kentland's failure is the third bank failure in 2026.",
-      "source": "American Banker",
-      "pub_date": "10 Jul 2026"
     }
   ]
 }

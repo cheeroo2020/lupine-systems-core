@@ -99,3 +99,4 @@ No manual input needed. Fully automated.
 | [2026-07-10](./2026-07-10.md) | Financial Firms Ban Employee Prediction Market Trading as Complianc… |
 | [2026-07-11](./2026-07-11.md) | Circle Just Won a U.S. National Bank Charter. Here's Why It Matters… |
 | [2026-07-12](./2026-07-12.md) | These underperforming trades could yield big returns over next six … |
+| [2026-07-13](./2026-07-13.md) | 3 Dividend Stocks Leading 2026's Rotation Into Value |
