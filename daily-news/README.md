@@ -100,3 +100,4 @@ No manual input needed. Fully automated.
 | [2026-07-11](./2026-07-11.md) | Circle Just Won a U.S. National Bank Charter. Here's Why It Matters… |
 | [2026-07-12](./2026-07-12.md) | These underperforming trades could yield big returns over next six … |
 | [2026-07-13](./2026-07-13.md) | 3 Dividend Stocks Leading 2026's Rotation Into Value |
+| [2026-07-14](./2026-07-14.md) | Price Hikes Trigger Smartphone Sales Slump |
