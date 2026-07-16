@@ -1,23 +1,23 @@
 {
-  "date": "2026-07-15",
+  "date": "2026-07-16",
   "stories": [
     {
-      "headline": "Ericsson (ERIC) Q2 2026 Earnings Call Transcript",
-      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
+      "headline": "Australian Market Slightly Higher",
+      "body": "(RTTNews) - The Australian market is trading slightly higher on Thursday, extending the gains in the previous session, following the broadly positive cues from Wall Street overnight. The benchmark S&P/ASX 200 is moving up to near the 8,850 level, with gains in financial stocks an",
       "source": "Nasdaq",
+      "pub_date": "16 Jul 2026"
+    },
+    {
+      "headline": "Fed Chairman Kevin Warsh's testimony to Senate banking committee hits on economy, interest rates",
+      "body": "As part of congressionally mandated Capitol Hill appearances for the central bank leader, Warsh spoke Tuesday to the House financial services committee.",
+      "source": "CNBC Finance",
       "pub_date": "15 Jul 2026"
     },
     {
-      "headline": "Credit Unions Ask Fed to Freeze Debit Interchange Plan Until Courts Rule",
-      "body": "America’s Credit Unions has called on the Federal Reserve to withdraw its 2023 proposed Regulation II changes to debit interchange until legal challenges have been resolved. The organization shared this and other credit union priorities in a letter submitted to the House Financial Services Committee ahead of Federal Reserve Chair Kevin Warsh’s Tuesday (July 14) appearance before the committee in a hearing, according to",
-      "source": "PYMNTS",
-      "pub_date": "15 Jul 2026"
-    },
-    {
-      "headline": "Citi's investment roadmap raises eyebrows on Wall Street",
-      "body": "The global bank said it's ready to take advantage of opportunities to accelerate investments into its business, with an eye toward achieving longer-term, sustainable growth. Analysts had tough questions about the plans.",
+      "headline": "How wide is the gender pay gap among financial advisors?",
+      "body": "An albeit smaller sample of financial advisors participating in FP's Compensation Survey nevertheless reflected the industry-wide trend around gender pay gaps.",
       "source": "American Banker",
-      "pub_date": "14 Jul 2026"
+      "pub_date": "15 Jul 2026"
     }
   ]
 }
