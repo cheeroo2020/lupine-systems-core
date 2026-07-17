@@ -1,23 +1,23 @@
 {
-  "date": "2026-07-16",
+  "date": "2026-07-17",
   "stories": [
     {
-      "headline": "Australian Market Slightly Higher",
-      "body": "(RTTNews) - The Australian market is trading slightly higher on Thursday, extending the gains in the previous session, following the broadly positive cues from Wall Street overnight. The benchmark S&P/ASX 200 is moving up to near the 8,850 level, with gains in financial stocks an",
+      "headline": "Instacart Acquires Arpalus to Move Intelligence In Store",
+      "body": "Instacart has acquired computer vision company Arpalus and will use that firm’s shelf intelligence technology to improve the inventory accuracy of its own grocery platforms. Arpalus’ technology is purpose-built for grocery retail and will improve the inventory data needed for both eCommerce fulfillment and in-store operations, Instacart said in a Thursday (July 16) press release. When installed on a smartphone or other camera-equipped",
+      "source": "PYMNTS",
+      "pub_date": "17 Jul 2026"
+    },
+    {
+      "headline": "TSM (TSM) Q2 2026 Earnings Call Transcript",
+      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
       "source": "Nasdaq",
-      "pub_date": "16 Jul 2026"
+      "pub_date": "17 Jul 2026"
     },
     {
-      "headline": "Fed Chairman Kevin Warsh's testimony to Senate banking committee hits on economy, interest rates",
-      "body": "As part of congressionally mandated Capitol Hill appearances for the central bank leader, Warsh spoke Tuesday to the House financial services committee.",
-      "source": "CNBC Finance",
-      "pub_date": "15 Jul 2026"
-    },
-    {
-      "headline": "How wide is the gender pay gap among financial advisors?",
-      "body": "An albeit smaller sample of financial advisors participating in FP's Compensation Survey nevertheless reflected the industry-wide trend around gender pay gaps.",
+      "headline": "Citizens to exit in-store branches, build standalones nearby",
+      "body": "The regional bank revealed plans Thursday to close most of its supermarket-based branches and replace about half of them with new, nearby standalone branches. The multiyear transition could attract $20 billion to $30 billion in low-cost deposits, executives said.",
       "source": "American Banker",
-      "pub_date": "15 Jul 2026"
+      "pub_date": "16 Jul 2026"
     }
   ]
 }
