@@ -106,3 +106,4 @@ No manual input needed. Fully automated.
 | [2026-07-17](./2026-07-17.md) | Instacart Acquires Arpalus to Move Intelligence In Store |
 | [2026-07-18](./2026-07-18.md) | Fifth Third (FITB) Q2 2026 Earnings Call Transcript |
 | [2026-07-19](./2026-07-19.md) | Chubb Trades at Just 12 Times Earnings, Well Below the Broader Mark… |
+| [2026-07-20](./2026-07-20.md) | ACI Worldwide Considers Putting Billing Division Up For Sale |
