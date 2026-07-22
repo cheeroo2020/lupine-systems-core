@@ -108,3 +108,4 @@ No manual input needed. Fully automated.
 | [2026-07-19](./2026-07-19.md) | Chubb Trades at Just 12 Times Earnings, Well Below the Broader Mark… |
 | [2026-07-20](./2026-07-20.md) | ACI Worldwide Considers Putting Billing Division Up For Sale |
 | [2026-07-21](./2026-07-21.md) | Should You Buy Palantir Stock Before the Huge Investor Update? |
+| [2026-07-22](./2026-07-22.md) | Capital One Tests Moving Credit Cards to Discover Network |
