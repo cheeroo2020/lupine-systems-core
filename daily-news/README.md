@@ -109,3 +109,4 @@ No manual input needed. Fully automated.
 | [2026-07-20](./2026-07-20.md) | ACI Worldwide Considers Putting Billing Division Up For Sale |
 | [2026-07-21](./2026-07-21.md) | Should You Buy Palantir Stock Before the Huge Investor Update? |
 | [2026-07-22](./2026-07-22.md) | Capital One Tests Moving Credit Cards to Discover Network |
+| [2026-07-23](./2026-07-23.md) | Badger Meter (BMI) Q2 2026 Earnings Call Transcript |
