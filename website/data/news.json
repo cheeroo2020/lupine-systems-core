@@ -1,23 +1,23 @@
 {
-  "date": "2026-07-23",
+  "date": "2026-07-24",
   "stories": [
     {
-      "headline": "Badger Meter (BMI) Q2 2026 Earnings Call Transcript",
+      "headline": "Bitwave Begins Rollout of Agentic Suite to Power Autonomous Financial Operations",
+      "body": "Bitwave has announced the first releases from its Bitwave Agentic product suite, which is focused on accounting tools, financial data and infrastructure for AI-native financial operations. These new open-source tools join the other accounting, payments, financial operations and agentic finance infrastructure Bitwave already offers for organizations operating in the digital asset economy, the company said in a Thursday (July 23) press release.",
+      "source": "PYMNTS",
+      "pub_date": "24 Jul 2026"
+    },
+    {
+      "headline": "Allegion (ALLE) Q2 2026 Earnings Call Transcript",
       "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
       "source": "Nasdaq",
-      "pub_date": "23 Jul 2026"
+      "pub_date": "24 Jul 2026"
     },
     {
-      "headline": "Stripe Harnesses AI Billing Deals to Diversify Payments Empire",
-      "body": "Stripe is positioning itself to play an even greater role in the artificial intelligence (AI) sector that already propelled its revenue to increase by a third to $6.8 billion last year, The Information reported Wednesday (July 22). The company processes payments for AI labs and developers, and it already takes a small cut of the surging sales",
-      "source": "PYMNTS",
-      "pub_date": "23 Jul 2026"
-    },
-    {
-      "headline": "John Paulson says we are in the early stages of a long-term bull market for gold",
-      "body": "He said demand for bullion continues to broaden, led by central banks that have been adding to their reserves alongside growing private-sector interest.",
+      "headline": "Odds of Federal Reserve rate hike surge as oil prices rip higher",
+      "body": "Investors are increasingly readying for the Federal Reserve to hike interest rates in September.",
       "source": "CNBC Finance",
-      "pub_date": "22 Jul 2026"
+      "pub_date": "23 Jul 2026"
     }
   ]
 }
