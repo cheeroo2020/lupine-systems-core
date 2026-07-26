@@ -112,3 +112,4 @@ No manual input needed. Fully automated.
 | [2026-07-23](./2026-07-23.md) | Badger Meter (BMI) Q2 2026 Earnings Call Transcript |
 | [2026-07-24](./2026-07-24.md) | Bitwave Begins Rollout of Agentic Suite to Power Autonomous Financi… |
 | [2026-07-25](./2026-07-25.md) | Big Banks Cash In, IBM Crashes Out |
+| [2026-07-26](./2026-07-26.md) | The Truth About Spending in Retirement and Why It’s Good News |
