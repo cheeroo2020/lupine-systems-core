@@ -23,11 +23,59 @@ In April you answered 18 comprehension checks. Five were fully right. Twelve cam
 
 ---
 
+## The two tracks
+
+You're mastering two different things and they need different treatment:
+
+- **🧠 Concept track — all 14 days.** The theory. Why Lupine must exist, how each layer thinks. This is the main event.
+- **🗂 Repo track — 7 sessions woven across the 14 days.** *Repo literacy, not code fluency.* You're not learning to write Python. You're learning the building's floor plan so you can say **"change the critical-urgency weights"** and know exactly which file that is — and so you can explain your own system to a technical hire or an investor without hand-waving.
+
+Repo sessions are short (10–20 min) and land on days where the concept you just learned is implemented in the file you're about to look at. **Days 1, 4, 6, 7, 10, 13 and 14 have no repo work** — those are heavy theory days, consolidation, or exam.
+
+Full repo track is at the end of this document: **[The Repo Track](#the-repo-track--7-sessions)**.
+
+---
+
+## Your source documents
+
+Two files in `docs/`, same 8 study sessions in both:
+
+| File | Use it for |
+|---|---|
+| **`lupine_master_study_pack (1).html`** | **Primary.** Open in a browser. Has "Why read / Watch for" notes on every reading that link it back to your theory chapters — the PDF lost these. Richer Adyen/Remitly material. |
+| **`Lupine Systems — Study Sessions & Market Readings (1).pdf`** | Backup. Fixed page numbers, good for offline or annotating. |
+
+### Master reading map
+
+| Day | Read in the HTML | PDF pages |
+|---|---|---|
+| **1** | Part I — Chapters 1–2 · *The Legacy Problem* | 4–6 |
+| **2** | Part I — Chapter 3 · *ISO 20022, SWIFT gpi* | 7–10 |
+| **3** | Part I — Chapter 4 · *FX Intelligence & Corridor Engineering* | 11–14 |
+| **4** | Part II — Chapter 1 · *Deterministic Routing Architecture* | 15–18 |
+| **5** | Part II — Chapter 2 · *Scoring Engines* | 19–21 |
+| **6** | Part II — Chapter 4 · *Multi-Constraint Optimisation* | 22–24 |
+| **7** | *(re-skim your weakest two sessions)* | — |
+| **8** | Part III — Chapters 2+3 · *Execution Pipeline, Retries & State Machines* | 25–27 |
+| **9** | Part IV — Chapters 1+4 · *Cryptographic Evidence Chains* | 28–30 |
+| **10** | *(none — your own system)* | 31 |
+| **11** | *(none — your own system)* | — |
+| **12** | Wise: *Our Infrastructure* · *Pricing & take rate* · *CEO letter* | 32–42 |
+| **13** | Adyen: *Value chain* · *Single platform* · *RevenueAccelerate* · *Failover* · *Data centres*<br>Remitly: *Global network* · *Tech platform deep-dive* · *Hybrid risk model* | 42–61<br>63–78 |
+| **14** | *(none — exam)* | — |
+
+**Order matters:** read the source section **first**, then the handbook day. The source gives you the material; the handbook tells you which twelve things you previously got imprecise, and gives you the pitch language.
+
+---
+
 # WEEK 1 — THE THEORY
 
 ---
 
 ## Day 1 — Why the system is broken
+
+> 📖 **Read first:** HTML → *Part I — Chapters 1–2* · PDF pp. 4–6
+> 🗂 **Repo:** none — pure theory today
 
 ### The one idea
 > The global payments system was built for a world that didn't need speed, predictability, or proof — so it is **reactive, not predictive**.
@@ -114,6 +162,9 @@ This distinction matters because it locates where the intelligence gap is. SWIFT
 
 ## Day 2 — Messaging is the real control layer
 
+> 📖 **Read first:** HTML → *Part I — Chapter 3* · PDF pp. 7–10
+> 🗂 **Repo:** [**R1 — The map**](#r1--the-map-day-2-15-min) *(15 min)*
+
 ### The one idea
 > Messages aren't data — they're **legal and operational instructions**. Whoever controls the messaging layer controls the system.
 
@@ -173,6 +224,9 @@ MT103 crams names, addresses and purpose codes together as free text with no pro
 ---
 
 ## Day 3 — Corridors and the real FX rate
+
+> 📖 **Read first:** HTML → *Part I — Chapter 4* · PDF pp. 11–14
+> 🗂 **Repo:** [**R2 — The data foundation**](#r2--the-data-foundation-day-3-15-min) *(15 min)*
 
 ### The one idea
 > Payments don't move randomly — they move through **corridors**, and the "exchange rate" you see is only the first of **eight** stacked components.
@@ -243,6 +297,9 @@ Liquidity evaporation · regulatory shock · volatility spikes · window misalig
 
 ## Day 4 — Aiva's brain: seven graphs at once
 
+> 📖 **Read first:** HTML → *Part II — Chapter 1* · PDF pp. 15–18
+> 🗂 **Repo:** none — this is the heaviest theory day, keep it clear
+
 ### The one idea
 > Aiva doesn't look at a payment through one lens. It looks through **seven simultaneously**, then merges them.
 
@@ -304,6 +361,9 @@ After computing, Aiva hands Rail a deterministic blueprint: optimal corridor pat
 ---
 
 ## Day 5 — Scoring: how routes get judged
+
+> 📖 **Read first:** HTML → *Part II — Chapter 2* · PDF pp. 19–21
+> 🗂 **Repo:** [**R3 — Aiva**](#r3--aiva-day-5-20-min) *(20 min — the best pairing in the course)*
 
 ### The one idea
 > The engine never changes. **The weights change.** Same corridors, different urgency, different winner.
@@ -375,6 +435,9 @@ This is the difference between a naive "sort by speed" and a real optimiser — 
 
 ## Day 6 — Pareto and constraints
 
+> 📖 **Read first:** HTML → *Part II — Chapter 4* · PDF pp. 22–24
+> 🗂 **Repo:** none
+
 ### The one idea
 > Aiva has **contradictory objectives** — fastest vs cheapest vs safest. You can't average them. You optimise them as a constrained problem.
 
@@ -442,6 +505,9 @@ Volatility across a multi-hop route sums as **σ_total = Σ(σᵢ × √tᵢ)** 
 
 ## Day 7 — Consolidation (no new material)
 
+> 📖 **Read:** re-skim whichever two sessions felt weakest
+> 🗂 **Repo:** none
+
 ### Do this, in order
 
 **1. Draw it from memory.** Blank page. Draw: request → Aiva (7 graphs → utility → Pareto) → blueprint → Rail → Cloked. No notes. Then check against Days 4–6.
@@ -463,6 +529,9 @@ If you can say that unbroken, Week 1 is done.
 ---
 
 ## Day 8 — RAIL: making it actually happen
+
+> 📖 **Read first:** HTML → *Part III — Chapters 2 + 3* · PDF pp. 25–27
+> 🗂 **Repo:** [**R4 — Rail**](#r4--rail-day-8-10-min) *(10 min)*
 
 ### The one idea
 > Aiva decides. **Rail is where things actually break** — and it's built so that breaking never leaves money stuck.
@@ -528,6 +597,9 @@ Lupine:  Hop1 → Hop2 → Hop3 ✗
 ---
 
 ## Day 9 — CLOKED: proving it happened
+
+> 📖 **Read first:** HTML → *Part IV — Chapters 1 + 4* · PDF pp. 28–30
+> 🗂 **Repo:** [**R5 — Cloked**](#r5--cloked-day-9-10-min) *(10 min)*
 
 ### The one idea
 > Aiva proves **why**. Rail proves **how**. Cloked proves **that it actually happened** — without anyone having to trust you.
@@ -599,6 +671,9 @@ Given any block, a regulator can retrieve the capsule, recompute the chain, veri
 
 ## Day 10 — Your system: what's real and what isn't
 
+> 📖 **Read:** none — this is about your own system
+> 🗂 **Repo:** none, but this day *is* repo-adjacent. R1–R5 should make it click.
+
 ### The one idea
 > The fastest way to lose a room is to overclaim and get caught. **Know your edges better than anyone questioning you.**
 
@@ -648,6 +723,9 @@ Given any block, a regulator can retrieve the capsule, recompute the chain, veri
 
 ## Day 11 — Your system as a demo
 
+> 📖 **Read:** none
+> 🗂 **Repo:** [**R6 — The live system**](#r6--the-live-system-day-11-20-min) *(20 min)*
+
 ### The one idea
 > You're not showing software. You're showing **a decision being made, and proved.**
 
@@ -684,8 +762,11 @@ Given any block, a regulator can retrieve the capsule, recompute the chain, veri
 
 ## Day 12 — Wise: the operator who built their own rails
 
+> 📖 **Read first:** HTML → Wise: *Our Infrastructure* · *Pricing philosophy + take rate economics* · *CEO letter* · PDF pp. 32–42
+> 🗂 **Repo:** [**R7 — Automation**](#r7--automation-day-12-15-min) *(15 min)*
+
 ### Why this matters
-Wise is the real-world proof that corridor engineering works commercially — **and the clearest evidence of what you're *not* doing.**
+Wise is the real-world proof that corridor engineering works commercially — **and the clearest evidence of what you're *not* doing.** The study pack puts it exactly right: Wise is the **architectural opposite** of Lupine. They *exit* the correspondent rails entirely. You *route across* them.
 
 ### What they built
 
@@ -743,6 +824,22 @@ That reframe turns your biggest apparent weakness (you have no rails) into your 
 
 ## Day 13 — Adyen and Remitly: platform and network
 
+> 📖 **Read first:** HTML → Adyen: *The payments value chain* · *One single platform* · *RevenueAccelerate* · *Key benefits — failover + double-entry* · *Six data centres* · PDF pp. 42–61
+> HTML → Remitly: *Global network + treasury* · *Technology platform deep-dive* · *Hybrid risk model* · PDF pp. 63–78
+> 🗂 **Repo:** none
+
+**Today is the most important market day.** Three of these sections show your architecture **already running in production at someone else's company** — which is simultaneously validation and a competitive warning. Read the "Why read" notes in the HTML carefully; they make the links explicit.
+
+### ⚠️ The three that should make you sit up
+
+| Reading | What it actually is |
+|---|---|
+| **Adyen — Key benefits + Six data centres** | Six live data centres across continents, **"traffic can be rerouted real-time whenever needed."** That is your **forward-correction** concept (P3-Ch2+3) — in production **since 2018**. Their **double-entry accounting core** is the production big sibling of Cloked. |
+| **Adyen — RevenueAccelerate** | ML that **modifies each payment request in real time** to target the highest approval probability. This is the closest live analogue to Aiva's scoring engine. |
+| **Remitly — Technology platform** | The study pack flags a **"Perfect Delivery Promise"** — deterministic settlement prediction **sold as a customer-facing feature**. Someone is already commercialising the word you want to own. |
+
+**Don't panic about this — use it.** The correct read isn't "I've been beaten." It's: *deterministic delivery is provably commercially valuable, three companies have built pieces of it inside their own walls, and none of them can do it across providers or prove it cryptographically.* That's a much stronger pitch than pretending you invented the idea.
+
 ### Adyen — the single platform thesis
 
 The card payments value chain has five core parties: **shopper → merchant → acquirer → card network → issuer**, plus terminal/gateway providers, processors, and risk-management providers bolted on over time.
@@ -769,25 +866,37 @@ The problem: merchants had to stitch together a **disparate group** of gateways,
 
 **Their pricing and treasury are linked:** a proprietary pricing engine uses ML to find pricing levers per corridor, tied to a treasury program with **currency-level forecasting algorithms** to predict demand and optimise trading.
 
+### The compliance gap this fills
+
+Remitly's risk architecture is **hybrid**: ML models + early-warning systems + bespoke rules + manual investigation, tuned to keep fraud losses "within desired guardrails."
+
+That matters because **your V0 skipped the compliance graph entirely** (it's 1 of the 2 graphs out of scope). When someone asks *"where's your compliance layer?"*, the honest, informed answer is:
+
+> "Out of V0 scope deliberately. And production compliance isn't one model — Remitly's own filings describe a hybrid of ML, early-warning systems, bespoke rules and manual investigation. That's the shape we'd build toward, not a single classifier."
+
 ### Where Lupine sits
 
-- **Wise** owns rails.
-- **Remitly** owns a corridor network and a data flywheel.
-- **Adyen** collapsed a fragmented value chain into one platform.
+- **Wise** owns **rails** — and exited correspondent banking to get them.
+- **Remitly** owns a **corridor network** and a compounding data flywheel.
+- **Adyen** collapsed a **fragmented value chain** into one platform, with real-time failover.
 - **Lupine** owns the **decision and evidence layer** — rail-agnostic, provider-agnostic, and the only one producing a cryptographic proof of *why* a route was chosen.
 
-> "Every one of these companies optimises routing **inside their own network**. None of them can tell you whether a competitor's rail would have been better for your payment — and none of them give you a proof you can verify. That's the gap."
+> "Wise, Adyen and Remitly all optimise routing **inside their own network** — and they're genuinely good at it. But none of them can tell you whether a **competitor's** rail would have been better for your payment, because that's against their interest. And none of them hand you a proof you can verify without trusting them. We're rail-agnostic and we're provable. That's the gap."
+
+**Why this positioning is defensible:** their optimisation is structurally captive. Wise can't recommend Airwallex. Adyen can't route you off Adyen. The neutrality *is* the product — and it's the one thing an incumbent can't copy without cannibalising itself.
 
 ### ✅ Check yourself
 1. What did Adyen collapse, and what's the parallel for Lupine?
 2. What is Remitly's flywheel?
-3. In one sentence, where does Lupine sit relative to all three?
+3. Adyen has had real-time rerouting since 2018. Why isn't that fatal to you?
+4. In one sentence, where does Lupine sit relative to all three?
 
 <details><summary>Answers</summary>
 
 1. A fragmented card value chain (gateways, processors, acquirers, risk providers) into one platform. Lupine collapses fragmented, isolated routing decisions into one intelligence layer.
-2. More customers → more transactions → more data → better pricing/marketing/experience → more customers.
-3. They optimise routing within their own networks; Lupine is the rail-agnostic decision and evidence layer that scores across all of them and proves the choice.
+2. More customers → more transactions → more data → better pricing/marketing/experience → more customers. Ten years of transaction data compounding.
+3. Their rerouting happens **within Adyen's own infrastructure** — between their own data centres, for their own traffic. It proves the architecture works; it doesn't cover choosing between independent providers, and it produces no verifiable evidence for the payer.
+4. They optimise routing within their own networks; Lupine is the rail-agnostic decision and evidence layer that scores across all of them and proves the choice.
 </details>
 
 ---
@@ -833,6 +942,216 @@ Legacy is reactive → the intelligence gap → what Aiva/Rail/Cloked do → wha
 ### You're done when
 
 You can deliver Part 2 unbroken, and every Part 3 answer names a real limitation without sounding defensive.
+
+### Repo questions (add these to Part 3)
+
+- Where do the urgency weights live, and what would you change to make critical urgency weight speed at 70%?
+- Which file would you change to add a 22nd provider?
+- Your API loses all evidence on restart. Which file, and why does it matter?
+- The site says data is fresh daily. What actually makes that happen?
+
+---
+
+# THE REPO TRACK — 7 sessions
+
+**The goal is literacy, not fluency.** You are not learning to write Python. You are learning the floor plan — so you can direct changes precisely, debug conversationally, and explain your own system to a technical person without hand-waving.
+
+**How to look at a file:** open it on GitHub in your browser. **Read the comments and the names, skip the logic.** Names like `WEIGHT_PROFILES`, `valid_transitions`, `verify_chain` tell you nearly everything. If a block looks like maths, skim past it — you'll know *what it does* from the surrounding names, and that's enough.
+
+### The whole repo in one view
+
+```
+lupine-systems-core/
+│
+├── src/                          THE ENGINE (1,003 lines)
+│   ├── models/schemas.py           the nouns — every object in the system
+│   ├── aiva_lite/                  🧠 LAYER 1 — decide
+│   │   ├── router.py                 the catalogue: 21 rails
+│   │   ├── scorer.py                 the judge: weights + composite score
+│   │   └── selector.py               the spokesperson: winner + rationale
+│   ├── rail_lite/executor.py       🚂 LAYER 2 — execute (state machine)
+│   ├── cloked_lite/logger.py       🔒 LAYER 3 — prove (hash chain)
+│   ├── data/fx_feed.py             live FX, 4-source fallback
+│   └── api/main.py                 the 5 endpoints
+│
+├── scripts/                      THE LIVE SYSTEM (743 lines)
+│   ├── watcher.py                  hourly market agent
+│   ├── backtest.py                 90-day replay
+│   ├── generate_live_decisions.py  daily decisions → JSON
+│   ├── generate_site_data.py       news + health + backtest dispatch
+│   └── fetch_daily_news.py         daily news scan
+│
+├── website/                      THE SHOP WINDOW
+│   ├── index.html                  the whole site (engine mirrored in JS)
+│   └── data/*.json                 5 files the site reads
+│
+├── tests/                        4 files, 10 deterministic tests
+├── .github/workflows/            4 workflows — the automation
+├── docs/                         study pack, guide, spec, this handbook
+├── daily-news/  test-results/    one .md per day, auto-generated
+└── CLAUDE.md                     the brief every AI agent reads first
+```
+
+**The single most important thing on this page:** the folder names `aiva_lite`, `rail_lite`, `cloked_lite` are the three layers from the book, one folder each. **The architecture is visible in the file tree.** That's not an accident, and it's worth saying out loud in a technical conversation.
+
+---
+
+### R1 — The map *(Day 2, 15 min)*
+
+**Look at:** the repository root on GitHub. Just the folder list. Then open `CLAUDE.md`.
+
+**The one thing to understand:** every folder has exactly one job, and the three-layer boundary is enforced by the structure. Aiva decides, Rail executes, Cloked proves — and no folder reaches into another's job.
+
+**Do this:**
+1. Open the repo root. Match each folder to the tree above.
+2. Open `CLAUDE.md` and read Sections 2 and 3. This is the file every AI agent reads before touching your code — it's why changes stay consistent.
+3. Note `src/` (the engine, reusable) vs `scripts/` (jobs that run on a schedule). Scripts *call* the engine; the engine never calls a script.
+
+**✅ Check:** Name the three layer folders and what each does. Where does live FX live — `src/` or `scripts/`? *(Answer: `src/data/` — it's engine, not a job.)*
+
+---
+
+### R2 — The data foundation *(Day 3, 15 min)*
+
+**Look at:** `src/models/schemas.py` (77 lines) · `src/data/fx_feed.py` (116 lines) · `website/data/`
+
+**The one thing to understand:** `schemas.py` defines every **noun** in the system. Nothing exists that isn't defined here.
+
+| Object | What it is |
+|---|---|
+| `MovementRequest` | what you want to move — amount, currencies, urgency |
+| `RouteOption` | one candidate rail — time, cost, reliability, plus scores once judged |
+| `DecisionScore` | the verdict — winner, rationale, weights used |
+| `ExecutionState` | where the payment is in the state machine + full history |
+| `EvidenceEntry` / `EvidenceLog` | one sealed record / the whole chain |
+
+`fx_feed.py` is Day 3's concept in code: four source functions tried in order, first success wins. You can literally see the fallback chain as a list.
+
+**Do this:** open `schemas.py` and read only the field names. Then open `fx_feed.py` and find `_SOURCES` — that one line *is* the fallback chain.
+
+**✅ Check:** Which object holds the rationale text a user reads? What happens if source #1 is down? *(Answers: `DecisionScore`. It silently falls through to source #2 — the system never notices.)*
+
+---
+
+### R3 — Aiva *(Day 5, 20 min)*
+
+**The best pairing in the course** — you'll have just learned scoring, and `scorer.py` is 41 lines.
+
+**Look at:** `src/aiva_lite/router.py` · `scorer.py` · `selector.py`
+
+| File | Role | The thing to find |
+|---|---|---|
+| `router.py` | **the catalogue** | the 21 providers, each with hours / bps / reliability |
+| `scorer.py` | **the judge** | `WEIGHT_PROFILES` — your four urgency profiles, exactly as in Day 5 |
+| `selector.py` | **the spokesperson** | the sentence template that writes the human rationale |
+
+**Two things worth knowing:**
+
+**1. The `fx_rate` switch.** `generate_routes()` behaves differently depending on one input: give it a live rate → 21 real providers; leave it out → 3 simulated routes (Fast / Cheap / Balanced). The tests use the 3-route path because fixed numbers make assertions possible. **Both paths are real code; one is for testing.**
+
+**2. Where the Pareto gap lives.** `selector.py` takes the highest-scoring route. It does **not** compute a dominance frontier or classify admissible/fallback/eliminated. That's the honest limitation from Day 10 — and now you know it's a ~44-line file, so you know it's a small fix, not a rewrite.
+
+**✅ Check:** Which file holds the weights table? Which writes the "Beat Balanced Route by 0.059…" sentence? What changes when `fx_rate` is supplied?
+
+---
+
+### R4 — Rail *(Day 8, 10 min)*
+
+**Look at:** `src/rail_lite/executor.py` (62 lines — the whole execution layer)
+
+**The one thing to understand:** find `valid_transitions`. It's a short list saying *from this state, you may only go to these states.* **That list is Day 8's atomicity principle, in code.** Anything not on it raises an error.
+
+Three functions: `create_execution` (start), `advance_state` (move one step, enforce the rule), `simulate_full_execution` (run the whole sequence).
+
+**Where the limitation lives:** `simulate_full_execution` always reaches `completed`. There's no failure branch, no retry, no fallback. That's the "Rail never fails" gap from Day 10 — and it's why `failed` exists as a state but is never used.
+
+**✅ Check:** What stops a payment jumping straight from `initiated` to `completed`? Why does that matter for the audit trail? *(Because reaching `completed` guarantees every prior state was visited and logged — you can't fake a success.)*
+
+---
+
+### R5 — Cloked *(Day 9, 10 min)*
+
+**Look at:** `src/cloked_lite/logger.py` (63 lines — the entire evidence layer)
+
+**The one thing to understand:** three functions, and the whole trust story lives in them.
+
+| Function | What it does |
+|---|---|
+| `create_evidence_log` | start a new chain for one payment |
+| `append_evidence` | hash this event **together with the previous hash**, add it |
+| `verify_chain` | walk every entry, recompute each hash, check every link |
+
+Find the word `"genesis"`. That's the placeholder for entry #0's "previous hash" — the chain's anchor point. Everything after links backward to it.
+
+`verify_chain` is the file's most important eight lines: for each entry it checks (a) does the recomputed hash match the stored one, and (b) does `previous_hash` match the entry before. **Those two checks are exactly the two-step tamper detection from Day 9.**
+
+**✅ Check:** Which function makes tampering detectable, and what two things does it check?
+
+---
+
+### R6 — The live system *(Day 11, 20 min)*
+
+**Look at:** `scripts/` · `website/data/` · `src/api/main.py`
+
+**The one thing to understand:** the engine in `src/` doesn't do anything on its own. The scripts are the **jobs that call it on a schedule** and write results to JSON that the website reads.
+
+| Script | Runs | Produces |
+|---|---|---|
+| `watcher.py` | hourly | `agent_signal.json` — STRIKE / WATCH / HOLD |
+| `generate_live_decisions.py` | daily | `live_decisions.json` — all 4 urgency levels |
+| `backtest.py` | daily | `backtest.json` — 90-day replay |
+| `fetch_daily_news.py` | daily | `daily-news/YYYY-MM-DD.md` |
+| `generate_site_data.py` | daily | `news.json`, `health.json`, triggers backtest |
+
+**The website reads five JSON files.** That's it — no server, no database. That's why the site is fast and free to host.
+
+**⚠️ The one duplication you must know about.** `website/index.html` contains `TR_PROVIDERS` — a JavaScript copy of the same 21 providers that live in `router.py`. They're kept in sync **by hand**. Change a fee in one and the other is silently wrong. If anyone technical reviews your repo, they will spot this — so name it before they do.
+
+`src/api/main.py` holds the 5 endpoints. Note: it stores everything in memory, so evidence dies on restart. The scripts don't use the API at all — they call the engine directly.
+
+**✅ Check:** Where does the website get its numbers? What breaks if you change a provider fee in only one place?
+
+---
+
+### R7 — Automation *(Day 12, 15 min)*
+
+**Look at:** `.github/workflows/` — four files
+
+| Workflow | Trigger | Job |
+|---|---|---|
+| `ci.yml` | every push | run the tests |
+| `daily.yml` | hourly + 08:00 UTC | tests → news → decisions → site data → commit |
+| `watcher.yml` | every hour at :30 | run the watcher, open an Issue on STRIKE |
+| `pages.yml` | every push to main | deploy the website |
+
+**The one thing to understand — the self-healing design.** `daily.yml` fires **24 times a day** but skips instantly if today's work is already done. GitHub would have to drop all 24 slots to miss a day. Combined with `continue-on-error` on every step and `git pull --rebase` before every commit, the pipeline survives network blips and two jobs pushing at once.
+
+**This is a genuinely good story to tell.** *"It's been running unattended for months — 720+ watcher runs, zero manual intervention. The pipeline heals itself."* That's an engineering-maturity signal most pre-seed demos can't offer.
+
+**✅ Check:** Why does the daily job run 24 times instead of once? What are the two safeguards that stop concurrent jobs breaking each other?
+
+---
+
+## 🔧 How to direct changes
+
+**The most practically useful table in this document.** When you want something changed, this is what to tell me:
+
+| You want… | It's in | Say to me |
+|---|---|---|
+| Different urgency weights | `scorer.py` | *"Change critical urgency to 70% speed"* |
+| Add / edit / remove a provider | `router.py` **and** `index.html` | *"Add Payoneer at 60 bps, 24h, 0.89 — both places"* |
+| Different reference amount | `scripts/*.py` | *"Change the reference transfer from 500K to 250K"* |
+| A new corridor (e.g. AUD→USD) | `scripts/` + `router.py` | *"Add AUD→USD as a second corridor"* |
+| Change the STRIKE threshold | `watcher.py` | *"Make STRIKE fire at top 5% instead of top 10%"* |
+| Change how the rationale reads | `selector.py` | *"Make the rationale mention dollar savings"* |
+| Anything visual on the site | `website/index.html` | *"Make the provider cards show a savings badge"* |
+| Add a new logged event | `logger.py` + caller | *"Log an fx_source event in the chain"* |
+| Change how often something runs | `.github/workflows/` | *"Run the watcher every 30 minutes"* |
+| Real failure simulation in Rail | `executor.py` | *"Make execution fail based on reliability score"* |
+| Persist evidence across restarts | `api/main.py` | *"Add a database so evidence survives restart"* |
+| Pareto dominance filtering | `selector.py` | *"Add explicit dominance filtering and route tiers"* |
+
+Knowing which file to name is the whole difference between *"can you make it better"* and directing an engineer. **That's what repo mastery means for you.**
 
 ---
 
