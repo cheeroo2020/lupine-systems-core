@@ -68,6 +68,33 @@ Two files in `docs/`, same 8 study sessions in both:
 
 ---
 
+## Animated lessons
+
+Click-through visual versions of each day, hosted on the project's own site. They're a **supplement, not a substitute** — watching is still passive. Use one to *see* a mechanism move, then close it and say the mechanism out loud.
+
+**Live at:** `cheeroo2020.github.io/lupine-systems-core/lessons/`
+
+| # | Lesson | File | Status |
+|---|---|---|---|
+| 1 | [Why the System Is Broken](https://cheeroo2020.github.io/lupine-systems-core/lessons/01-why-the-system-is-broken.html) | `01-why-the-system-is-broken.html` | ✅ live |
+| 2 | Messaging Is the Real Control Layer | `02-messaging-is-the-control-layer.html` | — |
+| 3 | Corridors and the Real FX Rate | `03-corridors-and-the-real-fx-rate.html` | — |
+| 4 | Aiva's Brain — Seven Graphs at Once | `04-aivas-brain-seven-graphs.html` | — |
+| 5 | Scoring — How Routes Get Judged | `05-scoring-how-routes-get-judged.html` | — |
+| 6 | Pareto and Constraints | `06-pareto-and-constraints.html` | — |
+| 7 | Consolidation | `07-consolidation.html` | — |
+| 8 | RAIL — Making It Actually Happen | `08-rail-making-it-happen.html` | — |
+| 9 | CLOKED — Proving It Happened | `09-cloked-proving-it-happened.html` | — |
+| 10 | What's Real and What Isn't | `10-whats-real-and-what-isnt.html` | — |
+| 11 | Your System as a Demo | `11-your-system-as-a-demo.html` | — |
+| 12 | Wise — The Operator Who Built Rails | `12-wise-who-built-their-own-rails.html` | — |
+| 13 | Adyen and Remitly — Platform and Network | `13-adyen-and-remitly.html` | — |
+| 14 | Cold Exam | `14-cold-exam.html` | — |
+
+**Naming convention:** `NN-topic-in-kebab-case.html`, zero-padded. The padding is what makes numeric and alphabetical order agree — unpadded, `10` sorts before `2` and the directory listing scrambles.
+
+---
+
 # WEEK 1 — THE THEORY
 
 ---
@@ -75,6 +102,7 @@ Two files in `docs/`, same 8 study sessions in both:
 ## Day 1 — Why the system is broken
 
 > 📖 **Read first:** HTML → *Part I — Chapters 1–2* · PDF pp. 4–6
+> 🎬 **Animated lesson:** [1. Why the System Is Broken](https://cheeroo2020.github.io/lupine-systems-core/lessons/01-why-the-system-is-broken.html)
 > 🗂 **Repo:** none — pure theory today
 
 ### The one idea
