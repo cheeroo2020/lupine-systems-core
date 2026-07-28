@@ -77,7 +77,7 @@ Click-through visual versions of each day, hosted on the project's own site. The
 | # | Lesson | File | Status |
 |---|---|---|---|
 | 1 | [Why the System Is Broken](https://cheeroo2020.github.io/lupine-systems-core/lessons/01-why-the-system-is-broken.html) | `01-why-the-system-is-broken.html` | ✅ live |
-| 2 | Messaging Is the Real Control Layer | `02-messaging-is-the-control-layer.html` | — |
+| 2 | [Messaging Is the Real Control Layer](https://cheeroo2020.github.io/lupine-systems-core/lessons/02-messaging-is-the-control-layer.html) | `02-messaging-is-the-control-layer.html` | ✅ live |
 | 3 | Corridors and the Real FX Rate | `03-corridors-and-the-real-fx-rate.html` | — |
 | 4 | Aiva's Brain — Seven Graphs at Once | `04-aivas-brain-seven-graphs.html` | — |
 | 5 | Scoring — How Routes Get Judged | `05-scoring-how-routes-get-judged.html` | — |
@@ -191,6 +191,7 @@ This distinction matters because it locates where the intelligence gap is. SWIFT
 ## Day 2 — Messaging is the real control layer
 
 > 📖 **Read first:** HTML → *Part I — Chapter 3* · PDF pp. 7–10
+> 🎬 **Animated lesson:** [2. Messaging Is the Real Control Layer](https://cheeroo2020.github.io/lupine-systems-core/lessons/02-messaging-is-the-control-layer.html)
 > 🗂 **Repo:** [**R1 — The map**](#r1--the-map-day-2-15-min) *(15 min)*
 
 ### The one idea
