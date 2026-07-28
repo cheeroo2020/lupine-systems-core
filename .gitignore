@@ -205,3 +205,9 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Node — not a JS project, but browser-based testing tools (Playwright)
+# can drop these in the repo root. Never commit them.
+node_modules/
+package-lock.json
+package.json
