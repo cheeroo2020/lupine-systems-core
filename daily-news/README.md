@@ -115,3 +115,4 @@ No manual input needed. Fully automated.
 | [2026-07-26](./2026-07-26.md) | The Truth About Spending in Retirement and Why It’s Good News |
 | [2026-07-27](./2026-07-27.md) | Tech Titans Slash 140K Jobs as AI Spending Soars |
 | [2026-07-28](./2026-07-28.md) | Oportun Deploys AI to Help Consumers Save for Recurring Expenses |
+| [2026-07-29](./2026-07-29.md) | Grifols (GRFS) Q2 2026 Earnings Call Transcript |
