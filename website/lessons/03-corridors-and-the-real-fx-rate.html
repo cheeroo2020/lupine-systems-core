@@ -1,0 +1,870 @@
+<title>3. Corridors and the Real FX Rate · Lupine</title>
+
+<style>
+:root{
+  --paper:#EAE7DF;
+  --paper-2:#E1DDD2;
+  --paper-3:#F3F1EB;
+  --ink:#191D1B;
+  --ink-2:rgba(25,29,27,.62);
+  --ink-3:rgba(25,29,27,.40);
+  --rule:rgba(25,29,27,.16);
+  --rule-2:rgba(25,29,27,.08);
+
+  /* Same semantic actors as Lessons 1–2 — these never swap roles. */
+  --wire:#2B4A78;      /* the message  */
+  --flow:#1E5B48;      /* the money    */
+  --friction:#A84126;  /* the friction */
+  --wire-w:rgba(43,74,120,.12);
+  --flow-w:rgba(30,91,72,.12);
+  --friction-w:rgba(168,65,38,.12);
+
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,"Hoefler Text",Georgia,serif;
+
+  --t-hero:clamp(2.1rem,5.4vw,3.9rem);
+  --t-title:clamp(1.45rem,3.1vw,2.25rem);
+  --t-lede:clamp(1.02rem,1.65vw,1.22rem);
+  --t-body:clamp(.95rem,1.25vw,1.02rem);
+  --t-mono:clamp(.72rem,1vw,.82rem);
+  --t-micro:.67rem;
+
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+:root[data-theme="dark"],:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:var(--t-body);line-height:1.62;
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(to bottom,transparent 0 43px,rgba(30,91,72,.016) 43px 86px)}
+
+/* ─── shell ─────────────────────────────────────────── */
+.stage{position:relative;z-index:1;height:100dvh;display:grid;grid-template-columns:auto 1fr}
+.rail{display:flex;flex-direction:column;gap:.55rem;padding:1.6rem .95rem;
+  border-right:1px solid var(--rule);background:var(--paper-2)}
+.rail-mark{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;
+  color:var(--ink-3);writing-mode:vertical-rl;margin-bottom:.7rem;text-transform:uppercase}
+.dot{appearance:none;border:1px solid var(--rule);background:transparent;
+  width:26px;height:26px;border-radius:50%;cursor:pointer;padding:0;
+  font-family:var(--mono);font-size:.62rem;color:var(--ink-3);
+  display:grid;place-items:center;transition:all .3s var(--ease)}
+.dot:hover{border-color:var(--ink-3);color:var(--ink-2)}
+.dot[aria-current="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.dot.seen:not([aria-current="true"]){border-color:var(--ink-3);color:var(--ink-2)}
+.dot:focus-visible{outline:2px solid var(--wire);outline-offset:3px}
+
+.viewport{position:relative;overflow:hidden}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;
+  padding:clamp(1.4rem,4vw,3.4rem);overflow-y:auto;
+  opacity:0;visibility:hidden;transform:translateY(14px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease),visibility .5s}
+.scene.is-active{opacity:1;visibility:visible;transform:none}
+.wrap{width:100%;max-width:64rem;margin:auto}
+
+/* ─── type ──────────────────────────────────────────── */
+.eyebrow{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 1rem}
+h1{font-family:var(--mono);font-size:var(--t-hero);font-weight:600;
+  letter-spacing:-.035em;line-height:1.02;margin:0;text-wrap:balance;text-transform:uppercase}
+h2{font-family:var(--mono);font-size:var(--t-title);font-weight:600;
+  letter-spacing:-.02em;line-height:1.1;margin:0 0 1.1rem;text-wrap:balance;text-transform:uppercase}
+/* Formulae must not be uppercased — σ (volatility) would become Σ (summation). */
+.exact{text-transform:none}
+p{max-width:36em;margin:0}
+.muted{color:var(--ink-2)}
+strong{font-weight:600}
+.pull{border-left:2px solid var(--ink);padding:.1rem 0 .1rem 1.1rem;
+  font-size:var(--t-lede);line-height:1.5;max-width:33em}
+
+.fig{background:var(--paper-3);border:1px solid var(--rule);
+  padding:clamp(1rem,2.4vw,1.7rem);overflow-x:auto}
+.fig-cap{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 1.1rem;
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center}
+.mono{font-family:var(--mono);font-size:var(--t-mono);font-variant-numeric:tabular-nums}
+.cols{display:grid;gap:clamp(1.1rem,2.6vw,2.2rem);grid-template-columns:1fr}
+@media(min-width:900px){.cols.two{grid-template-columns:1fr 1.15fr;align-items:center}}
+
+.replay{appearance:none;border:1px solid var(--rule);background:transparent;cursor:pointer;
+  font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-2);padding:.28rem .7rem;transition:all .2s;white-space:nowrap}
+.replay:hover{border-color:var(--ink-3);color:var(--ink);background:var(--paper-2)}
+.replay:focus-visible{outline:2px solid var(--wire);outline-offset:2px}
+
+/* ─── S2 · three corridors ──────────────────────────── */
+.corr{display:flex;flex-direction:column;gap:.55rem;min-width:520px}
+.corr-row{display:grid;grid-template-columns:11rem 1fr 5.5rem;gap:.9rem;align-items:center;
+  padding:.62rem .8rem;background:var(--paper-2);border-left:2px solid var(--rule);
+  opacity:0;transform:translateX(-10px)}
+.is-active .corr-row{animation:slideIn .45s var(--ease) forwards}
+.corr-row.best{border-left-color:var(--flow);background:var(--flow-w)}
+.corr-row.worst{border-left-color:var(--friction);background:var(--friction-w)}
+.corr-path{font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.04em}
+.corr-note{font-size:.83rem;color:var(--ink-2)}
+.corr-cost{font-family:var(--mono);font-size:var(--t-mono);font-variant-numeric:tabular-nums;text-align:right}
+@keyframes slideIn{to{opacity:1;transform:none}}
+
+/* ─── S3 · tiers ────────────────────────────────────── */
+.tier{display:grid;grid-template-columns:4.5rem 1fr;gap:1rem;align-items:center;
+  padding:.75rem .9rem;background:var(--paper-2);margin-bottom:5px;
+  border-left:2px solid var(--rule);opacity:0;transform:translateX(-10px)}
+.is-active .tier{animation:slideIn .45s var(--ease) forwards}
+.tier .t{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3)}
+.tier .nm{font-family:var(--mono);font-size:var(--t-mono)}
+.tier .dd{font-size:.82rem;color:var(--ink-2);grid-column:2}
+.tier.deep{border-left-color:var(--flow)}
+.tier.thin{border-left-color:var(--friction)}
+
+/* ─── S5 · the 8 components ─────────────────────────── */
+.stackbar{position:relative;height:54px;background:var(--paper-2);
+  display:flex;overflow:hidden;margin-bottom:.4rem}
+.seg{width:0;transition:width .55s var(--ease);position:relative;
+  border-right:1px solid rgba(243,241,235,.55)}
+.marks{position:relative;height:2.6rem;margin-bottom:.9rem}
+.mk{position:absolute;top:0;font-family:var(--mono);font-size:var(--t-micro);
+  letter-spacing:.06em;white-space:nowrap;opacity:0;transition:opacity .5s}
+.mk.on{opacity:1}
+.mk::before{content:"";position:absolute;top:-.55rem;left:0;width:1px;height:.5rem;background:currentColor}
+.mk.quoted{color:var(--ink-2)}
+.mk.actual{color:var(--friction)}
+.legend{display:grid;gap:.3rem 1.1rem;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:1.1rem}
+.lg{display:grid;grid-template-columns:auto 1.5rem 1fr auto;gap:.5rem;align-items:baseline;
+  font-family:var(--mono);font-size:var(--t-micro);opacity:.25;transition:opacity .4s}
+.lg.on{opacity:1}
+.lg .sw{width:9px;height:9px;align-self:center}
+.lg .sym{color:var(--ink-3)}
+.lg .nm{color:var(--ink-2);letter-spacing:.03em}
+.lg .bp{font-variant-numeric:tabular-nums;color:var(--ink)}
+
+/* ─── S6 · the curve ────────────────────────────────── */
+.curvewrap{position:relative;width:100%;max-width:640px;margin:0 auto}
+canvas{display:block;width:100%;height:auto}
+.readout{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));
+  margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--rule-2)}
+.readout div{display:flex;flex-direction:column;gap:.15rem}
+.readout .k{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3)}
+.readout .v{font-family:var(--mono);font-size:1.35rem;font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;color:var(--friction)}
+
+/* ─── S7 · the race ─────────────────────────────────── */
+.race{display:flex;flex-direction:column;gap:1.9rem;min-width:600px}
+.rrow{display:flex;flex-direction:column;gap:.5rem}
+.rhead{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.rname{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase}
+.rname b{font-weight:600}
+.rname span{color:var(--ink-3)}
+.rtime{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-3);
+  font-variant-numeric:tabular-nums}
+.rtrack{height:24px;background:var(--paper-2);position:relative;overflow:hidden}
+.rfill{position:absolute;top:0;bottom:0;left:0;width:0;
+  background:var(--flow-w);border-bottom:2px solid var(--flow)}
+.rcost{height:20px;background:var(--paper-2);position:relative;overflow:hidden}
+.rcostfill{position:absolute;top:0;bottom:0;left:0;width:0;
+  background:var(--friction-w);border-bottom:2px solid var(--friction);transition:width .9s var(--ease)}
+.rcostlbl{display:flex;justify-content:space-between;font-family:var(--mono);
+  font-size:var(--t-micro);color:var(--ink-3);margin-top:.25rem}
+.rcostlbl b{color:var(--friction);font-weight:400}
+.winner{font-family:var(--mono);font-size:var(--t-mono);margin-top:1.4rem;
+  padding-top:1.1rem;border-top:1px solid var(--rule-2);opacity:0;transition:opacity .6s}
+.winner.on{opacity:1}
+.winner .hl{color:var(--flow)}
+.winner .lo{color:var(--friction)}
+
+/* ─── S8 · the loop ─────────────────────────────────── */
+.loop{display:grid;gap:.75rem;grid-template-columns:1fr;max-width:34rem}
+@media(min-width:720px){.loop{grid-template-columns:repeat(3,1fr);align-items:stretch}}
+.node{padding:.9rem;background:var(--paper-2);border-left:2px solid var(--friction);
+  opacity:0;transform:translateY(8px)}
+.is-active .node{animation:rise .5s var(--ease) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.node .k{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--friction);display:block;margin-bottom:.25rem}
+.node .v{font-size:.86rem;color:var(--ink-2)}
+
+/* ─── S9 · who optimises what ───────────────────────── */
+.who{display:grid;gap:1px;background:var(--rule);grid-template-columns:1fr}
+@media(min-width:820px){.who{grid-template-columns:repeat(3,1fr)}}
+.who-side{background:var(--paper-3);padding:1.15rem}
+.who-side h3{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.16em;
+  text-transform:uppercase;margin:0 0 .7rem;color:var(--ink-3)}
+.who-side.us h3{color:var(--flow)}
+.who-side .q{font-family:var(--mono);font-size:var(--t-mono);margin:0 0 .7rem;color:var(--ink)}
+.who-side p{font-size:.86rem;color:var(--ink-2)}
+
+/* ─── S10 · thesis ──────────────────────────────────── */
+.vs{display:grid;gap:1px;background:var(--rule);grid-template-columns:1fr}
+@media(min-width:760px){.vs{grid-template-columns:1fr 1fr}}
+.vs-side{background:var(--paper-3);padding:1.3rem}
+.vs-side h3{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.18em;
+  text-transform:uppercase;margin:0 0 .8rem;color:var(--ink-3)}
+.vs-side.now h3{color:var(--friction)}
+.vs-side.next h3{color:var(--flow)}
+.vs-side ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.4rem}
+.vs-side li{font-size:.9rem;color:var(--ink-2)}
+
+/* ─── S11 · questions ───────────────────────────────── */
+.qs{display:flex;flex-direction:column;gap:.7rem}
+details{background:var(--paper-3);border:1px solid var(--rule);padding:.95rem 1.15rem}
+details[open]{border-color:var(--ink-3)}
+summary{cursor:pointer;font-size:var(--t-lede);line-height:1.45;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";font-family:var(--mono);color:var(--ink-3);font-size:.85em}
+details[open] summary::before{content:"▾ "}
+summary:focus-visible{outline:2px solid var(--wire);outline-offset:3px}
+details p{margin:.85rem 0 0;color:var(--ink-2);font-size:.94rem;max-width:44em}
+.badge{display:inline-block;font-family:var(--mono);font-size:var(--t-micro);
+  letter-spacing:.1em;text-transform:uppercase;padding:.15rem .5rem;margin-left:.5rem}
+.badge.gap{color:var(--friction);background:var(--friction-w)}
+.badge.ok{color:var(--flow);background:var(--flow-w)}
+
+/* ─── controls ──────────────────────────────────────── */
+.controls{position:fixed;right:clamp(1rem,3vw,2.2rem);bottom:clamp(1rem,3vw,2rem);
+  display:flex;align-items:center;gap:.5rem;z-index:20;
+  background:var(--paper-3);border:1px solid var(--rule);padding:.4rem}
+.btn{appearance:none;border:0;background:transparent;cursor:pointer;
+  font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink);padding:.5rem .9rem;transition:background .2s}
+.btn:hover:not(:disabled){background:var(--paper-2)}
+.btn:disabled{color:var(--ink-3);cursor:not-allowed}
+.btn:focus-visible{outline:2px solid var(--wire);outline-offset:-2px}
+.pos{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-3);
+  font-variant-numeric:tabular-nums;padding:0 .5rem;letter-spacing:.1em}
+.hint{position:fixed;left:clamp(4.5rem,7vw,6rem);bottom:clamp(1.1rem,3vw,2.1rem);
+  font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);z-index:20}
+@media(max-width:640px){.hint{display:none}}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  .corr-row,.tier,.node{opacity:1;transform:none}
+}
+</style>
+
+<div class="stage">
+  <nav class="rail" aria-label="Lesson scenes">
+    <span class="rail-mark">Lesson 03</span>
+    <button class="dot" data-go="0" aria-current="true">1</button>
+    <button class="dot" data-go="1">2</button>
+    <button class="dot" data-go="2">3</button>
+    <button class="dot" data-go="3">4</button>
+    <button class="dot" data-go="4">5</button>
+    <button class="dot" data-go="5">6</button>
+    <button class="dot" data-go="6">7</button>
+    <button class="dot" data-go="7">8</button>
+    <button class="dot" data-go="8">9</button>
+    <button class="dot" data-go="9">10</button>
+    <button class="dot" data-go="10">11</button>
+  </nav>
+
+  <div class="viewport">
+
+    <!-- 1 ───────────────────────────────────────────── -->
+    <section class="scene is-active">
+      <div class="wrap">
+        <p class="eyebrow">Lupine Systems · Revision · Lesson 3 of 14</p>
+        <h1>3. Corridors<br>and the real<br>FX rate</h1>
+        <div class="pull" style="margin-top:2rem">
+          Payments don't move randomly — they move through <strong>corridors</strong>.
+          And the "exchange rate" you were quoted is only the first of
+          <strong>eight</strong> stacked components.
+        </div>
+        <p class="mono muted" style="margin-top:2rem">
+          11 scenes · ~10 min · read Part I Ch 4 first
+        </p>
+      </div>
+    </section>
+
+    <!-- 2 ───────────────────────────────────────────── -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 02 · What a corridor is</p>
+        <h2>Same payment, three paths</h2>
+        <p style="margin-bottom:1.3rem">A corridor is a pathway between two currencies —
+          geopolitical, regulatory, liquidity-dependent. The <em>same</em> payment can take
+          completely different corridors with wildly different outcomes.</p>
+        <div class="fig">
+          <p class="fig-cap"><span>A$500,000 · AUD → EUR</span><span>all-in cost</span></p>
+          <div class="corr">
+            <div class="corr-row best" style="animation-delay:.10s">
+              <span class="corr-path">AUD → SGD → EUR</span>
+              <span class="corr-note">Via Singapore. Deep regional pool, stable, good window fit.</span>
+              <span class="corr-cost">41 bps</span>
+            </div>
+            <div class="corr-row" style="animation-delay:.22s">
+              <span class="corr-path">AUD → USD → EUR</span>
+              <span class="corr-note">Via the dollar. Deepest liquidity, but an extra hop and spread.</span>
+              <span class="corr-cost">58 bps</span>
+            </div>
+            <div class="corr-row worst" style="animation-delay:.34s">
+              <span class="corr-path">AUD → EUR direct</span>
+              <span class="corr-note">Looks shortest. Thin liquidity means a punishing spread.</span>
+              <span class="corr-cost">94 bps</span>
+            </div>
+          </div>
+          <p class="mono muted" style="margin-top:1.2rem">
+            The shortest path on a map is the most expensive one in practice.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 ───────────────────────────────────────────── -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 03 · Where liquidity lives</p>
+        <h2>Three tiers</h2>
+        <div class="cols two">
+          <div style="display:flex;flex-direction:column;gap:1.1rem">
+            <p>Liquidity isn't evenly spread. It pools in tiers, and which tier your corridor
+              touches decides your spread.</p>
+            <p class="muted">Above it all sit macro conditions — geopolitics, interest rates —
+              which move the whole structure at once.</p>
+          </div>
+          <div class="fig">
+            <p class="fig-cap"><span>Liquidity structure</span><span>deep → thin</span></p>
+            <div class="tier deep" style="animation-delay:.10s">
+              <span class="t">Tier 1</span><span class="nm">Primary pools</span>
+              <span class="dd">JPM · Citi · UBS · HSBC · Barclays · XTX Markets</span>
+            </div>
+            <div class="tier" style="animation-delay:.22s">
+              <span class="t">Tier 2</span><span class="nm">Regional pools</span>
+              <span class="dd">Singapore · Sydney · Hong Kong · Frankfurt · London</span>
+            </div>
+            <div class="tier thin" style="animation-delay:.34s">
+              <span class="t">Tier 3</span><span class="nm">Local rails</span>
+              <span class="dd">RTGS · ACH · SEPA · NPP + fintech pipes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 ───────────────────────────────────────────── -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 04 · The lie</p>
+        <h2>"The rate is 0.9015"</h2>
+        <p style="margin-bottom:1.5rem">This is what everyone thinks an exchange rate is:
+          one number, quoted, done.</p>
+        <div class="fig" style="text-align:center;padding:2.6rem 1rem">
+          <div class="mono" style="font-size:clamp(2.4rem,7vw,4.5rem);letter-spacing:-.04em;
+            font-variant-numeric:tabular-nums;line-height:1">0.9015</div>
+          <p class="mono muted" style="margin:1rem auto 0">1 AUD = 0.9015 SGD</p>
+        </div>
+        <div class="pull" style="margin-top:1.6rem;border-color:var(--friction)">
+          It's wrong. The number you're quoted is the <strong>tip</strong> of an
+          eight-component stack — and banks show you two of them.
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 ───────────────────────────────────────────── -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 05 · The real rate</p>
+        <h2>Eight stacked components</h2>
+        <p class="mono" style="margin-bottom:1.3rem;color:var(--ink-2)">
+          Effective rate = S₀ + ΔS + F + V + L + C + D + R
+        </p>
+        <div class="fig">
+          <p class="fig-cap">
+            <span>Degradation from interbank spot · A$500,000 AUD→SGD</span>
+            <button class="replay" id="rStack" type="button">↻ Replay</button>
+          </p>
+          <div class="marks">
+            <span class="mk quoted" id="mkQ" style="left:0">↓ what you're quoted · 12 bps</span>
+            <span class="mk actual" id="mkA" style="left:0">↓ what you actually pay · 54 bps</span>
+          </div>
+          <div class="stackbar" id="stackbar"></div>
+          <div class="legend" id="legend"></div>
+          <p class="mono" style="margin-top:1.3rem;color:var(--friction)" id="hidden"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 ───────────────────────────────────────────── -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 06 · Mechanism #2</p>
+        <h2>Exposure = <span class="exact">σ × √t</span></h2>
+        <div class="cols two">
+          <div style="display:flex;flex-direction:column;gap:1.1rem">
+            <p>Hold money mid-flight and the rate can move against you. That risk is
+              <strong>volatility × the square root of settlement time.</strong></p>
+            <p>The <strong>√</strong> is the whole insight. Exposure grows
+              <strong>non-linearly</strong> — so the <em>first</em> hours of delay hurt far
+              more than the last ones.</p>
+            <div class="pull" style="border-color:var(--friction)">
+              Quadruple the time and you only <em>double</em> the damage.
+            </div>
+          </div>
+          <div class="fig">
+            <p class="fig-cap">
+              <span>FX exposure vs settlement time</span>
+              <button class="replay" id="rCurve" type="button">↻ Replay</button>
+            </p>
+            <div class="curvewrap"><canvas id="curve" width="1280" height="800"></canvas></div>
+            <div class="readout">
+              <div><span class="k">1 hour</span><span class="v" id="e1">—</span></div>
+              <div><span class="k">4 hours</span><span class="v" id="e4">—</span></div>
+              <div><span class="k">16 hours</span><span class="v" id="e16">—</span></div>
+              <div><span class="k">36 hours</span><span class="v" id="e36">—</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 ───────────────────────────────────────────── -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 07 · The consequence</p>
+        <h2>Fastest ≠ cheapest</h2>
+        <div class="fig">
+          <p class="fig-cap">
+            <span>A$500,000 · two viable corridors</span>
+            <button class="replay" id="rRace" type="button">↻ Replay</button>
+          </p>
+          <div class="race">
+            <div class="rrow">
+              <div class="rhead">
+                <span class="rname" style="color:var(--friction)"><b>Route A · fast</b>
+                  <span>— volatile corridor, thin pool</span></span>
+                <span class="rtime" id="tA">—</span>
+              </div>
+              <div class="rtrack"><span class="rfill" id="fA"></span></div>
+              <div class="rcost" style="margin-top:.5rem"><span class="rcostfill" id="cA"></span></div>
+              <div class="rcostlbl"><span>all-in cost</span><b id="bA">—</b></div>
+            </div>
+            <div class="rrow">
+              <div class="rhead">
+                <span class="rname" style="color:var(--flow)"><b>Route B · slower</b>
+                  <span>— stable corridor, deep pool</span></span>
+                <span class="rtime" id="tB">—</span>
+              </div>
+              <div class="rtrack"><span class="rfill" id="fB"></span></div>
+              <div class="rcost" style="margin-top:.5rem"><span class="rcostfill" id="cB"></span></div>
+              <div class="rcostlbl"><span>all-in cost</span><b id="bB">—</b></div>
+            </div>
+          </div>
+          <p class="winner" id="winner">
+            Route A arrives <span class="hl">6 hours earlier</span> and costs
+            <span class="lo">A$1,150 more</span>. Its volatility and liquidity premiums
+            outweigh everything it saved on time.
+          </p>
+        </div>
+        <div class="pull" style="margin-top:1.5rem;border-color:var(--friction)">
+          Aiva isn't picking the fastest route or the cheapest route. It's picking the route
+          with the <strong>lowest total exposure</strong>.
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 ───────────────────────────────────────────── -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 08 · Why delay compounds</p>
+        <h2>D feeds V feeds ΔS</h2>
+        <p style="margin-bottom:1.4rem">The eight components aren't independent. Three of them
+          form a loop, and it only ever turns one way.</p>
+        <div class="loop">
+          <div class="node" style="animation-delay:.1s">
+            <span class="k">D · delay premium</span>
+            <span class="v">The payment sits longer than planned — a queue, a missed window,
+              a compliance hold.</span>
+          </div>
+          <div class="node" style="animation-delay:.35s">
+            <span class="k">→ V · volatility premium</span>
+            <span class="v">More time in flight means more exposure to price movement.
+              σ√t rises.</span>
+          </div>
+          <div class="node" style="animation-delay:.6s">
+            <span class="k">→ ΔS · spread</span>
+            <span class="v">Liquidity providers price that added risk in. The spread widens
+              on the same trade.</span>
+          </div>
+        </div>
+        <p class="mono" style="margin-top:1.5rem;color:var(--friction)">
+          Slowness isn't merely inconvenient. It is literally more expensive.
+        </p>
+        <p class="muted" style="margin-top:.7rem">This is why latency and cost can't be scored
+          separately — and why Aiva treats FX cost and exposure risk as a pair.</p>
+      </div>
+    </section>
+
+    <!-- 9 ───────────────────────────────────────────── -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 09 · Three different questions</p>
+        <h2>Who optimises for what</h2>
+        <div class="who">
+          <div class="who-side">
+            <h3>Banks</h3>
+            <p class="q">"What's cheapest for us?"</p>
+            <p>Locked into existing correspondent relationships and pre-funded nostro
+              accounts. They route on <strong>treasury cost optimisation</strong> — their
+              balance sheet, not your outcome.</p>
+          </div>
+          <div class="who-side">
+            <h3>Fintechs</h3>
+            <p class="q">"How do we skip the middlemen?"</p>
+            <p>Avoid correspondents entirely — netting, internal ledgers, local rails. Genuinely
+              better, but only across <strong>their own</strong> network.</p>
+          </div>
+          <div class="who-side us">
+            <h3>Lupine</h3>
+            <p class="q">"What's best for this payment?"</p>
+            <p>No balance sheet to protect and no network to defend. Evaluates
+              <strong>every</strong> available path and optimises for the payment's
+              outcome.</p>
+          </div>
+        </div>
+        <p class="mono muted" style="margin-top:1.4rem">
+          The neutrality isn't a feature bolted on. It's the only position from which the
+          question can be asked honestly.
+        </p>
+      </div>
+    </section>
+
+    <!-- 10 ──────────────────────────────────────────── -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 10 · The thesis</p>
+        <h2>Corridor intelligence</h2>
+        <div class="vs" style="margin-bottom:1.6rem">
+          <div class="vs-side now">
+            <h3>What the market shows you</h3>
+            <ul>
+              <li>S₀ — the interbank spot rate</li>
+              <li>ΔS — some of the spread</li>
+              <li>Two components out of eight</li>
+              <li>No pricing of delay at all</li>
+            </ul>
+          </div>
+          <div class="vs-side next">
+            <h3>What Aiva models</h3>
+            <ul>
+              <li>All eight components, per corridor</li>
+              <li>Exposure as σ√t, summed across hops</li>
+              <li>Delay priced as a real cost</li>
+              <li>Six scoring dimensions, not one number</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pull">
+          "Everyone thinks the FX rate is one number. It's eight stacked components, and banks
+          only show you two. We model all eight — including the one nobody prices properly:
+          <strong>the cost of delay itself.</strong>"
+        </div>
+        <p class="mono muted" style="margin-top:1.4rem">
+          Aiva's full corridor score: w₁·Liquidity + w₂·Latency + w₃·ComplianceRisk +
+          w₄·Volatility + w₅·FXCost + w₆·Reliability<br>
+          V0 simplifies this to three: speed, cost, reliability.
+        </p>
+      </div>
+    </section>
+
+    <!-- 11 ──────────────────────────────────────────── -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 11 · Check yourself</p>
+        <h2>Say these out loud</h2>
+        <p style="margin-bottom:1.4rem">The first one is <strong>mechanism #2</strong> — one of
+          the twelve you only got halfway in April. Get the √ into your answer.</p>
+        <div class="qs">
+          <details>
+            <summary>What does the √ in σ√t actually mean for route choice?<span class="badge gap">Half-right in April</span></summary>
+            <p>Exposure grows <strong>non-linearly</strong> with time — quadrupling the delay
+              only doubles the damage, so the first hours are disproportionately expensive.
+              That means Aiva minimises <em>total exposure</em>, not raw time or raw cost. A
+              fast route through a volatile corridor can cost more than a slower route through
+              a stable one.</p>
+          </details>
+          <details>
+            <summary>Name four of the eight FX components banks don't show you.</summary>
+            <p>Volatility premium (V), liquidity premium (L), corridor cost (C), delay premium
+              (D), compliance risk buffer (R). Banks typically expose only S₀ and part of ΔS.</p>
+          </details>
+          <details>
+            <summary>Treasury cost optimisation vs outcome optimisation?<span class="badge ok">Correct in April</span></summary>
+            <p>Banks are locked into existing correspondent relationships and pre-funded nostro
+              accounts, so they ask "what's cheapest <em>for us</em>?" Lupine has no such bias —
+              it evaluates every corridor and picks the one producing the best outcome
+              <em>for the payment</em>.</p>
+          </details>
+        </div>
+        <p class="mono muted" style="margin-top:2rem">
+          Lesson 3 complete → next: 4. Aiva's Brain — Seven Graphs at Once
+        </p>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="hint">← → to move</div>
+
+<div class="controls">
+  <button class="btn" id="prev" disabled>Prev</button>
+  <span class="pos"><span id="cur">01</span> / 11</span>
+  <button class="btn" id="next">Next</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var scenes = Array.prototype.slice.call(document.querySelectorAll(".scene"));
+  var dots   = Array.prototype.slice.call(document.querySelectorAll(".dot"));
+  var prevB  = document.getElementById("prev");
+  var nextB  = document.getElementById("next");
+  var curEl  = document.getElementById("cur");
+  var i = 0, timers = [];
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function clearTimers(){ timers.forEach(clearTimeout); timers.forEach(clearInterval); timers = []; }
+  function later(fn, ms){ var t = setTimeout(fn, reduced ? 0 : ms); timers.push(t); return t; }
+
+  function go(n){
+    n = Math.max(0, Math.min(scenes.length - 1, n));
+    clearTimers();
+    scenes[i].classList.remove("is-active");
+    i = n;
+    scenes[i].classList.add("is-active");
+    dots.forEach(function(d, k){
+      d.setAttribute("aria-current", k === i ? "true" : "false");
+      if (k <= i) d.classList.add("seen");
+    });
+    curEl.textContent = String(i + 1).padStart(2, "0");
+    prevB.disabled = i === 0;
+    nextB.disabled = i === scenes.length - 1;
+    scenes[i].scrollTop = 0;
+    if (i === 4) playStack();
+    if (i === 5) playCurve();
+    if (i === 6) playRace();
+  }
+
+  /* ── S5 · the eight components ──────────────────── */
+  /* Cost tones ramp from neutral ink (the honest base) into friction (pure cost). */
+  var COMPONENTS = [
+    { sym:"S₀", nm:"Interbank spot",      bps:0,  tone:"rgba(25,29,27,.55)" },
+    { sym:"ΔS", nm:"Spread",              bps:12, tone:"rgba(25,29,27,.42)" },
+    { sym:"F",  nm:"Forward points",      bps:4,  tone:"rgba(90,58,44,.50)" },
+    { sym:"V",  nm:"Volatility premium",  bps:9,  tone:"rgba(126,58,40,.62)" },
+    { sym:"L",  nm:"Liquidity premium",   bps:6,  tone:"rgba(146,60,38,.70)" },
+    { sym:"C",  nm:"Corridor cost",       bps:7,  tone:"rgba(160,62,37,.80)" },
+    { sym:"D",  nm:"Delay premium",       bps:11, tone:"rgba(168,65,38,.90)" },
+    { sym:"R",  nm:"Compliance buffer",   bps:5,  tone:"rgba(168,65,38,1)" }
+  ];
+  var TOTAL = 54, QUOTED = 12, AMOUNT = 500000;
+
+  function buildStack(){
+    var bar = document.getElementById("stackbar");
+    var leg = document.getElementById("legend");
+    bar.innerHTML = ""; leg.innerHTML = "";
+    COMPONENTS.forEach(function(c, k){
+      if (c.bps > 0){
+        var s = document.createElement("span");
+        s.className = "seg"; s.dataset.k = k;
+        s.style.background = c.tone;
+        bar.appendChild(s);
+      }
+      var row = document.createElement("div");
+      row.className = "lg"; row.dataset.k = k;
+      row.innerHTML =
+        '<span class="sym">' + c.sym + '</span>' +
+        '<span class="sw" style="background:' + c.tone + '"></span>' +
+        '<span class="nm">' + c.nm + '</span>' +
+        '<span class="bp">' + (c.bps ? c.bps + " bps" : "base") + '</span>';
+      leg.appendChild(row);
+    });
+  }
+
+  function playStack(){
+    buildStack();
+    var segs = document.querySelectorAll("#stackbar .seg");
+    var legs = document.querySelectorAll("#legend .lg");
+    var mkQ = document.getElementById("mkQ"), mkA = document.getElementById("mkA");
+    var hid = document.getElementById("hidden");
+    mkQ.classList.remove("on"); mkA.classList.remove("on");
+    hid.textContent = "";
+    legs[0].classList.add("on");
+
+    var withBps = COMPONENTS.filter(function(c){ return c.bps > 0; });
+    var run = 0;
+    withBps.forEach(function(c, k){
+      later(function(){
+        segs[k].style.width = (c.bps / TOTAL * 100) + "%";
+        var legIdx = COMPONENTS.indexOf(c);
+        legs[legIdx].classList.add("on");
+        run += c.bps;
+        if (c.sym === "ΔS"){
+          mkQ.style.left = (run / TOTAL * 100) + "%";
+          mkQ.classList.add("on");
+        }
+      }, 400 + k * 480);
+    });
+    later(function(){
+      mkA.style.left = "calc(100% - 13rem)";
+      mkA.classList.add("on");
+      hid.textContent = "Hidden from you: 42 bps — A$" +
+        (AMOUNT * 42 / 10000).toLocaleString("en-AU") + " on this transfer.";
+    }, 400 + withBps.length * 480 + 400);
+  }
+
+  /* ── S6 · the σ√t curve ─────────────────────────── */
+  var K = 6;                       /* exposure(t) = 6·√t bps */
+  var MAXT = 36, MAXE = 40;
+  function expo(t){ return K * Math.sqrt(t); }
+
+  function playCurve(){
+    var cv = document.getElementById("curve");
+    if (!cv) return;
+    var ctx = cv.getContext("2d");
+    var W = cv.width, H = cv.height;
+    var padL = 96, padR = 40, padT = 44, padB = 78;
+    var pw = W - padL - padR, ph = H - padT - padB;
+    var X = function(t){ return padL + (t / MAXT) * pw; };
+    var Y = function(e){ return padT + ph - (e / MAXE) * ph; };
+
+    var css = getComputedStyle(document.documentElement);
+    var inkFaint = "rgba(25,29,27,.14)";
+    var inkSoft  = "rgba(25,29,27,.45)";
+    var fric     = css.getPropertyValue("--friction").trim() || "#A84126";
+
+    document.getElementById("e1").textContent = "—";
+    document.getElementById("e4").textContent = "—";
+    document.getElementById("e16").textContent = "—";
+    document.getElementById("e36").textContent = "—";
+
+    function grid(){
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = inkFaint;
+      ctx.font = '400 20px ui-monospace,Menlo,monospace';
+      ctx.fillStyle = inkSoft;
+
+      [0, 10, 20, 30, 40].forEach(function(e){
+        ctx.beginPath(); ctx.moveTo(padL, Y(e)); ctx.lineTo(W - padR, Y(e)); ctx.stroke();
+        ctx.textAlign = "right"; ctx.textBaseline = "middle";
+        ctx.fillText(e + (e === 40 ? " bps" : ""), padL - 16, Y(e));
+      });
+      [0, 4, 8, 12, 16, 20, 24, 28, 32, 36].forEach(function(t){
+        ctx.textAlign = "center"; ctx.textBaseline = "top";
+        ctx.fillText(t + (t === 36 ? "h" : ""), X(t), H - padB + 16);
+      });
+    }
+
+    function curveTo(tMax){
+      ctx.beginPath();
+      ctx.moveTo(X(0), Y(0));
+      for (var t = 0; t <= tMax; t += 0.25) ctx.lineTo(X(t), Y(expo(t)));
+      ctx.strokeStyle = fric; ctx.lineWidth = 4; ctx.stroke();
+      /* soft fill under the curve */
+      ctx.lineTo(X(tMax), Y(0)); ctx.closePath();
+      ctx.fillStyle = "rgba(168,65,38,.10)"; ctx.fill();
+    }
+
+    function dot(t, label){
+      var x = X(t), y = Y(expo(t));
+      ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI * 2);
+      ctx.fillStyle = fric; ctx.fill();
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, Y(0));
+      ctx.strokeStyle = "rgba(168,65,38,.35)"; ctx.lineWidth = 2; ctx.stroke();
+      if (label){
+        ctx.font = '600 22px ui-monospace,Menlo,monospace';
+        ctx.fillStyle = fric; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+        ctx.fillText(label, x, y - 18);
+      }
+    }
+
+    grid();
+    if (reduced){
+      curveTo(MAXT);
+      [[1,"6"],[4,"12"],[16,"24"],[36,"36"]].forEach(function(p){ dot(p[0], p[1] + " bps"); });
+      document.getElementById("e1").textContent = "6 bps";
+      document.getElementById("e4").textContent = "12 bps";
+      document.getElementById("e16").textContent = "24 bps";
+      document.getElementById("e36").textContent = "36 bps";
+      return;
+    }
+
+    var t = 0, marks = [[1,"e1"],[4,"e4"],[16,"e16"],[36,"e36"]], shown = [];
+    var iv = setInterval(function(){
+      t += 0.45;
+      if (t > MAXT) t = MAXT;
+      grid(); curveTo(t);
+      marks.forEach(function(m){
+        if (t >= m[0]){
+          if (shown.indexOf(m[0]) === -1){
+            shown.push(m[0]);
+            document.getElementById(m[1]).textContent = Math.round(expo(m[0])) + " bps";
+          }
+          dot(m[0], Math.round(expo(m[0])) + " bps");
+        }
+      });
+      if (t >= MAXT) clearInterval(iv);
+    }, 26);
+    timers.push(iv);
+  }
+
+  /* ── S7 · fastest ≠ cheapest ────────────────────── */
+  function playRace(){
+    var fA = document.getElementById("fA"), fB = document.getElementById("fB");
+    var cA = document.getElementById("cA"), cB = document.getElementById("cB");
+    var tA = document.getElementById("tA"), tB = document.getElementById("tB");
+    var bA = document.getElementById("bA"), bB = document.getElementById("bB");
+    var win = document.getElementById("winner");
+    if (!fA) return;
+
+    [fA, fB, cA, cB].forEach(function(e){ e.style.transition = "none"; e.style.width = "0%"; });
+    tA.textContent = "—"; tB.textContent = "—";
+    bA.textContent = "—"; bB.textContent = "—";
+    win.classList.remove("on");
+
+    later(function(){
+      /* Route A wins on time … */
+      fA.style.transition = "width 1.3s linear"; fA.style.width = "100%";
+      fB.style.transition = "width 3.4s linear"; fB.style.width = "100%";
+      later(function(){ tA.textContent = "arrived · 2h"; }, 1300);
+      later(function(){ tB.textContent = "arrived · 8h"; }, 3400);
+
+      /* … then the cost bars tell the real story. */
+      later(function(){
+        cA.style.transition = "width .9s var(--ease)";
+        cA.style.width = "100%";
+        bA.textContent = "62 bps · A$3,100";
+      }, 3900);
+      later(function(){
+        cB.style.transition = "width .9s var(--ease)";
+        cB.style.width = "63%";
+        bB.textContent = "39 bps · A$1,950";
+      }, 4500);
+      later(function(){ win.classList.add("on"); }, 5500);
+    }, 250);
+  }
+
+  /* ── controls ───────────────────────────────────── */
+  nextB.addEventListener("click", function(){ go(i + 1); });
+  prevB.addEventListener("click", function(){ go(i - 1); });
+  document.getElementById("rStack").addEventListener("click", function(){ clearTimers(); playStack(); });
+  document.getElementById("rCurve").addEventListener("click", function(){ clearTimers(); playCurve(); });
+  document.getElementById("rRace").addEventListener("click",  function(){ clearTimers(); playRace(); });
+  dots.forEach(function(d){
+    d.addEventListener("click", function(){ go(parseInt(d.dataset.go, 10)); });
+  });
+  document.addEventListener("keydown", function(e){
+    if (e.target.tagName === "SUMMARY" && (e.key === " " || e.key === "Enter")) return;
+    if (e.key === "ArrowRight" || e.key === "PageDown"){ e.preventDefault(); go(i + 1); }
+    if (e.key === "ArrowLeft"  || e.key === "PageUp"){   e.preventDefault(); go(i - 1); }
+    if (e.key === " "){ e.preventDefault(); go(i + 1); }
+    if (e.key === "Home"){ e.preventDefault(); go(0); }
+    if (e.key === "End"){  e.preventDefault(); go(scenes.length - 1); }
+  });
+
+  go(0);
+})();
+</script>
