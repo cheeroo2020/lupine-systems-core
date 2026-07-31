@@ -117,3 +117,4 @@ No manual input needed. Fully automated.
 | [2026-07-28](./2026-07-28.md) | Oportun Deploys AI to Help Consumers Save for Recurring Expenses |
 | [2026-07-29](./2026-07-29.md) | Grifols (GRFS) Q2 2026 Earnings Call Transcript |
 | [2026-07-30](./2026-07-30.md) | Why SoFi Stock Fell Today |
+| [2026-07-31](./2026-07-31.md) | Did Ken Griffin Just Save the AI Trade With This $10 Billion Move? |
