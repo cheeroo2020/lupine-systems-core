@@ -78,7 +78,7 @@ Click-through visual versions of each day, hosted on the project's own site. The
 |---|---|---|---|
 | 1 | [Why the System Is Broken](https://cheeroo2020.github.io/lupine-systems-core/lessons/01-why-the-system-is-broken.html) | `01-why-the-system-is-broken.html` | ✅ live |
 | 2 | [Messaging Is the Real Control Layer](https://cheeroo2020.github.io/lupine-systems-core/lessons/02-messaging-is-the-control-layer.html) | `02-messaging-is-the-control-layer.html` | ✅ live |
-| 3 | Corridors and the Real FX Rate | `03-corridors-and-the-real-fx-rate.html` | — |
+| 3 | [Corridors and the Real FX Rate](https://cheeroo2020.github.io/lupine-systems-core/lessons/03-corridors-and-the-real-fx-rate.html) | `03-corridors-and-the-real-fx-rate.html` | ✅ live |
 | 4 | Aiva's Brain — Seven Graphs at Once | `04-aivas-brain-seven-graphs.html` | — |
 | 5 | Scoring — How Routes Get Judged | `05-scoring-how-routes-get-judged.html` | — |
 | 6 | Pareto and Constraints | `06-pareto-and-constraints.html` | — |
@@ -255,6 +255,7 @@ MT103 crams names, addresses and purpose codes together as free text with no pro
 ## Day 3 — Corridors and the real FX rate
 
 > 📖 **Read first:** HTML → *Part I — Chapter 4* · PDF pp. 11–14
+> 🎬 **Animated lesson:** [3. Corridors and the Real FX Rate](https://cheeroo2020.github.io/lupine-systems-core/lessons/03-corridors-and-the-real-fx-rate.html)
 > 🗂 **Repo:** [**R2 — The data foundation**](#r2--the-data-foundation-day-3-15-min) *(15 min)*
 
 ### The one idea
