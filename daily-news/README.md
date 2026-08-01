@@ -118,3 +118,4 @@ No manual input needed. Fully automated.
 | [2026-07-29](./2026-07-29.md) | Grifols (GRFS) Q2 2026 Earnings Call Transcript |
 | [2026-07-30](./2026-07-30.md) | Why SoFi Stock Fell Today |
 | [2026-07-31](./2026-07-31.md) | Did Ken Griffin Just Save the AI Trade With This $10 Billion Move? |
+| [2026-08-01](./2026-08-01.md) | OpenAI Reaches 1 Billion Active Users as AI Becomes Daily Habit |
