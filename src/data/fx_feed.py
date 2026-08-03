@@ -118,6 +118,30 @@ def fetch_fx_rate(from_currency: str, to_currency: str) -> dict:
     )
 
 
+def fetch_all_sources(from_currency: str, to_currency: str) -> list[dict]:
+    """Query every source and return all results, including failures.
+
+    fetch_fx_rate() returns the first success, which is what the engine wants.
+    This returns the full picture, which is what measurement wants: the
+    disagreement between independent sources at one instant is itself an
+    observable, and it is the only part of the FX picture we can honestly
+    claim to have measured rather than modelled.
+    """
+    results: list[dict] = []
+    for fn in _SOURCES:
+        out = fn(from_currency, to_currency)
+        if out:
+            out["ok"] = True
+            results.append(out)
+        else:
+            results.append({
+                "from": from_currency, "to": to_currency,
+                "source": fn.__name__.replace("_from_", ""),
+                "rate": None, "date": "", "ok": False,
+            })
+    return results
+
+
 def fetch_historical_rate(from_currency: str, to_currency: str, date: str) -> dict:
     """Historical rate for a specific YYYY-MM-DD (Frankfurter is reliable for this)."""
     r = requests.get(

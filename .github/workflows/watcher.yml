@@ -69,13 +69,22 @@ jobs:
             echo "STRIKE issue for ${DATE} already exists — skipping."
           fi
 
+      # Hourly rather than daily: the observable is the disagreement between
+      # independent FX sources at one instant, so more samples is strictly
+      # better, and 24/day reaches a citable sample size in about two days.
+      - name: Log FX source spread
+        continue-on-error: true
+        run: python scripts/spread_log.py
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
       - name: Commit signal
         continue-on-error: true
         run: |
           git config user.name  "lupine-watcher"
           git config user.email "lupine-watcher@users.noreply.github.com"
           git pull --rebase origin main || true
-          git add website/data/agent_signal.json
+          git add website/data/agent_signal.json website/data/spread_log.jsonl website/data/spread_summary.json
           git diff --staged --quiet || git commit -m "watcher: $(date -u +'%Y-%m-%d %H:%M') signal=${{ steps.watcher.outputs.signal }}"
           git push || true
 
