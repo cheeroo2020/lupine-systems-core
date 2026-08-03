@@ -1,768 +1,795 @@
-<title>Cairn — Lupine Training Console</title>
+<title>Cairn — Lupine Operations Training</title>
 
 <style>
 /* ───────────────────────────────────────────────────────────
-   CAIRN — a training console, not a document.
-   Deliberately unlike the lessons and the essay: cool daylight
-   atmosphere rather than paper, sans and mono rather than serif,
-   a live instrument rather than a page you read.
-
-   Light ground is a constraint from CLAUDE.md and also the right
-   call — the default "futuristic globe" is black space with a
-   glowing cyan wireframe, which is the most copied look on the
-   internet. A luminous daylight globe is rarer and reads as
-   instrumentation rather than sci-fi.
+   CAIRN — operations training.
+   Hard edges, no translucency, no rounded pills. Dense mono
+   data against real geography. Structure is visible: the grid
+   rules are drawn, not implied.
+   Curriculum order follows the book: P1 Ch1-2 -> P4 Ch1+4.
    ─────────────────────────────────────────────────────────── */
 :root{
-  --sky-1:#EDF2F5;
-  --sky-2:#DFE8ED;
-  --sky-3:#CFDCE4;
-  --ink:#0C1519;
-  --ink-2:rgba(12,21,25,.62);
-  --ink-3:rgba(12,21,25,.38);
-  --line:rgba(12,21,25,.12);
-  --line-2:rgba(12,21,25,.06);
-  --panel:rgba(255,255,255,.78);
+  --bg:#F4F6F7;
+  --panel:#FFFFFF;
+  --sunk:#EAEEF0;
+  --ink:#0B1418;
+  --ink-2:#41525A;
+  --ink-3:#7F9199;
+  --rule:#C9D4D9;
+  --rule-2:#E2E9EC;
 
-  /* semantic actors, carried over from the lessons */
-  --wire:#2B4A78;      /* the message   */
-  --flow:#0E7C5A;      /* the money     */
-  --friction:#C2410C;  /* the friction  */
-  --beam:#0090A8;      /* the instrument itself */
+  --sea:#DCE6EA;
+  --land:#C2D1CE;
+  --coast:#8FA6A5;
+
+  --wire:#1F4B7A;
+  --flow:#0B6E4F;
+  --friction:#B03A16;
+  --beam:#00778C;
 
   --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
-  --ease:cubic-bezier(.22,.61,.36,1);
 }
 :root[data-theme="dark"],:root[data-theme="light"]{color-scheme:light}
-*{box-sizing:border-box}
+*{box-sizing:border-box;border-radius:0}
 
 html,body{height:100%}
-body{
-  margin:0;overflow:hidden;
-  background:
-    radial-gradient(120% 90% at 50% 8%, var(--sky-1) 0%, var(--sky-2) 46%, var(--sky-3) 100%);
-  color:var(--ink);font-family:var(--sans);
-  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;
-}
+body{margin:0;overflow:hidden;background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
 
-/* the globe sits behind everything */
-#globe{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+/* ── frame ───────────────────────────────────────────── */
+.app{height:100dvh;display:grid;grid-template-rows:34px 1fr 26px}
+.bar{display:flex;align-items:center;gap:0;border-bottom:1px solid var(--rule);
+  background:var(--panel);font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase}
+.bar .cell{padding:0 14px;height:100%;display:flex;align-items:center;
+  border-right:1px solid var(--rule-2);white-space:nowrap}
+.bar .id{font-weight:700;letter-spacing:.24em}
+.bar .mod{color:var(--beam);flex:1;overflow:hidden;text-overflow:ellipsis}
+.bar .ct{color:var(--ink-3);border-right:0;margin-left:auto}
 
-.shell{position:relative;z-index:1;height:100dvh;display:grid;
-  grid-template-rows:auto 1fr auto;pointer-events:none}
-.shell > *{pointer-events:auto}
+.body{display:grid;grid-template-columns:minmax(0,440px) 1fr;min-height:0}
+@media(max-width:900px){.body{grid-template-columns:1fr;grid-template-rows:1fr 40%}}
 
-/* ─── head ───────────────────────────────────────────── */
-.head{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;
-  padding:1rem clamp(1rem,3vw,2.2rem);flex-wrap:wrap}
-.brand{display:flex;align-items:baseline;gap:.75rem}
-.brand b{font-family:var(--mono);font-size:.92rem;letter-spacing:.22em;text-transform:uppercase;
-  font-weight:600}
-.brand span{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--ink-3)}
-.prog-wrap{display:flex;align-items:center;gap:.65rem}
-.pips{display:flex;gap:4px}
-.pip{width:22px;height:3px;background:var(--line);transition:background .45s var(--ease)}
-.pip.done{background:var(--flow)}
-.pip.now{background:var(--beam)}
-.prog-txt{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--ink-3);
-  font-variant-numeric:tabular-nums}
-
-/* ─── station card ───────────────────────────────────── */
-.stage{display:grid;place-items:center;padding:0 clamp(1rem,3vw,2.2rem);min-height:0}
-@media(min-width:1100px){
-  .stage{place-items:center start;padding-left:clamp(2rem,5vw,4.5rem)}
-}
-.card{
-  width:min(41rem,100%);max-height:100%;overflow-y:auto;
-  background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border:1px solid rgba(255,255,255,.9);
-  box-shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 18px 50px -22px rgba(12,21,25,.35);
-  padding:clamp(1.2rem,3vw,2rem);
-  transition:opacity .45s var(--ease),transform .45s var(--ease);
-}
-.card.swap{opacity:0;transform:translateY(10px) scale(.99)}
-
-.st-no{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--beam);margin:0 0 .55rem}
-h1{font-size:clamp(1.15rem,2.6vw,1.6rem);line-height:1.22;margin:0 0 .5rem;font-weight:600;
-  letter-spacing:-.015em;text-wrap:balance}
-.task{font-size:.95rem;color:var(--ink-2);margin:0 0 1.2rem;max-width:44em}
+/* ── left: station ───────────────────────────────────── */
+.panel{border-right:1px solid var(--rule);background:var(--panel);
+  display:flex;flex-direction:column;min-height:0}
+.ptop{padding:12px 16px;border-bottom:1px solid var(--rule-2)}
+.crumb{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 6px;display:flex;gap:8px}
+.crumb b{color:var(--beam);font-weight:400}
+h1{font-size:17px;line-height:1.25;margin:0;font-weight:600;letter-spacing:-.01em}
+.pscroll{flex:1;overflow-y:auto;padding:14px 16px}
+.task{font-size:13.5px;color:var(--ink-2);margin:0 0 14px}
 .task b{color:var(--ink);font-weight:600}
+.task code{font-family:var(--mono);font-size:12px;background:var(--sunk);padding:1px 4px}
 
-/* ─── option rows ────────────────────────────────────── */
-.opts{display:flex;flex-direction:column;gap:6px}
-.opt{
-  display:grid;grid-template-columns:1.6rem 1fr auto;gap:.85rem;align-items:center;
-  padding:.7rem .85rem;background:rgba(255,255,255,.55);border:1px solid var(--line);
-  cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%;
-  transition:all .2s var(--ease);
-}
-.opt:hover:not(:disabled){border-color:var(--beam);background:rgba(255,255,255,.9)}
-.opt:disabled{cursor:default}
-.opt:focus-visible{outline:2px solid var(--beam);outline-offset:2px}
-.opt .k{font-family:var(--mono);font-size:.68rem;color:var(--ink-3)}
-.opt .nm{font-weight:500;font-size:.92rem}
-.opt .sub{grid-column:2;font-family:var(--mono);font-size:.68rem;color:var(--ink-2);
-  letter-spacing:.02em}
-.opt .val{font-family:var(--mono);font-size:.72rem;color:var(--ink-2);
-  font-variant-numeric:tabular-nums;text-align:right;white-space:pre-line;line-height:1.45}
-.opt.right{border-color:var(--flow);background:rgba(14,124,90,.09)}
-.opt.right .k{color:var(--flow)}
-.opt.wrong{border-color:var(--friction);background:rgba(194,65,12,.08)}
-.opt.wrong .k{color:var(--friction)}
+/* rows */
+.rows{display:flex;flex-direction:column;border:1px solid var(--rule)}
+.row{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;
+  padding:8px 10px;background:var(--panel);border-bottom:1px solid var(--rule-2);
+  cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%;transition:background .12s}
+.row:last-child{border-bottom:0}
+.row:hover:not(:disabled){background:var(--sunk)}
+.row:disabled{cursor:default}
+.row:focus-visible{outline:2px solid var(--beam);outline-offset:-2px}
+.row .k{font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em}
+.row .nm{font-size:13px;font-weight:500}
+.row .sub{grid-column:2;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);
+  letter-spacing:.02em;margin-top:1px}
+.row .v{font-family:var(--mono);font-size:11px;color:var(--ink-2);text-align:right;
+  font-variant-numeric:tabular-nums;white-space:pre-line;line-height:1.35}
+.row.hit{background:#E8F2EE;box-shadow:inset 3px 0 0 var(--flow)}
+.row.hit .k{color:var(--flow)}
+.row.miss{background:#F7EBE6;box-shadow:inset 3px 0 0 var(--friction)}
+.row.miss .k{color:var(--friction)}
+.row.sel{background:var(--sunk);box-shadow:inset 3px 0 0 var(--beam)}
+.row .ord{font-family:var(--mono);font-size:10px;color:var(--beam)}
 
-/* ─── slider station ─────────────────────────────────── */
-.slider-box{display:flex;flex-direction:column;gap:.9rem}
-.urg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
-.urg button{padding:.6rem .3rem;background:rgba(255,255,255,.55);border:1px solid var(--line);
-  font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
-  cursor:pointer;color:var(--ink-2);transition:all .2s var(--ease)}
-.urg button:hover{border-color:var(--beam);color:var(--ink)}
-.urg button.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
-.urg button:focus-visible{outline:2px solid var(--beam);outline-offset:2px}
-.wbars{display:flex;flex-direction:column;gap:.35rem}
-.wrow{display:grid;grid-template-columns:5.5rem 1fr 2.6rem;gap:.7rem;align-items:center;
-  font-family:var(--mono);font-size:.66rem}
-.wtrack{height:10px;background:rgba(12,21,25,.07);position:relative;overflow:hidden}
-.wbar{position:absolute;inset:0 100% 0 0;background:var(--wire);transition:right .45s var(--ease)}
-.wval{text-align:right;color:var(--ink-2);font-variant-numeric:tabular-nums}
-.leader{margin-top:.5rem;padding-top:.7rem;border-top:1px solid var(--line-2);
-  font-family:var(--mono);font-size:.74rem}
-.leader b{color:var(--flow)}
+/* classify */
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);
+  border:1px solid var(--rule);margin-top:10px}
+.bin{background:var(--panel);padding:8px 10px;min-height:74px}
+.bin h4{margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:400}
+.bin.h h4{color:var(--friction)}
+.bin.s h4{color:var(--wire)}
+.chip{display:block;width:100%;text-align:left;font:inherit;font-size:11.5px;
+  padding:4px 6px;margin-bottom:3px;background:var(--sunk);border:1px solid var(--rule-2);
+  cursor:pointer}
+.chip:hover{border-color:var(--beam)}
 
-/* ─── chain station ──────────────────────────────────── */
-.chain{display:flex;flex-direction:column;gap:5px}
-.link{display:grid;grid-template-columns:1.5rem 1fr;gap:.8rem;align-items:center;
-  padding:.6rem .8rem;background:rgba(255,255,255,.55);border:1px solid var(--line);
-  cursor:pointer;font-family:var(--mono);font-size:.68rem;text-align:left;
-  color:inherit;width:100%;transition:all .2s var(--ease)}
-.link:hover:not(:disabled){border-color:var(--beam)}
-.link:focus-visible{outline:2px solid var(--beam);outline-offset:2px}
-.link .i{color:var(--ink-3)}
-.link .h{color:var(--ink-2);word-break:break-all;line-height:1.5}
-.link .h em{font-style:normal;color:var(--ink)}
-.link.right{border-color:var(--flow);background:rgba(14,124,90,.09)}
-.link.wrong{border-color:var(--friction);background:rgba(194,65,12,.08)}
+/* tune */
+.tune{border:1px solid var(--rule)}
+.tune .opts{display:grid;grid-template-columns:repeat(4,1fr)}
+.tune .opts button{padding:9px 4px;background:var(--panel);border:0;
+  border-right:1px solid var(--rule-2);border-bottom:1px solid var(--rule);
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;color:var(--ink-2)}
+.tune .opts button:last-child{border-right:0}
+.tune .opts button:hover{background:var(--sunk)}
+.tune .opts button.on{background:var(--ink);color:#fff}
+.wg{padding:10px}
+.wrow{display:grid;grid-template-columns:66px 1fr 34px;gap:8px;align-items:center;
+  font-family:var(--mono);font-size:10.5px;margin-bottom:4px}
+.wt{height:9px;background:var(--sunk);position:relative}
+.wb{position:absolute;inset:0 100% 0 0;background:var(--wire);transition:right .3s}
+.wv{text-align:right;color:var(--ink-2);font-variant-numeric:tabular-nums}
 
-/* ─── verdict ────────────────────────────────────────── */
-.verdict{margin-top:1.1rem;padding:.8rem .95rem;border-left:3px solid;
-  font-size:.9rem;line-height:1.55;display:none}
-.verdict.show{display:block;animation:pop .35s var(--ease)}
-.verdict.ok{border-color:var(--flow);background:rgba(14,124,90,.07)}
-.verdict.no{border-color:var(--friction);background:rgba(194,65,12,.06)}
-.verdict .lbl{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;
-  text-transform:uppercase;margin-bottom:.35rem}
-.verdict.ok .lbl{color:var(--flow)}
-.verdict.no .lbl{color:var(--friction)}
-@keyframes pop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+/* verdict */
+.vd{margin-top:12px;padding:9px 11px;font-size:12.5px;line-height:1.5;display:none;
+  border:1px solid}
+.vd.on{display:block}
+.vd.ok{border-color:var(--flow);background:#EDF5F2;color:var(--ink)}
+.vd.no{border-color:var(--friction);background:#F9EFEB;color:var(--ink)}
+.vd .l{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;margin-bottom:4px}
+.vd.ok .l{color:var(--flow)}
+.vd.no .l{color:var(--friction)}
 
-.actions{display:flex;justify-content:space-between;align-items:center;gap:1rem;
-  margin-top:1.1rem;flex-wrap:wrap}
-.hint-btn{background:none;border:0;font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--ink-3);cursor:pointer;padding:.3rem 0}
-.hint-btn:hover{color:var(--ink-2)}
-.go{padding:.62rem 1.5rem;background:var(--ink);color:#fff;border:0;cursor:pointer;
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
-  opacity:0;pointer-events:none;transition:opacity .3s}
-.go.on{opacity:1;pointer-events:auto}
-.go:hover{background:var(--beam)}
-.go:focus-visible{outline:2px solid var(--beam);outline-offset:3px}
+.pfoot{border-top:1px solid var(--rule);padding:9px 16px;display:flex;
+  justify-content:space-between;align-items:center;gap:10px;background:var(--panel)}
+.lnk{background:none;border:0;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);cursor:pointer;padding:4px 0}
+.lnk:hover{color:var(--ink-2)}
+.next{padding:7px 16px;background:var(--ink);color:#fff;border:0;cursor:pointer;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  visibility:hidden}
+.next.on{visibility:visible}
+.next:hover{background:var(--beam)}
+.submit{padding:7px 16px;background:var(--panel);color:var(--ink);border:1px solid var(--ink);
+  cursor:pointer;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;margin-top:10px}
+.submit:hover{background:var(--ink);color:#fff}
 
-/* ─── foot ───────────────────────────────────────────── */
-.foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;
-  padding:.85rem clamp(1rem,3vw,2.2rem);font-family:var(--mono);font-size:.62rem;
-  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);flex-wrap:wrap}
-.foot a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--line)}
-.foot a:hover{color:var(--beam)}
-.telemetry{display:flex;gap:1.4rem;font-variant-numeric:tabular-nums}
+/* ── right: globe ────────────────────────────────────── */
+.view{position:relative;min-height:0;background:var(--bg)}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ov{position:absolute;left:14px;top:12px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);pointer-events:none}
+.ov b{color:var(--ink-2);font-weight:400}
+.modmap{position:absolute;right:14px;top:12px;font-family:var(--mono);font-size:10px;
+  pointer-events:none;text-align:right}
+.modmap div{padding:1px 0;color:var(--ink-3);letter-spacing:.06em}
+.modmap div.now{color:var(--beam)}
+.modmap div.done{color:var(--flow)}
 
-/* ─── completion ─────────────────────────────────────── */
-.done-list{display:flex;flex-direction:column;gap:3px;margin:1rem 0}
-.done-row{display:grid;grid-template-columns:2rem 1fr auto;gap:.8rem;padding:.42rem .7rem;
-  background:rgba(255,255,255,.5);font-family:var(--mono);font-size:.68rem;align-items:baseline}
-.done-row .n{color:var(--ink-3)}
-.done-row .s{color:var(--flow)}
-.done-row .s.retry{color:var(--friction)}
+/* ── status strip ────────────────────────────────────── */
+.strip{display:flex;align-items:center;border-top:1px solid var(--rule);background:var(--panel);
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3)}
+.strip .c{padding:0 12px;border-right:1px solid var(--rule-2);height:100%;
+  display:flex;align-items:center;font-variant-numeric:tabular-nums}
+.strip .c:last-child{border-right:0;margin-left:auto}
+.trk{flex:1;height:100%;display:flex;align-items:center;padding:0 12px}
+.trkbar{flex:1;height:4px;background:var(--sunk);position:relative}
+.trkfill{position:absolute;inset:0 100% 0 0;background:var(--flow);transition:right .4s}
 
-@media(max-width:640px){
-  .opt{grid-template-columns:1.4rem 1fr;gap:.6rem}
-  .opt .val{grid-column:2;text-align:left;margin-top:.2rem}
-  .telemetry{display:none}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-}
+/* done */
+.dl{border:1px solid var(--rule);margin-top:10px}
+.dr{display:grid;grid-template-columns:34px 1fr auto;gap:8px;padding:5px 9px;
+  border-bottom:1px solid var(--rule-2);font-family:var(--mono);font-size:10.5px}
+.dr:last-child{border-bottom:0}
+.dr .s{color:var(--flow)}
+.dr .s.r{color:var(--friction)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
-<canvas id="globe"></canvas>
+<div class="app">
 
-<div class="shell">
+  <div class="bar">
+    <span class="cell id">Cairn</span>
+    <span class="cell mod" id="barMod">—</span>
+    <span class="cell ct" id="barCt">00 / 00</span>
+  </div>
 
-  <header class="head">
-    <div class="brand">
-      <b>Cairn</b><span>Lupine training console</span>
-    </div>
-    <div class="prog-wrap">
-      <div class="pips" id="pips"></div>
-      <span class="prog-txt" id="progTxt">00 / 09</span>
-    </div>
-  </header>
+  <div class="body">
+    <section class="panel">
+      <div class="ptop">
+        <p class="crumb"><b id="cbMod">—</b><span id="cbSrc">—</span></p>
+        <h1 id="cbTitle">—</h1>
+      </div>
+      <div class="pscroll" id="pane"></div>
+      <div class="pfoot">
+        <button class="lnk" id="hintBtn">Hint</button>
+        <button class="next" id="nextBtn">Next →</button>
+      </div>
+    </section>
 
-  <main class="stage">
-    <section class="card" id="card" aria-live="polite"></section>
-  </main>
+    <section class="view">
+      <canvas id="gl"></canvas>
+      <div class="ov">AUD → SGD · A$500,000<br><b id="ovArc">—</b></div>
+      <div class="modmap" id="modmap"></div>
+    </section>
+  </div>
 
-  <footer class="foot">
-    <span id="corridor">AUD → SGD · A$500,000</span>
-    <div class="telemetry">
-      <span id="tAttempts">attempts 0</span>
-      <span id="tFirst">first-try 0</span>
-      <span id="tRot">rot 0.0°</span>
-    </div>
-  </footer>
+  <div class="strip">
+    <span class="c" id="sAtt">att 0</span>
+    <span class="c" id="sFirst">1st 0</span>
+    <div class="trk"><div class="trkbar"><div class="trkfill" id="trk"></div></div></div>
+    <span class="c" id="sRot">0.0°</span>
+  </div>
 
 </div>
 
 <script>
 "use strict";
+const LAND = [[[107.0,77.0],[114.1,75.8],[109.4,74.2],[113.0,74.0],[113.5,73.3],[115.6,73.8],[123.2,73.0],[123.3,73.7],[127.0,73.6],[128.6,73.0],[129.1,72.4],[128.5,72.0],[131.3,70.8],[132.3,71.8],[139.9,71.5],[139.1,72.4],[140.5,72.8],[149.5,72.2],[153.0,70.8],[159.0,70.9],[159.8,70.5],[159.7,69.7],[160.9,69.4],[167.8,69.6],[169.6,68.7],[170.8,69.0],[170.0,69.7],[170.5,70.1],[178.6,69.4],[180,69.0],[180,65.0],[177.4,64.6],[179.5,62.6],[173.7,61.7],[170.3,59.9],[168.9,60.6],[163.5,59.9],[162.0,58.2],[163.2,57.6],[163.1,56.2],[162.1,56.1],[161.7,55.3],[162.1,54.9],[160.4,54.3],[160.0,53.2],[158.5,53.0],[158.2,51.9],[156.8,51.0],[155.4,55.4],[155.9,56.8],[156.8,57.8],[158.4,58.1],[163.7,61.1],[164.5,62.6],[160.1,60.5],[159.3,61.8],[156.7,61.4],[154.2,59.8],[155.0,59.1],[151.3,58.8],[151.3,59.5],[149.8,59.7],[142.2,59.0],[135.1,54.7],[138.2,53.8],[139.9,54.2],[141.3,53.1],[141.4,52.2],[140.1,48.4],[138.2,46.3],[134.9,43.4],[133.5,42.8],[132.3,43.3],[127.5,39.8],[129.5,36.8],[129.1,35.1],[126.5,34.4],[126.1,36.7],[126.9,36.9],[124.7,38.1],[125.3,39.6],[124.3,39.9],[121.1,38.9],[122.2,40.4],[121.6,40.9],[118.0,39.2],[117.5,38.7],[118.9,37.4],[122.4,37.5],[122.5,36.9],[121.1,36.7],[119.2,34.9],[120.2,34.4],[121.9,31.7],[121.3,30.7],[122.1,29.8],[121.7,28.2],[118.7,24.5],[115.9,22.8],[110.8,21.4],[110.4,20.3],[109.9,20.3],[109.9,21.4],[108.5,21.7],[105.9,19.8],[105.7,19.1],[108.9,15.3],[109.3,13.4],[109.2,11.7],[105.2,8.6],[105.1,9.9],[103.5,10.6],[102.6,12.2],[100.8,12.6],[101.0,13.4],[100.1,13.4],[99.2,9.2],[103.0,5.5],[104.2,1.3],[101.4,2.8],[100.1,6.5],[98.5,8.4],[98.3,7.8],[98.8,11.4],[97.2,16.9],[95.4,15.7],[94.2,16.0],[94.3,18.2],[91.4,22.8],[90.5,22.8],[90.3,21.8],[87.0,21.5],[86.5,20.2],[82.2,16.6],[80.3,15.9],[79.9,10.4],[77.5,8.0],[73.5,16.0],[72.6,21.4],[70.5,20.9],[69.2,22.1],[69.3,22.8],[66.4,25.4],[61.5,25.1],[57.4,25.7],[56.5,27.1],[54.7,26.5],[51.5,27.9],[50.1,30.1],[48.0,30.0],[50.8,24.8],[51.0,26.0],[51.6,25.8],[51.8,24.0],[54.0,24.1],[56.4,26.4],[56.8,24.2],[58.7,23.6],[59.8,22.3],[57.8,20.2],[57.7,18.9],[55.3,17.2],[52.4,16.4],[52.2,15.6],[48.7,14.0],[43.5,12.6],[42.6,16.8],[39.1,21.3],[38.5,23.7],[34.6,28.1],[34.9,29.5],[33.9,27.6],[32.4,29.9],[35.7,23.9],[35.5,23.1],[36.9,22.0],[37.5,18.6],[39.3,15.9],[43.3,12.4],[42.7,11.7],[44.6,10.4],[51.1,12.0],[51.0,10.6],[47.7,4.2],[40.3,-2.6],[39.2,-4.7],[38.8,-6.5],[39.4,-6.8],[39.2,-8.5],[40.5,-10.8],[40.8,-14.7],[39.5,-16.7],[34.8,-19.8],[35.6,-23.7],[32.6,-25.7],[32.2,-28.8],[28.2,-32.8],[25.8,-33.9],[22.6,-33.9],[19.6,-34.8],[18.4,-34.1],[18.2,-31.7],[15.2,-27.1],[14.3,-22.1],[11.8,-18.1],[11.8,-15.8],[13.7,-10.7],[11.9,-5.0],[8.8,-1.1],[9.8,3.1],[9.4,3.7],[8.5,4.8],[5.9,4.3],[4.3,6.3],[1.9,6.1],[-2.0,4.7],[-4.6,5.2],[-7.5,4.3],[-9.0,4.8],[-12.4,7.3],[-14.8,10.9],[-16.6,12.2],[-17.6,14.7],[-16.5,16.1],[-16.1,18.1],[-17.0,21.9],[-14.4,26.3],[-9.6,29.9],[-9.3,32.6],[-6.9,34.1],[-5.9,35.8],[-2.2,35.2],[1.5,36.6],[9.5,37.4],[11.1,36.9],[10.3,33.8],[19.1,30.3],[20.1,31.0],[20.1,32.2],[21.5,32.8],[28.9,30.9],[31.0,31.6],[33.8,31.0],[36.0,34.6],[36.2,36.7],[32.5,36.1],[27.6,36.7],[26.3,38.2],[26.8,39.0],[26.2,39.5],[27.3,40.4],[28.8,40.5],[29.2,41.2],[31.1,41.1],[33.5,42.0],[38.3,40.9],[40.4,41.0],[41.7,42.0],[36.7,45.2],[39.1,47.3],[35.0,46.3],[36.3,45.1],[33.9,44.4],[32.5,45.3],[33.3,46.1],[30.7,46.6],[28.8,44.9],[27.7,42.6],[28.8,41.1],[26.4,40.2],[24.9,40.9],[23.7,40.7],[24.4,40.1],[23.9,40.0],[22.6,40.3],[24.0,37.7],[23.1,37.9],[23.2,36.4],[22.5,36.4],[19.4,40.3],[19.5,41.7],[13.1,45.7],[12.3,45.4],[12.6,44.1],[18.5,40.2],[16.9,40.4],[16.4,39.8],[17.1,38.9],[16.1,38.0],[15.4,40.0],[8.9,44.4],[6.5,43.1],[3.1,43.1],[3.0,41.9],[0.8,41.0],[-0.3,39.3],[0.1,38.7],[-2.1,36.7],[-4.4,36.7],[-5.4,35.9],[-6.5,36.9],[-8.9,36.9],[-8.8,38.3],[-9.5,38.7],[-8.8,40.8],[-9.4,43.0],[-8.0,43.7],[-1.9,43.4],[-1.4,44.0],[-1.2,46.0],[-4.5,48.0],[-4.6,48.7],[-1.6,48.6],[-1.9,49.8],[-1.0,49.3],[1.3,50.1],[1.6,50.9],[3.8,51.6],[4.7,53.1],[8.1,53.5],[8.8,54.0],[8.1,55.5],[8.5,57.1],[10.6,57.7],[10.3,56.9],[10.9,56.5],[9.7,55.5],[10.9,54.0],[12.5,54.5],[14.1,53.8],[17.6,54.9],[19.7,54.4],[21.3,55.2],[21.6,57.4],[22.5,57.8],[24.1,57.0],[24.4,58.4],[23.3,59.2],[29.1,60.0],[28.1,60.5],[22.9,59.8],[21.3,60.7],[21.5,63.2],[25.4,65.1],[23.9,66.0],[22.2,65.7],[21.2,65.0],[21.4,64.4],[17.8,62.7],[17.1,61.3],[18.8,60.1],[16.8,58.7],[15.9,56.1],[12.9,55.4],[10.4,59.5],[8.4,58.3],[5.7,58.6],[5.0,62.0],[10.5,64.5],[14.8,67.8],[19.2,69.8],[23.0,70.2],[24.5,71.0],[28.2,71.2],[31.3,70.5],[30.0,70.2],[31.1,69.6],[32.1,69.9],[40.3,67.9],[41.1,66.8],[40.0,66.3],[33.2,66.6],[34.8,65.9],[34.9,64.4],[37.0,63.8],[36.5,64.8],[37.2,65.1],[39.6,64.5],[40.4,64.8],[39.8,65.5],[42.1,66.5],[43.9,66.1],[44.5,66.8],[43.5,68.6],[46.3,68.3],[46.8,67.7],[45.6,67.6],[45.6,67.0],[46.3,66.7],[53.7,68.9],[54.5,68.8],[53.5,68.2],[58.8,68.9],[59.9,68.3],[61.1,68.9],[60.0,69.5],[60.6,69.9],[68.5,68.1],[69.2,68.6],[66.9,69.5],[66.7,71.0],[69.2,72.8],[72.6,72.8],[71.8,71.4],[72.8,70.4],[72.6,69.0],[73.7,68.4],[71.3,66.3],[72.4,66.2],[75.1,67.8],[74.5,68.3],[74.9,69.0],[73.6,69.6],[74.4,70.6],[73.1,71.4],[74.9,72.1],[74.7,72.8],[75.7,72.3],[75.3,71.3],[76.4,71.2],[75.9,71.9],[77.6,72.3],[81.5,71.8],[80.5,73.6],[86.8,73.9],[86.0,74.5],[87.2,75.1],[100.8,76.4],[104.4,77.7],[106.1,77.4],[104.7,77.1],[107.0,77.0]],[[-90.5,69.5],[-90.6,68.5],[-89.2,69.3],[-88.0,68.6],[-88.3,67.9],[-87.4,67.2],[-85.6,68.8],[-85.5,69.9],[-82.6,69.7],[-81.3,69.2],[-82.0,68.1],[-81.3,67.6],[-83.3,66.4],[-85.8,66.6],[-87.3,64.8],[-93.2,62.0],[-94.2,60.9],[-94.7,58.9],[-93.2,58.8],[-92.3,57.1],[-90.9,57.3],[-85.0,55.3],[-82.3,55.1],[-82.1,53.3],[-79.9,51.2],[-78.6,52.6],[-79.8,54.7],[-76.5,56.5],[-78.5,58.8],[-77.3,59.9],[-78.1,62.3],[-73.8,62.4],[-71.4,61.1],[-69.6,61.1],[-69.3,59.0],[-67.6,58.2],[-64.6,60.3],[-61.4,57.0],[-61.8,56.3],[-57.3,54.6],[-55.8,53.3],[-55.7,52.1],[-60.0,50.2],[-66.4,50.2],[-71.1,46.8],[-68.7,48.3],[-65.1,49.2],[-64.2,48.7],[-65.1,48.1],[-64.5,46.2],[-61.5,45.9],[-60.5,47.0],[-59.8,45.9],[-65.4,43.5],[-66.1,43.6],[-66.2,44.5],[-64.4,45.3],[-67.1,45.1],[-70.7,43.0],[-70.0,41.6],[-73.7,40.9],[-71.9,40.9],[-74.0,40.8],[-74.9,38.9],[-75.5,39.5],[-75.1,38.4],[-75.9,37.2],[-76.3,39.2],[-76.3,38.1],[-77.0,38.2],[-76.3,37.9],[-75.7,35.6],[-81.3,31.4],[-80.1,26.9],[-80.4,25.2],[-81.7,25.9],[-82.9,29.1],[-84.1,30.1],[-85.1,29.6],[-86.4,30.4],[-89.2,30.3],[-89.2,29.3],[-90.2,29.1],[-93.8,29.7],[-96.6,28.3],[-97.4,27.4],[-97.9,22.4],[-96.3,19.3],[-94.4,18.1],[-92.0,18.7],[-90.8,19.3],[-90.3,21.0],[-87.1,21.5],[-88.9,15.9],[-85.0,16.0],[-83.4,15.3],[-83.8,11.1],[-81.4,8.8],[-79.6,9.6],[-76.8,8.6],[-74.9,11.1],[-73.4,11.2],[-71.8,12.4],[-71.1,12.1],[-71.9,11.4],[-71.7,9.1],[-71.0,9.9],[-71.4,11.0],[-70.2,11.4],[-69.9,12.2],[-68.2,10.6],[-64.9,10.1],[-61.9,10.7],[-62.7,10.4],[-62.4,9.9],[-60.8,9.4],[-60.7,8.6],[-59.1,8.0],[-57.1,6.0],[-54.0,5.8],[-51.3,4.2],[-50.0,1.7],[-50.4,-0.1],[-48.6,-0.2],[-48.6,-1.2],[-47.8,-0.6],[-44.9,-1.6],[-44.6,-2.7],[-40.0,-2.9],[-37.2,-4.8],[-35.6,-5.1],[-34.7,-7.3],[-35.1,-9.0],[-38.7,-13.1],[-39.3,-17.9],[-40.9,-21.9],[-42.0,-23.0],[-44.6,-23.4],[-47.6,-24.9],[-48.5,-25.9],[-48.9,-28.7],[-53.8,-34.4],[-56.2,-34.9],[-58.4,-33.9],[-56.8,-36.9],[-57.7,-38.2],[-59.2,-38.7],[-62.3,-38.8],[-62.1,-40.7],[-62.7,-41.0],[-65.1,-41.1],[-65.0,-42.1],[-63.5,-42.6],[-65.2,-43.5],[-65.6,-45.0],[-67.3,-45.6],[-67.6,-46.3],[-65.6,-47.2],[-66.0,-48.1],[-69.1,-50.7],[-68.2,-52.3],[-70.8,-52.9],[-71.0,-53.8],[-74.9,-52.3],[-75.6,-48.7],[-74.1,-46.9],[-75.6,-46.6],[-74.4,-44.1],[-73.2,-44.5],[-72.7,-42.4],[-73.4,-42.1],[-73.7,-43.4],[-74.3,-43.2],[-73.2,-39.3],[-73.6,-37.2],[-71.4,-32.4],[-70.2,-19.8],[-70.4,-18.3],[-71.5,-17.4],[-76.0,-14.6],[-79.8,-7.2],[-81.2,-6.1],[-81.4,-4.7],[-79.8,-2.7],[-81.0,-2.2],[-80.9,-1.1],[-80.1,0.8],[-78.9,1.4],[-77.1,3.8],[-78.2,8.3],[-79.6,8.9],[-80.5,8.1],[-80.0,7.5],[-80.9,7.2],[-81.1,7.8],[-83.5,8.4],[-85.0,10.1],[-85.1,9.6],[-85.7,9.9],[-85.7,11.1],[-87.5,13.3],[-91.2,13.9],[-94.7,16.2],[-96.6,15.7],[-103.5,18.3],[-105.5,19.9],[-105.3,21.4],[-106.0,22.8],[-109.3,25.6],[-109.3,26.4],[-112.2,29.0],[-113.9,31.6],[-114.8,31.8],[-114.7,30.2],[-109.4,23.4],[-110.0,22.8],[-112.2,24.7],[-112.3,26.0],[-115.1,27.7],[-114.2,28.6],[-115.5,29.6],[-117.3,33.0],[-120.6,34.6],[-124.4,40.3],[-123.9,45.5],[-124.7,48.2],[-123.1,48.0],[-122.6,47.1],[-122.8,49.0],[-127.4,50.8],[-127.9,52.3],[-129.1,52.8],[-134.1,58.1],[-147.1,60.9],[-148.2,60.7],[-148.0,60.0],[-151.7,59.2],[-150.6,61.3],[-154.0,59.4],[-153.3,58.9],[-154.2,58.1],[-158.4,56.0],[-164.8,54.4],[-157.7,57.6],[-157.0,58.9],[-162.0,58.7],[-161.9,59.6],[-163.8,59.8],[-166.1,61.5],[-164.6,63.1],[-160.8,63.8],[-161.5,64.4],[-160.8,64.8],[-165.0,64.4],[-168.1,65.7],[-164.5,66.6],[-161.7,66.1],[-166.8,68.4],[-161.9,70.3],[-156.6,71.4],[-136.5,68.9],[-129.8,70.2],[-129.1,69.8],[-128.1,70.5],[-125.8,69.5],[-124.4,70.2],[-124.3,69.4],[-121.5,69.8],[-115.2,68.9],[-113.9,68.4],[-115.3,67.9],[-109.9,68.0],[-108.9,67.4],[-107.8,67.9],[-108.8,68.3],[-108.2,68.7],[-106.2,68.8],[-101.5,67.6],[-98.4,67.8],[-98.6,68.4],[-97.7,68.6],[-96.1,68.2],[-96.1,67.3],[-94.2,69.1],[-96.5,70.1],[-96.4,71.2],[-95.2,71.9],[-92.9,71.3],[-91.5,70.2],[-92.4,69.7],[-90.5,69.5]],[[-58.6,-64.2],[-62.0,-64.8],[-62.6,-65.5],[-62.1,-66.2],[-65.7,-68.0],[-61.8,-70.7],[-60.8,-73.7],[-64.4,-75.3],[-70.6,-76.6],[-77.2,-76.7],[-73.7,-77.9],[-77.9,-78.4],[-78.0,-79.2],[-75.4,-80.3],[-59.7,-82.4],[-58.2,-83.2],[-49.8,-81.7],[-42.8,-82.1],[-40.8,-81.4],[-28.5,-80.3],[-29.7,-79.3],[-35.6,-79.5],[-35.3,-78.1],[-17.5,-75.1],[-15.7,-74.5],[-15.4,-74.1],[-16.5,-73.9],[-15.4,-73.1],[-10.3,-71.3],[-7.4,-71.7],[-6.9,-70.9],[-0.2,-71.6],[7.7,-69.9],[10.8,-70.8],[13.4,-70.0],[27.1,-70.5],[32.0,-69.7],[33.9,-68.5],[38.6,-69.8],[54.5,-65.8],[61.4,-68.0],[64.1,-67.4],[68.9,-67.9],[69.7,-69.2],[67.8,-70.3],[69.1,-70.7],[67.9,-71.9],[69.9,-72.3],[73.9,-69.9],[77.6,-69.5],[82.8,-67.2],[86.8,-67.2],[88.0,-66.2],[89.7,-67.2],[95.8,-67.4],[99.7,-67.2],[102.8,-65.6],[106.2,-66.9],[113.6,-65.9],[119.8,-67.3],[123.2,-66.5],[134.8,-66.2],[135.1,-65.3],[137.5,-67.0],[145.5,-66.9],[148.8,-68.4],[154.3,-68.6],[161.6,-70.6],[171.2,-71.7],[169.3,-73.7],[166.1,-74.4],[163.6,-76.2],[163.5,-77.1],[164.7,-78.2],[167.0,-78.8],[161.8,-79.2],[159.8,-80.9],[169.4,-83.8],[180,-84.7],[180,-90],[-180,-90],[-180,-84.7],[-179.1,-84.1],[-174.4,-84.5],[-170.0,-83.9],[-158.1,-85.4],[-143.1,-85.0],[-142.9,-84.6],[-153.6,-83.7],[-152.9,-82.0],[-156.8,-81.1],[-150.6,-81.3],[-146.4,-80.3],[-149.5,-79.4],[-155.3,-79.1],[-158.1,-78.0],[-158.4,-76.9],[-151.3,-77.4],[-146.1,-76.5],[-146.2,-75.4],[-144.9,-75.2],[-135.2,-74.3],[-119.7,-74.5],[-113.9,-73.7],[-112.3,-74.7],[-100.6,-75.3],[-100.1,-74.9],[-102.5,-74.1],[-103.7,-72.6],[-96.3,-73.6],[-90.1,-73.3],[-89.2,-72.6],[-81.5,-73.9],[-80.3,-73.1],[-74.9,-73.9],[-67.4,-72.5],[-68.5,-69.7],[-67.4,-68.1],[-67.7,-67.3],[-63.0,-64.6],[-57.8,-63.3],[-57.2,-63.5],[-58.6,-64.2]],[[-27.1,83.5],[-20.8,82.7],[-31.4,82.0],[-22.9,82.1],[-22.1,81.7],[-23.2,81.2],[-15.8,81.9],[-12.2,81.3],[-20.0,80.2],[-17.7,80.1],[-19.7,78.8],[-19.7,77.6],[-18.5,77.0],[-21.7,76.6],[-19.8,76.1],[-19.6,75.2],[-20.7,75.2],[-19.4,74.3],[-21.6,74.2],[-20.4,73.8],[-20.8,73.5],[-23.6,73.3],[-22.3,72.2],[-24.8,72.3],[-22.1,71.5],[-21.8,70.7],[-23.5,70.5],[-25.5,71.4],[-25.2,70.8],[-26.4,70.2],[-22.3,70.1],[-27.7,68.5],[-31.8,68.1],[-34.2,66.7],[-39.8,65.5],[-41.2,63.5],[-42.8,62.7],[-42.4,61.9],[-43.4,60.1],[-48.3,60.9],[-51.6,63.6],[-54.0,67.2],[-53.0,68.4],[-51.5,68.7],[-50.9,69.9],[-54.7,69.6],[-54.4,70.8],[-51.4,70.6],[-55.8,71.7],[-54.7,72.6],[-58.6,75.5],[-68.5,76.1],[-71.4,77.0],[-66.8,77.4],[-73.3,78.0],[-65.7,79.4],[-65.3,79.8],[-68.0,80.1],[-62.2,81.3],[-62.7,81.8],[-50.4,82.4],[-44.5,81.7],[-46.8,82.6],[-43.4,83.2],[-27.1,83.5]],[[143.6,-13.8],[145.4,-15.0],[146.4,-19.0],[148.8,-20.4],[149.7,-22.3],[150.7,-22.4],[153.1,-26.1],[153.6,-28.1],[152.9,-31.6],[150.3,-35.7],[150.0,-37.4],[146.3,-39.0],[144.9,-38.4],[145.0,-37.9],[143.6,-38.8],[140.6,-38.0],[139.6,-36.1],[138.1,-35.6],[138.2,-34.4],[136.8,-35.3],[137.8,-32.9],[136.0,-34.9],[134.3,-32.6],[131.3,-31.5],[126.1,-32.2],[124.2,-33.0],[123.7,-33.9],[119.9,-34.0],[118.0,-35.1],[115.0,-34.2],[115.7,-31.6],[113.3,-26.1],[113.8,-26.5],[113.4,-25.6],[114.2,-26.3],[113.4,-24.4],[114.1,-21.8],[114.2,-22.5],[116.7,-20.7],[120.9,-19.7],[123.0,-16.4],[123.9,-17.1],[123.5,-16.6],[125.7,-14.2],[127.1,-13.8],[129.6,-15.0],[130.6,-12.5],[132.6,-12.1],[131.8,-11.3],[132.4,-11.1],[135.3,-12.2],[136.5,-11.9],[137.0,-12.4],[135.5,-15.0],[140.2,-17.7],[141.7,-15.0],[142.1,-11.0],[142.8,-11.2],[143.6,-13.8]],[[-86.6,73.2],[-85.8,72.5],[-84.9,73.3],[-82.3,73.8],[-80.6,72.7],[-80.7,72.1],[-77.8,72.7],[-74.1,71.3],[-72.2,71.6],[-67.9,70.1],[-67.0,69.2],[-68.8,68.7],[-61.9,66.9],[-63.9,65.0],[-66.7,66.4],[-68.0,66.3],[-68.1,65.7],[-65.3,64.4],[-64.7,63.4],[-65.0,62.7],[-68.8,63.7],[-66.2,61.9],[-71.0,62.9],[-74.8,64.7],[-77.7,64.2],[-78.6,64.6],[-77.9,65.3],[-74.0,65.5],[-74.3,65.8],[-72.7,67.3],[-72.9,67.7],[-79.0,70.2],[-81.3,69.7],[-88.7,70.4],[-89.5,70.8],[-88.5,71.2],[-89.9,71.2],[-90.2,72.2],[-88.4,73.5],[-85.8,73.8],[-86.6,73.2]],[[134.1,-1.2],[134.4,-2.8],[135.5,-3.4],[136.3,-2.3],[138.3,-1.7],[144.6,-3.9],[146.0,-5.5],[147.6,-6.1],[147.2,-7.4],[150.7,-10.6],[147.9,-10.1],[146.0,-8.1],[144.7,-7.6],[142.6,-9.3],[139.1,-8.1],[137.6,-8.4],[138.7,-7.3],[137.9,-5.4],[133.7,-3.5],[133.0,-4.1],[132.0,-2.8],[133.7,-2.2],[132.2,-2.2],[130.5,-0.9],[132.4,-0.4],[134.1,-1.2]],[[-68.5,83.1],[-61.9,82.4],[-67.7,81.5],[-65.5,81.5],[-71.2,79.8],[-76.9,79.3],[-75.5,79.2],[-76.2,79.0],[-75.4,78.5],[-79.8,77.2],[-77.9,76.8],[-80.6,76.2],[-89.5,76.5],[-89.6,77.0],[-87.8,77.2],[-88.3,77.9],[-85.0,77.5],[-88.0,78.4],[-85.1,79.3],[-86.9,80.3],[-81.8,80.5],[-87.6,80.5],[-91.6,81.9],[-79.3,83.1],[-68.5,83.1]],[[-114.2,73.1],[-114.7,72.7],[-111.1,72.5],[-109.9,73.0],[-108.2,71.7],[-107.7,72.1],[-108.4,73.1],[-106.5,73.1],[-105.4,72.7],[-104.5,71.0],[-101.1,69.6],[-102.7,69.5],[-102.4,68.8],[-106.0,69.2],[-113.3,68.5],[-116.1,69.2],[-117.3,70.0],[-112.4,70.4],[-117.9,70.5],[-118.4,70.9],[-116.1,71.3],[-119.4,71.6],[-117.9,72.7],[-114.2,73.1]],[[-3.0,58.6],[-4.1,57.6],[-2.0,57.7],[-3.1,56.0],[-2.1,55.9],[0.5,52.9],[1.7,52.7],[1.1,51.8],[1.4,51.3],[-5.2,50.0],[-5.8,50.2],[-3.4,51.4],[-5.3,52.0],[-4.2,52.3],[-4.6,53.5],[-3.1,53.4],[-2.9,54.0],[-4.8,54.8],[-5.0,55.8],[-5.6,55.3],[-6.1,56.8],[-5.0,58.6],[-3.0,58.6]],[[125.2,1.4],[123.7,0.2],[120.2,0.2],[120.9,-1.4],[123.3,-0.6],[121.5,-1.9],[123.2,-5.3],[122.2,-5.3],[122.7,-4.5],[121.5,-4.6],[121.0,-2.6],[120.3,-2.9],[120.4,-5.5],[119.4,-5.4],[119.5,-3.5],[118.8,-2.8],[120.0,0.6],[120.9,1.3],[122.9,0.9],[125.2,1.4]],[[141.0,37.1],[140.3,35.1],[137.2,34.6],[135.8,33.5],[135.1,34.6],[131.0,33.9],[132.0,33.1],[131.3,31.5],[130.2,31.4],[130.4,32.3],[129.4,33.3],[132.6,35.4],[135.7,35.5],[136.7,37.3],[137.4,36.8],[139.4,38.2],[140.3,41.2],[141.4,41.4],[141.9,40.0],[141.0,37.1]],[[-56.1,50.7],[-56.8,49.8],[-53.5,49.2],[-53.8,48.5],[-53.1,48.7],[-52.6,47.5],[-53.1,46.7],[-54.2,46.8],[-54.2,47.8],[-55.4,46.9],[-56.0,46.9],[-55.3,47.4],[-56.3,47.6],[-59.3,47.6],[-59.2,48.5],[-57.4,50.7],[-55.9,51.6],[-55.4,51.6],[-56.1,50.7]],[[121.3,18.5],[122.2,18.5],[122.5,17.1],[121.7,15.9],[121.7,14.3],[124.0,13.8],[124.1,12.5],[122.9,13.6],[120.6,13.9],[121.0,14.5],[120.1,15.0],[119.9,16.4],[120.3,16.0],[120.7,18.5],[121.3,18.5]],[[117.9,1.8],[119.0,0.9],[117.8,0.8],[116.1,-4.0],[110.2,-2.9],[109.1,-0.5],[109.7,2.0],[111.2,1.9],[111.4,2.7],[113.0,3.1],[116.7,6.9],[119.2,5.4],[117.3,3.2],[117.9,1.8]],[[126.4,8.4],[126.5,7.2],[126.2,6.3],[125.8,7.3],[125.4,6.8],[125.4,5.6],[124.2,6.2],[123.6,7.8],[121.9,7.2],[123.5,8.7],[123.8,8.2],[125.5,9.0],[125.4,9.8],[126.4,8.4]],[[174.6,-36.2],[176.8,-37.9],[178.5,-37.7],[178.0,-39.2],[177.2,-39.1],[175.2,-41.7],[174.7,-41.3],[174.9,-39.9],[173.8,-39.5],[174.7,-37.4],[172.6,-34.5],[174.3,-35.3],[174.6,-36.2]],[[50.1,-13.6],[50.4,-15.7],[49.7,-15.7],[47.1,-24.9],[45.4,-25.6],[44.0,-25.0],[43.3,-22.1],[44.4,-20.1],[44.0,-17.4],[44.4,-16.2],[47.7,-14.6],[49.2,-12.0],[50.1,-13.6]],[[-175.0,66.6],[-171.9,66.9],[-169.9,66.0],[-172.5,65.4],[-173.0,64.3],[-178.4,65.4],[-178.7,66.1],[-179.9,65.9],[-179.4,65.4],[-180,65.0],[-180,69.0],[-174.9,67.2],[-175.0,66.6]],[[57.5,70.7],[51.6,71.5],[52.4,72.8],[54.4,73.6],[53.5,73.7],[55.9,74.6],[55.6,75.1],[61.2,76.3],[68.9,76.5],[58.5,74.3],[55.4,72.4],[55.6,71.5],[57.5,70.7]],[[173.0,-40.9],[174.2,-41.3],[172.7,-43.4],[173.1,-43.9],[171.5,-44.2],[170.6,-45.9],[169.3,-46.6],[166.7,-46.2],[167.0,-45.1],[170.5,-43.0],[172.1,-41.0],[173.0,-40.9]],[[143.9,44.2],[145.3,44.4],[145.5,43.3],[144.1,43.0],[143.2,42.0],[141.6,42.7],[141.1,41.6],[140.0,41.6],[139.8,42.6],[141.4,43.4],[142.0,45.6],[143.9,44.2]],[[-14.5,66.5],[-14.7,65.8],[-13.6,65.1],[-18.7,63.5],[-22.8,64.0],[-21.8,64.4],[-24.0,64.9],[-22.2,65.4],[-24.3,65.6],[-22.1,66.4],[-20.6,65.7],[-14.5,66.5]],[[105.8,-5.9],[104.7,-5.9],[102.6,-4.2],[95.3,5.5],[97.5,5.2],[100.6,2.1],[101.7,2.1],[103.8,0.1],[103.4,-0.7],[106.1,-3.1],[105.8,-5.9]],[[-108.2,76.2],[-105.9,76.0],[-106.3,75.0],[-113.7,74.4],[-111.8,75.2],[-117.7,75.2],[-115.4,76.5],[-109.1,75.5],[-110.5,76.4],[-109.6,76.8],[-108.2,76.2]],[[-72.6,19.9],[-70.0,19.6],[-68.3,18.6],[-70.7,18.4],[-71.4,17.6],[-73.9,18.0],[-74.4,18.7],[-72.3,18.7],[-73.4,19.6],[-72.6,19.9]],[[143.6,50.7],[144.7,49.0],[143.2,49.3],[142.6,47.9],[143.5,46.1],[142.7,46.7],[142.1,46.0],[141.7,53.3],[142.7,54.4],[143.6,50.7]],[[-100.4,73.8],[-97.4,73.8],[-98.1,73.0],[-96.5,72.6],[-96.7,71.7],[-99.3,71.4],[-102.5,72.5],[-100.4,72.7],[-101.5,73.4],[-100.4,73.8]],[[-94.7,77.1],[-91.6,76.8],[-89.2,75.6],[-81.1,75.7],[-79.8,74.9],[-88.2,74.4],[-92.4,74.8],[-93.9,76.3],[-97.1,76.8],[-94.7,77.1]],[[-87.0,79.7],[-85.8,79.3],[-90.8,78.2],[-92.9,78.3],[-94.0,78.8],[-93.1,79.4],[-96.7,80.2],[-94.7,81.2],[-92.4,81.3],[-87.0,79.7]],[[-68.5,-71.0],[-68.8,-72.2],[-71.1,-72.5],[-74.2,-72.4],[-75.0,-71.7],[-72.1,-71.2],[-71.7,-69.5],[-70.3,-68.9],[-68.5,-71.0]],[[-79.7,22.8],[-74.2,20.3],[-77.8,19.9],[-77.1,20.4],[-78.7,21.6],[-81.8,22.6],[-85.0,21.9],[-82.3,23.2],[-79.7,22.8]],[[-85.2,65.7],[-80.1,63.7],[-83.1,64.1],[-85.5,63.1],[-85.9,63.6],[-87.2,63.5],[-86.4,64.0],[-85.9,65.7],[-85.2,65.7]],[[-120.5,71.4],[-123.1,70.9],[-125.9,71.9],[-123.9,73.7],[-124.9,74.3],[-117.6,74.2],[-115.5,73.5],[-119.2,72.5],[-120.5,71.4]],[[18.3,79.7],[21.5,79.0],[19.0,78.6],[17.1,76.8],[15.9,76.8],[13.8,77.4],[14.7,77.7],[10.4,79.7],[18.3,79.7]],[[108.6,-6.8],[110.8,-6.5],[115.7,-8.4],[114.6,-8.8],[108.3,-7.8],[105.4,-6.9],[106.1,-5.9],[108.6,-6.8]],[[152.0,-5.5],[150.2,-6.3],[148.3,-5.7],[150.1,-5.0],[150.8,-5.5],[151.5,-4.2],[152.3,-4.3],[152.0,-5.5]],[[124.0,10.3],[123.0,9.0],[122.4,9.7],[122.9,10.9],[123.5,10.9],[123.3,10.3],[124.1,11.2],[124.0,10.3]],[[-45.2,-78.0],[-43.9,-78.5],[-43.3,-80.0],[-50.5,-81.0],[-54.2,-80.6],[-48.7,-78.0],[-45.2,-78.0]],[[-67.8,-53.9],[-65.0,-54.7],[-69.2,-55.5],[-74.7,-52.8],[-71.1,-54.1],[-69.3,-52.5],[-67.8,-53.9]],[[-132.7,54.0],[-131.7,54.1],[-132.0,53.0],[-131.2,52.2],[-133.1,53.4],[-133.2,54.2],[-132.7,54.0]],[[-6.8,52.3],[-10.0,51.8],[-9.2,52.9],[-9.7,53.9],[-6.7,55.2],[-5.7,54.6],[-6.8,52.3]],[[145.4,-40.8],[148.3,-40.9],[147.9,-43.2],[146.0,-43.5],[144.7,-41.2],[145.4,-40.8]],[[81.2,6.2],[80.3,6.0],[79.9,6.8],[80.1,9.8],[81.8,7.5],[81.2,6.2]],[[125.5,12.2],[125.8,11.0],[125.0,11.3],[124.8,10.1],[124.3,12.6],[125.5,12.2]],[[121.2,22.8],[120.7,22.0],[120.1,23.6],[121.5,25.3],[122.0,25.0],[121.2,22.8]],[[-123.5,48.5],[-125.7,48.8],[-128.1,50.0],[-128.4,50.8],[-125.8,50.3],[-123.5,48.5]],[[-153.0,57.1],[-154.0,56.7],[-154.7,57.5],[-152.6,57.9],[-152.1,57.6],[-153.0,57.1]],[[-93.2,72.8],[-95.4,72.1],[-96.0,73.4],[-94.5,74.1],[-90.5,73.9],[-93.2,72.8]],[[145.1,75.6],[144.3,74.8],[139.0,74.6],[137.0,75.3],[138.8,76.1],[145.1,75.6]],[[-98.5,76.7],[-97.7,76.3],[-98.2,75],[-102.5,75.6],[-102.6,76.3],[-98.5,76.7]],[[24.7,77.9],[20.7,77.7],[21.4,77.9],[20.8,78.3],[22.9,78.5],[24.7,77.9]],[[99.9,78.9],[95.0,79.0],[91.2,80.3],[95.9,81.3],[100.2,79.8],[99.9,78.9]],[[-159.2,-79.5],[-161.1,-79.6],[-163.7,-78.6],[-161.2,-78.4],[-159.2,-79.5]],[[-121.2,-73.5],[-118.7,-73.5],[-120.2,-74.1],[-122.6,-73.7],[-121.2,-73.5]],[[-99.0,-71.9],[-96.2,-72.5],[-100.8,-72.5],[-102.3,-71.9],[-99.0,-71.9]],[[70.3,-49.7],[68.7,-49.8],[68.9,-48.6],[70.5,-49.1],[70.3,-49.7]],[[124.4,-10.1],[123.5,-10.2],[124.0,-9.3],[127.3,-8.4],[124.4,-10.1]],[[130.5,-3.1],[130.8,-3.9],[127.9,-3.4],[128.1,-2.8],[130.5,-3.1]],[[128.7,1.1],[128.1,-0.9],[127.6,1.8],[127.9,2.2],[128.7,1.1]],[[110.3,18.7],[108.7,18.5],[108.6,19.4],[110.8,20.1],[110.3,18.7]],[[134.6,34.1],[134.2,33.2],[132.4,33.0],[132.9,34.1],[134.6,34.1]],[[15.5,38.2],[15.1,36.6],[12.4,37.6],[12.6,38.1],[15.5,38.2]],[[9.2,41.2],[9.7,39.2],[8.8,38.9],[8.2,41.0],[9.2,41.2]],[[12.7,55.6],[12.1,54.8],[10.9,55.8],[12.4,56.1],[12.7,55.6]],[[-75.9,67.1],[-77.2,67.6],[-75.9,68.3],[-75.1,67.6],[-75.9,67.1]],[[-178.7,70.9],[-180,70.8],[-180,71.5],[-177.6,71.3],[-178.7,70.9]],[[-76.3,73.1],[-79.5,72.7],[-80.9,73.3],[-78.1,73.7],[-76.3,73.1]],[[-116.2,77.6],[-117.1,76.5],[-122.9,76.1],[-119.1,77.5],[-116.2,77.6]],[[-100.1,78.3],[-105.2,78.4],[-104.2,78.7],[-105.5,79.3],[-100.1,78.3]],[[105.1,78.3],[99.4,77.9],[102.1,79.3],[105.4,78.7],[105.1,78.3]],[[25.4,80.4],[27.4,80.1],[23.0,79.4],[17.4,80.3],[25.4,80.4]],[[-59.6,-80.0],[-60.2,-81.0],[-66.3,-80.3],[-59.6,-80.0]],[[-58.5,-51.1],[-58.0,-51.9],[-61.2,-51.9],[-58.5,-51.1]],[[167.1,-22.2],[165.5,-21.7],[164.0,-20.1],[167.1,-22.2]],[[122.9,-8.1],[122.8,-8.6],[119.9,-8.8],[122.9,-8.1]],[[-95.6,69.1],[-99.8,69.4],[-98.2,70.1],[-95.6,69.1]],[[143.6,73.2],[139.9,73.4],[142.1,73.9],[143.6,73.2]],[[-93.6,75.0],[-96.8,74.9],[-94.9,75.6],[-93.6,75.0]],[[-95.8,78.1],[-98.1,78.1],[-98.6,78.9],[-95.8,78.1]],[[51.1,80.5],[47.6,80.0],[44.8,80.6],[51.1,80.5]]];
 
-/* ═══════════════════════════════════════════════════════
-   1 · THE GLOBE
-   Hand-rolled 3D on a 2D canvas. No library, no CDN.
-   A point on the sphere is (lat,lon) -> unit vector, rotated
-   about the polar axis by time, then orthographically
-   projected. Back-facing points (z<0) are culled.
-   ═══════════════════════════════════════════════════════ */
-const cv = document.getElementById("globe");
-const ctx = cv.getContext("2d");
-const RAD = Math.PI / 180;
-let W = 0, H = 0, DPR = 1, rot = 0, focus = 0, focusTarget = 0;
+/* ═══ globe ═══════════════════════════════════════════ */
+const cv=document.getElementById("gl"), ctx=cv.getContext("2d");
+const RAD=Math.PI/180;
+let W=0,H=0,DPR=1,rot=200,tilt=-16;
 
-const NODES = [
-  { id:"SYD", name:"Sydney",    lat:-33.87, lon:151.21 },
-  { id:"SIN", name:"Singapore", lat:  1.35, lon:103.82 },
-  { id:"HKG", name:"Hong Kong", lat: 22.32, lon:114.17 },
-  { id:"FRA", name:"Frankfurt", lat: 50.11, lon:  8.68 },
-  { id:"LON", name:"London",    lat: 51.51, lon: -0.13 },
-  { id:"NYC", name:"New York",  lat: 40.71, lon:-74.01 },
-];
-const ARCS = [
-  { a:"SYD", b:"SIN", tone:"flow"     },
-  { a:"SIN", b:"FRA", tone:"wire"     },
-  { a:"SYD", b:"NYC", tone:"friction" },
-  { a:"SIN", b:"HKG", tone:"wire"     },
-  { a:"LON", b:"NYC", tone:"wire"     },
-];
-const TONE = { flow:"#0E7C5A", wire:"#2B4A78", friction:"#C2410C", beam:"#0090A8" };
+const CITY={SYD:[-33.87,151.21],SIN:[1.35,103.82],HKG:[22.32,114.17],
+            FRA:[50.11,8.68],LON:[51.51,-0.13],NYC:[40.71,-74.01],DXB:[25.2,55.27]};
+let arcs=[["SYD","SIN","flow"]], hotArc=0;
+const TONE={flow:"#0B6E4F",wire:"#1F4B7A",friction:"#B03A16",beam:"#00778C"};
 
-function toVec(lat, lon){
-  const la = lat*RAD, lo = lon*RAD;
-  return [Math.cos(la)*Math.sin(lo), Math.sin(la), Math.cos(la)*Math.cos(lo)];
+const v3=(lat,lon)=>{const a=lat*RAD,o=lon*RAD;
+  return [Math.cos(a)*Math.sin(o),Math.sin(a),Math.cos(a)*Math.cos(o)];};
+function rotate(v){
+  const a=rot*RAD,c=Math.cos(a),s=Math.sin(a);
+  let x=v[0]*c+v[2]*s, y=v[1], z=-v[0]*s+v[2]*c;
+  const t=tilt*RAD,ct=Math.cos(t),st=Math.sin(t);
+  return [x, y*ct-z*st, y*st+z*ct];
 }
-function rotY(v, a){
-  const c = Math.cos(a), s = Math.sin(a);
-  return [v[0]*c + v[2]*s, v[1], -v[0]*s + v[2]*c];
+function G(){const R=Math.min(W*0.44,H*0.46);return{R,cx:W*0.5,cy:H*0.5};}
+function proj(v){const{R,cx,cy}=G(),p=rotate(v);return{x:cx+p[0]*R,y:cy-p[1]*R,z:p[2]};}
+function slerp(a,b,t){
+  let d=Math.max(-1,Math.min(1,a[0]*b[0]+a[1]*b[1]+a[2]*b[2]));
+  const o=Math.acos(d); if(o<1e-6)return a.slice();
+  const s=Math.sin(o),k1=Math.sin((1-t)*o)/s,k2=Math.sin(t*o)/s;
+  return [a[0]*k1+b[0]*k2,a[1]*k1+b[1]*k2,a[2]*k1+b[2]*k2];
 }
-function rotX(v, a){
-  const c = Math.cos(a), s = Math.sin(a);
-  return [v[0], v[1]*c - v[2]*s, v[1]*s + v[2]*c];
-}
-function slerp(a, b, t){
-  let d = a[0]*b[0] + a[1]*b[1] + a[2]*b[2];
-  d = Math.max(-1, Math.min(1, d));
-  const o = Math.acos(d);
-  if (o < 1e-6) return a.slice();
-  const s = Math.sin(o);
-  const k1 = Math.sin((1-t)*o)/s, k2 = Math.sin(t*o)/s;
-  return [a[0]*k1+b[0]*k2, a[1]*k1+b[1]*k2, a[2]*k1+b[2]*k2];
-}
+function fit(){DPR=Math.min(devicePixelRatio||1,2);
+  const r=cv.parentElement.getBoundingClientRect();W=r.width;H=r.height;
+  cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+"px";cv.style.height=H+"px";
+  ctx.setTransform(DPR,0,0,DPR,0,0);}
+addEventListener("resize",fit);
 
-function geom(){
-  const wide = W >= 1100;
-  const R = wide ? Math.min(W*0.30, (H-140)*0.50) : Math.min(W, H)*0.40;
-  return { R, cx: wide ? W*0.68 : W*0.5, cy: H*0.52 };
-}
-function project(v){
-  const { R, cx, cy } = geom();
-  const p = rotX(rotY(v, rot), -18*RAD);
-  return { x: cx + p[0]*R, y: cy - p[1]*R, z: p[2] };
-}
+function paint(){
+  const{R,cx,cy}=G();
+  ctx.clearRect(0,0,W,H);
 
-/* dot lattice — denser near the equator so density looks even */
-const LATTICE = (() => {
-  const pts = [];
-  for (let lat = -80; lat <= 80; lat += 5){
-    const circ = Math.cos(lat*RAD);
-    const step = Math.max(5, 5/Math.max(circ, .12));
-    for (let lon = -180; lon < 180; lon += step) pts.push(toVec(lat, lon));
+  ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.fillStyle="#DCE6EA";ctx.fill();
+
+  ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.clip();
+
+  /* graticule */
+  ctx.strokeStyle="rgba(11,20,24,.07)";ctx.lineWidth=1;
+  for(let la=-60;la<=60;la+=30){ctx.beginPath();let st=false;
+    for(let lo=-180;lo<=180;lo+=4){const p=proj(v3(la,lo));
+      if(p.z<0){st=false;continue;} if(!st){ctx.moveTo(p.x,p.y);st=true;}else ctx.lineTo(p.x,p.y);}
+    ctx.stroke();}
+  for(let lo=-180;lo<180;lo+=30){ctx.beginPath();let st=false;
+    for(let la=-90;la<=90;la+=4){const p=proj(v3(la,lo));
+      if(p.z<0){st=false;continue;} if(!st){ctx.moveTo(p.x,p.y);st=true;}else ctx.lineTo(p.x,p.y);}
+    ctx.stroke();}
+
+  /* land */
+  for(const ring of LAND){
+    let run=[];
+    const flush=()=>{ if(run.length>2){ ctx.beginPath();ctx.moveTo(run[0].x,run[0].y);
+        for(let i=1;i<run.length;i++)ctx.lineTo(run[i].x,run[i].y);ctx.closePath();
+        ctx.fillStyle="#C2D1CE";ctx.fill();
+        ctx.strokeStyle="#8FA6A5";ctx.lineWidth=.8;ctx.stroke(); } run=[]; };
+    for(const [lo,la] of ring){ const p=proj(v3(la,lo));
+      if(p.z<0.02){flush();continue;} run.push(p); }
+    flush();
   }
-  return pts;
-})();
+  ctx.restore();
 
-function resize(){
-  DPR = Math.min(window.devicePixelRatio || 1, 2);
-  W = window.innerWidth; H = window.innerHeight;
-  cv.width = W*DPR; cv.height = H*DPR;
-  cv.style.width = W+"px"; cv.style.height = H+"px";
-  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-}
-window.addEventListener("resize", resize);
-resize();
+  /* limb */
+  ctx.beginPath();ctx.arc(cx,cy,R,0,7);
+  ctx.strokeStyle="rgba(0,119,140,.5)";ctx.lineWidth=1.2;ctx.stroke();
 
-function draw(){
-  const { R, cx, cy } = geom();
-  ctx.clearRect(0, 0, W, H);
-
-  /* atmosphere */
-  const halo = ctx.createRadialGradient(cx, cy, R*0.82, cx, cy, R*1.22);
-  halo.addColorStop(0, "rgba(0,144,168,.16)");
-  halo.addColorStop(1, "rgba(0,144,168,0)");
-  ctx.fillStyle = halo;
-  ctx.beginPath(); ctx.arc(cx, cy, R*1.22, 0, Math.PI*2); ctx.fill();
-
-  /* sphere body — a very soft lift off the background */
-  const body = ctx.createRadialGradient(cx-R*.3, cy-R*.35, R*.1, cx, cy, R);
-  body.addColorStop(0, "rgba(255,255,255,.70)");
-  body.addColorStop(1, "rgba(178,199,211,.42)");
-  ctx.fillStyle = body;
-  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.fill();
-
-  /* lattice */
-  for (const v of LATTICE){
-    const p = project(v);
-    if (p.z < 0) continue;
-    const a = 0.14 + p.z*0.42;
-    ctx.fillStyle = "rgba(12,21,25," + a.toFixed(3) + ")";
-    const s = 0.8 + p.z*1.15;
-    ctx.beginPath(); ctx.arc(p.x, p.y, s, 0, Math.PI*2); ctx.fill();
-  }
-
-  /* rim */
-  ctx.strokeStyle = "rgba(0,144,168,.42)"; ctx.lineWidth = 1.2;
-  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.stroke();
-
-  /* arcs, lifted off the surface */
-  const t = performance.now() / 1000;
-  for (let i = 0; i < ARCS.length; i++){
-    const arc = ARCS[i];
-    const A = NODES.find(n => n.id === arc.a), B = NODES.find(n => n.id === arc.b);
-    const va = toVec(A.lat, A.lon), vb = toVec(B.lat, B.lon);
-    const hot = (i === focus);
-    const N = 64;
-    ctx.beginPath();
-    let started = false;
-    for (let k = 0; k <= N; k++){
-      const u = k/N;
-      const m = slerp(va, vb, u);
-      const lift = 1 + 0.16*Math.sin(Math.PI*u);
-      const p = project([m[0]*lift, m[1]*lift, m[2]*lift]);
-      if (p.z < -0.1){ started = false; continue; }
-      if (!started){ ctx.moveTo(p.x, p.y); started = true; } else ctx.lineTo(p.x, p.y);
-    }
-    ctx.strokeStyle = TONE[arc.tone];
-    ctx.globalAlpha = hot ? 0.92 : 0.34;
-    ctx.lineWidth = hot ? 2.4 : 1.2;
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-
-    /* a pulse riding the hot arc */
-    if (hot){
-      const u = (t*0.35 + i*0.2) % 1;
-      const m = slerp(va, vb, u);
-      const lift = 1 + 0.16*Math.sin(Math.PI*u);
-      const p = project([m[0]*lift, m[1]*lift, m[2]*lift]);
-      if (p.z > -0.1){
-        ctx.fillStyle = TONE[arc.tone];
-        ctx.beginPath(); ctx.arc(p.x, p.y, 3.4, 0, Math.PI*2); ctx.fill();
-        ctx.globalAlpha = .25;
-        ctx.beginPath(); ctx.arc(p.x, p.y, 8, 0, Math.PI*2); ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-    }
-  }
+  /* arcs */
+  const t=performance.now()/1000;
+  arcs.forEach((a,i)=>{
+    const va=v3(...CITY[a[0]]), vb=v3(...CITY[a[1]]), hot=i===hotArc;
+    ctx.beginPath();let st=false;
+    for(let k=0;k<=72;k++){const u=k/72,m=slerp(va,vb,u),L=1+0.19*Math.sin(Math.PI*u);
+      const p=proj([m[0]*L,m[1]*L,m[2]*L]);
+      if(p.z<-0.25){st=false;continue;} if(!st){ctx.moveTo(p.x,p.y);st=true;}else ctx.lineTo(p.x,p.y);}
+    ctx.strokeStyle=TONE[a[2]];ctx.globalAlpha=hot?.95:.3;ctx.lineWidth=hot?2:1;
+    ctx.stroke();ctx.globalAlpha=1;
+    if(hot){const u=(t*.32)%1,m=slerp(va,vb,u),L=1+0.19*Math.sin(Math.PI*u);
+      const p=proj([m[0]*L,m[1]*L,m[2]*L]);
+      if(p.z>-0.25){ctx.fillStyle=TONE[a[2]];ctx.beginPath();ctx.arc(p.x,p.y,3.2,0,7);ctx.fill();}}
+  });
 
   /* nodes */
-  ctx.font = "500 10px ui-monospace,Menlo,monospace";
-  for (const n of NODES){
-    const p = project(toVec(n.lat, n.lon));
-    if (p.z < 0) continue;
-    ctx.fillStyle = "rgba(0,144,168," + (0.35 + p.z*0.5).toFixed(2) + ")";
-    ctx.beginPath(); ctx.arc(p.x, p.y, 2.6, 0, Math.PI*2); ctx.fill();
-    if (p.z > 0.35){
-      ctx.fillStyle = "rgba(12,21,25,.55)";
-      ctx.fillText(n.id, p.x + 7, p.y + 3);
-    }
+  ctx.font="500 9.5px ui-monospace,Menlo,monospace";
+  for(const id in CITY){const p=proj(v3(...CITY[id]));if(p.z<0)continue;
+    ctx.fillStyle="rgba(0,119,140,"+(.3+p.z*.55).toFixed(2)+")";
+    ctx.beginPath();ctx.arc(p.x,p.y,2.4,0,7);ctx.fill();
+    if(p.z>.3){ctx.fillStyle="rgba(11,20,24,.5)";ctx.fillText(id,p.x+6,p.y+3);}}
+
+  rot+=0.045;
+  document.getElementById("sRot").textContent=((rot%360).toFixed(1))+"°";
+  requestAnimationFrame(paint);
+}
+
+/* ═══ curriculum — chronological, book order ═══════════ */
+const W_PROF={low:{speed:.15,cost:.55,reliability:.30},normal:{speed:.25,cost:.35,reliability:.40},
+              high:{speed:.50,cost:.15,reliability:.35},critical:{speed:.60,cost:.05,reliability:.35}};
+
+const S=[];
+const M=(mod,src,arc)=>({mod,src,arc});
+function add(meta,st){S.push(Object.assign({},meta,st));}
+
+/* ── M1 · P1 Ch1–2 · The legacy problem ─────────────── */
+const m1=M("1 · The legacy problem","P1 Ch1–2",0);
+add(m1,{t:"Order the five layers",type:"order",
+  task:"A payment is dragged through all five layers at <b>every hop</b>. Click them top-down, from compliance to funding.",
+  items:["Compliance","Settlement","Correspondent","Messaging","Funding"],
+  hint:"Compliance sits above settlement; funding is the floor.",
+  ok:"Compliance · Settlement · Correspondent · Messaging · Funding. Money appears to move sideways, whereas the real work is vertical — every hop traverses all five."});
+add(m1,{t:"Nostro or vostro",type:"pick",
+  task:"Your Australian bank holds a pre-funded SGD account at a Singapore bank. <b>What is it called, from your bank's side?</b>",
+  opts:[["A","Nostro","our money held with them","correct",1],["B","Vostro","their money held with us",""],
+        ["C","Escrow","held by a third party",""]],
+  hint:"Nostro is Latin for ‘ours’.",
+  ok:"Nostro — our money, held with them. Vostro is the mirror: their money, held with us. Both are pre-funded, which is why they can run dry."});
+add(m1,{t:"The pool runs dry",type:"pick",
+  task:"The nostro pool is exhausted mid-day. <b>What happens to the next payment?</b>",
+  opts:[["A","It fails and returns","sender is notified",""],
+        ["B","It queues silently","no notification anywhere","correct",1],
+        ["C","It reroutes automatically","another corridor is chosen",""]],
+  hint:"Nobody in the chain is obliged to tell the payer.",
+  ok:"It queues. Not a failure — a silent wait until the pool is topped up. The payer is not told because the payer's own bank does not know either."});
+add(m1,{t:"No common window",type:"pick",
+  task:"AU RITS 08:00–18:00. EU TARGET2 17:00–02:00. US Fedwire 21:00–05:30, all AEST. <b>How many hours a day are all three open?</b>",
+  opts:[["A","Six hours","overlapping mid-session",""],["B","Two hours","17:00–18:00 and 21:00–22:00",""],
+        ["C","None","peak overlap is two of three","correct",1]],
+  hint:"Try to find a single hour that appears in all three ranges.",
+  ok:"None. Peak overlap is two of three, and between 05:30 and 08:00 AEST nothing is open at all. Miss your window and the payment waits 24 hours."});
+add(m1,{t:"Which failures does V0 answer",type:"multi",
+  task:"Of the nine structural failure modes, <b>select the ones V0's route scoring already addresses.</b>",
+  opts:[["1","Corridor volatility","",  "correct",1],["2","Routing ambiguity","","correct",1],
+        ["3","Manual review saturation",""],["4","Liquidity siloing","","correct",1],
+        ["6","No predictive engine","","correct",1],["8","Biological timing",""]],
+  hint:"Four of them. Scoring answers 1, 2, 4 and 6; the evidence chain answers 7.",
+  ok:"1, 2, 4 and 6. The evidence log separately answers 7, evidence black holes. Manual review and biological timing are untouched by V0."});
+
+/* ── M2 · P1 Ch3 · Messaging ────────────────────────── */
+const m2=M("2 · Messaging is the control layer","P1 Ch3",1);
+add(m2,{t:"Where does SWIFT sit",type:"pick",
+  task:"<b>Which layer does SWIFT operate at</b>, and what does it actually carry?",
+  opts:[["A","Settlement — it moves the money","",""],
+        ["B","Messaging — it carries instructions","money moves via RTGS and nostro","correct",1],
+        ["C","Balance — it holds the ledger","",""]],
+  hint:"SWIFT has never moved a dollar.",
+  ok:"Messaging. SWIFT is the postal service, not the cash. RTGS systems, nostro balances, FX desks and clearing houses move the money; SWIFT tells them to."});
+add(m2,{t:"MT103 across four hops",type:"pick",
+  task:"An MT103 debtor name arrives at hop 4 as <code>LUPINE SYS PTY L</code>. <b>Why?</b>",
+  opts:[["A","Transmission corruption","bits flipped in transit",""],
+        ["B","Free-text fields, re-keyed and truncated at each hop","","correct",1],
+        ["C","Deliberate redaction for privacy","",""]],
+  hint:"MT103 fields have no programmatic separation.",
+  ok:"Free text. Each hop re-keys and truncates to fit its own systems, so by hop 4 the sanctions engine cannot resolve the party and the payment goes to manual review."});
+add(m2,{t:"Visibility or intelligence",type:"pick",
+  task:"gpi reports: <code>09:42 · C3 · credited — 90 min delay · reason: liquidity</code>. <b>What can gpi not do?</b>",
+  opts:[["A","Timestamp the hop","",""],["B","Report the reason","",""],
+        ["C","Predict it, reroute around it, or score an alternative","","correct",1]],
+  hint:"Rear-view mirror versus windshield.",
+  ok:"All three. gpi tracks problems; it does not prevent them. That distinction is the whole Lupine thesis."});
+add(m2,{t:"Why evidence needs ISO 20022",type:"pick",
+  task:"Cloked hashes individual fields. <b>Why is that impossible with MT103?</b>",
+  opts:[["A","MT103 is encrypted",""],
+        ["B","Field boundaries are undefined, so there is nothing discrete to hash","","correct",1],
+        ["C","MT103 messages are too short",""]],
+  hint:"To hash a field you must know exactly where it starts and stops.",
+  ok:"No boundaries. Names, addresses and purpose codes run together as free text. ISO 20022 gives discrete, labelled, schema-validated fields. You cannot hash ambiguity."});
+
+/* ── M3 · P1 Ch4 · Corridors and FX ─────────────────── */
+const m3=M("3 · Corridors and the real FX rate","P1 Ch4",1);
+add(m3,{t:"Same payment, three corridors",type:"pick",
+  task:"A$500,000 AUD→EUR. <b>Which corridor is cheapest all-in?</b>",
+  opts:[["A","AUD → SGD → EUR","deep regional pool, stable, good window fit","correct",1],
+        ["B","AUD → USD → EUR","deepest liquidity, extra hop and spread",""],
+        ["C","AUD → EUR direct","shortest path, thin liquidity",""]],
+  hint:"The shortest path on a map is not the cheapest in practice.",
+  ok:"Via Singapore. Direct looks shortest and is punished by thin liquidity — the spread widens because there is nobody on the other side."});
+add(m3,{t:"Count the hidden components",type:"multi",
+  task:"Effective rate = S₀ + ΔS + F + V + L + C + D + R. <b>Select every component a bank normally does not show you.</b>",
+  opts:[["V","Volatility premium","","correct",1],["L","Liquidity premium","","correct",1],
+        ["C","Corridor cost","","correct",1],["D","Delay premium","","correct",1],
+        ["R","Compliance buffer","","correct",1],["S₀","Interbank spot",""]],
+  hint:"Two of the eight are normally visible. Select the rest.",
+  ok:"V, L, C, D and R. S₀ and part of ΔS are what you are quoted. Note the split between them has never been published for this corridor — the formula is sourced, the values are not."});
+add(m3,{t:"Exposure at four settlement times",type:"order",
+  task:"Exposure = σ√t. With σ = 6 bps, <b>click the exposures in ascending order</b> for 1h, 4h, 16h and 36h.",
+  items:["6 bps · 1h","12 bps · 4h","24 bps · 16h","36 bps · 36h"],
+  hint:"Take the square root of the hours, then multiply by 6.",
+  ok:"6 / 12 / 24 / 36. Quadrupling the time only doubles the damage — which is why the first hours of delay are the expensive ones."});
+add(m3,{t:"Fastest is not cheapest",type:"pick",
+  task:"Route A: 2h, spread 18 bps, σ 15. Route B: 8h, spread 10 bps, σ 5. <b>Lower total cost?</b>",
+  opts:[["A","Route A — arrives 6h sooner","18 + 15×1.41 = 39 bps",""],
+        ["B","Route B — stable corridor","10 + 5×2.83 = 24 bps","correct",1]],
+  hint:"Add spread and exposure before choosing.",
+  ok:"B, by 15 bps, despite arriving six hours later. Three times the volatility hurts more than four times the time, because σ scales linearly and t only by its square root."});
+add(m3,{t:"Who optimises for what",type:"pick",
+  task:"A bank routes via its existing correspondent even when a cheaper corridor exists. <b>What is it optimising?</b>",
+  opts:[["A","Your outcome","lowest cost for the payment",""],
+        ["B","Its own treasury cost","pre-funded nostro, existing agreements","correct",1],
+        ["C","Regulatory simplicity","",""]],
+  hint:"Whose balance sheet is being protected?",
+  ok:"Its own treasury cost. Banks are locked into relationships and pre-funded accounts, so they ask what is cheapest for them. Lupine has no such bias, which is the entire basis of the neutrality claim."});
+
+/* ── M4 · P2 Ch1 · Aiva's brain ─────────────────────── */
+const m4=M("4 · Aiva's brain","P2 Ch1",3);
+add(m4,{t:"Sequential kills good routes",type:"pick",
+  task:"A sequential engine screens compliance first and rejects the payment. <b>What was lost?</b>",
+  opts:[["A","Only time","the same route would have been chosen",""],
+        ["B","The corridor where that flag never fires","routing was never consulted","correct",1],
+        ["C","Nothing — compliance is final","",""]],
+  hint:"What never got a chance to run?",
+  ok:"The alternative corridor. Sequential means each system decides blind to the others, so a first-stage rejection ends a payment that a different path would have carried cleanly. Simultaneous evaluation finds paths sequential cannot reach."});
+add(m4,{t:"Define deterministic",type:"pick",
+  task:"<b>Which statement is the definition of deterministic?</b>",
+  opts:[["A","All parameters evaluated simultaneously","",""],
+        ["B","Same inputs produce the same output, every time","","correct",1],
+        ["C","The fastest available route is always chosen","",""]],
+  hint:"It is a property of the result, not of the method.",
+  ok:"Same inputs, same output — no randomness, no human judgment mid-flow. Simultaneous evaluation is <em>how</em> Aiva computes; determinism is a property of what comes out."});
+add(m4,{t:"Which graphs does V0 use",type:"multi",
+  task:"Of Aiva's seven graphs, <b>select the ones V0 actually implements.</b>",
+  opts:[["1","Hop","settlement time per provider","correct",1],
+        ["2","Corridor","21 provider routes, live FX","correct",1],
+        ["3","Volatility","watcher σ and z-score","correct",1],
+        ["4","Failure","reliability score per provider","correct",1],
+        ["5","Compliance","not built"],["6","Medical urgency","Phase 2"]],
+  hint:"Four of the seven, plus liquidity partially.",
+  ok:"Hop, corridor, volatility and failure. Liquidity is modelled inside fee spreads rather than tracked, and compliance is deliberately out of V0 scope. Saying that plainly reads as competence."});
+add(m4,{t:"What Aiva hands Rail",type:"pick",
+  task:"Aiva outputs an execution blueprint. <b>Which element lets Rail correct forward when a hop fails?</b>",
+  opts:[["A","The FX exposure curve","",""],["B","The fallback tree","alternates pre-computed","correct",1],
+        ["C","The compliance probability matrix","",""]],
+  hint:"Something has to already exist at the moment of failure.",
+  ok:"The fallback tree. Because the alternate was computed before the money moved, Rail completes forward through a different final hop instead of attempting a rollback."});
+
+/* ── M5 · P2 Ch2 · Scoring ──────────────────────────── */
+const m5=M("5 · Scoring engines","P2 Ch2",0);
+add(m5,{t:"Score at normal urgency",type:"pick",
+  task:"Normal urgency: speed 25%, cost 35%, reliability 40%. <b>Pick the winner.</b>",
+  opts:[["A","Wise","1h · 45 bps · rel 0.95","correct",1],
+        ["B","Nium","2h · 25 bps · rel 0.87",""],
+        ["C","Bank SWIFT","36h · 250 bps · rel 0.88",""]],
+  hint:"Reliability carries more weight than cost here.",
+  ok:"Wise. Reliability is the heaviest term at 40%, and 0.95 leads the board. Nium is cheaper and loses on both other axes."});
+add(m5,{t:"Make speed dominant",type:"tune",
+  task:"<b>Set the urgency profile so speed exceeds half the decision.</b>",
+  hint:"Watch the speed bar cross 50%.",
+  ok:"Critical puts speed at 60% — the only profile where it exceeds half. Reliability stayed at 35%: the weights shift, they never zero out."});
+add(m5,{t:"The gatekeeper",type:"pick",
+  task:"Four corridors scored. <b>Eliminate the one that cannot execute at all.</b>",
+  opts:[["A","AUD → SGD direct","liq 0.88 · lat 0.72 · comp 0.94",""],
+        ["B","AUD → USD → SGD","liq 0.64 · lat 0.55 · comp 0.91",""],
+        ["C","AUD → XXX → SGD","liq 0.00 · lat 0.98 · comp 0.99","correct",1],
+        ["D","AUD → HKD → SGD","liq 0.51 · lat 0.61 · comp 0.78",""]],
+  hint:"One of them has no money behind it.",
+  ok:"C. Best latency and best compliance on the board, and still impossible. Liquidity is a gate, not a weight — you cannot score a bridge that is missing."});
+add(m5,{t:"Weights never zero",type:"pick",
+  task:"Critical urgency: speed 60%, cost 5%, reliability 35%. Rail X is fastest at 0.5h but rel 0.55. <b>Does it win?</b>",
+  opts:[["A","Yes — speed dominates at 60%","",""],
+        ["B","No — 0.55 against a 35% weight drags it below Wise","","correct",1]],
+  hint:"Cost and reliability are still in the equation.",
+  ok:"No. The fastest rail on the board loses because reliability never switches off. The pitch line: we pick the best reliability-adjusted outcome under time pressure, not simply the fastest."});
+
+/* ── M6 · P2 Ch4 · Constraints ──────────────────────── */
+const m6=M("6 · Multi-constraint optimisation","P2 Ch4",3);
+add(m6,{t:"Hard or soft",type:"classify",
+  task:"<b>Sort each constraint.</b> Hard eliminates the corridor; soft only lowers its score.",
+  items:[["Sanctions conflict","hard"],["Slightly worse FX spread","soft"],
+         ["Liquidity below minimum","hard"],["Extra hop required","soft"],
+         ["RTGS window incompatible","hard"],["Moderate volatility","soft"]],
+  hint:"If violating it makes execution impossible, it is hard.",
+  ok:"Hard prevents impossible routes from being selected; soft keeps good routes usable despite minor imperfections. All-hard leaves no feasible options; all-soft selects corridors that cannot execute."});
+add(m6,{t:"Find the dominated route",type:"pick",
+  task:"<b>Click the dominated route.</b>",
+  opts:[["P1","Fast, higher risk","latency 2h · risk 0.18",""],
+        ["P2","Slower, lower risk","latency 9h · risk 0.05",""],
+        ["P3","Slow and risky","latency 14h · risk 0.22","correct",1]],
+  hint:"Dominated means another route beats it on every dimension.",
+  ok:"P3 — slower than P1 and riskier than P2, so nothing makes it correct. P1 and P2 both survive because each wins at something; choosing between them requires a tradeoff, which is what the frontier is."});
+add(m6,{t:"Order the optimisation",type:"order",
+  task:"<b>Click the pipeline stages in order</b>, from every candidate to the final choice.",
+  items:["All corridors","Hard filter","Feasible set","Soft penalties","Utility optimisation"],
+  hint:"Eliminate the impossible before scoring anything.",
+  ok:"Hard filter first, so no computation is spent scoring routes that can never execute. Scoring is one stage in a larger pipeline, not the whole thing."});
+add(m6,{t:"Exposure across hops",type:"pick",
+  task:"A three-hop corridor. <b>How is total exposure computed?</b>",
+  opts:[["A","σ of the worst hop","",""],["B","Σ(σᵢ√tᵢ) — summed across every hop","","correct",1],
+        ["C","Average σ × total time","",""]],
+  hint:"Each hop carries its own σ and its own t.",
+  ok:"Summed per hop. A three-hop corridor carries three separate exposure calculations added together, which is why a corridor with a cheap headline spread can still breach an exposure cap."});
+
+/* ── M7 · P3 Ch2+3 · Rail ───────────────────────────── */
+const m7=M("7 · Execution and state","P3 Ch2+3",0);
+add(m7,{t:"Order the state machine",type:"order",
+  task:"<b>Click V0's execution states in order.</b>",
+  items:["initiated","scored","route_selected","executing","completed"],
+  hint:"Five states, no skipping.",
+  ok:"initiated · scored · route_selected · executing · completed. There are no ambiguous states — a payment is always in exactly one known state."});
+add(m7,{t:"The refused jump",type:"pick",
+  task:"A payment is in state <code>scored</code>. <b>Which transition does Rail refuse?</b>",
+  opts:[["→","scored → route_selected","next in sequence",""],
+        ["→","scored → completed","skips selection and execution","correct",1],
+        ["→","route_selected → executing","in sequence",""]],
+  hint:"Which jump would let you record a success that never happened?",
+  ok:"scored → completed. Allowing it would let you claim a payment succeeded without running execution — a ledger lie. The transition table is what makes the audit trail trustworthy."});
+add(m7,{t:"Atomicity",type:"pick",
+  task:"<b>What does atomicity guarantee?</b>",
+  opts:[["A","Every payment eventually completes","",""],
+        ["B","A hop commits fully or the system compensates — never in between","","correct",1],
+        ["C","Payments are processed one at a time","",""]],
+  hint:"No half-settled corridors. No partial transfers.",
+  ok:"Commit fully or compensate. Enforced transitions deliver it in code: by the time a payment reaches completed, every prior state was visited and logged."});
+add(m7,{t:"Why not rollback",type:"pick",
+  task:"Hop 3 of 4 fails. Money has already moved through hops 1 and 2. <b>Why does Lupine not roll back?</b>",
+  opts:[["A","Rollback is slower than completing","",""],
+        ["B","Once money leaves an institution it no longer controls it — rollback becomes a second payment with the same failure modes","","correct",1],
+        ["C","Regulators prohibit reversals","",""]],
+  hint:"Inside one bank rollback is a ledger reversal. Across borders it is not.",
+  ok:"Control is gone. A rollback becomes a fresh payment travelling the other way, subject to every failure mode the first had — turning one stuck payment into two. Lupine completes forward through a pre-computed alternate."});
+add(m7,{t:"Idempotency",type:"pick",
+  task:"IdempotencyKey = SHA256(payment_id + hop_id + sequence_id). <b>What does it prevent?</b>",
+  opts:[["A","Unauthorised access","",""],
+        ["B","Double-settlement, double-custody and replay attacks","","correct",1],
+        ["C","Message truncation","",""]],
+  hint:"What goes wrong if the same instruction arrives twice?",
+  ok:"Duplicate execution. The same instruction sent twice is recognised and ignored, so a retry cannot become a second payment."});
+
+/* ── M8 · P4 Ch1+4 · Cloked ─────────────────────────── */
+const m8=M("8 · Cryptographic evidence","P4 Ch1+4",4);
+add(m8,{t:"Where the chain breaks",type:"pick",
+  task:"Entry 2 was edited and its own hash repaired. <b>Where does verification still fail?</b>",
+  opts:[["0","Entry 0","prev genesis · own a3f96b20",""],
+        ["1","Entry 1","prev a3f96b20 · own 7c2b91a4",""],
+        ["2","Entry 2","edited, own hash repaired",""],
+        ["3","Entry 3","prev 4b7e2d91 · own 9f8a3c17","correct",1]],
+  hint:"Fixing an entry does not fix what points at it.",
+  ok:"Entry 3. Its stored prev_hash still references entry 2's value from before the edit. To hide the tamper you must rewrite 3, then 4, then every entry after — which is why single-point edits are impossible."});
+add(m8,{t:"Verbal or verifiable",type:"pick",
+  task:"<b>What makes trust verifiable rather than verbal?</b>",
+  opts:[["A","The records are published openly","",""],
+        ["B","The recipient can check them mathematically without trusting the author","","correct",1],
+        ["C","A regulator has approved the format","",""]],
+  hint:"What survives if the company disappears?",
+  ok:"Independent verification. Verbal trust asks you to believe my logs. Verifiable trust hands you evidence you can check yourself — the proof holds even if the issuer is gone."});
+add(m8,{t:"Why not a blockchain",type:"multi",
+  task:"Cloked uses cryptographic linking but is not a blockchain. <b>Select the reasons.</b>",
+  opts:[["1","Evidence must stay private","","correct",1],
+        ["2","Latency must be low","","correct",1],
+        ["3","No need for decentralised consensus","","correct",1],
+        ["4","Hashing is too slow on-chain",""]],
+  hint:"Three reasons, all about what regulated industries require.",
+  ok:"Private, fast, and no consensus problem to solve. Cloked keeps the useful parts — cryptographic linking, append-only, tamper-evident — without the public ledger, consensus latency or gas costs."});
+add(m8,{t:"Two layers of linking",type:"pick",
+  task:"Layer 1 chains events inside one payment. <b>What does Layer 2 chain?</b>",
+  opts:[["A","Individual hops within a corridor","",""],
+        ["B","Completed evidence capsules across payments, over time","","correct",1],
+        ["C","Compliance decisions per jurisdiction","",""]],
+  hint:"A chain inside a chain.",
+  ok:"Capsules across time. The capsule chain proves a single payment was honest; the ledger chain proves the whole history is intact. V0 implements Layer 1 only."});
+
+/* ── M9 · Your system ───────────────────────────────── */
+const m9=M("9 · Your V0, honestly","Reality map",0);
+add(m9,{t:"Measured or asserted",type:"pick",
+  task:"<b>Click the figure that is genuinely measured.</b>",
+  opts:[["1","45 bps on Wise, AUD→SGD","constant in router.py",""],
+        ["2","4.32 bps dispersion between FX sources","spread_log.jsonl, hourly","correct",1],
+        ["3","saves A$10,270 per transfer","45 bps vs 250.4 bps",""]],
+  hint:"Only one was recorded by instrumentation you control.",
+  ok:"The dispersion. The other two are unverified constants — including the savings figure currently on your public site, which is the difference between two numbers nobody has checked."});
+add(m9,{t:"What is not built",type:"multi",
+  task:"<b>Select everything V0 does not currently do.</b>",
+  opts:[["1","Move real money","","correct",1],["2","Fail during execution","","correct",1],
+        ["3","Persist evidence across restart","","correct",1],
+        ["4","Screen compliance","","correct",1],
+        ["5","Score routes by urgency",""],["6","Verify a hash chain",""]],
+  hint:"Four of the six. The last two genuinely work.",
+  ok:"No money movement, no failure simulation, no persistence, no compliance. Scoring and chain verification are real. Naming the gaps precisely reads as competence; vagueness reads as not knowing your own system."});
+add(m9,{t:"The Pareto challenge",type:"pick",
+  task:"Someone says: <em>your book claims Pareto frontier selection but the code is a weighted sum.</em> <b>Best answer?</b>",
+  opts:[["A","Concede it is not implemented","",""],
+        ["B","A weighted-sum maximiser always lands on the frontier; what is missing is explicit dominance filtering and route tiering","","correct",1],
+        ["C","Argue the two are equivalent","",""]],
+  hint:"Both parts matter — what is sound, and what is genuinely absent.",
+  ok:"Selection is mathematically sound: a linear utility maximiser always picks a Pareto-optimal point. What is absent is explicit dominance filtering and the admissible/fallback/eliminated tiering. That answer wins respect; hedging loses it."});
+
+/* ═══ runner ══════════════════════════════════════════ */
+let i=0,att=0,first=0,tries=0,res=[];
+const pane=document.getElementById("pane");
+const nextBtn=document.getElementById("nextBtn"), hintBtn=document.getElementById("hintBtn");
+
+const MODS=[...new Set(S.map(s=>s.mod))];
+document.getElementById("modmap").innerHTML=MODS.map((m,k)=>
+  `<div data-m="${k}">${m}</div>`).join("");
+
+function chrome(){
+  const s=S[i];
+  document.getElementById("barMod").textContent=s.mod;
+  document.getElementById("barCt").textContent=
+    String(i+1).padStart(2,"0")+" / "+S.length;
+  document.getElementById("cbMod").textContent=s.mod.split(" · ")[1]||s.mod;
+  document.getElementById("cbSrc").textContent=s.src;
+  document.getElementById("cbTitle").textContent=s.t;
+  document.getElementById("sAtt").textContent="att "+att;
+  document.getElementById("sFirst").textContent="1st "+first;
+  document.getElementById("trk").style.right=(100-(i/S.length)*100)+"%";
+  const mi=MODS.indexOf(s.mod);
+  [...document.getElementById("modmap").children].forEach((d,k)=>{
+    d.className = k<mi?"done":(k===mi?"now":"");
+  });
+  hotArc=0;
+  const map={0:[["SYD","SIN","flow"]],1:[["SYD","SIN","wire"]],
+             3:[["SYD","SIN","flow"],["SYD","HKG","wire"],["SYD","NYC","friction"]],
+             4:[["SYD","SIN","flow"],["SIN","FRA","wire"]]};
+  arcs=map[s.arc]||map[0];
+  document.getElementById("ovArc").textContent=s.src;
+}
+
+function vd(kind,label,html){
+  return `<div class="vd ${kind} on"><span class="l">${label}</span>${html}</div>`;
+}
+function done(good,msg){
+  att++;tries++;
+  if(good){
+    if(tries===1)first++;
+    res.push({n:i+1,t:S[i].t,tries});
+    document.getElementById("vbox").innerHTML=vd("ok","Correct",msg||S[i].ok);
+    nextBtn.classList.add("on");
+  }else{
+    document.getElementById("vbox").innerHTML=vd("no","Try again",msg||"Not that one.");
+  }
+  chrome();
+}
+
+function render(){
+  const s=S[i];tries=0;chrome();
+  nextBtn.classList.remove("on");
+  let body="";
+
+  if(s.type==="pick"||s.type==="multi"){
+    body=`<div class="rows" id="rows">${s.opts.map((o,k)=>
+      `<button class="row" data-k="${k}" data-c="${o[3]==="correct"?1:0}">
+         <span class="k">${o[0]}</span><span class="nm">${o[1]}</span>
+         <span class="v">${o[2]||""}</span>
+         ${o[2]?`<span class="sub"></span>`:""}
+       </button>`).join("")}</div>`;
+    if(s.type==="multi") body+=`<button class="submit" id="sub">Submit selection</button>`;
+  }
+  else if(s.type==="order"){
+    body=`<div class="rows" id="rows">${s.items.map((it,k)=>
+      `<button class="row" data-k="${k}"><span class="k ord" data-o="${k}"></span>
+        <span class="nm">${it}</span><span class="v"></span></button>`).join("")}</div>`;
+  }
+  else if(s.type==="classify"){
+    body=`<div class="rows" id="pool">${s.items.map((it,k)=>
+      `<button class="row" data-k="${k}"><span class="k">·</span>
+        <span class="nm">${it[0]}</span><span class="v"></span></button>`).join("")}</div>
+      <div class="bins"><div class="bin h"><h4>Hard — eliminates</h4><div id="binH"></div></div>
+      <div class="bin s"><h4>Soft — penalises</h4><div id="binS"></div></div></div>
+      <button class="submit" id="sub">Submit</button>`;
+  }
+  else if(s.type==="tune"){
+    body=`<div class="tune"><div class="opts" id="urg">
+      ${["low","normal","high","critical"].map(u=>`<button data-u="${u}">${u}</button>`).join("")}
+      </div><div class="wg" id="wg"><p style="font-family:var(--mono);font-size:11px;color:var(--ink-3);margin:0">Select a profile.</p></div></div>`;
   }
 
-  rot += 0.0016;
-  focus += (focusTarget - focus) * 0.08;
-  const deg = ((rot/RAD) % 360).toFixed(1);
-  const rotEl = document.getElementById("tRot");
-  if (rotEl) rotEl.textContent = "rot " + deg + "°";
-  requestAnimationFrame(draw);
+  pane.innerHTML=`<p class="task">${s.task}</p>${body}<div id="vbox"></div>`;
+  pane.scrollTop=0;
+  wire(s);
 }
-requestAnimationFrame(draw);
 
-
-/* ═══════════════════════════════════════════════════════
-   2 · STATIONS
-   Each is a task you perform, not a definition you recall.
-   You advance only on a correct action.
-   ═══════════════════════════════════════════════════════ */
-
-const WEIGHTS = {
-  low:      { speed:.15, cost:.55, reliability:.30 },
-  normal:   { speed:.25, cost:.35, reliability:.40 },
-  high:     { speed:.50, cost:.15, reliability:.35 },
-  critical: { speed:.60, cost:.05, reliability:.35 },
-};
-
-const STATIONS = [
-
-/* 01 ─────────────────────────────────────────────────── */
-{
-  title: "Score the corridor",
-  arc: 0,
-  task: "Three rails are viable. Urgency is <b>normal</b> — so cost carries 35% and reliability 40%. Pick the winner.",
-  hint: "Normalise first: fastest gets speed 1.0, cheapest gets cost 1.0. Then weight.",
-  render(){
-    const rows = [
-      { k:"A", nm:"Wise",      sub:"1h · 45 bps · rel 0.95", val:"speed 1.00\ncost 0.82\nrel 0.95", right:true },
-      { k:"B", nm:"Nium",      sub:"2h · 25 bps · rel 0.87", val:"speed 0.96\ncost 0.90\nrel 0.87" },
-      { k:"C", nm:"Bank SWIFT",sub:"36h · 250 bps · rel 0.88", val:"speed 0.00\ncost 0.00\nrel 0.88" },
-    ];
-    return optionBlock(rows);
-  },
-  ok:  "Wise. Reliability is the heaviest term at normal urgency (40%), and 0.95 is the best on the board. Nium is cheaper but loses on reliability and speed.",
-  no:  "Not quite. At normal urgency reliability carries 40% — more than cost. Which rail has the highest reliability without giving up much elsewhere?"
-},
-
-/* 02 ─────────────────────────────────────────────────── */
-{
-  title: "Shift the weights",
-  arc: 0,
-  task: "Same three rails. <b>Set the urgency so speed becomes the dominant term</b> — over half the decision.",
-  hint: "Look at the speed column as you click. You need it above 0.50.",
-  custom: true,
-  render(){
-    return `<div class="slider-box">
-      <div class="urg" id="urg">
-        ${["low","normal","high","critical"].map(u =>
-          `<button data-u="${u}">${u}</button>`).join("")}
-      </div>
-      <div class="wbars" id="wbars"></div>
-      <div class="leader" id="leader">Select an urgency profile.</div>
-    </div>`;
-  },
-  mount(done){
-    const box = document.getElementById("urg");
-    const bars = document.getElementById("wbars");
-    const lead = document.getElementById("leader");
-    function paint(u){
-      const w = WEIGHTS[u];
-      bars.innerHTML = Object.entries(w).map(([k,v]) =>
-        `<div class="wrow"><span>${k}</span>
-           <span class="wtrack"><span class="wbar" style="right:${100-v*100}%;
-             background:${k==='speed'?'var(--beam)':'var(--wire)'}"></span></span>
-           <span class="wval">${(v*100).toFixed(0)}%</span></div>`).join("");
-      const winner = u === "low" ? "Nium" : (u === "normal" ? "Wise" : "Wise");
-      lead.innerHTML = `speed weight <b>${(w.speed*100).toFixed(0)}%</b> · leader ${winner}`;
-      return w.speed > 0.5;
-    }
-    box.addEventListener("click", e => {
-      const b = e.target.closest("button[data-u]");
-      if (!b) return;
-      [...box.children].forEach(c => c.classList.toggle("sel", c === b));
-      const pass = paint(b.dataset.u);
-      if (pass) done(true, "critical urgency puts speed at 60% — the only profile where it exceeds half. Note that reliability stayed at 35%: the weights shift, they never zero out.");
-      else done(null, null);
+function wire(s){
+  if(s.type==="pick"){
+    document.getElementById("rows").addEventListener("click",e=>{
+      const b=e.target.closest(".row");if(!b||b.disabled)return;
+      const ok=b.dataset.c==="1";
+      b.classList.add(ok?"hit":"miss");
+      if(ok){[...b.parentElement.children].forEach(c=>c.disabled=true);done(true);}
+      else done(false,s.hintShown?s.hint:"Not that one. "+(s.hint||""));
     });
-  },
-  no: ""
-},
-
-/* 03 ─────────────────────────────────────────────────── */
-{
-  title: "Total exposure",
-  arc: 1,
-  task: "Two rails, same amount. Exposure is <b>σ√t</b>. Which one costs less <b>in total</b>?",
-  hint: "Compute σ√t for each, then add it to the spread. Fast is not automatically cheap.",
-  render(){
-    return optionBlock([
-      { k:"A", nm:"Fast, volatile corridor", sub:"2h · spread 18 bps · σ 15", val:"σ√t = 15×1.41\n= 21 bps\ntotal 39 bps" },
-      { k:"B", nm:"Slower, stable corridor", sub:"8h · spread 10 bps · σ 5",  val:"σ√t = 5×2.83\n= 14 bps\ntotal 24 bps", right:true },
-    ]);
-  },
-  ok: "B. Four times the settlement time only doubles the √t multiplier, whereas the volatile corridor carries three times the σ. Lower total exposure wins even though it arrives six hours later.",
-  no: "Add the spread and the exposure together before choosing. The √ means quadrupling time only doubles the damage — so high σ hurts more than long t."
-},
-
-/* 04 ─────────────────────────────────────────────────── */
-{
-  title: "Eliminate the impossible",
-  arc: 3,
-  task: "Four corridors scored. <b>One cannot execute at all.</b> Eliminate it before anything else is scored.",
-  hint: "A corridor with no liquidity cannot move money, whatever its other scores say.",
-  render(){
-    return optionBlock([
-      { k:"A", nm:"AUD → SGD direct",   sub:"liquidity 0.88 · latency 0.72 · compliance 0.94", val:"feasible" },
-      { k:"B", nm:"AUD → USD → SGD",    sub:"liquidity 0.64 · latency 0.55 · compliance 0.91", val:"feasible" },
-      { k:"C", nm:"AUD → XXX → SGD",    sub:"liquidity 0.00 · latency 0.98 · compliance 0.99", val:"pool empty", right:true },
-      { k:"D", nm:"AUD → HKD → SGD",    sub:"liquidity 0.51 · latency 0.61 · compliance 0.78", val:"feasible" },
-    ]);
-  },
-  ok: "C. Best latency and best compliance on the board, and it is still impossible — there is no money in the nostro account. Liquidity is a gate, not a weight. You cannot score a bridge that is missing.",
-  no: "Look again. Three of these can move money and one cannot, regardless of how well it scores elsewhere."
-},
-
-/* 05 ─────────────────────────────────────────────────── */
-{
-  title: "Find the dominated route",
-  arc: 3,
-  task: "Three routes survive the gate. <b>One is dominated</b> — click it.",
-  hint: "Dominated means at least one other route beats it on every single dimension.",
-  render(){
-    return optionBlock([
-      { k:"P1", nm:"Fast, higher risk",  sub:"latency 2h · risk 0.18", val:"frontier" },
-      { k:"P2", nm:"Slower, lower risk", sub:"latency 9h · risk 0.05", val:"frontier" },
-      { k:"P3", nm:"Slow and risky",     sub:"latency 14h · risk 0.22", val:"beaten on both", right:true },
-    ]);
-  },
-  ok: "P3. It is slower than P1 and riskier than P2, so nothing can make it the right answer. P1 and P2 both survive because each wins at something — choosing between them requires a tradeoff, which is what the frontier is.",
-  no: "A route is only dominated if another beats it on <em>every</em> dimension. P1 and P2 each win at something — check which route wins at nothing."
-},
-
-/* 06 ─────────────────────────────────────────────────── */
-{
-  title: "Illegal transition",
-  arc: 0,
-  task: "A payment is in state <b>scored</b>. Click the transition Rail will <b>refuse</b>.",
-  hint: "Every state is a promise. Reaching a state means every prior state was visited and logged.",
-  render(){
-    return optionBlock([
-      { k:"→", nm:"scored → route_selected", sub:"the next state in sequence", val:"allowed" },
-      { k:"→", nm:"scored → completed",      sub:"skips selection and execution", val:"refused", right:true },
-      { k:"→", nm:"route_selected → executing", sub:"from a later state, in sequence", val:"allowed" },
-    ]);
-  },
-  ok: "Refused. If you could jump to completed, you could claim a payment succeeded without ever running execution — a record asserting something that never happened. The transition table is what makes the audit trail trustworthy.",
-  no: "Think about which jump would let you record a success that never occurred."
-},
-
-/* 07 ─────────────────────────────────────────────────── */
-{
-  title: "Break the chain",
-  arc: 4,
-  task: "Four evidence entries. Entry 2 was edited and its own hash was repaired. <b>Click where verification still fails.</b>",
-  hint: "Each entry stores the previous entry's hash. Fixing one entry does not fix what points at it.",
-  custom: true,
-  render(){
-    const rows = [
-      { i:"0", prev:"genesis",     own:"a3f96b20", note:"" },
-      { i:"1", prev:"a3f96b20",    own:"7c2b91a4", note:"" },
-      { i:"2", prev:"7c2b91a4",    own:"<em>1e4d05f8</em>", note:"edited, hash repaired" },
-      { i:"3", prev:"<em>4b7e2d91</em>", own:"9f8a3c17", note:"prev_hash points at the OLD entry 2", right:true },
-    ];
-    return `<div class="chain" id="chain">${rows.map((r,k) =>
-      `<button class="link" data-k="${k}" data-right="${r.right?1:0}">
-         <span class="i">${r.i}</span>
-         <span class="h">prev ${r.prev} · own ${r.own}${r.note?" · "+r.note:""}</span>
-       </button>`).join("")}</div>`;
-  },
-  mount(done){
-    const box = document.getElementById("chain");
-    box.addEventListener("click", e => {
-      const b = e.target.closest(".link"); if (!b || b.disabled) return;
-      const right = b.dataset.right === "1";
-      b.classList.add(right ? "right" : "wrong");
-      if (right){
-        [...box.children].forEach(c => c.disabled = true);
-        done(true, "Entry 3. Repairing entry 2's own hash does not touch entry 3's stored prev_hash, which still references the value entry 2 had before the edit. To hide the tamper you would have to rewrite 3, then 4, then every entry after — which is why single-point edits are impossible.");
-      } else {
-        done(false, "Not there. Entry 2's own hash was already repaired, so it verifies against itself. Look at what points <em>at</em> entry 2.");
+  }
+  if(s.type==="multi"){
+    const rows=document.getElementById("rows");
+    rows.addEventListener("click",e=>{
+      const b=e.target.closest(".row");if(!b||b.disabled)return;
+      b.classList.toggle("sel");
+    });
+    document.getElementById("sub").addEventListener("click",()=>{
+      const all=[...rows.children];
+      const want=all.filter(b=>b.dataset.c==="1");
+      const got=all.filter(b=>b.classList.contains("sel"));
+      const ok=got.length===want.length&&got.every(b=>b.dataset.c==="1");
+      if(ok){all.forEach(b=>{b.disabled=true;if(b.dataset.c==="1")b.classList.add("hit");});
+        document.getElementById("sub").remove();done(true);}
+      else{got.forEach(b=>{if(b.dataset.c!=="1")b.classList.add("miss");});
+        setTimeout(()=>all.forEach(b=>b.classList.remove("miss","sel")),700);
+        done(false,"Selection is not exact. "+(s.hint||""));}
+    });
+  }
+  if(s.type==="order"){
+    const rows=document.getElementById("rows");let seq=[];
+    rows.addEventListener("click",e=>{
+      const b=e.target.closest(".row");if(!b||b.disabled||b.classList.contains("sel"))return;
+      const k=+b.dataset.k;
+      if(k===seq.length){
+        seq.push(k);b.classList.add("sel");
+        b.querySelector(".ord").textContent=seq.length;
+        if(seq.length===s.items.length){
+          [...rows.children].forEach(c=>{c.disabled=true;c.classList.add("hit");});
+          done(true);
+        }
+      }else{
+        b.classList.add("miss");
+        setTimeout(()=>{[...rows.children].forEach(c=>{
+          c.classList.remove("miss","sel");c.disabled=false;
+          c.querySelector(".ord").textContent="";});seq=[];},650);
+        done(false,"Out of order — restarting. "+(s.hint||""));
       }
     });
   }
-},
-
-/* 08 ─────────────────────────────────────────────────── */
-{
-  title: "Measured or asserted",
-  arc: 0,
-  task: "Three figures from your own material. <b>Click the one that is genuinely measured.</b>",
-  hint: "Measured means our own instrumentation recorded it, with a source and a timestamp.",
-  render(){
-    return optionBlock([
-      { k:"1", nm:"“45 bps on Wise, AUD→SGD”", sub:"constant in router.py", val:"unverified" },
-      { k:"2", nm:"“4.32 bps between FX sources”", sub:"spread_log.jsonl, hourly", val:"measured", right:true },
-      { k:"3", nm:"“saves A$10,270 per transfer”", sub:"45 bps vs 250.4 bps", val:"two unverified\nconstants" },
-    ]);
-  },
-  ok: "The dispersion figure. It came from our own logger, with a timestamp and named sources. The other two are constants nobody has checked — including the savings number currently on the public site, which is the difference between two unverified constants rather than an observation.",
-  no: "Two of these are hardcoded constants whose source comment names no URL and no date. Only one was recorded by instrumentation we control."
-},
-
-/* 09 ─────────────────────────────────────────────────── */
-{
-  title: "Route it live",
-  arc: 0,
-  task: "Final station. Urgency is <b>critical</b>, so speed carries 60% and cost only 5%. <b>Reliability still carries 35%.</b> Pick the winner.",
-  hint: "A fast rail with poor reliability still loses — the weights shift, they never switch off.",
-  render(){
-    return optionBlock([
-      { k:"A", nm:"Rail X",  sub:"0.5h · 60 bps · rel 0.55", val:"speed 1.00\nrel 0.55" },
-      { k:"B", nm:"Wise",    sub:"1h · 45 bps · rel 0.95",   val:"speed 0.97\nrel 0.95", right:true },
-      { k:"C", nm:"OFX",     sub:"24h · 50 bps · rel 0.91",  val:"speed 0.33\nrel 0.91" },
-    ]);
-  },
-  ok: "Wise. Rail X is the fastest thing on the board and still loses, because 0.55 reliability against a 35% weight drags the composite below Wise's. That is the whole point of weights that shift rather than zero out.",
-  no: "Rail X is fastest — but check what a 0.55 reliability does against a 35% weight. Fastest is not the same as best under time pressure."
-},
-
-];
-
-/* ─── option block helper ─────────────────────────────── */
-function optionBlock(rows){
-  return `<div class="opts" id="opts">${rows.map((r,i) =>
-    `<button class="opt" data-i="${i}" data-right="${r.right?1:0}">
-       <span class="k">${r.k}</span>
-       <span class="nm">${r.nm}</span>
-       <span class="val">${r.val||""}</span>
-       <span class="sub">${r.sub||""}</span>
-     </button>`).join("")}</div>`;
-}
-
-/* ─── runner ──────────────────────────────────────────── */
-let idx = 0, attempts = 0, firstTry = 0, stationTries = 0;
-const results = [];
-const card = document.getElementById("card");
-const pips = document.getElementById("pips");
-
-STATIONS.forEach(() => {
-  const s = document.createElement("span"); s.className = "pip"; pips.appendChild(s);
-});
-
-function paintPips(){
-  [...pips.children].forEach((p, i) => {
-    p.classList.toggle("done", i < idx);
-    p.classList.toggle("now", i === idx);
-  });
-  document.getElementById("progTxt").textContent =
-    String(idx).padStart(2,"0") + " / " + String(STATIONS.length).padStart(2,"0");
-  document.getElementById("tAttempts").textContent = "attempts " + attempts;
-  document.getElementById("tFirst").textContent = "first-try " + firstTry;
-}
-
-function verdict(kind, label, html){
-  return `<div class="verdict ${kind} show"><span class="lbl">${label}</span>${html}</div>`;
-}
-
-function renderStation(){
-  const st = STATIONS[idx];
-  stationTries = 0;
-  focusTarget = st.arc ?? 0;
-  card.classList.add("swap");
-  setTimeout(() => {
-    card.innerHTML =
-      `<p class="st-no">Station ${String(idx+1).padStart(2,"0")} of ${STATIONS.length}</p>
-       <h1>${st.title}</h1>
-       <p class="task">${st.task}</p>
-       ${st.render()}
-       <div id="vbox"></div>
-       <div class="actions">
-         <button class="hint-btn" id="hintBtn">Show hint</button>
-         <button class="go" id="goBtn">Continue →</button>
-       </div>`;
-    card.classList.remove("swap");
-    card.scrollTop = 0;
-
-    document.getElementById("hintBtn").addEventListener("click", () => {
-      document.getElementById("vbox").innerHTML =
-        verdict("no", "Hint", st.hint || "—");
-      document.getElementById("hintBtn").disabled = true;
+  if(s.type==="classify"){
+    const pool=document.getElementById("pool");
+    const put={};
+    pool.addEventListener("click",e=>{
+      const b=e.target.closest(".row");if(!b)return;
+      const k=+b.dataset.k, cur=put[k];
+      put[k] = cur==="hard" ? "soft" : (cur==="soft" ? undefined : "hard");
+      b.classList.toggle("sel",!!put[k]);
+      b.querySelector(".v").textContent = put[k] ? put[k].toUpperCase() : "";
     });
-    document.getElementById("goBtn").addEventListener("click", advance);
-
-    if (st.custom) st.mount(handleCustom);
-    else {
-      const opts = document.getElementById("opts");
-      opts.addEventListener("click", e => {
-        const b = e.target.closest(".opt"); if (!b || b.disabled) return;
-        const right = b.dataset.right === "1";
-        attempts++; stationTries++;
-        b.classList.add(right ? "right" : "wrong");
-        if (right){
-          [...opts.children].forEach(c => c.disabled = true);
-          if (stationTries === 1) firstTry++;
-          document.getElementById("vbox").innerHTML = verdict("ok", "Correct", st.ok);
-          document.getElementById("goBtn").classList.add("on");
-          results.push({ n: idx+1, title: st.title, tries: stationTries });
-        } else {
-          document.getElementById("vbox").innerHTML = verdict("no", "Try again", st.no);
-        }
-        paintPips();
-      });
-    }
-  }, 260);
-}
-
-function handleCustom(right, msg){
-  if (right === null) return;
-  attempts++; stationTries++;
-  if (right){
-    if (stationTries === 1) firstTry++;
-    document.getElementById("vbox").innerHTML = verdict("ok", "Correct", msg);
-    document.getElementById("goBtn").classList.add("on");
-    results.push({ n: idx+1, title: STATIONS[idx].title, tries: stationTries });
-  } else {
-    document.getElementById("vbox").innerHTML = verdict("no", "Try again", msg);
+    document.getElementById("sub").addEventListener("click",()=>{
+      const ok=s.items.every((it,k)=>put[k]===it[1]);
+      if(ok){[...pool.children].forEach(c=>{c.disabled=true;c.classList.add("hit");});
+        document.getElementById("sub").remove();done(true);}
+      else done(false,"Not all correct — click an item to cycle hard → soft → clear. "+(s.hint||""));
+    });
   }
-  paintPips();
+  if(s.type==="tune"){
+    const urg=document.getElementById("urg"), wg=document.getElementById("wg");
+    urg.addEventListener("click",e=>{
+      const b=e.target.closest("button[data-u]");if(!b)return;
+      [...urg.children].forEach(c=>c.classList.toggle("on",c===b));
+      const w=W_PROF[b.dataset.u];
+      wg.innerHTML=Object.entries(w).map(([k,v])=>
+        `<div class="wrow"><span>${k}</span><span class="wt">
+           <span class="wb" style="right:${100-v*100}%;background:${k==="speed"?"var(--beam)":"var(--wire)"}"></span>
+         </span><span class="wv">${(v*100).toFixed(0)}%</span></div>`).join("");
+      if(w.speed>0.5){[...urg.children].forEach(c=>c.disabled=true);done(true);}
+    });
+  }
+  hintBtn.onclick=()=>{document.getElementById("vbox").innerHTML=vd("no","Hint",s.hint||"—");};
 }
 
-function advance(){
-  idx++;
-  paintPips();
-  if (idx >= STATIONS.length) return finish();
-  renderStation();
-}
+nextBtn.onclick=()=>{
+  i++;
+  if(i>=S.length)return finish();
+  render();
+};
 
 function finish(){
-  focusTarget = 0;
-  card.classList.add("swap");
-  setTimeout(() => {
-    const clean = results.filter(r => r.tries === 1).length;
-    card.innerHTML =
-      `<p class="st-no">Run complete</p>
-       <h1>${clean} of ${STATIONS.length} first try</h1>
-       <p class="task">Every station required a correct action to pass. Anything that took more
-         than one attempt is the thing to revisit — that is the gap, precisely located.</p>
-       <div class="done-list">${results.map(r =>
-         `<div class="done-row"><span class="n">${String(r.n).padStart(2,"0")}</span>
-            <span>${r.title}</span>
-            <span class="s${r.tries>1?" retry":""}">${r.tries === 1 ? "first try" : r.tries + " attempts"}</span>
-          </div>`).join("")}</div>
-       <div class="actions">
-         <button class="hint-btn" id="againBtn">Run again</button>
-         <a class="go on" href="../lessons/01-why-the-system-is-broken.html">Lessons →</a>
-       </div>`;
-    card.classList.remove("swap");
-    document.getElementById("againBtn").addEventListener("click", () => {
-      idx = 0; attempts = 0; firstTry = 0; results.length = 0;
-      paintPips(); renderStation();
-    });
-  }, 260);
+  document.getElementById("trk").style.right="0%";
+  document.getElementById("cbTitle").textContent="Run complete";
+  document.getElementById("cbMod").textContent="Summary";
+  document.getElementById("cbSrc").textContent=S.length+" stations";
+  const clean=res.filter(r=>r.tries===1).length;
+  pane.innerHTML=`<p class="task"><b>${clean} of ${S.length}</b> passed first try.
+    Anything above one attempt is a located gap, not a vague feeling.</p>
+    <div class="dl">${res.filter(r=>r.tries>1).map(r=>
+      `<div class="dr"><span>${String(r.n).padStart(2,"0")}</span><span>${r.t}</span>
+       <span class="s r">${r.tries}×</span></div>`).join("")||
+      '<div class="dr"><span>—</span><span>No retries.</span><span class="s">clean</span></div>'}</div>
+    <button class="submit" id="again">Run again</button>`;
+  nextBtn.classList.remove("on");
+  document.getElementById("again").onclick=()=>{i=0;att=0;first=0;res=[];render();};
 }
 
-document.addEventListener("keydown", e => {
-  if (e.key === "Enter"){
-    const g = document.getElementById("goBtn");
-    if (g && g.classList.contains("on")){ e.preventDefault(); advance(); }
-  }
-});
-
-paintPips();
-renderStation();
+fit();requestAnimationFrame(paint);render();
 </script>
