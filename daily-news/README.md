@@ -120,3 +120,4 @@ No manual input needed. Fully automated.
 | [2026-07-31](./2026-07-31.md) | Did Ken Griffin Just Save the AI Trade With This $10 Billion Move? |
 | [2026-08-01](./2026-08-01.md) | OpenAI Reaches 1 Billion Active Users as AI Becomes Daily Habit |
 | [2026-08-02](./2026-08-02.md) | Why Trump's Nuclear Deal With Saudi Arabia Could Be Good News for T… |
+| [2026-08-03](./2026-08-03.md) | Hong Kong Stock Market May Continue To Roll On Monday |
