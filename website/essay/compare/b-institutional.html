@@ -1,0 +1,241 @@
+<title>B · Institutional — The Last Non-Deterministic Flow</title>
+
+<style>
+/* ───────────────────────────────────────────────────────
+   DIRECTION B — INSTITUTIONAL / REGULATORY
+   The visual language of a central-bank or regulator
+   publication: sans-serif throughout, slate and steel,
+   a contents block, numbered clauses, tables with filled
+   headers. Reference points: RBA Bulletin, AUSTRAC
+   guidance notes, MAS consultation papers.
+   ─────────────────────────────────────────────────────── */
+:root{
+  --page:#FFFFFF;
+  --panel:#F2F5F6;
+  --panel-2:#E4EAEC;
+  --ink:#16222B;
+  --ink-2:#4C5F6B;
+  --ink-3:#7C8D97;
+  --rule:#D2DBDF;
+  --steel:#2F5C74;        /* institutional blue-grey */
+  --steel-d:#1E3F52;
+  --alert:#9A3324;
+
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+}
+:root[data-theme="dark"],:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+
+/* ─── org bar ──────────────────────────────────────── */
+.orgbar{background:var(--steel-d);color:#fff;padding:.7rem 1.5rem}
+.orgbar .in{max-width:52rem;margin:0 auto;display:flex;justify-content:space-between;
+  align-items:baseline;gap:1rem;flex-wrap:wrap}
+.orgbar .nm{font-size:.78rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+.orgbar .rt{font-size:.68rem;letter-spacing:.06em;color:#B9CBD5}
+
+.sheet{max-width:52rem;margin:0 auto;padding:2.6rem 1.5rem 6rem}
+.tag{font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);
+  margin:0 0 2rem}
+
+/* ─── title block ──────────────────────────────────── */
+.titleblock{border-top:3px solid var(--steel);padding-top:1.3rem;margin-bottom:2rem}
+.docmeta{display:flex;gap:2rem;flex-wrap:wrap;font-size:.7rem;color:var(--ink-2);
+  letter-spacing:.05em;text-transform:uppercase;margin:0 0 1rem;max-width:none}
+.docmeta b{color:var(--ink);font-weight:600}
+h1{font-size:1.85rem;line-height:1.2;font-weight:650;margin:0 0 .5rem;
+  letter-spacing:-.015em;text-wrap:balance}
+@media(max-width:640px){h1{font-size:1.5rem}}
+.sub{font-size:.95rem;color:var(--ink-2);margin:0}
+
+/* ─── contents ─────────────────────────────────────── */
+.toc{background:var(--panel);border:1px solid var(--rule);padding:1.05rem 1.2rem;margin:0 0 2.4rem}
+.toc h2{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);
+  margin:0 0 .7rem;font-weight:600}
+.toc ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.35rem}
+.toc li{display:grid;grid-template-columns:2.6rem 1fr;gap:.6rem;font-size:.85rem}
+.toc .n{font-family:var(--mono);font-size:.76rem;color:var(--steel)}
+.toc a{color:var(--ink);text-decoration:none}
+.toc a:hover{color:var(--steel);text-decoration:underline}
+
+/* ─── clauses ──────────────────────────────────────── */
+h3{font-size:.95rem;font-weight:650;margin:2.3rem 0 .85rem;color:var(--ink);
+  scroll-margin-top:1rem;letter-spacing:-.005em}
+h3 .n{font-family:var(--mono);font-size:.82rem;color:var(--steel);margin-right:.65rem}
+.clause{display:grid;grid-template-columns:2.6rem 1fr;gap:.6rem;margin:0 0 .95rem}
+.clause .cn{font-family:var(--mono);font-size:.72rem;color:var(--ink-3);padding-top:.28rem}
+.clause p{margin:0;max-width:40em}
+p{margin:0 0 .95rem;max-width:40em}
+strong{font-weight:650}
+em{font-style:italic}
+
+/* ─── callout ──────────────────────────────────────── */
+.callout{background:var(--panel);border-left:4px solid var(--steel);padding:.95rem 1.15rem;
+  margin:1.7rem 0 1.7rem 3.2rem}
+.callout p{margin:0;font-size:.95rem;color:var(--ink)}
+.callout .lbl{display:block;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--steel);font-weight:700;margin-bottom:.4rem}
+
+/* ─── table ────────────────────────────────────────── */
+figure{margin:1.8rem 0 1.8rem 3.2rem}
+@media(max-width:640px){figure,.callout{margin-left:0}}
+figcaption{font-size:.7rem;letter-spacing:.05em;color:var(--ink-2);margin:0 0 .55rem;
+  text-transform:uppercase;font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:.82rem;font-variant-numeric:tabular-nums;
+  border:1px solid var(--rule)}
+thead th{background:var(--panel-2);text-align:left;font-weight:650;color:var(--ink);
+  padding:.5rem .75rem;border-bottom:1px solid var(--rule);font-size:.72rem;
+  letter-spacing:.06em;text-transform:uppercase}
+thead th:last-child,tbody td:last-child{text-align:right}
+tbody td{padding:.48rem .75rem;border-bottom:1px solid var(--rule);color:var(--ink-2)}
+tbody td:first-child{color:var(--ink)}
+tbody tr:nth-child(even){background:#FAFCFC}
+tbody tr:last-child td{border-bottom:0}
+tfoot td{padding:.5rem .75rem;background:var(--panel);font-weight:650;color:var(--alert);
+  border-top:1px solid var(--rule)}
+tfoot td:last-child{text-align:right}
+.srcnote{font-size:.68rem;color:var(--ink-3);margin:.5rem 0 0;line-height:1.6}
+
+.foot{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--rule);
+  font-size:.7rem;color:var(--ink-3)}
+a:focus-visible{outline:2px solid var(--steel);outline-offset:2px}
+</style>
+
+<div class="orgbar">
+  <div class="in">
+    <span class="nm">Lupine Systems</span>
+    <span class="rt">Deterministic Value · Chapter I · Draft July 2026</span>
+  </div>
+</div>
+
+<div class="sheet">
+
+  <p class="tag">Direction B — Institutional / regulatory</p>
+
+  <div class="titleblock">
+    <p class="docmeta">
+      <span>Chapter <b>I</b></span>
+      <span>Author <b>C. Gogoi</b></span>
+      <span>Corridor <b>AUD/SGD</b></span>
+      <span>Status <b>Draft</b></span>
+    </p>
+    <h1>The Last Non-Deterministic Flow</h1>
+    <p class="sub">Why every comparable flow in the economy became predictable, and value
+      movement did not.</p>
+  </div>
+
+  <nav class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><span class="n">1.1</span><a href="#s11">Four flows that stopped guessing</a></li>
+      <li><span class="n">1.2</span><a href="#s12">The measurement</a></li>
+      <li><span class="n">1.3</span><a href="#s13">What determinism actually means</a></li>
+      <li><span class="n">1.4</span><a href="#s14">This is not an essay about fees</a></li>
+    </ol>
+  </nav>
+
+  <div class="clause">
+    <span class="cn">1.</span>
+    <p>If you send A$500,000 from Sydney to Singapore today, the cost is somewhere between 45 and
+      250 basis points and the money arrives somewhere between two and a half hours and eleven
+      days later. It is the same payment either way, however the outcome is based on a routing
+      decision that nobody actually computed.</p>
+  </div>
+
+  <div class="clause">
+    <span class="cn">2.</span>
+    <p>The path follows correspondent agreements that were signed years before the money existed,
+      and the sending bank cannot tell you in advance which outcome you are going to get, because
+      the information required to answer does not exist in any single place.</p>
+  </div>
+
+  <h3 id="s11"><span class="n">1.1</span>Four flows that stopped guessing</h3>
+
+  <div class="clause">
+    <span class="cn">3.</span>
+    <p>Modern infrastructure has mostly moved in one direction, which is away from reactive
+      management and towards computed prediction.</p>
+  </div>
+
+  <div class="clause">
+    <span class="cn">4.</span>
+    <p><strong>Physical goods moved first.</strong> Before containerisation, loading a cargo ship
+      was manual and bespoke and took days in port, at roughly $5.86 per ton, whereas arrival
+      dates were estimates rather than commitments. The insight in 1956 was not a better crane,
+      it was a standard unit — once every box was the same box, the whole chain could be planned
+      in advance. Cost fell towards $0.16 per ton, however the more important change was that
+      schedules became commitments.</p>
+  </div>
+
+  <div class="clause">
+    <span class="cn">5.</span>
+    <p><strong>Data followed.</strong> Early databases lost records on power failure as a matter
+      of routine, because a crash during a write left the data half updated with no way of
+      knowing which half. The fix was the transaction, which guarantees that a write either
+      commits fully or rolls back fully, whereas nothing in between is permitted.</p>
+  </div>
+
+  <div class="clause">
+    <span class="cn">6.</span>
+    <p><strong>Communications solved it differently.</strong> Packet networks drop packets and
+      reorder them and duplicate them, however TCP did not attempt to stop that happening. It
+      made the unreliability irrelevant to the application, based on sequence numbers,
+      acknowledgements and retransmission, so the network stayed messy whereas the interface
+      became certain.</p>
+  </div>
+
+  <div class="clause">
+    <span class="cn">7.</span>
+    <p><strong>Compute was last.</strong> Before 2006, capacity meant procurement — quotes,
+      purchase orders, racking, several weeks of lead time and a guess about demand. Afterwards
+      it meant an API call and a service level agreement. The underlying resource did not change,
+      however the predictability of obtaining it did.</p>
+  </div>
+
+  <div class="callout">
+    <span class="lbl">The pattern</span>
+    <p>A flow stops being managed reactively and starts being computed in advance, and the
+      guarantee moves into the infrastructure instead of staying with the user.</p>
+  </div>
+
+  <h3 id="s12"><span class="n">1.2</span>The measurement</h3>
+
+  <div class="clause">
+    <span class="cn">8.</span>
+    <p>Value movement did not get this, and the cost of not getting it is measurable. On the
+      Australia to Singapore corridor the same payment produces the following distribution.</p>
+  </div>
+
+  <figure>
+    <figcaption>Table 1 — Observed latency, AUD/SGD corridor, identical payment</figcaption>
+    <table>
+      <thead><tr><th>Outcome</th><th>Elapsed</th></tr></thead>
+      <tbody>
+        <tr><td>Best observed</td><td>2.5 hours</td></tr>
+        <tr><td>Median</td><td>28–36 hours</td></tr>
+        <tr><td>95th percentile</td><td>3–5 days</td></tr>
+        <tr><td>Worst observed</td><td>7–11 days</td></tr>
+      </tbody>
+      <tfoot><tr><td>Best to worst</td><td>106×</td></tr></tfoot>
+    </table>
+    <p class="srcnote">Cost and latency modelled from published fee schedules for twenty-one
+      providers on the AUD/SGD corridor, combined with a live multi-source FX feed. Not disclosed
+      to the payer at any point in the transaction.</p>
+  </figure>
+
+  <div class="clause">
+    <span class="cn">9.</span>
+    <p>A cloud API call taking 106× its median latency would be treated as a severity-one
+      incident, whereas in cross-border value movement that spread is the normal operating
+      envelope. The cost side behaves the same way. The rate you are quoted is one number,
+      however the rate you actually pay is the sum of eight components, of which two are visible
+      to you and six are not.</p>
+  </div>
+
+  <p class="foot">Continues — 1.3 What determinism actually means · 1.4 This is not an essay
+    about fees</p>
+
+</div>
