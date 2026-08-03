@@ -1,0 +1,417 @@
+<title>II. What Non-Determinism Costs · Deterministic Value</title>
+
+<style>
+:root{
+  --paper:#EAE7DF;
+  --paper-2:#E1DDD2;
+  --paper-3:#F3F1EB;
+  --ink:#191D1B;
+  --ink-2:rgba(25,29,27,.66);
+  --ink-3:rgba(25,29,27,.42);
+  --rule:rgba(25,29,27,.16);
+  --rule-2:rgba(25,29,27,.08);
+
+  --wire:#2B4A78;      /* the message  */
+  --flow:#1E5B48;      /* the money    */
+  --friction:#A84126;  /* the friction */
+  --wire-w:rgba(43,74,120,.10);
+  --flow-w:rgba(30,91,72,.10);
+  --friction-w:rgba(168,65,38,.10);
+
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,"Hoefler Text",Georgia,serif;
+
+  --measure:34rem;      /* reading column */
+  --wide:52rem;         /* figures break out to here */
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+:root[data-theme="dark"],:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);
+  font-size:clamp(1.02rem,.55rem + .55vw,1.14rem);
+  line-height:1.72;-webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(to bottom,transparent 0 43px,rgba(30,91,72,.014) 43px 86px);
+}
+
+/* ─── reading grid ──────────────────────────────────── */
+.doc{position:relative;z-index:1;padding:0 1.4rem 6rem}
+.doc > *{margin-left:auto;margin-right:auto;max-width:var(--measure)}
+.doc > .wide{max-width:var(--wide)}
+
+/* ─── progress ──────────────────────────────────────── */
+.prog{position:fixed;top:0;left:0;height:2px;background:var(--friction);
+  width:0;z-index:50;transition:width .1s linear}
+
+/* ─── masthead ──────────────────────────────────────── */
+header{padding:clamp(3.5rem,9vw,7rem) 0 clamp(2rem,4vw,3rem)}
+.kicker{font-family:var(--mono);font-size:.68rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 2.4rem}
+.chapnum{font-family:var(--mono);font-size:clamp(3.4rem,11vw,6rem);
+  line-height:.9;letter-spacing:-.05em;color:var(--friction);margin:0 0 .6rem;font-weight:600}
+h1{font-family:var(--mono);font-size:clamp(1.7rem,4.4vw,2.7rem);font-weight:600;
+  letter-spacing:-.035em;line-height:1.08;margin:0 0 1.6rem;text-transform:uppercase;text-wrap:balance}
+.byline{font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);margin:0;
+  padding-top:1.4rem;border-top:1px solid var(--rule)}
+
+/* ─── body type ─────────────────────────────────────── */
+p{margin:0 0 1.35rem}
+.lede{font-size:1.22em;line-height:1.55;color:var(--ink)}
+.lede em{font-style:italic}
+strong{font-weight:600}
+em{font-style:italic}
+
+/* opening paragraph gets a raised initial */
+.opener::first-letter{
+  font-family:var(--mono);font-size:3.1em;line-height:.82;font-weight:600;
+  float:left;margin:.12em .12em 0 0;color:var(--friction);
+}
+
+h2{font-family:var(--mono);font-size:clamp(1.05rem,2.1vw,1.3rem);font-weight:600;
+  letter-spacing:-.01em;line-height:1.25;margin:3.4rem 0 1.3rem;text-transform:uppercase;
+  text-wrap:balance;scroll-margin-top:2rem}
+h2 .sn{color:var(--friction);margin-right:.6rem;font-weight:600}
+
+/* ─── pull quote ────────────────────────────────────── */
+blockquote{
+  margin:2.2rem 0;padding:.15rem 0 .15rem 1.4rem;
+  border-left:2px solid var(--friction);
+  font-size:1.16em;line-height:1.5;color:var(--ink);
+}
+blockquote p:last-child{margin-bottom:0}
+
+/* ─── lists ─────────────────────────────────────────── */
+ul{margin:0 0 1.35rem;padding-left:1.15rem;display:flex;flex-direction:column;gap:.7rem}
+li{padding-left:.15rem}
+li::marker{color:var(--ink-3)}
+
+/* ─── figures ───────────────────────────────────────── */
+figure{margin:2.6rem auto;background:var(--paper-3);border:1px solid var(--rule);
+  padding:clamp(1.1rem,2.6vw,1.8rem);overflow-x:auto}
+figcaption{font-family:var(--mono);font-size:.65rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.fig-note{font-family:var(--mono);font-size:.68rem;color:var(--ink-3);
+  margin:1.1rem 0 0;line-height:1.6;letter-spacing:.02em}
+
+/* fig 1 · precedents */
+.prec{display:grid;gap:1px;background:var(--rule);grid-template-columns:1fr}
+@media(min-width:660px){.prec{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:920px){.prec{grid-template-columns:repeat(4,1fr)}}
+.prec div{background:var(--paper-3);padding:.95rem}
+.prec .yr{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
+  color:var(--friction);display:block;margin-bottom:.3rem}
+.prec .dm{font-family:var(--mono);font-size:.78rem;display:block;margin-bottom:.45rem;letter-spacing:.03em}
+.prec .mv{font-size:.84rem;line-height:1.5;color:var(--ink-2)}
+
+/* fig 2 · latency spread */
+.spread{display:flex;flex-direction:column;gap:.5rem;min-width:340px}
+.sp{display:grid;grid-template-columns:6.5rem 1fr 5rem;gap:.8rem;align-items:center}
+.sp-l{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-2)}
+.sp-t{height:15px;background:var(--paper-2);position:relative;overflow:hidden}
+.sp-b{position:absolute;inset:0 100% 0 0;transition:right 1.2s var(--ease)}
+.sp-v{font-family:var(--mono);font-size:.7rem;font-variant-numeric:tabular-nums;
+  color:var(--ink-2);text-align:right}
+.ratio{display:flex;align-items:baseline;gap:.75rem;margin-top:1.4rem;
+  padding-top:1.1rem;border-top:1px solid var(--rule-2);font-family:var(--mono)}
+.ratio b{font-size:2rem;letter-spacing:-.03em;color:var(--friction);font-weight:600;
+  font-variant-numeric:tabular-nums}
+.ratio span{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+/* fig 3 · eight components */
+.stack{display:flex;height:44px;background:var(--paper-2);overflow:hidden;margin-bottom:.5rem}
+.stack span{width:0;transition:width .7s var(--ease);border-right:1px solid rgba(243,241,235,.5)}
+.slbl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.66rem;
+  letter-spacing:.08em;text-transform:uppercase}
+.slbl .q{color:var(--ink-2)}
+.slbl .a{color:var(--friction)}
+.comps{display:grid;gap:.25rem .9rem;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  margin-top:1.2rem;font-family:var(--mono);font-size:.66rem}
+.comps div{display:grid;grid-template-columns:1.4rem 9px 1fr auto;gap:.45rem;align-items:center}
+.comps .sw{width:9px;height:9px}
+.comps .sy{color:var(--ink-3)}
+.comps .nm{color:var(--ink-2)}
+.comps .bp{font-variant-numeric:tabular-nums}
+
+/* ─── window table ──────────────────────────────────── */
+.win{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.72rem;
+  font-variant-numeric:tabular-nums;min-width:320px}
+.win th{text-align:left;font-weight:400;letter-spacing:.13em;text-transform:uppercase;
+  font-size:.63rem;color:var(--ink-3);padding:0 0 .6rem;border-bottom:1px solid var(--rule)}
+.win td{padding:.55rem 0;border-bottom:1px solid var(--rule-2);color:var(--ink-2)}
+.win td:first-child{color:var(--ink)}
+.win td:last-child{text-align:right}
+
+/* ─── footer ────────────────────────────────────────── */
+.next{margin-top:4.5rem;padding-top:1.8rem;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;align-items:baseline;gap:1.5rem;flex-wrap:wrap}
+.next a{font-family:var(--mono);font-size:.76rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;border-bottom:1px solid var(--friction);
+  padding-bottom:.15rem;transition:color .2s}
+.next a:hover{color:var(--friction)}
+.next span{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3)}
+a:focus-visible{outline:2px solid var(--wire);outline-offset:3px}
+
+/* ─── reveal ────────────────────────────────────────── */
+figure{opacity:0;transform:translateY(10px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+figure.seen{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  figure{opacity:1;transform:none}
+}
+</style>
+
+<div class="prog" id="prog"></div>
+
+<article class="doc">
+
+  <header>
+    <p class="kicker">Deterministic Value · An essay in seven chapters</p>
+    <p class="chapnum">II</p>
+    <h1>What<br>non-determinism<br>costs</h1>
+    <p class="byline">Chirantan Gogoi · Lupine Systems · Draft</p>
+  </header>
+
+  <p class="lede opener">Chapter I argued that value movement is the last major flow still
+    managed reactively. This chapter is about what that costs, however it has to begin with an
+    admission, because the honest answer to "what does it cost" is that almost nobody knows,
+    including the people charging it.</p>
+
+  <p>That is not a rhetorical opening. It is the finding.</p>
+
+  <h2 id="s1"><span class="sn">2.1</span>The rate is not a number</h2>
+
+  <p>The number you are quoted is a single figure. The rate you actually pay is the sum of eight
+    components.</p>
+
+  <figure class="wide">
+    <figcaption><span>Fig. 1 — Effective rate = S₀ + ΔS + F + V + L + C + D + R</span><span>formula cited, values not</span></figcaption>
+    <table class="win">
+      <thead><tr><th>Term</th><th>Component</th><th>Visible to payer</th></tr></thead>
+      <tbody>
+        <tr><td>S₀</td><td>Interbank spot</td><td>yes</td></tr>
+        <tr><td>ΔS</td><td>Spread</td><td>partly</td></tr>
+        <tr><td>F</td><td>Forward points</td><td>no</td></tr>
+        <tr><td>V</td><td>Volatility premium</td><td>no</td></tr>
+        <tr><td>L</td><td>Liquidity premium</td><td>no</td></tr>
+        <tr><td>C</td><td>Corridor cost</td><td>no</td></tr>
+        <tr><td>D</td><td>Delay premium</td><td>no</td></tr>
+        <tr><td>R</td><td>Compliance buffer</td><td>no</td></tr>
+      </tbody>
+    </table>
+    <p class="fig-note">Two of eight are normally visible, whereas six are not. That is the
+      structural point, and it does not depend on knowing their sizes.</p>
+  </figure>
+
+  <p><strong>What we cannot tell you is the split.</strong> As per the source material, the
+    formula is given and the values are not. No basis-point decomposition for the Australia to
+    Singapore corridor has been published by anyone, as far as we can find, and any figure
+    quoted for one here would be invented. An earlier draft of this essay did exactly that,
+    which is the reason this project now maintains a provenance manifest.</p>
+
+  <h2 id="s2"><span class="sn">2.2</span>What can be established</h2>
+
+  <p>Three things about the cost side can be stated with a source behind them.</p>
+
+  <p><strong>The market's own all-in price is roughly 70 basis points.</strong> Wise's 2021
+    prospectus discloses a cross-currency take rate of 0.70%, 0.68% and 0.64% for FY2021, FY2020
+    and FY2019, with a total take rate of 0.77% in FY2021. This is audited, published, and
+    covers a business moving £5bn a month across 2,500 currency routes. It is the closest thing
+    the industry has to an honest benchmark.</p>
+
+  <p><strong>Integration collapses cost, and by a lot.</strong> The same prospectus states that
+    connecting directly to the UK Faster Payments Service reduced Wise's partner bank fees
+    nine-fold and brought transfer times under twenty seconds. Integrating with the Hungarian
+    central bank cut customer prices 14% on average and took instant transfers from 17% to 82%
+    of volume. These are reported outcomes rather than projections, and they establish that the
+    cost is structural rather than natural.</p>
+
+  <p><strong>Nobody publishes the decomposition.</strong> Wise reports a take rate. Remitly
+    reports corridor counts and speed. Adyen reports platform metrics. None of them break the
+    effective rate into its components for a given corridor on a given day, because there is no
+    commercial reason to.</p>
+
+  <h2 id="s3"><span class="sn">2.3</span>Delay is one of the components</h2>
+
+  <p>The most under-recognised term in the stack is <strong>D</strong>, the delay premium, and
+    the reason it matters is that it does not stand alone.</p>
+
+  <blockquote>
+    <p><strong>Exposure = σ × √t</strong></p>
+  </blockquote>
+
+  <p>Volatility multiplied by the square root of settlement time. The square root is the whole
+    insight. Exposure grows non-linearly, so quadrupling the settlement time only doubles the
+    damage, which means the first hours of delay are disproportionately expensive compared with
+    the last ones.</p>
+
+  <figure class="wide">
+    <figcaption><span>Fig. 2 — Exposure against settlement time</span><span>σ = 6 bps</span></figcaption>
+    <div class="spread">
+      <div class="sp"><span class="sp-l">1 hour</span>
+        <span class="sp-t"><span class="sp-b" data-w="17" style="background:var(--wire)"></span></span>
+        <span class="sp-v">6 bps</span></div>
+      <div class="sp"><span class="sp-l">4 hours</span>
+        <span class="sp-t"><span class="sp-b" data-w="33" style="background:var(--wire)"></span></span>
+        <span class="sp-v">12 bps</span></div>
+      <div class="sp"><span class="sp-l">16 hours</span>
+        <span class="sp-t"><span class="sp-b" data-w="67" style="background:var(--friction)"></span></span>
+        <span class="sp-v">24 bps</span></div>
+      <div class="sp"><span class="sp-l">36 hours</span>
+        <span class="sp-t"><span class="sp-b" data-w="100" style="background:var(--friction)"></span></span>
+        <span class="sp-v">36 bps</span></div>
+    </div>
+    <p class="fig-note">Sixteen times the settlement time, four times the exposure. The
+      relationship is cited; σ = 6 bps is chosen to illustrate the shape.</p>
+  </figure>
+
+  <p>There is a chain reaction here that is easy to miss. Delay (D) increases the time in
+    flight, which increases volatility exposure (V), which liquidity providers price into a
+    wider spread (ΔS). The three terms are not independent, and a model that scores latency and
+    cost as separate dimensions will systematically misprice slow routes.</p>
+
+  <blockquote>
+    <p>A fast route through a volatile corridor can cost more in total than a slower route
+      through a stable one. <strong>Optimising for speed is not the same as optimising for
+      outcome</strong>, whereas most routing in production today does not distinguish between
+      the two because it is not computing either.</p>
+  </blockquote>
+
+  <p>For a multi-hop route the exposures sum across the legs, as <strong>σ_total = Σ(σᵢ ×
+    √tᵢ)</strong>. A three-hop corridor carries three separate exposure calculations added
+    together, which is why a corridor that looks cheap on headline spread can breach an exposure
+    cap once the hops are counted.</p>
+
+  <h2 id="s4"><span class="sn">2.4</span>The rate is not even one number</h2>
+
+  <p>This is the part we can speak to directly, because we measured it.</p>
+
+  <p>Lupine queries four independent public mid-market sources for AUD/SGD. On 3 August 2026,
+    three of the four were reachable and returned, at the same instant:</p>
+
+  <figure class="wide">
+    <figcaption><span>Fig. 3 — Independent mid-market sources, one instant</span><span>measured</span></figcaption>
+    <table class="win">
+      <thead><tr><th>Source</th><th>Rate</th><th>Source date</th></tr></thead>
+      <tbody>
+        <tr><td>open.er-api.com</td><td>0.902119</td><td>2026-08-03</td></tr>
+        <tr><td>jsdelivr currency-api</td><td>0.901730</td><td>2026-08-02</td></tr>
+        <tr><td>Frankfurter (ECB)</td><td>0.901740</td><td>2026-07-31</td></tr>
+      </tbody>
+    </table>
+    <div class="ratio"><b>4.32</b><span>basis points of dispersion, same instant</span></div>
+    <p class="fig-note">Recorded by <code>scripts/spread_log.py</code>, stored in
+      <code>spread_log.jsonl</code>. One observation. The logger refuses to describe the dataset
+      as citable below thirty. This is a demonstration of method, not yet a finding.</p>
+  </figure>
+
+  <p>Two observations follow, and the second is the more interesting one.</p>
+
+  <p>First, the sources disagree. Not by much on this reading, however 4.32 bps is roughly a
+    tenth of what a competitive provider charges in total, and it sits underneath every spread
+    anyone quotes on top of it.</p>
+
+  <p>Second, <strong>the three sources are not describing the same day.</strong> Frankfurter's
+    figure was three days old at the moment of reading. So the phrase "the mid-market rate"
+    resolves differently depending on who you ask and how stale they are, before any provider
+    has added a single basis point of margin.</p>
+
+  <h2 id="s5"><span class="sn">2.5</span>Why this is not measured</h2>
+
+  <p>The obvious question is why an industry moving trillions has no public decomposition of its
+    own pricing.</p>
+
+  <p>The answer is that <strong>nobody in the chain is positioned to produce one.</strong> A
+    bank sees its own leg. A correspondent sees the hop in front of it. A fintech sees inside
+    its own network and, reasonably, treats the composition of its spread as commercial
+    information. The payer sees a single quoted number at the start and a single credited amount
+    at the end, whereas everything between those two figures is distributed across parties that
+    have no shared record and no obligation to assemble one.</p>
+
+  <blockquote>
+    <p>It is not that the information is secret. It is that it is <strong>never
+      assembled</strong>, and the only party with an interest in assembling it is the one party
+      with no access.</p>
+  </blockquote>
+
+  <h2 id="s6"><span class="sn">2.6</span>What follows</h2>
+
+  <p>The cost of non-determinism is real, it is structural, and its precise size is presently
+    unmeasured by anyone including us. That is an uncomfortable position for an essay to take,
+    and it is the correct one, whereas a fabricated decomposition would have read better and
+    been worth nothing.</p>
+
+  <p><strong>Chapter III</strong> turns to why the problem has persisted: what SWIFT actually
+    does and does not do, why gpi delivered visibility without intelligence, and why the
+    incumbents are structurally unable to close the gap even where they can see it.</p>
+
+  <figure class="wide">
+    <figcaption><span>Provenance — every claim in this chapter</span><span>docs/provenance.md</span></figcaption>
+    <table class="win">
+      <thead><tr><th>Claim</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Eight-component formula</td><td>cited — formula only</td></tr>
+        <tr><td>Component basis-point split</td><td>not established</td></tr>
+        <tr><td>Wise take rate 0.70% / 0.77%</td><td>cited</td></tr>
+        <tr><td>UK FPS nine-fold reduction</td><td>cited</td></tr>
+        <tr><td>Hungary −14%, 17% → 82%</td><td>cited</td></tr>
+        <tr><td>Exposure = σ√t</td><td>cited</td></tr>
+        <tr><td>4.32 bps source dispersion</td><td>measured, n=1</td></tr>
+        <tr><td>Three-day staleness spread</td><td>measured, n=1</td></tr>
+        <tr><td>"Nobody is positioned to measure it"</td><td>assertion</td></tr>
+      </tbody>
+    </table>
+  </figure>
+
+  <div class="next">
+    <span>Next</span>
+    <a href="#">III. Visibility Without Intelligence →</a>
+  </div>
+
+</article>
+
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var prog = document.getElementById("prog");
+  function onScroll(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + "%";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  function fill(fig){
+    fig.querySelectorAll(".sp-b").forEach(function(b){
+      b.style.right = (100 - parseFloat(b.dataset.w)) + "%";
+    });
+  }
+  var figs = Array.prototype.slice.call(document.querySelectorAll("figure"));
+  if (reduced || !("IntersectionObserver" in window)){
+    figs.forEach(function(f){ f.classList.add("seen"); fill(f); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          e.target.classList.add("seen");
+          setTimeout(function(){ fill(e.target); }, 220);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: .2 });
+    figs.forEach(function(f){ io.observe(f); });
+  }
+})();
+</script>
