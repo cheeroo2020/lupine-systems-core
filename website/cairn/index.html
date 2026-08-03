@@ -1,0 +1,768 @@
+<title>Cairn — Lupine Training Console</title>
+
+<style>
+/* ───────────────────────────────────────────────────────────
+   CAIRN — a training console, not a document.
+   Deliberately unlike the lessons and the essay: cool daylight
+   atmosphere rather than paper, sans and mono rather than serif,
+   a live instrument rather than a page you read.
+
+   Light ground is a constraint from CLAUDE.md and also the right
+   call — the default "futuristic globe" is black space with a
+   glowing cyan wireframe, which is the most copied look on the
+   internet. A luminous daylight globe is rarer and reads as
+   instrumentation rather than sci-fi.
+   ─────────────────────────────────────────────────────────── */
+:root{
+  --sky-1:#EDF2F5;
+  --sky-2:#DFE8ED;
+  --sky-3:#CFDCE4;
+  --ink:#0C1519;
+  --ink-2:rgba(12,21,25,.62);
+  --ink-3:rgba(12,21,25,.38);
+  --line:rgba(12,21,25,.12);
+  --line-2:rgba(12,21,25,.06);
+  --panel:rgba(255,255,255,.78);
+
+  /* semantic actors, carried over from the lessons */
+  --wire:#2B4A78;      /* the message   */
+  --flow:#0E7C5A;      /* the money     */
+  --friction:#C2410C;  /* the friction  */
+  --beam:#0090A8;      /* the instrument itself */
+
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+:root[data-theme="dark"],:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box}
+
+html,body{height:100%}
+body{
+  margin:0;overflow:hidden;
+  background:
+    radial-gradient(120% 90% at 50% 8%, var(--sky-1) 0%, var(--sky-2) 46%, var(--sky-3) 100%);
+  color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+
+/* the globe sits behind everything */
+#globe{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+
+.shell{position:relative;z-index:1;height:100dvh;display:grid;
+  grid-template-rows:auto 1fr auto;pointer-events:none}
+.shell > *{pointer-events:auto}
+
+/* ─── head ───────────────────────────────────────────── */
+.head{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;
+  padding:1rem clamp(1rem,3vw,2.2rem);flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:.75rem}
+.brand b{font-family:var(--mono);font-size:.92rem;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:600}
+.brand span{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3)}
+.prog-wrap{display:flex;align-items:center;gap:.65rem}
+.pips{display:flex;gap:4px}
+.pip{width:22px;height:3px;background:var(--line);transition:background .45s var(--ease)}
+.pip.done{background:var(--flow)}
+.pip.now{background:var(--beam)}
+.prog-txt{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--ink-3);
+  font-variant-numeric:tabular-nums}
+
+/* ─── station card ───────────────────────────────────── */
+.stage{display:grid;place-items:center;padding:0 clamp(1rem,3vw,2.2rem);min-height:0}
+@media(min-width:1100px){
+  .stage{place-items:center start;padding-left:clamp(2rem,5vw,4.5rem)}
+}
+.card{
+  width:min(41rem,100%);max-height:100%;overflow-y:auto;
+  background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 18px 50px -22px rgba(12,21,25,.35);
+  padding:clamp(1.2rem,3vw,2rem);
+  transition:opacity .45s var(--ease),transform .45s var(--ease);
+}
+.card.swap{opacity:0;transform:translateY(10px) scale(.99)}
+
+.st-no{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--beam);margin:0 0 .55rem}
+h1{font-size:clamp(1.15rem,2.6vw,1.6rem);line-height:1.22;margin:0 0 .5rem;font-weight:600;
+  letter-spacing:-.015em;text-wrap:balance}
+.task{font-size:.95rem;color:var(--ink-2);margin:0 0 1.2rem;max-width:44em}
+.task b{color:var(--ink);font-weight:600}
+
+/* ─── option rows ────────────────────────────────────── */
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{
+  display:grid;grid-template-columns:1.6rem 1fr auto;gap:.85rem;align-items:center;
+  padding:.7rem .85rem;background:rgba(255,255,255,.55);border:1px solid var(--line);
+  cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%;
+  transition:all .2s var(--ease);
+}
+.opt:hover:not(:disabled){border-color:var(--beam);background:rgba(255,255,255,.9)}
+.opt:disabled{cursor:default}
+.opt:focus-visible{outline:2px solid var(--beam);outline-offset:2px}
+.opt .k{font-family:var(--mono);font-size:.68rem;color:var(--ink-3)}
+.opt .nm{font-weight:500;font-size:.92rem}
+.opt .sub{grid-column:2;font-family:var(--mono);font-size:.68rem;color:var(--ink-2);
+  letter-spacing:.02em}
+.opt .val{font-family:var(--mono);font-size:.72rem;color:var(--ink-2);
+  font-variant-numeric:tabular-nums;text-align:right;white-space:pre-line;line-height:1.45}
+.opt.right{border-color:var(--flow);background:rgba(14,124,90,.09)}
+.opt.right .k{color:var(--flow)}
+.opt.wrong{border-color:var(--friction);background:rgba(194,65,12,.08)}
+.opt.wrong .k{color:var(--friction)}
+
+/* ─── slider station ─────────────────────────────────── */
+.slider-box{display:flex;flex-direction:column;gap:.9rem}
+.urg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.urg button{padding:.6rem .3rem;background:rgba(255,255,255,.55);border:1px solid var(--line);
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;color:var(--ink-2);transition:all .2s var(--ease)}
+.urg button:hover{border-color:var(--beam);color:var(--ink)}
+.urg button.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
+.urg button:focus-visible{outline:2px solid var(--beam);outline-offset:2px}
+.wbars{display:flex;flex-direction:column;gap:.35rem}
+.wrow{display:grid;grid-template-columns:5.5rem 1fr 2.6rem;gap:.7rem;align-items:center;
+  font-family:var(--mono);font-size:.66rem}
+.wtrack{height:10px;background:rgba(12,21,25,.07);position:relative;overflow:hidden}
+.wbar{position:absolute;inset:0 100% 0 0;background:var(--wire);transition:right .45s var(--ease)}
+.wval{text-align:right;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.leader{margin-top:.5rem;padding-top:.7rem;border-top:1px solid var(--line-2);
+  font-family:var(--mono);font-size:.74rem}
+.leader b{color:var(--flow)}
+
+/* ─── chain station ──────────────────────────────────── */
+.chain{display:flex;flex-direction:column;gap:5px}
+.link{display:grid;grid-template-columns:1.5rem 1fr;gap:.8rem;align-items:center;
+  padding:.6rem .8rem;background:rgba(255,255,255,.55);border:1px solid var(--line);
+  cursor:pointer;font-family:var(--mono);font-size:.68rem;text-align:left;
+  color:inherit;width:100%;transition:all .2s var(--ease)}
+.link:hover:not(:disabled){border-color:var(--beam)}
+.link:focus-visible{outline:2px solid var(--beam);outline-offset:2px}
+.link .i{color:var(--ink-3)}
+.link .h{color:var(--ink-2);word-break:break-all;line-height:1.5}
+.link .h em{font-style:normal;color:var(--ink)}
+.link.right{border-color:var(--flow);background:rgba(14,124,90,.09)}
+.link.wrong{border-color:var(--friction);background:rgba(194,65,12,.08)}
+
+/* ─── verdict ────────────────────────────────────────── */
+.verdict{margin-top:1.1rem;padding:.8rem .95rem;border-left:3px solid;
+  font-size:.9rem;line-height:1.55;display:none}
+.verdict.show{display:block;animation:pop .35s var(--ease)}
+.verdict.ok{border-color:var(--flow);background:rgba(14,124,90,.07)}
+.verdict.no{border-color:var(--friction);background:rgba(194,65,12,.06)}
+.verdict .lbl{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;
+  text-transform:uppercase;margin-bottom:.35rem}
+.verdict.ok .lbl{color:var(--flow)}
+.verdict.no .lbl{color:var(--friction)}
+@keyframes pop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+.actions{display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  margin-top:1.1rem;flex-wrap:wrap}
+.hint-btn{background:none;border:0;font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);cursor:pointer;padding:.3rem 0}
+.hint-btn:hover{color:var(--ink-2)}
+.go{padding:.62rem 1.5rem;background:var(--ink);color:#fff;border:0;cursor:pointer;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  opacity:0;pointer-events:none;transition:opacity .3s}
+.go.on{opacity:1;pointer-events:auto}
+.go:hover{background:var(--beam)}
+.go:focus-visible{outline:2px solid var(--beam);outline-offset:3px}
+
+/* ─── foot ───────────────────────────────────────────── */
+.foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  padding:.85rem clamp(1rem,3vw,2.2rem);font-family:var(--mono);font-size:.62rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);flex-wrap:wrap}
+.foot a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--line)}
+.foot a:hover{color:var(--beam)}
+.telemetry{display:flex;gap:1.4rem;font-variant-numeric:tabular-nums}
+
+/* ─── completion ─────────────────────────────────────── */
+.done-list{display:flex;flex-direction:column;gap:3px;margin:1rem 0}
+.done-row{display:grid;grid-template-columns:2rem 1fr auto;gap:.8rem;padding:.42rem .7rem;
+  background:rgba(255,255,255,.5);font-family:var(--mono);font-size:.68rem;align-items:baseline}
+.done-row .n{color:var(--ink-3)}
+.done-row .s{color:var(--flow)}
+.done-row .s.retry{color:var(--friction)}
+
+@media(max-width:640px){
+  .opt{grid-template-columns:1.4rem 1fr;gap:.6rem}
+  .opt .val{grid-column:2;text-align:left;margin-top:.2rem}
+  .telemetry{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+
+<canvas id="globe"></canvas>
+
+<div class="shell">
+
+  <header class="head">
+    <div class="brand">
+      <b>Cairn</b><span>Lupine training console</span>
+    </div>
+    <div class="prog-wrap">
+      <div class="pips" id="pips"></div>
+      <span class="prog-txt" id="progTxt">00 / 09</span>
+    </div>
+  </header>
+
+  <main class="stage">
+    <section class="card" id="card" aria-live="polite"></section>
+  </main>
+
+  <footer class="foot">
+    <span id="corridor">AUD → SGD · A$500,000</span>
+    <div class="telemetry">
+      <span id="tAttempts">attempts 0</span>
+      <span id="tFirst">first-try 0</span>
+      <span id="tRot">rot 0.0°</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+"use strict";
+
+/* ═══════════════════════════════════════════════════════
+   1 · THE GLOBE
+   Hand-rolled 3D on a 2D canvas. No library, no CDN.
+   A point on the sphere is (lat,lon) -> unit vector, rotated
+   about the polar axis by time, then orthographically
+   projected. Back-facing points (z<0) are culled.
+   ═══════════════════════════════════════════════════════ */
+const cv = document.getElementById("globe");
+const ctx = cv.getContext("2d");
+const RAD = Math.PI / 180;
+let W = 0, H = 0, DPR = 1, rot = 0, focus = 0, focusTarget = 0;
+
+const NODES = [
+  { id:"SYD", name:"Sydney",    lat:-33.87, lon:151.21 },
+  { id:"SIN", name:"Singapore", lat:  1.35, lon:103.82 },
+  { id:"HKG", name:"Hong Kong", lat: 22.32, lon:114.17 },
+  { id:"FRA", name:"Frankfurt", lat: 50.11, lon:  8.68 },
+  { id:"LON", name:"London",    lat: 51.51, lon: -0.13 },
+  { id:"NYC", name:"New York",  lat: 40.71, lon:-74.01 },
+];
+const ARCS = [
+  { a:"SYD", b:"SIN", tone:"flow"     },
+  { a:"SIN", b:"FRA", tone:"wire"     },
+  { a:"SYD", b:"NYC", tone:"friction" },
+  { a:"SIN", b:"HKG", tone:"wire"     },
+  { a:"LON", b:"NYC", tone:"wire"     },
+];
+const TONE = { flow:"#0E7C5A", wire:"#2B4A78", friction:"#C2410C", beam:"#0090A8" };
+
+function toVec(lat, lon){
+  const la = lat*RAD, lo = lon*RAD;
+  return [Math.cos(la)*Math.sin(lo), Math.sin(la), Math.cos(la)*Math.cos(lo)];
+}
+function rotY(v, a){
+  const c = Math.cos(a), s = Math.sin(a);
+  return [v[0]*c + v[2]*s, v[1], -v[0]*s + v[2]*c];
+}
+function rotX(v, a){
+  const c = Math.cos(a), s = Math.sin(a);
+  return [v[0], v[1]*c - v[2]*s, v[1]*s + v[2]*c];
+}
+function slerp(a, b, t){
+  let d = a[0]*b[0] + a[1]*b[1] + a[2]*b[2];
+  d = Math.max(-1, Math.min(1, d));
+  const o = Math.acos(d);
+  if (o < 1e-6) return a.slice();
+  const s = Math.sin(o);
+  const k1 = Math.sin((1-t)*o)/s, k2 = Math.sin(t*o)/s;
+  return [a[0]*k1+b[0]*k2, a[1]*k1+b[1]*k2, a[2]*k1+b[2]*k2];
+}
+
+function geom(){
+  const wide = W >= 1100;
+  const R = wide ? Math.min(W*0.30, (H-140)*0.50) : Math.min(W, H)*0.40;
+  return { R, cx: wide ? W*0.68 : W*0.5, cy: H*0.52 };
+}
+function project(v){
+  const { R, cx, cy } = geom();
+  const p = rotX(rotY(v, rot), -18*RAD);
+  return { x: cx + p[0]*R, y: cy - p[1]*R, z: p[2] };
+}
+
+/* dot lattice — denser near the equator so density looks even */
+const LATTICE = (() => {
+  const pts = [];
+  for (let lat = -80; lat <= 80; lat += 5){
+    const circ = Math.cos(lat*RAD);
+    const step = Math.max(5, 5/Math.max(circ, .12));
+    for (let lon = -180; lon < 180; lon += step) pts.push(toVec(lat, lon));
+  }
+  return pts;
+})();
+
+function resize(){
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = window.innerWidth; H = window.innerHeight;
+  cv.width = W*DPR; cv.height = H*DPR;
+  cv.style.width = W+"px"; cv.style.height = H+"px";
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+window.addEventListener("resize", resize);
+resize();
+
+function draw(){
+  const { R, cx, cy } = geom();
+  ctx.clearRect(0, 0, W, H);
+
+  /* atmosphere */
+  const halo = ctx.createRadialGradient(cx, cy, R*0.82, cx, cy, R*1.22);
+  halo.addColorStop(0, "rgba(0,144,168,.16)");
+  halo.addColorStop(1, "rgba(0,144,168,0)");
+  ctx.fillStyle = halo;
+  ctx.beginPath(); ctx.arc(cx, cy, R*1.22, 0, Math.PI*2); ctx.fill();
+
+  /* sphere body — a very soft lift off the background */
+  const body = ctx.createRadialGradient(cx-R*.3, cy-R*.35, R*.1, cx, cy, R);
+  body.addColorStop(0, "rgba(255,255,255,.70)");
+  body.addColorStop(1, "rgba(178,199,211,.42)");
+  ctx.fillStyle = body;
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.fill();
+
+  /* lattice */
+  for (const v of LATTICE){
+    const p = project(v);
+    if (p.z < 0) continue;
+    const a = 0.14 + p.z*0.42;
+    ctx.fillStyle = "rgba(12,21,25," + a.toFixed(3) + ")";
+    const s = 0.8 + p.z*1.15;
+    ctx.beginPath(); ctx.arc(p.x, p.y, s, 0, Math.PI*2); ctx.fill();
+  }
+
+  /* rim */
+  ctx.strokeStyle = "rgba(0,144,168,.42)"; ctx.lineWidth = 1.2;
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.stroke();
+
+  /* arcs, lifted off the surface */
+  const t = performance.now() / 1000;
+  for (let i = 0; i < ARCS.length; i++){
+    const arc = ARCS[i];
+    const A = NODES.find(n => n.id === arc.a), B = NODES.find(n => n.id === arc.b);
+    const va = toVec(A.lat, A.lon), vb = toVec(B.lat, B.lon);
+    const hot = (i === focus);
+    const N = 64;
+    ctx.beginPath();
+    let started = false;
+    for (let k = 0; k <= N; k++){
+      const u = k/N;
+      const m = slerp(va, vb, u);
+      const lift = 1 + 0.16*Math.sin(Math.PI*u);
+      const p = project([m[0]*lift, m[1]*lift, m[2]*lift]);
+      if (p.z < -0.1){ started = false; continue; }
+      if (!started){ ctx.moveTo(p.x, p.y); started = true; } else ctx.lineTo(p.x, p.y);
+    }
+    ctx.strokeStyle = TONE[arc.tone];
+    ctx.globalAlpha = hot ? 0.92 : 0.34;
+    ctx.lineWidth = hot ? 2.4 : 1.2;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    /* a pulse riding the hot arc */
+    if (hot){
+      const u = (t*0.35 + i*0.2) % 1;
+      const m = slerp(va, vb, u);
+      const lift = 1 + 0.16*Math.sin(Math.PI*u);
+      const p = project([m[0]*lift, m[1]*lift, m[2]*lift]);
+      if (p.z > -0.1){
+        ctx.fillStyle = TONE[arc.tone];
+        ctx.beginPath(); ctx.arc(p.x, p.y, 3.4, 0, Math.PI*2); ctx.fill();
+        ctx.globalAlpha = .25;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 8, 0, Math.PI*2); ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+  }
+
+  /* nodes */
+  ctx.font = "500 10px ui-monospace,Menlo,monospace";
+  for (const n of NODES){
+    const p = project(toVec(n.lat, n.lon));
+    if (p.z < 0) continue;
+    ctx.fillStyle = "rgba(0,144,168," + (0.35 + p.z*0.5).toFixed(2) + ")";
+    ctx.beginPath(); ctx.arc(p.x, p.y, 2.6, 0, Math.PI*2); ctx.fill();
+    if (p.z > 0.35){
+      ctx.fillStyle = "rgba(12,21,25,.55)";
+      ctx.fillText(n.id, p.x + 7, p.y + 3);
+    }
+  }
+
+  rot += 0.0016;
+  focus += (focusTarget - focus) * 0.08;
+  const deg = ((rot/RAD) % 360).toFixed(1);
+  const rotEl = document.getElementById("tRot");
+  if (rotEl) rotEl.textContent = "rot " + deg + "°";
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+
+
+/* ═══════════════════════════════════════════════════════
+   2 · STATIONS
+   Each is a task you perform, not a definition you recall.
+   You advance only on a correct action.
+   ═══════════════════════════════════════════════════════ */
+
+const WEIGHTS = {
+  low:      { speed:.15, cost:.55, reliability:.30 },
+  normal:   { speed:.25, cost:.35, reliability:.40 },
+  high:     { speed:.50, cost:.15, reliability:.35 },
+  critical: { speed:.60, cost:.05, reliability:.35 },
+};
+
+const STATIONS = [
+
+/* 01 ─────────────────────────────────────────────────── */
+{
+  title: "Score the corridor",
+  arc: 0,
+  task: "Three rails are viable. Urgency is <b>normal</b> — so cost carries 35% and reliability 40%. Pick the winner.",
+  hint: "Normalise first: fastest gets speed 1.0, cheapest gets cost 1.0. Then weight.",
+  render(){
+    const rows = [
+      { k:"A", nm:"Wise",      sub:"1h · 45 bps · rel 0.95", val:"speed 1.00\ncost 0.82\nrel 0.95", right:true },
+      { k:"B", nm:"Nium",      sub:"2h · 25 bps · rel 0.87", val:"speed 0.96\ncost 0.90\nrel 0.87" },
+      { k:"C", nm:"Bank SWIFT",sub:"36h · 250 bps · rel 0.88", val:"speed 0.00\ncost 0.00\nrel 0.88" },
+    ];
+    return optionBlock(rows);
+  },
+  ok:  "Wise. Reliability is the heaviest term at normal urgency (40%), and 0.95 is the best on the board. Nium is cheaper but loses on reliability and speed.",
+  no:  "Not quite. At normal urgency reliability carries 40% — more than cost. Which rail has the highest reliability without giving up much elsewhere?"
+},
+
+/* 02 ─────────────────────────────────────────────────── */
+{
+  title: "Shift the weights",
+  arc: 0,
+  task: "Same three rails. <b>Set the urgency so speed becomes the dominant term</b> — over half the decision.",
+  hint: "Look at the speed column as you click. You need it above 0.50.",
+  custom: true,
+  render(){
+    return `<div class="slider-box">
+      <div class="urg" id="urg">
+        ${["low","normal","high","critical"].map(u =>
+          `<button data-u="${u}">${u}</button>`).join("")}
+      </div>
+      <div class="wbars" id="wbars"></div>
+      <div class="leader" id="leader">Select an urgency profile.</div>
+    </div>`;
+  },
+  mount(done){
+    const box = document.getElementById("urg");
+    const bars = document.getElementById("wbars");
+    const lead = document.getElementById("leader");
+    function paint(u){
+      const w = WEIGHTS[u];
+      bars.innerHTML = Object.entries(w).map(([k,v]) =>
+        `<div class="wrow"><span>${k}</span>
+           <span class="wtrack"><span class="wbar" style="right:${100-v*100}%;
+             background:${k==='speed'?'var(--beam)':'var(--wire)'}"></span></span>
+           <span class="wval">${(v*100).toFixed(0)}%</span></div>`).join("");
+      const winner = u === "low" ? "Nium" : (u === "normal" ? "Wise" : "Wise");
+      lead.innerHTML = `speed weight <b>${(w.speed*100).toFixed(0)}%</b> · leader ${winner}`;
+      return w.speed > 0.5;
+    }
+    box.addEventListener("click", e => {
+      const b = e.target.closest("button[data-u]");
+      if (!b) return;
+      [...box.children].forEach(c => c.classList.toggle("sel", c === b));
+      const pass = paint(b.dataset.u);
+      if (pass) done(true, "critical urgency puts speed at 60% — the only profile where it exceeds half. Note that reliability stayed at 35%: the weights shift, they never zero out.");
+      else done(null, null);
+    });
+  },
+  no: ""
+},
+
+/* 03 ─────────────────────────────────────────────────── */
+{
+  title: "Total exposure",
+  arc: 1,
+  task: "Two rails, same amount. Exposure is <b>σ√t</b>. Which one costs less <b>in total</b>?",
+  hint: "Compute σ√t for each, then add it to the spread. Fast is not automatically cheap.",
+  render(){
+    return optionBlock([
+      { k:"A", nm:"Fast, volatile corridor", sub:"2h · spread 18 bps · σ 15", val:"σ√t = 15×1.41\n= 21 bps\ntotal 39 bps" },
+      { k:"B", nm:"Slower, stable corridor", sub:"8h · spread 10 bps · σ 5",  val:"σ√t = 5×2.83\n= 14 bps\ntotal 24 bps", right:true },
+    ]);
+  },
+  ok: "B. Four times the settlement time only doubles the √t multiplier, whereas the volatile corridor carries three times the σ. Lower total exposure wins even though it arrives six hours later.",
+  no: "Add the spread and the exposure together before choosing. The √ means quadrupling time only doubles the damage — so high σ hurts more than long t."
+},
+
+/* 04 ─────────────────────────────────────────────────── */
+{
+  title: "Eliminate the impossible",
+  arc: 3,
+  task: "Four corridors scored. <b>One cannot execute at all.</b> Eliminate it before anything else is scored.",
+  hint: "A corridor with no liquidity cannot move money, whatever its other scores say.",
+  render(){
+    return optionBlock([
+      { k:"A", nm:"AUD → SGD direct",   sub:"liquidity 0.88 · latency 0.72 · compliance 0.94", val:"feasible" },
+      { k:"B", nm:"AUD → USD → SGD",    sub:"liquidity 0.64 · latency 0.55 · compliance 0.91", val:"feasible" },
+      { k:"C", nm:"AUD → XXX → SGD",    sub:"liquidity 0.00 · latency 0.98 · compliance 0.99", val:"pool empty", right:true },
+      { k:"D", nm:"AUD → HKD → SGD",    sub:"liquidity 0.51 · latency 0.61 · compliance 0.78", val:"feasible" },
+    ]);
+  },
+  ok: "C. Best latency and best compliance on the board, and it is still impossible — there is no money in the nostro account. Liquidity is a gate, not a weight. You cannot score a bridge that is missing.",
+  no: "Look again. Three of these can move money and one cannot, regardless of how well it scores elsewhere."
+},
+
+/* 05 ─────────────────────────────────────────────────── */
+{
+  title: "Find the dominated route",
+  arc: 3,
+  task: "Three routes survive the gate. <b>One is dominated</b> — click it.",
+  hint: "Dominated means at least one other route beats it on every single dimension.",
+  render(){
+    return optionBlock([
+      { k:"P1", nm:"Fast, higher risk",  sub:"latency 2h · risk 0.18", val:"frontier" },
+      { k:"P2", nm:"Slower, lower risk", sub:"latency 9h · risk 0.05", val:"frontier" },
+      { k:"P3", nm:"Slow and risky",     sub:"latency 14h · risk 0.22", val:"beaten on both", right:true },
+    ]);
+  },
+  ok: "P3. It is slower than P1 and riskier than P2, so nothing can make it the right answer. P1 and P2 both survive because each wins at something — choosing between them requires a tradeoff, which is what the frontier is.",
+  no: "A route is only dominated if another beats it on <em>every</em> dimension. P1 and P2 each win at something — check which route wins at nothing."
+},
+
+/* 06 ─────────────────────────────────────────────────── */
+{
+  title: "Illegal transition",
+  arc: 0,
+  task: "A payment is in state <b>scored</b>. Click the transition Rail will <b>refuse</b>.",
+  hint: "Every state is a promise. Reaching a state means every prior state was visited and logged.",
+  render(){
+    return optionBlock([
+      { k:"→", nm:"scored → route_selected", sub:"the next state in sequence", val:"allowed" },
+      { k:"→", nm:"scored → completed",      sub:"skips selection and execution", val:"refused", right:true },
+      { k:"→", nm:"route_selected → executing", sub:"from a later state, in sequence", val:"allowed" },
+    ]);
+  },
+  ok: "Refused. If you could jump to completed, you could claim a payment succeeded without ever running execution — a record asserting something that never happened. The transition table is what makes the audit trail trustworthy.",
+  no: "Think about which jump would let you record a success that never occurred."
+},
+
+/* 07 ─────────────────────────────────────────────────── */
+{
+  title: "Break the chain",
+  arc: 4,
+  task: "Four evidence entries. Entry 2 was edited and its own hash was repaired. <b>Click where verification still fails.</b>",
+  hint: "Each entry stores the previous entry's hash. Fixing one entry does not fix what points at it.",
+  custom: true,
+  render(){
+    const rows = [
+      { i:"0", prev:"genesis",     own:"a3f96b20", note:"" },
+      { i:"1", prev:"a3f96b20",    own:"7c2b91a4", note:"" },
+      { i:"2", prev:"7c2b91a4",    own:"<em>1e4d05f8</em>", note:"edited, hash repaired" },
+      { i:"3", prev:"<em>4b7e2d91</em>", own:"9f8a3c17", note:"prev_hash points at the OLD entry 2", right:true },
+    ];
+    return `<div class="chain" id="chain">${rows.map((r,k) =>
+      `<button class="link" data-k="${k}" data-right="${r.right?1:0}">
+         <span class="i">${r.i}</span>
+         <span class="h">prev ${r.prev} · own ${r.own}${r.note?" · "+r.note:""}</span>
+       </button>`).join("")}</div>`;
+  },
+  mount(done){
+    const box = document.getElementById("chain");
+    box.addEventListener("click", e => {
+      const b = e.target.closest(".link"); if (!b || b.disabled) return;
+      const right = b.dataset.right === "1";
+      b.classList.add(right ? "right" : "wrong");
+      if (right){
+        [...box.children].forEach(c => c.disabled = true);
+        done(true, "Entry 3. Repairing entry 2's own hash does not touch entry 3's stored prev_hash, which still references the value entry 2 had before the edit. To hide the tamper you would have to rewrite 3, then 4, then every entry after — which is why single-point edits are impossible.");
+      } else {
+        done(false, "Not there. Entry 2's own hash was already repaired, so it verifies against itself. Look at what points <em>at</em> entry 2.");
+      }
+    });
+  }
+},
+
+/* 08 ─────────────────────────────────────────────────── */
+{
+  title: "Measured or asserted",
+  arc: 0,
+  task: "Three figures from your own material. <b>Click the one that is genuinely measured.</b>",
+  hint: "Measured means our own instrumentation recorded it, with a source and a timestamp.",
+  render(){
+    return optionBlock([
+      { k:"1", nm:"“45 bps on Wise, AUD→SGD”", sub:"constant in router.py", val:"unverified" },
+      { k:"2", nm:"“4.32 bps between FX sources”", sub:"spread_log.jsonl, hourly", val:"measured", right:true },
+      { k:"3", nm:"“saves A$10,270 per transfer”", sub:"45 bps vs 250.4 bps", val:"two unverified\nconstants" },
+    ]);
+  },
+  ok: "The dispersion figure. It came from our own logger, with a timestamp and named sources. The other two are constants nobody has checked — including the savings number currently on the public site, which is the difference between two unverified constants rather than an observation.",
+  no: "Two of these are hardcoded constants whose source comment names no URL and no date. Only one was recorded by instrumentation we control."
+},
+
+/* 09 ─────────────────────────────────────────────────── */
+{
+  title: "Route it live",
+  arc: 0,
+  task: "Final station. Urgency is <b>critical</b>, so speed carries 60% and cost only 5%. <b>Reliability still carries 35%.</b> Pick the winner.",
+  hint: "A fast rail with poor reliability still loses — the weights shift, they never switch off.",
+  render(){
+    return optionBlock([
+      { k:"A", nm:"Rail X",  sub:"0.5h · 60 bps · rel 0.55", val:"speed 1.00\nrel 0.55" },
+      { k:"B", nm:"Wise",    sub:"1h · 45 bps · rel 0.95",   val:"speed 0.97\nrel 0.95", right:true },
+      { k:"C", nm:"OFX",     sub:"24h · 50 bps · rel 0.91",  val:"speed 0.33\nrel 0.91" },
+    ]);
+  },
+  ok: "Wise. Rail X is the fastest thing on the board and still loses, because 0.55 reliability against a 35% weight drags the composite below Wise's. That is the whole point of weights that shift rather than zero out.",
+  no: "Rail X is fastest — but check what a 0.55 reliability does against a 35% weight. Fastest is not the same as best under time pressure."
+},
+
+];
+
+/* ─── option block helper ─────────────────────────────── */
+function optionBlock(rows){
+  return `<div class="opts" id="opts">${rows.map((r,i) =>
+    `<button class="opt" data-i="${i}" data-right="${r.right?1:0}">
+       <span class="k">${r.k}</span>
+       <span class="nm">${r.nm}</span>
+       <span class="val">${r.val||""}</span>
+       <span class="sub">${r.sub||""}</span>
+     </button>`).join("")}</div>`;
+}
+
+/* ─── runner ──────────────────────────────────────────── */
+let idx = 0, attempts = 0, firstTry = 0, stationTries = 0;
+const results = [];
+const card = document.getElementById("card");
+const pips = document.getElementById("pips");
+
+STATIONS.forEach(() => {
+  const s = document.createElement("span"); s.className = "pip"; pips.appendChild(s);
+});
+
+function paintPips(){
+  [...pips.children].forEach((p, i) => {
+    p.classList.toggle("done", i < idx);
+    p.classList.toggle("now", i === idx);
+  });
+  document.getElementById("progTxt").textContent =
+    String(idx).padStart(2,"0") + " / " + String(STATIONS.length).padStart(2,"0");
+  document.getElementById("tAttempts").textContent = "attempts " + attempts;
+  document.getElementById("tFirst").textContent = "first-try " + firstTry;
+}
+
+function verdict(kind, label, html){
+  return `<div class="verdict ${kind} show"><span class="lbl">${label}</span>${html}</div>`;
+}
+
+function renderStation(){
+  const st = STATIONS[idx];
+  stationTries = 0;
+  focusTarget = st.arc ?? 0;
+  card.classList.add("swap");
+  setTimeout(() => {
+    card.innerHTML =
+      `<p class="st-no">Station ${String(idx+1).padStart(2,"0")} of ${STATIONS.length}</p>
+       <h1>${st.title}</h1>
+       <p class="task">${st.task}</p>
+       ${st.render()}
+       <div id="vbox"></div>
+       <div class="actions">
+         <button class="hint-btn" id="hintBtn">Show hint</button>
+         <button class="go" id="goBtn">Continue →</button>
+       </div>`;
+    card.classList.remove("swap");
+    card.scrollTop = 0;
+
+    document.getElementById("hintBtn").addEventListener("click", () => {
+      document.getElementById("vbox").innerHTML =
+        verdict("no", "Hint", st.hint || "—");
+      document.getElementById("hintBtn").disabled = true;
+    });
+    document.getElementById("goBtn").addEventListener("click", advance);
+
+    if (st.custom) st.mount(handleCustom);
+    else {
+      const opts = document.getElementById("opts");
+      opts.addEventListener("click", e => {
+        const b = e.target.closest(".opt"); if (!b || b.disabled) return;
+        const right = b.dataset.right === "1";
+        attempts++; stationTries++;
+        b.classList.add(right ? "right" : "wrong");
+        if (right){
+          [...opts.children].forEach(c => c.disabled = true);
+          if (stationTries === 1) firstTry++;
+          document.getElementById("vbox").innerHTML = verdict("ok", "Correct", st.ok);
+          document.getElementById("goBtn").classList.add("on");
+          results.push({ n: idx+1, title: st.title, tries: stationTries });
+        } else {
+          document.getElementById("vbox").innerHTML = verdict("no", "Try again", st.no);
+        }
+        paintPips();
+      });
+    }
+  }, 260);
+}
+
+function handleCustom(right, msg){
+  if (right === null) return;
+  attempts++; stationTries++;
+  if (right){
+    if (stationTries === 1) firstTry++;
+    document.getElementById("vbox").innerHTML = verdict("ok", "Correct", msg);
+    document.getElementById("goBtn").classList.add("on");
+    results.push({ n: idx+1, title: STATIONS[idx].title, tries: stationTries });
+  } else {
+    document.getElementById("vbox").innerHTML = verdict("no", "Try again", msg);
+  }
+  paintPips();
+}
+
+function advance(){
+  idx++;
+  paintPips();
+  if (idx >= STATIONS.length) return finish();
+  renderStation();
+}
+
+function finish(){
+  focusTarget = 0;
+  card.classList.add("swap");
+  setTimeout(() => {
+    const clean = results.filter(r => r.tries === 1).length;
+    card.innerHTML =
+      `<p class="st-no">Run complete</p>
+       <h1>${clean} of ${STATIONS.length} first try</h1>
+       <p class="task">Every station required a correct action to pass. Anything that took more
+         than one attempt is the thing to revisit — that is the gap, precisely located.</p>
+       <div class="done-list">${results.map(r =>
+         `<div class="done-row"><span class="n">${String(r.n).padStart(2,"0")}</span>
+            <span>${r.title}</span>
+            <span class="s${r.tries>1?" retry":""}">${r.tries === 1 ? "first try" : r.tries + " attempts"}</span>
+          </div>`).join("")}</div>
+       <div class="actions">
+         <button class="hint-btn" id="againBtn">Run again</button>
+         <a class="go on" href="../lessons/01-why-the-system-is-broken.html">Lessons →</a>
+       </div>`;
+    card.classList.remove("swap");
+    document.getElementById("againBtn").addEventListener("click", () => {
+      idx = 0; attempts = 0; firstTry = 0; results.length = 0;
+      paintPips(); renderStation();
+    });
+  }, 260);
+}
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter"){
+    const g = document.getElementById("goBtn");
+    if (g && g.classList.contains("on")){ e.preventDefault(); advance(); }
+  }
+});
+
+paintPips();
+renderStation();
+</script>
