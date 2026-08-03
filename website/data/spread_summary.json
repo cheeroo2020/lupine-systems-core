@@ -1,28 +1,28 @@
 {
   "method": "derived from measured values only",
   "pair": "AUD/SGD",
-  "observations": 3,
-  "observations_with_dispersion": 3,
+  "observations": 4,
+  "observations_with_dispersion": 4,
   "first": "2026-08-03T02:48:39+00:00",
-  "last": "2026-08-03T08:47:12+00:00",
+  "last": "2026-08-03T12:42:09+00:00",
   "source_extremes": {
     "open.er-api.com": {
-      "highest": 3,
+      "highest": 4,
       "lowest": 0
     },
     "jsdelivr currency-api": {
       "highest": 0,
-      "lowest": 3
+      "lowest": 4
     }
   },
-  "generated": "2026-08-03T08:47:12+00:00",
+  "generated": "2026-08-03T12:42:10+00:00",
   "dispersion_bps": {
     "mean": 4.317,
     "median": 4.32,
     "min": 4.31,
     "max": 4.32,
-    "stdev": 0.006
+    "stdev": 0.005
   },
   "citable": false,
-  "citation_note": "3 observations. NOT yet sufficient to cite \u2014 needs 30+."
+  "citation_note": "4 observations. NOT yet sufficient to cite \u2014 needs 30+."
 }
