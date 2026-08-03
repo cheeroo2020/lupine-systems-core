@@ -17,7 +17,8 @@
   --rule:#DEDCD6;
   --rule-2:#EDEBE6;
   --verify:#1F5C4A;      /* the one accent: verified */
-  --open:#9A5B22;        /* claims still unsourced */
+  --open:#9A5B22;        /* argued, not measured   */
+  --unver:#A02020;       /* not established        */
 
   --body:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,"Hoefler Text",Georgia,serif;
   --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
@@ -42,6 +43,7 @@ body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);
   padding-top:.42rem;border-top:1px solid var(--rule)}
 .src .n{color:var(--verify);display:block;margin-bottom:.2rem;letter-spacing:.06em}
 .src.unsourced .n{color:var(--open)}
+.src.unver .n{color:var(--unver)}
 @media(max-width:820px){
   .src{border-top:0;border-left:2px solid var(--rule);padding:.15rem 0 .15rem .7rem;
     margin:.35rem 0 .9rem}
@@ -71,6 +73,7 @@ em{font-style:italic}
 .ref{font-family:var(--mono);font-size:.58em;vertical-align:super;color:var(--verify);
   padding:0 .12em;letter-spacing:.02em}
 .ref.open{color:var(--open)}
+.ref.unver{color:var(--unver)}
 .num{font-family:var(--mono);font-size:.92em;font-variant-numeric:tabular-nums;
   letter-spacing:-.01em}
 
@@ -102,6 +105,7 @@ tfoot td{padding:.45rem 0;border-top:1px solid var(--ink);font-weight:600}
 .vrow .id{color:var(--ink-3)}
 .vrow .st{color:var(--verify);white-space:nowrap}
 .vrow .st.open{color:var(--open)}
+.vrow .st.unver{color:var(--unver)}
 .vsum{margin-top:1.2rem;font-family:var(--mono);font-size:.68rem;color:var(--ink-2);
   display:flex;gap:2rem;flex-wrap:wrap}
 .vsum b{color:var(--ink);font-weight:600}
@@ -114,7 +118,7 @@ tfoot td{padding:.45rem 0;border-top:1px solid var(--ink);font-weight:600}
   <p class="chap">Deterministic Value · Chapter I</p>
   <h1>The Last Non-Deterministic Flow</h1>
   <p class="auth"><b>Chirantan Gogoi</b> · Lupine Systems · Draft, July 2026<br>
-    Every factual claim below is numbered and sourced in the margin.</p>
+    Every factual claim below is numbered and its evidentiary status stated in the margin.</p>
 
   <h2><span class="n">1.1</span>The observation</h2>
 
@@ -123,12 +127,13 @@ tfoot td{padding:.45rem 0;border-top:1px solid var(--ink);font-weight:600}
       <p>If you send <span class="num">A$500,000</span> from Sydney to Singapore today, the cost
         is somewhere between <span class="num">45</span> and <span class="num">250</span> bps and
         the money arrives somewhere between <span class="num">2.5</span> hours and
-        <span class="num">11</span> days later.<span class="ref">1</span> It is the same payment
+        <span class="num">11</span> days later.<span class="ref unver">1</span> It is the same payment
         in both cases – the difference is based on a routing decision that nobody computed.</p>
     </div>
-    <div class="src">
-      <span class="n">01 · verified</span>
-      Published fee schedules, 21 providers, AUD/SGD. Latency from corridor observation bands.
+    <div class="src unver">
+      <span class="n">01 · not established</span>
+      Source gives these bands for AU→SG→DE, a three-leg corridor. Restating them for AU→SG is
+      unsupported. Needs primary data.
     </div>
   </div>
 
@@ -136,14 +141,15 @@ tfoot td{padding:.45rem 0;border-top:1px solid var(--ink);font-weight:600}
     <div class="main">
       <p>As per published fee schedules across 21 providers on this corridor, the quoted rate
         accounts for approximately <span class="num">12</span> bps of the total cost, whereas the
-        actual cost is approximately <span class="num">54</span> bps.<span class="ref">2</span>
+        actual cost is approximately <span class="num">54</span> bps.<span class="ref unver">2</span>
         The remaining <span class="num">42</span> bps is not disclosed at any point, which
         suggests the payer is not in a position to evaluate the transaction they are agreeing
         to.</p>
     </div>
-    <div class="src">
-      <span class="n">02 · verified</span>
-      Component decomposition in Ch. II. Live multi-source FX feed, retrieved daily.
+    <div class="src unver">
+      <span class="n">02 · not established</span>
+      Source states the eight-component formula but gives no values. These bps figures are
+      illustrative and were not measured.
     </div>
   </div>
 
@@ -169,12 +175,12 @@ tfoot td{padding:.45rem 0;border-top:1px solid var(--ink);font-weight:600}
       <p><strong>Physical goods</strong> – as per the standard estimates, break-bulk loading cost
         approximately <span class="num">$5.86</span> per ton and took days in port, whereas
         containerised loading brought this to approximately <span class="num">$0.16</span> per
-        ton.<span class="ref">4</span> The change in 1956 was not equipment, it was
+        ton.<span class="ref unver">4</span> The change in 1956 was not equipment, it was
         standardisation of the unit, which meant the chain could be planned in advance.</p>
     </div>
-    <div class="src">
-      <span class="n">04 · verified</span>
-      Standard pre- and post-container break-bulk loading cost estimates.
+    <div class="src unver">
+      <span class="n">04 · unchecked</span>
+      Widely cited figures, quoted from recall. No primary source consulted.
     </div>
   </div>
 
@@ -191,8 +197,8 @@ tfoot td{padding:.45rem 0;border-top:1px solid var(--ink);font-weight:600}
         retransmission.<span class="ref">6</span></p>
     </div>
     <div class="src">
-      <span class="n">05–06 · verified</span>
-      ACID transaction semantics. RFC 793, transmission control protocol.
+      <span class="n">05 · general · 06 · verified</span>
+      ACID is textbook, no citation given. TCP retransmission is RFC 793.
     </div>
   </div>
 
@@ -201,14 +207,14 @@ tfoot td{padding:.45rem 0;border-top:1px solid var(--ink);font-weight:600}
       <p><strong>Compute</strong> – before 2006 capacity meant procurement, which is quotes,
         purchase orders, racking and several weeks of lead time. Afterwards it meant an API call
         and an SLA. The resource did not change, however the predictability of obtaining it
-        did.<span class="ref">7</span></p>
+        did.<span class="ref unver">7</span></p>
       <p>The pattern in all four is the same: the flow stops being managed reactively and starts
         being computed in advance, and the guarantee moves into the infrastructure instead of
         staying with the user.</p>
     </div>
-    <div class="src">
-      <span class="n">07 · verified</span>
-      EC2 general availability, 2006.
+    <div class="src unver">
+      <span class="n">07 · corrected</span>
+      EC2 was public beta in 2006. General availability was 2008. Text still says otherwise.
     </div>
   </div>
 
@@ -228,7 +234,7 @@ tfoot td{padding:.45rem 0;border-top:1px solid var(--ink);font-weight:600}
           </tbody>
           <tfoot><tr><td>Best to worst</td><td>106×</td></tr></tfoot>
         </table>
-        <p class="hashline">table_1 · <b>sha256 7c2b91a4e5d0…</b> · retrieved 2026-07-27</p>
+        <p class="hashline">table_1 · source states these bands for AU→SG→DE, not AU→SG · restated without support</p>
       </figure>
       <p>A cloud API call taking <span class="num">106×</span> its median latency would be
         treated as a severity-one incident, whereas in cross-border value movement that spread is
@@ -243,20 +249,20 @@ tfoot td{padding:.45rem 0;border-top:1px solid var(--ink);font-weight:600}
   <div class="verify">
     <h2>Chapter verification</h2>
     <div class="vlist">
-      <div class="vrow"><span class="id">01</span><span>Corridor cost and latency bands</span><span class="st">verified</span></div>
-      <div class="vrow"><span class="id">02</span><span>FX component decomposition</span><span class="st">verified</span></div>
+      <div class="vrow"><span class="id">01</span><span>Corridor latency bands</span><span class="st unver">not established</span></div>
+      <div class="vrow"><span class="id">02</span><span>FX component values, 12 / 54 bps</span><span class="st unver">not established</span></div>
       <div class="vrow"><span class="id">03</span><span>No participant assembles the full path</span><span class="st open">assertion</span></div>
-      <div class="vrow"><span class="id">04</span><span>Containerisation loading costs</span><span class="st">verified</span></div>
-      <div class="vrow"><span class="id">05</span><span>ACID transaction semantics</span><span class="st">verified</span></div>
+      <div class="vrow"><span class="id">04</span><span>Containerisation loading costs</span><span class="st unver">unchecked</span></div>
+      <div class="vrow"><span class="id">05</span><span>ACID transaction semantics</span><span class="st open">general</span></div>
       <div class="vrow"><span class="id">06</span><span>TCP retransmission, RFC 793</span><span class="st">verified</span></div>
-      <div class="vrow"><span class="id">07</span><span>EC2 general availability 2006</span><span class="st">verified</span></div>
+      <div class="vrow"><span class="id">07</span><span>EC2 availability date</span><span class="st unver">corrected</span></div>
       <div class="vrow"><span class="id">08</span><span>Severity-one latency comparison</span><span class="st open">assertion</span></div>
     </div>
     <div class="vsum">
       <span>Claims <b>8</b></span>
-      <span>Verified <b>6</b></span>
-      <span>Assertions <b>2</b></span>
-      <span>Chapter hash <b>a3f96b20c014…</b></span>
+      <span>Verified <b>1</b></span>
+      <span>Assertion or general <b>3</b></span>
+      <span>Not established <b>4</b></span>
     </div>
   </div>
 
