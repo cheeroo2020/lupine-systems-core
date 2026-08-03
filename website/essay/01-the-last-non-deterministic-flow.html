@@ -1,0 +1,521 @@
+<title>I. The Last Non-Deterministic Flow · Deterministic Value</title>
+
+<style>
+:root{
+  --paper:#EAE7DF;
+  --paper-2:#E1DDD2;
+  --paper-3:#F3F1EB;
+  --ink:#191D1B;
+  --ink-2:rgba(25,29,27,.66);
+  --ink-3:rgba(25,29,27,.42);
+  --rule:rgba(25,29,27,.16);
+  --rule-2:rgba(25,29,27,.08);
+
+  --wire:#2B4A78;      /* the message  */
+  --flow:#1E5B48;      /* the money    */
+  --friction:#A84126;  /* the friction */
+  --wire-w:rgba(43,74,120,.10);
+  --flow-w:rgba(30,91,72,.10);
+  --friction-w:rgba(168,65,38,.10);
+
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,"Hoefler Text",Georgia,serif;
+
+  --measure:34rem;      /* reading column */
+  --wide:52rem;         /* figures break out to here */
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+:root[data-theme="dark"],:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);
+  font-size:clamp(1.02rem,.55rem + .55vw,1.14rem);
+  line-height:1.72;-webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(to bottom,transparent 0 43px,rgba(30,91,72,.014) 43px 86px);
+}
+
+/* ─── reading grid ──────────────────────────────────── */
+.doc{position:relative;z-index:1;padding:0 1.4rem 6rem}
+.doc > *{margin-left:auto;margin-right:auto;max-width:var(--measure)}
+.doc > .wide{max-width:var(--wide)}
+
+/* ─── progress ──────────────────────────────────────── */
+.prog{position:fixed;top:0;left:0;height:2px;background:var(--friction);
+  width:0;z-index:50;transition:width .1s linear}
+
+/* ─── masthead ──────────────────────────────────────── */
+header{padding:clamp(3.5rem,9vw,7rem) 0 clamp(2rem,4vw,3rem)}
+.kicker{font-family:var(--mono);font-size:.68rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 2.4rem}
+.chapnum{font-family:var(--mono);font-size:clamp(3.4rem,11vw,6rem);
+  line-height:.9;letter-spacing:-.05em;color:var(--friction);margin:0 0 .6rem;font-weight:600}
+h1{font-family:var(--mono);font-size:clamp(1.7rem,4.4vw,2.7rem);font-weight:600;
+  letter-spacing:-.035em;line-height:1.08;margin:0 0 1.6rem;text-transform:uppercase;text-wrap:balance}
+.byline{font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);margin:0;
+  padding-top:1.4rem;border-top:1px solid var(--rule)}
+
+/* ─── body type ─────────────────────────────────────── */
+p{margin:0 0 1.35rem}
+.lede{font-size:1.22em;line-height:1.55;color:var(--ink)}
+.lede em{font-style:italic}
+strong{font-weight:600}
+em{font-style:italic}
+
+/* opening paragraph gets a raised initial */
+.opener::first-letter{
+  font-family:var(--mono);font-size:3.1em;line-height:.82;font-weight:600;
+  float:left;margin:.12em .12em 0 0;color:var(--friction);
+}
+
+h2{font-family:var(--mono);font-size:clamp(1.05rem,2.1vw,1.3rem);font-weight:600;
+  letter-spacing:-.01em;line-height:1.25;margin:3.4rem 0 1.3rem;text-transform:uppercase;
+  text-wrap:balance;scroll-margin-top:2rem}
+h2 .sn{color:var(--friction);margin-right:.6rem;font-weight:600}
+
+/* ─── pull quote ────────────────────────────────────── */
+blockquote{
+  margin:2.2rem 0;padding:.15rem 0 .15rem 1.4rem;
+  border-left:2px solid var(--friction);
+  font-size:1.16em;line-height:1.5;color:var(--ink);
+}
+blockquote p:last-child{margin-bottom:0}
+
+/* ─── lists ─────────────────────────────────────────── */
+ul{margin:0 0 1.35rem;padding-left:1.15rem;display:flex;flex-direction:column;gap:.7rem}
+li{padding-left:.15rem}
+li::marker{color:var(--ink-3)}
+
+/* ─── figures ───────────────────────────────────────── */
+figure{margin:2.6rem auto;background:var(--paper-3);border:1px solid var(--rule);
+  padding:clamp(1.1rem,2.6vw,1.8rem);overflow-x:auto}
+figcaption{font-family:var(--mono);font-size:.65rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.fig-note{font-family:var(--mono);font-size:.68rem;color:var(--ink-3);
+  margin:1.1rem 0 0;line-height:1.6;letter-spacing:.02em}
+
+/* fig 1 · precedents */
+.prec{display:grid;gap:1px;background:var(--rule);grid-template-columns:1fr}
+@media(min-width:660px){.prec{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:920px){.prec{grid-template-columns:repeat(4,1fr)}}
+.prec div{background:var(--paper-3);padding:.95rem}
+.prec .yr{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
+  color:var(--friction);display:block;margin-bottom:.3rem}
+.prec .dm{font-family:var(--mono);font-size:.78rem;display:block;margin-bottom:.45rem;letter-spacing:.03em}
+.prec .mv{font-size:.84rem;line-height:1.5;color:var(--ink-2)}
+
+/* fig 2 · latency spread */
+.spread{display:flex;flex-direction:column;gap:.5rem;min-width:340px}
+.sp{display:grid;grid-template-columns:6.5rem 1fr 5rem;gap:.8rem;align-items:center}
+.sp-l{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-2)}
+.sp-t{height:15px;background:var(--paper-2);position:relative;overflow:hidden}
+.sp-b{position:absolute;inset:0 100% 0 0;transition:right 1.2s var(--ease)}
+.sp-v{font-family:var(--mono);font-size:.7rem;font-variant-numeric:tabular-nums;
+  color:var(--ink-2);text-align:right}
+.ratio{display:flex;align-items:baseline;gap:.75rem;margin-top:1.4rem;
+  padding-top:1.1rem;border-top:1px solid var(--rule-2);font-family:var(--mono)}
+.ratio b{font-size:2rem;letter-spacing:-.03em;color:var(--friction);font-weight:600;
+  font-variant-numeric:tabular-nums}
+.ratio span{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+/* fig 3 · eight components */
+.stack{display:flex;height:44px;background:var(--paper-2);overflow:hidden;margin-bottom:.5rem}
+.stack span{width:0;transition:width .7s var(--ease);border-right:1px solid rgba(243,241,235,.5)}
+.slbl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.66rem;
+  letter-spacing:.08em;text-transform:uppercase}
+.slbl .q{color:var(--ink-2)}
+.slbl .a{color:var(--friction)}
+.comps{display:grid;gap:.25rem .9rem;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  margin-top:1.2rem;font-family:var(--mono);font-size:.66rem}
+.comps div{display:grid;grid-template-columns:1.4rem 9px 1fr auto;gap:.45rem;align-items:center}
+.comps .sw{width:9px;height:9px}
+.comps .sy{color:var(--ink-3)}
+.comps .nm{color:var(--ink-2)}
+.comps .bp{font-variant-numeric:tabular-nums}
+
+/* ─── window table ──────────────────────────────────── */
+.win{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.72rem;
+  font-variant-numeric:tabular-nums;min-width:320px}
+.win th{text-align:left;font-weight:400;letter-spacing:.13em;text-transform:uppercase;
+  font-size:.63rem;color:var(--ink-3);padding:0 0 .6rem;border-bottom:1px solid var(--rule)}
+.win td{padding:.55rem 0;border-bottom:1px solid var(--rule-2);color:var(--ink-2)}
+.win td:first-child{color:var(--ink)}
+.win td:last-child{text-align:right}
+
+/* ─── footer ────────────────────────────────────────── */
+.next{margin-top:4.5rem;padding-top:1.8rem;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;align-items:baseline;gap:1.5rem;flex-wrap:wrap}
+.next a{font-family:var(--mono);font-size:.76rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;border-bottom:1px solid var(--friction);
+  padding-bottom:.15rem;transition:color .2s}
+.next a:hover{color:var(--friction)}
+.next span{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3)}
+a:focus-visible{outline:2px solid var(--wire);outline-offset:3px}
+
+/* ─── reveal ────────────────────────────────────────── */
+figure{opacity:0;transform:translateY(10px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+figure.seen{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  figure{opacity:1;transform:none}
+}
+</style>
+
+<div class="prog" id="prog"></div>
+
+<article class="doc">
+
+  <header>
+    <p class="kicker">Deterministic Value · An essay in seven chapters</p>
+    <p class="chapnum">I</p>
+    <h1>The last<br>non-deterministic<br>flow</h1>
+    <p class="byline">Chirantan Gogoi · Lupine Systems · Draft</p>
+  </header>
+
+  <p class="lede opener">On 27 July 2026, moving A$500,000 from Sydney to Singapore cost
+    somewhere between 45 and 250 basis points, and took somewhere between two and a half
+    hours and eleven days.</p>
+
+  <p>Not two different payments. <strong>The same payment.</strong> The range depends on a
+    routing decision nobody computed — made by systems that never spoke to each other, on the
+    basis of correspondent agreements signed years before the money existed.</p>
+
+  <p>If you asked the sending bank which of those outcomes you were about to get, it could not
+    tell you. Not <em>would</em> not. <strong>Could</strong> not. The information required to
+    answer does not exist in any single place, and no layer of the stack is responsible for
+    assembling it.</p>
+
+  <p>That is a strange property for critical infrastructure to have in 2026. It is stranger
+    still when you notice that every comparable flow in the economy fixed this decades ago.</p>
+
+  <h2 id="s1"><span class="sn">1.1</span>Four flows that stopped guessing</h2>
+
+  <p>The history of modern infrastructure is largely the history of things becoming
+    predictable.</p>
+
+  <p><strong>Physical goods, 1956.</strong> Before containerisation, loading a cargo ship was
+    manual, bespoke and slow — days in port, roughly $5.86 per ton. Arrival dates were
+    estimates. Malcom McLean's insight was not a better crane; it was a <em>standard unit</em>.
+    Once every box was the same box, the entire chain could be planned. Cost fell toward $0.16
+    per ton. More importantly, <strong>schedules became schedules</strong> rather than
+    hopes.</p>
+
+  <p><strong>Data, 1970s–80s.</strong> Early databases lost data on power failure as a matter of
+    routine. A crash mid-write left records half-updated with no way to tell which. The fix was
+    the transaction: a set of guarantees under which a write either <strong>fully commits or
+    fully rolls back</strong>, with nothing in between. Atomicity turned storage from a
+    probabilistic activity into a deterministic one.</p>
+
+  <p><strong>Communications, 1974.</strong> Raw packet networks drop packets, reorder them and
+    duplicate them. TCP did not eliminate that — it made it <em>irrelevant to the
+    application</em>. Sequence numbers, acknowledgements and retransmission moved unreliability
+    beneath a layer that guarantees ordered delivery. The network stayed messy. The interface
+    became certain.</p>
+
+  <p><strong>Compute, 2006.</strong> Before EC2, capacity meant procurement: quotes, purchase
+    orders, racking, weeks of lead time and a guess about demand. After, it meant an API call
+    and a service level agreement. The resource did not change. <strong>The predictability of
+    obtaining it did.</strong></p>
+
+  <figure class="wide">
+    <figcaption><span>Fig. 1 — Four domains, four decades, one pattern</span><span>the holdout</span></figcaption>
+    <div class="prec">
+      <div>
+        <span class="yr">1956</span>
+        <span class="dm">Physical goods</span>
+        <span class="mv">A standard unit replaced bespoke loading. Schedules became schedules.</span>
+      </div>
+      <div>
+        <span class="yr">1970s–80s</span>
+        <span class="dm">Data</span>
+        <span class="mv">Transactions commit fully or roll back fully. Nothing in between.</span>
+      </div>
+      <div>
+        <span class="yr">1974</span>
+        <span class="dm">Communications</span>
+        <span class="mv">Unreliability pushed beneath a layer that guarantees ordered delivery.</span>
+      </div>
+      <div>
+        <span class="yr">2006</span>
+        <span class="dm">Compute</span>
+        <span class="mv">Procurement became an API call with a service level agreement.</span>
+      </div>
+    </div>
+    <p class="fig-note">Each moved a guarantee out of the user's hands and into the
+      infrastructure. Value movement has had no equivalent moment.</p>
+  </figure>
+
+  <p>Four different domains, four different decades, four different technical mechanisms. One
+    shared pattern:</p>
+
+  <blockquote>
+    <p>A flow stops being managed reactively and starts being <strong>computed in
+      advance</strong> — and the guarantee is moved into the infrastructure rather than left
+      with the user.</p>
+  </blockquote>
+
+  <h2 id="s2"><span class="sn">1.2</span>The holdout</h2>
+
+  <p>Value did not get this.</p>
+
+  <p>A cross-border payment in 2026 still behaves the way shipping behaved in 1950 and storage
+    behaved in 1975. It is handed off between institutions that do not share operating hours,
+    liquidity positions, compliance interpretations or message formats. Each hop makes a local
+    decision with local information. Nobody holds the whole path.</p>
+
+  <p>The specific failures are well documented and have not meaningfully changed in twenty
+    years:</p>
+
+  <ul>
+    <li><strong>Routing is static.</strong> The path follows correspondent relationships
+      negotiated years earlier and pre-funded accounts held for treasury reasons. It is not
+      computed per payment, and it does not respond to today's conditions.</li>
+    <li><strong>Liquidity is invisible.</strong> Nostro accounts are pre-funded pools. When one
+      is exhausted, payments do not fail — they <strong>queue</strong>, silently, until it is
+      topped up. The payer is not told, because the payer's bank does not know either.</li>
+    <li><strong>Compliance re-runs at every hop, independently.</strong> A payment screened
+      clean at origin can be flagged by the third intermediary for a reason no one predicted,
+      because no two institutions interpret the rules identically.</li>
+    <li><strong>Settlement windows do not overlap.</strong> There is no hour of the day when the
+      major systems are all open, and a payment that misses its window waits.</li>
+  </ul>
+
+  <figure>
+    <figcaption><span>Fig. 2 — RTGS operating hours</span><span>AEST</span></figcaption>
+    <table class="win">
+      <thead><tr><th>System</th><th>Opens</th><th>Closes</th></tr></thead>
+      <tbody>
+        <tr><td>AU RITS</td><td>08:00</td><td>18:00</td></tr>
+        <tr><td>EU TARGET2</td><td>17:00</td><td>02:00</td></tr>
+        <tr><td>US Fedwire</td><td>21:00</td><td>05:30</td></tr>
+      </tbody>
+    </table>
+    <p class="fig-note">Peak overlap is two of three. Between 05:30 and 08:00 AEST, none are
+      open at all.</p>
+  </figure>
+
+  <p>None of this is incompetence. Each institution is behaving rationally within its own
+    boundary. <strong>The dysfunction is structural</strong> — it lives in the absence of a
+    layer that sees across the boundaries, and no participant is incentivised to build one.</p>
+
+  <h2 id="s3"><span class="sn">1.3</span>What determinism actually means</h2>
+
+  <p>The word needs to be precise, because it is doing load-bearing work for the rest of this
+    essay.</p>
+
+  <p><strong>Deterministic does not mean fast.</strong> It does not mean cheap, and it does not
+    mean guaranteed to succeed.</p>
+
+  <blockquote>
+    <p><strong>Deterministic means: given the same inputs, you get the same output — and you
+      know the output before you commit.</strong></p>
+  </blockquote>
+
+  <p>No randomness. No human judgment inserted mid-flow. No two identical payments taking
+    different paths for reasons that cannot afterwards be reconstructed.</p>
+
+  <p>Legacy correspondent banking fails this test in the most basic possible way. Send the same
+    A$500,000 twice, an hour apart, and it may route differently, arrive days apart and cost
+    materially different amounts — and no one involved can tell you why, because the decision
+    was never made in one place to begin with.</p>
+
+  <p>A deterministic system does not promise the payment will be fast. It promises that
+    <strong>whatever is going to happen is knowable in advance</strong>, and that the reasoning
+    is reconstructable afterwards. Those are different guarantees, and the second is the one
+    that has been missing entirely.</p>
+
+  <h2 id="s4"><span class="sn">1.4</span>The measurement</h2>
+
+  <p>The cost of non-determinism is measurable, and this is the number that motivates
+    everything that follows.</p>
+
+  <figure class="wide">
+    <figcaption><span>Fig. 3 — Observed latency, Australia–Singapore corridor</span><span>same payment</span></figcaption>
+    <div class="spread">
+      <div class="sp"><span class="sp-l">Best</span>
+        <span class="sp-t"><span class="sp-b" data-w="2" style="background:var(--flow)"></span></span>
+        <span class="sp-v">2.5 h</span></div>
+      <div class="sp"><span class="sp-l">Median</span>
+        <span class="sp-t"><span class="sp-b" data-w="14" style="background:var(--wire)"></span></span>
+        <span class="sp-v">28–36 h</span></div>
+      <div class="sp"><span class="sp-l">P95</span>
+        <span class="sp-t"><span class="sp-b" data-w="45" style="background:var(--friction)"></span></span>
+        <span class="sp-v">3–5 d</span></div>
+      <div class="sp"><span class="sp-l">Worst</span>
+        <span class="sp-t"><span class="sp-b" data-w="100" style="background:var(--friction)"></span></span>
+        <span class="sp-v">7–11 d</span></div>
+    </div>
+    <div class="ratio"><b>106×</b><span>best to worst, undisclosed to the payer</span></div>
+  </figure>
+
+  <p>Compare that to any other infrastructure you depend on. A cloud API call that took 106× its
+    median latency would be a Sev-1 incident. A container ship arriving 106× late would end a
+    shipping line. In cross-border value movement, that spread is not an incident. <strong>It is
+    the normal operating envelope</strong>, and it is not disclosed to the payer.</p>
+
+  <p>The cost side is similar. The rate you are quoted is one number. The rate you actually pay
+    is the sum of eight components — interbank spot, spread, forward points, volatility premium,
+    liquidity premium, corridor cost, delay premium and a compliance risk buffer.</p>
+
+  <figure class="wide">
+    <figcaption><span>Fig. 4 — Degradation from interbank spot</span><span>A$500,000 · AUD→SGD</span></figcaption>
+    <div class="stack" id="stack"></div>
+    <div class="slbl"><span class="q">visible to the payer · 12 bps</span><span class="a">actually paid · 54 bps</span></div>
+    <div class="comps" id="comps"></div>
+    <p class="fig-note">Two of eight components are visible to the payer. The remaining six
+      total roughly 42 basis points.</p>
+  </figure>
+
+  <blockquote>
+    <p><strong>A$2,100 of cost on a single transfer, arising from decisions the payer cannot
+      see, made by parties they did not choose, for reasons they will never be told.</strong></p>
+  </blockquote>
+
+  <p>And one of those hidden components is the price of delay itself — which means
+    unpredictability is not merely inconvenient. It is directly, quantifiably expensive.</p>
+
+  <h2 id="s5"><span class="sn">1.5</span>This is not an essay about fees</h2>
+
+  <p>It would be easy to read the preceding section as a complaint about bank margins. It is
+    not, and the distinction matters.</p>
+
+  <p>Several excellent companies have already attacked the fee problem. Wise spent a decade and
+    sixty-three licences building direct integrations into local payment systems, and cut the
+    cost of a UK transfer nine-fold in the process. Remitly built a network spanning 1,700
+    corridors. Adyen collapsed a fragmented card value chain into one platform with real-time
+    failover across six data centres. These are serious pieces of infrastructure, and the fee
+    problem is, slowly, being solved.</p>
+
+  <p><strong>None of them solved the determinism problem</strong>, and structurally none of them
+    can.</p>
+
+  <p>Each optimises routing <em>inside its own network</em>. Wise cannot recommend Airwallex.
+    Adyen cannot route you off Adyen. Remitly cannot tell you a competitor's corridor would have
+    been better today. Their optimisation is genuine, and it is also captive — bounded by the
+    network they own, which is precisely the asset that makes them valuable.</p>
+
+  <p>More fundamentally: none of them can hand you a proof. When a payment is delayed, you
+    receive an explanation. You cannot independently verify the route that was chosen, the
+    alternatives that existed, or the reasoning that discarded them. You are asked to trust the
+    record of the party whose performance the record describes.</p>
+
+  <p>That is the gap this essay is about. Not <em>what does it cost</em> — but:</p>
+
+  <blockquote>
+    <p><strong>Can the decision be computed in advance, and can the reasoning be proved
+      afterwards by someone who does not trust you?</strong></p>
+  </blockquote>
+
+  <h2 id="s6"><span class="sn">1.6</span>What follows</h2>
+
+  <p>The remainder of this essay argues that value movement is now at the point shipping reached
+    in 1955, storage reached in 1978 and compute reached in 2005 — a domain where the
+    dysfunction is fully understood, the enabling components have quietly arrived, and nobody
+    has yet assembled them.</p>
+
+  <p>The enabling components exist. ISO 20022 gives structured, schema-validated payment data
+    where MT103 gave ambiguous free text. Real-time FX is available to anyone with an HTTP
+    client. Cryptographic evidence chains are decades-old technology, cheap to run. What has not
+    existed is a layer that treats a payment as a <em>decision to be computed</em> rather than
+    an <em>instruction to be forwarded</em>.</p>
+
+  <ul>
+    <li><strong>Chapter II</strong> measures the cost of non-determinism precisely — the eight
+      FX components, the non-linear relationship between delay and exposure, and why a faster
+      route can be the more expensive one.</li>
+    <li><strong>Chapter III</strong> examines why the problem has persisted: what SWIFT actually
+      does and does not do, why gpi delivered visibility without intelligence, and why the
+      incumbents are structurally unable to solve it.</li>
+    <li><strong>Chapters IV–VI</strong> describe what a deterministic layer requires — computed
+      routing, enforced execution, verifiable evidence — and then, in Chapter VI, an itemised
+      account of how much of it currently runs, including everything that does not.</li>
+  </ul>
+
+  <p>That last chapter is deliberate. An argument for verifiability that is vague about its own
+    maturity is self-refuting.</p>
+
+  <div class="next">
+    <span>Next</span>
+    <a href="#">II. What Non-Determinism Costs →</a>
+  </div>
+
+</article>
+
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* reading progress */
+  var prog = document.getElementById("prog");
+  function onScroll(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + "%";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* Fig. 4 — the eight components, same tone ramp as Lesson 3 */
+  var COMPONENTS = [
+    { sym:"S₀", nm:"Interbank spot",     bps:0,  tone:"rgba(25,29,27,.55)" },
+    { sym:"ΔS", nm:"Spread",             bps:12, tone:"rgba(25,29,27,.42)" },
+    { sym:"F",  nm:"Forward points",     bps:4,  tone:"rgba(90,58,44,.50)" },
+    { sym:"V",  nm:"Volatility premium", bps:9,  tone:"rgba(126,58,40,.62)" },
+    { sym:"L",  nm:"Liquidity premium",  bps:6,  tone:"rgba(146,60,38,.70)" },
+    { sym:"C",  nm:"Corridor cost",      bps:7,  tone:"rgba(160,62,37,.80)" },
+    { sym:"D",  nm:"Delay premium",      bps:11, tone:"rgba(168,65,38,.90)" },
+    { sym:"R",  nm:"Compliance buffer",  bps:5,  tone:"rgba(168,65,38,1)" }
+  ];
+  var TOTAL = 54;
+  var stack = document.getElementById("stack"), comps = document.getElementById("comps");
+  COMPONENTS.forEach(function(c){
+    if (c.bps > 0){
+      var s = document.createElement("span");
+      s.style.background = c.tone; s.dataset.w = (c.bps / TOTAL * 100);
+      stack.appendChild(s);
+    }
+    var d = document.createElement("div");
+    d.innerHTML = '<span class="sy">' + c.sym + '</span>' +
+      '<span class="sw" style="background:' + c.tone + '"></span>' +
+      '<span class="nm">' + c.nm + '</span>' +
+      '<span class="bp">' + (c.bps ? c.bps + " bps" : "base") + '</span>';
+    comps.appendChild(d);
+  });
+
+  /* reveal figures, and fill their bars once visible */
+  function fill(fig){
+    fig.querySelectorAll(".sp-b").forEach(function(b){
+      b.style.right = (100 - parseFloat(b.dataset.w)) + "%";
+    });
+    fig.querySelectorAll("#stack span").forEach(function(s){
+      s.style.width = s.dataset.w + "%";
+    });
+  }
+  var figs = Array.prototype.slice.call(document.querySelectorAll("figure"));
+  if (reduced || !("IntersectionObserver" in window)){
+    figs.forEach(function(f){ f.classList.add("seen"); fill(f); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          e.target.classList.add("seen");
+          setTimeout(function(){ fill(e.target); }, 220);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: .2 });
+    figs.forEach(function(f){ io.observe(f); });
+  }
+})();
+</script>

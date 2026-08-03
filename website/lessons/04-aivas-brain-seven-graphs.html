@@ -1,0 +1,735 @@
+<title>4. Aiva's Brain — Seven Graphs at Once · Lupine</title>
+
+<style>
+:root{
+  --paper:#EAE7DF; --paper-2:#E1DDD2; --paper-3:#F3F1EB;
+  --ink:#191D1B; --ink-2:rgba(25,29,27,.62); --ink-3:rgba(25,29,27,.40);
+  --rule:rgba(25,29,27,.16); --rule-2:rgba(25,29,27,.08);
+
+  /* Same semantic actors as Lessons 1–3 — these never swap roles. */
+  --wire:#2B4A78; --flow:#1E5B48; --friction:#A84126;
+  --wire-w:rgba(43,74,120,.12); --flow-w:rgba(30,91,72,.12); --friction-w:rgba(168,65,38,.12);
+
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,"Hoefler Text",Georgia,serif;
+
+  --t-hero:clamp(2.1rem,5.4vw,3.9rem); --t-title:clamp(1.45rem,3.1vw,2.25rem);
+  --t-lede:clamp(1.02rem,1.65vw,1.22rem); --t-body:clamp(.95rem,1.25vw,1.02rem);
+  --t-mono:clamp(.72rem,1vw,.82rem); --t-micro:.67rem;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+:root[data-theme="dark"],:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
+  font-size:var(--t-body);line-height:1.62;-webkit-font-smoothing:antialiased;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(to bottom,transparent 0 43px,rgba(30,91,72,.016) 43px 86px)}
+
+.stage{position:relative;z-index:1;height:100dvh;display:grid;grid-template-columns:auto 1fr}
+.rail{display:flex;flex-direction:column;gap:.55rem;padding:1.6rem .95rem;
+  border-right:1px solid var(--rule);background:var(--paper-2)}
+.rail-mark{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;
+  color:var(--ink-3);writing-mode:vertical-rl;margin-bottom:.7rem;text-transform:uppercase}
+.dot{appearance:none;border:1px solid var(--rule);background:transparent;width:26px;height:26px;
+  border-radius:50%;cursor:pointer;padding:0;font-family:var(--mono);font-size:.62rem;
+  color:var(--ink-3);display:grid;place-items:center;transition:all .3s var(--ease)}
+.dot:hover{border-color:var(--ink-3);color:var(--ink-2)}
+.dot[aria-current="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.dot.seen:not([aria-current="true"]){border-color:var(--ink-3);color:var(--ink-2)}
+.dot:focus-visible{outline:2px solid var(--wire);outline-offset:3px}
+
+.viewport{position:relative;overflow:hidden}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;
+  padding:clamp(1.4rem,4vw,3.4rem);overflow-y:auto;opacity:0;visibility:hidden;
+  transform:translateY(14px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease),visibility .5s}
+.scene.is-active{opacity:1;visibility:visible;transform:none}
+.wrap{width:100%;max-width:64rem;margin:auto}
+
+.eyebrow{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 1rem}
+h1{font-family:var(--mono);font-size:var(--t-hero);font-weight:600;letter-spacing:-.035em;
+  line-height:1.02;margin:0;text-wrap:balance;text-transform:uppercase}
+h2{font-family:var(--mono);font-size:var(--t-title);font-weight:600;letter-spacing:-.02em;
+  line-height:1.1;margin:0 0 1.1rem;text-wrap:balance;text-transform:uppercase}
+.exact{text-transform:none}
+p{max-width:36em;margin:0}
+.muted{color:var(--ink-2)}
+strong{font-weight:600}
+.pull{border-left:2px solid var(--ink);padding:.1rem 0 .1rem 1.1rem;
+  font-size:var(--t-lede);line-height:1.5;max-width:33em}
+.fig{background:var(--paper-3);border:1px solid var(--rule);
+  padding:clamp(1rem,2.4vw,1.7rem);overflow-x:auto}
+.fig-cap{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 1.1rem;
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center}
+.mono{font-family:var(--mono);font-size:var(--t-mono);font-variant-numeric:tabular-nums}
+.cols{display:grid;gap:clamp(1.1rem,2.6vw,2.2rem);grid-template-columns:1fr}
+@media(min-width:900px){.cols.two{grid-template-columns:1fr 1.15fr;align-items:center}}
+.replay{appearance:none;border:1px solid var(--rule);background:transparent;cursor:pointer;
+  font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-2);padding:.28rem .7rem;transition:all .2s;white-space:nowrap}
+.replay:hover{border-color:var(--ink-3);color:var(--ink);background:var(--paper-2)}
+.replay:focus-visible{outline:2px solid var(--wire);outline-offset:2px}
+@keyframes slideIn{to{opacity:1;transform:none}}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* ─── S2/S3 · the seven graphs ──────────────────────── */
+.graphs{display:grid;gap:5px;grid-template-columns:repeat(auto-fit,minmax(184px,1fr))}
+.g{padding:.8rem .9rem;background:var(--paper-2);border-left:2px solid var(--wire);opacity:0;
+  transform:translateY(8px)}
+.is-active .g{animation:rise .45s var(--ease) forwards}
+.g .k{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--wire);display:block;margin-bottom:.25rem}
+.g .v{font-size:.83rem;color:var(--ink-2)}
+.g .w{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-3);display:block;margin-top:.4rem}
+.g.p2{border-left-color:var(--ink-3);opacity:.55}
+.g.p2 .k{color:var(--ink-3)}
+
+/* ─── S4 · sequential vs simultaneous ───────────────── */
+.engines{display:grid;gap:1.6rem;grid-template-columns:1fr;min-width:540px}
+.eng{background:var(--paper-2);padding:1rem 1.1rem}
+.eng h3{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.16em;
+  text-transform:uppercase;margin:0 0 .9rem}
+.eng.seq h3{color:var(--friction)}
+.eng.sim h3{color:var(--flow)}
+.gates{display:flex;align-items:stretch;gap:0}
+.gate{flex:1;display:flex;flex-direction:column;align-items:center;gap:.4rem;position:relative}
+.gbox{width:100%;height:38px;border:1px solid var(--rule);background:var(--paper-3);
+  display:grid;place-items:center;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3);transition:all .35s var(--ease)}
+.gate.pass .gbox{border-color:var(--flow);background:var(--flow-w);color:var(--flow)}
+.gate.kill .gbox{border-color:var(--friction);background:var(--friction);color:var(--paper-3)}
+.gate.skip .gbox{opacity:.3}
+.garrow{font-family:var(--mono);font-size:.7rem;color:var(--ink-3);align-self:center;padding:0 .35rem}
+.verdict{font-family:var(--mono);font-size:var(--t-mono);margin-top:.9rem;opacity:0;
+  transition:opacity .5s}
+.verdict.on{opacity:1}
+.verdict.bad{color:var(--friction)}
+.verdict.good{color:var(--flow)}
+.simgrid{display:grid;gap:4px;grid-template-columns:repeat(auto-fit,minmax(96px,1fr))}
+.sq{padding:.5rem .4rem;border:1px solid var(--rule);background:var(--paper-3);text-align:center;
+  font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-3);transition:all .35s var(--ease)}
+.sq.on{border-color:var(--wire);background:var(--wire-w);color:var(--wire)}
+.paths{display:flex;flex-direction:column;gap:.35rem;margin-top:.9rem}
+.path{display:grid;grid-template-columns:1fr auto;gap:.8rem;padding:.42rem .6rem;
+  background:var(--paper-3);border-left:2px solid var(--rule);
+  font-family:var(--mono);font-size:var(--t-micro);opacity:0;transition:opacity .4s}
+.path.on{opacity:1}
+.path.win{border-left-color:var(--flow);background:var(--flow-w);color:var(--flow)}
+.path.out{border-left-color:var(--friction);color:var(--friction)}
+
+/* ─── S6 · the merge ────────────────────────────────── */
+.merge{display:flex;flex-direction:column;gap:.45rem;min-width:420px}
+.mrow{display:grid;grid-template-columns:7.5rem 1fr 3.2rem;gap:.8rem;align-items:center}
+.mlbl{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-2)}
+.mtrack{height:14px;background:var(--paper-2);position:relative;overflow:hidden}
+.mbar{position:absolute;inset:0 100% 0 0;background:var(--wire-w);
+  border-bottom:2px solid var(--wire);transition:right .7s var(--ease)}
+.mval{font-family:var(--mono);font-size:var(--t-micro);font-variant-numeric:tabular-nums;
+  color:var(--ink-3);text-align:right}
+.msum{margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--rule-2);
+  font-family:var(--mono);display:flex;align-items:baseline;gap:.75rem;opacity:0;transition:opacity .6s}
+.msum.on{opacity:1}
+.msum b{font-size:1.7rem;letter-spacing:-.03em;color:var(--wire);font-variant-numeric:tabular-nums}
+.msum span{font-size:var(--t-micro);letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+
+/* ─── S7 · determinism ──────────────────────────────── */
+.runs{display:grid;gap:1.5rem;grid-template-columns:1fr;min-width:520px}
+@media(min-width:820px){.runs{grid-template-columns:1fr 1fr}}
+.runbox{background:var(--paper-2);padding:1rem}
+.runbox h3{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.16em;
+  text-transform:uppercase;margin:0 0 .9rem}
+.runbox.legacy h3{color:var(--friction)}
+.runbox.aiva h3{color:var(--flow)}
+.run{display:grid;grid-template-columns:3.4rem 1fr;gap:.7rem;align-items:center;
+  padding:.42rem 0;font-family:var(--mono);font-size:var(--t-micro);opacity:0;transition:opacity .4s}
+.run.on{opacity:1}
+.run .n{color:var(--ink-3);letter-spacing:.1em}
+.run .p{letter-spacing:.03em}
+.runbox.legacy .run .p{color:var(--friction)}
+.runbox.aiva .run .p{color:var(--flow)}
+.runnote{font-family:var(--mono);font-size:var(--t-micro);margin-top:.9rem;
+  padding-top:.8rem;border-top:1px solid var(--rule-2);opacity:0;transition:opacity .5s}
+.runnote.on{opacity:1}
+.runbox.legacy .runnote{color:var(--friction)}
+.runbox.aiva .runnote{color:var(--flow)}
+
+/* ─── S8 · blueprint ────────────────────────────────── */
+.bp{display:grid;gap:4px;grid-template-columns:repeat(auto-fit,minmax(178px,1fr))}
+.bpi{padding:.62rem .75rem;background:var(--paper-2);border-left:2px solid var(--flow);
+  font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.04em;opacity:0;
+  transform:translateY(6px)}
+.is-active .bpi{animation:rise .38s var(--ease) forwards}
+
+/* ─── S9 · v0 coverage ──────────────────────────────── */
+.cov{display:flex;flex-direction:column;gap:4px}
+.cvr{display:grid;grid-template-columns:1.7rem 9.5rem 1fr;gap:.8rem;align-items:center;
+  padding:.55rem .8rem;background:var(--paper-2);border-left:2px solid var(--rule)}
+.cvr.in{border-left-color:var(--flow)}
+.cvr.out{border-left-color:var(--ink-3);opacity:.6}
+.cvr .m{font-family:var(--mono);font-size:.8rem;text-align:center}
+.cvr.in .m{color:var(--flow)}
+.cvr.out .m{color:var(--ink-3)}
+.cvr .nm{font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.04em}
+.cvr .as{font-size:.82rem;color:var(--ink-2)}
+
+/* ─── S10 · thesis ──────────────────────────────────── */
+.vs{display:grid;gap:1px;background:var(--rule);grid-template-columns:1fr}
+@media(min-width:760px){.vs{grid-template-columns:1fr 1fr}}
+.vs-side{background:var(--paper-3);padding:1.3rem}
+.vs-side h3{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.18em;
+  text-transform:uppercase;margin:0 0 .8rem;color:var(--ink-3)}
+.vs-side.now h3{color:var(--friction)}
+.vs-side.next h3{color:var(--flow)}
+.vs-side ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.4rem}
+.vs-side li{font-size:.9rem;color:var(--ink-2)}
+
+/* ─── S11 · questions ───────────────────────────────── */
+.qs{display:flex;flex-direction:column;gap:.7rem}
+details{background:var(--paper-3);border:1px solid var(--rule);padding:.95rem 1.15rem}
+details[open]{border-color:var(--ink-3)}
+summary{cursor:pointer;font-size:var(--t-lede);line-height:1.45;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";font-family:var(--mono);color:var(--ink-3);font-size:.85em}
+details[open] summary::before{content:"▾ "}
+summary:focus-visible{outline:2px solid var(--wire);outline-offset:3px}
+details p{margin:.85rem 0 0;color:var(--ink-2);font-size:.94rem;max-width:44em}
+.badge{display:inline-block;font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.1em;
+  text-transform:uppercase;padding:.15rem .5rem;margin-left:.5rem}
+.badge.gap{color:var(--friction);background:var(--friction-w)}
+
+.controls{position:fixed;right:clamp(1rem,3vw,2.2rem);bottom:clamp(1rem,3vw,2rem);
+  display:flex;align-items:center;gap:.5rem;z-index:20;
+  background:var(--paper-3);border:1px solid var(--rule);padding:.4rem}
+.btn{appearance:none;border:0;background:transparent;cursor:pointer;font-family:var(--mono);
+  font-size:var(--t-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);
+  padding:.5rem .9rem;transition:background .2s}
+.btn:hover:not(:disabled){background:var(--paper-2)}
+.btn:disabled{color:var(--ink-3);cursor:not-allowed}
+.btn:focus-visible{outline:2px solid var(--wire);outline-offset:-2px}
+.pos{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-3);
+  font-variant-numeric:tabular-nums;padding:0 .5rem;letter-spacing:.1em}
+.hint{position:fixed;left:clamp(4.5rem,7vw,6rem);bottom:clamp(1.1rem,3vw,2.1rem);
+  font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);z-index:20}
+@media(max-width:640px){.hint{display:none}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  .g,.bpi{opacity:1;transform:none}
+}
+</style>
+
+<div class="stage">
+  <nav class="rail" aria-label="Lesson scenes">
+    <span class="rail-mark">Lesson 04</span>
+    <button class="dot" data-go="0" aria-current="true">1</button>
+    <button class="dot" data-go="1">2</button>
+    <button class="dot" data-go="2">3</button>
+    <button class="dot" data-go="3">4</button>
+    <button class="dot" data-go="4">5</button>
+    <button class="dot" data-go="5">6</button>
+    <button class="dot" data-go="6">7</button>
+    <button class="dot" data-go="7">8</button>
+    <button class="dot" data-go="8">9</button>
+    <button class="dot" data-go="9">10</button>
+    <button class="dot" data-go="10">11</button>
+  </nav>
+
+  <div class="viewport">
+
+    <!-- 1 -->
+    <section class="scene is-active">
+      <div class="wrap">
+        <p class="eyebrow">Lupine Systems · Revision · Lesson 4 of 14</p>
+        <h1>4. Aiva's brain<br>— seven graphs<br>at once</h1>
+        <div class="pull" style="margin-top:2rem">
+          Aiva doesn't look at a payment through one lens. It looks through
+          <strong>seven simultaneously</strong>, then merges them into a single
+          computed decision.
+        </div>
+        <p class="mono muted" style="margin-top:2rem">
+          11 scenes · ~10 min · read Part II Ch 1 first · carries mechanisms #3 and #5
+        </p>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 02 · The seven lenses</p>
+        <h2>One payment, seven graphs</h2>
+        <p style="margin-bottom:1.3rem">A graph is just a network — nodes connected by edges,
+          each edge carrying a weight. Aiva keeps <strong>seven of them</strong>, each describing
+          the same payment from a different angle.</p>
+        <div class="graphs">
+          <div class="g" style="animation-delay:.05s"><span class="k">Hop</span>
+            <span class="v">Which banks can physically reach which banks.</span>
+            <span class="w">edges: latency + reliability</span></div>
+          <div class="g" style="animation-delay:.12s"><span class="k">Corridor</span>
+            <span class="v">FX routes — AUD→SGD→EUR vs AUD→USD→EUR.</span>
+            <span class="w">edges: depth, volatility, spread</span></div>
+          <div class="g" style="animation-delay:.19s"><span class="k">Liquidity</span>
+            <span class="v">Treasury depth at each tier. Anticipates droughts.</span>
+            <span class="w">edges: pool capacity</span></div>
+          <div class="g" style="animation-delay:.26s"><span class="k">Volatility</span>
+            <span class="v">Price-risk propagation across the path.</span>
+            <span class="w">edges: <span class="exact">σ</span> per hop</span></div>
+          <div class="g" style="animation-delay:.33s"><span class="k">Compliance</span>
+            <span class="v">Which regulatory regimes are compatible.</span>
+            <span class="w">edges: flag probability</span></div>
+          <div class="g" style="animation-delay:.40s"><span class="k">Failure</span>
+            <span class="v">Cascading risk, modelled with Bayesian updating.</span>
+            <span class="w">edges: P(failure)</span></div>
+          <div class="g p2" style="animation-delay:.47s"><span class="k">Medical urgency</span>
+            <span class="v">Biological payload timing. Phase 2 — not in V0.</span>
+            <span class="w">out of scope</span></div>
+        </div>
+        <p class="mono muted" style="margin-top:1.2rem">
+          Six graphs in the V0 lineage. The seventh is a future direction.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 03 · Why graphs at all</p>
+        <h2>Because a payment has options</h2>
+        <div class="cols two">
+          <div style="display:flex;flex-direction:column;gap:1.1rem">
+            <p>A graph is the right shape because the question is genuinely a
+              <strong>path</strong> question: many possible routes, each a sequence of hops,
+              each hop carrying cost.</p>
+            <p>Legacy systems don't have a graph. They have a <em>list</em> — the correspondents
+              this bank happens to have agreements with. One option, pre-chosen, years ago.</p>
+            <div class="pull" style="border-color:var(--wire)">
+              You cannot optimise over a set you never enumerated.
+            </div>
+          </div>
+          <div class="fig">
+            <p class="fig-cap"><span>Same corridor, different lenses</span><span>same nodes, different weights</span></p>
+            <div class="mono" style="display:flex;flex-direction:column;gap:.75rem">
+              <span style="color:var(--ink-3)">AU ─── C1 ─── C2 ─── SG</span>
+              <span style="color:var(--wire)">hop graph &nbsp;&nbsp;→ 4h · 11h · 5h</span>
+              <span style="color:var(--wire)">liquidity &nbsp;&nbsp;&nbsp;→ deep · deep · thin</span>
+              <span style="color:var(--wire)">volatility &nbsp;&nbsp;→ low · low · high</span>
+              <span style="color:var(--wire)">compliance &nbsp;→ clean · clean · flag risk</span>
+            </div>
+            <p class="mono muted" style="margin-top:1.2rem">
+              One physical path. Four completely different pictures of it — and the last hop
+              looks fine on three of them.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 04 · Mechanism #3</p>
+        <h2>Sequential kills good routes</h2>
+        <div class="fig">
+          <p class="fig-cap">
+            <span>Same payment, two engines</span>
+            <button class="replay" id="rEng" type="button">↻ Replay</button>
+          </p>
+          <div class="engines">
+            <div class="eng seq">
+              <h3>Sequential — one check at a time</h3>
+              <div class="gates" id="gates">
+                <div class="gate"><div class="gbox">Compliance</div></div>
+                <span class="garrow">→</span>
+                <div class="gate"><div class="gbox">Routing</div></div>
+                <span class="garrow">→</span>
+                <div class="gate"><div class="gbox">Liquidity</div></div>
+                <span class="garrow">→</span>
+                <div class="gate"><div class="gbox">Execute</div></div>
+              </div>
+              <p class="verdict bad" id="vSeq">
+                Flagged at gate 1. Rejected. The routing engine was never consulted —
+                so the corridor that avoids the flag was never found.
+              </p>
+            </div>
+            <div class="eng sim">
+              <h3>Simultaneous — all constraints at once</h3>
+              <div class="simgrid" id="simgrid">
+                <div class="sq">Hop</div><div class="sq">Corridor</div><div class="sq">Liquidity</div>
+                <div class="sq">Volatility</div><div class="sq">Compliance</div><div class="sq">Failure</div>
+              </div>
+              <div class="paths">
+                <div class="path out" id="p1"><span>AU → USD hub → SG</span><span>compliance flag · eliminated</span></div>
+                <div class="path win" id="p2"><span>AU → SGD direct → SG</span><span>clean · 0.84 · selected</span></div>
+                <div class="path" id="p3"><span>AU → HKD → SG</span><span>viable · 0.71 · fallback</span></div>
+              </div>
+              <p class="verdict good" id="vSim">
+                Found the corridor where the flag never fires. Same payment, same rules,
+                completely different outcome.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="pull" style="margin-top:1.5rem;border-color:var(--friction)">
+          Sequential isn't merely slower. It produces <strong>worse decisions</strong> — because
+          each system decides in isolation, blind to what the others would have found.
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 05 · The correction</p>
+        <h2>What you said in April</h2>
+        <div class="cols two">
+          <div class="fig">
+            <p class="fig-cap"><span>Comprehension check · P2-Ch1</span><span>13 Apr 2026</span></p>
+            <p class="mono" style="color:var(--friction);line-height:1.7">
+              "In sequential evaluation, it is time consuming, and by removing this sequential
+              evaluation, we can choose constraints based on faster outputs."
+            </p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:1.1rem">
+            <p>You reached for <strong>speed</strong>. Reasonable — and it's what almost everyone
+              says.</p>
+            <p>But speed is a side effect. The real cost of sequential evaluation is that a
+              constraint checked first can <strong>terminate the payment</strong> before any
+              other constraint gets a chance to route around it.</p>
+            <div class="pull" style="border-color:var(--flow)">
+              Simultaneous evaluation doesn't just answer faster.<br>
+              <strong>It finds answers sequential never reaches.</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 06 · The merge</p>
+        <h2>Seven scores, one weight</h2>
+        <p class="mono" style="margin-bottom:1.3rem;color:var(--ink-2)">
+          <span class="exact">W = α₁·Liq + α₂·Lat + α₃·Vol + α₄·FX + α₅·Comp + α₆·Fail + α₇·Urg</span>
+        </p>
+        <div class="fig">
+          <p class="fig-cap">
+            <span>One candidate path, scored across every graph</span>
+            <button class="replay" id="rMerge" type="button">↻ Replay</button>
+          </p>
+          <div class="merge" id="merge">
+            <div class="mrow"><span class="mlbl">Liquidity</span>
+              <span class="mtrack"><span class="mbar" data-w="88"></span></span><span class="mval">0.88</span></div>
+            <div class="mrow"><span class="mlbl">Latency</span>
+              <span class="mtrack"><span class="mbar" data-w="72"></span></span><span class="mval">0.72</span></div>
+            <div class="mrow"><span class="mlbl">Volatility</span>
+              <span class="mtrack"><span class="mbar" data-w="65"></span></span><span class="mval">0.65</span></div>
+            <div class="mrow"><span class="mlbl">FX cost</span>
+              <span class="mtrack"><span class="mbar" data-w="80"></span></span><span class="mval">0.80</span></div>
+            <div class="mrow"><span class="mlbl">Compliance</span>
+              <span class="mtrack"><span class="mbar" data-w="94"></span></span><span class="mval">0.94</span></div>
+            <div class="mrow"><span class="mlbl">Reliability</span>
+              <span class="mtrack"><span class="mbar" data-w="91"></span></span><span class="mval">0.91</span></div>
+          </div>
+          <div class="msum" id="msum"><b>0.84</b><span>composite · this path</span></div>
+        </div>
+        <p class="mono muted" style="margin-top:1.2rem">
+          Every candidate path gets this treatment. The winner is the highest composite —
+          which is what V0's three-factor scorer is a simplified version of.
+        </p>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 07 · Mechanism #5</p>
+        <h2>Deterministic</h2>
+        <div class="fig">
+          <p class="fig-cap">
+            <span>Identical payment · sent three times · one hour apart</span>
+            <button class="replay" id="rDet" type="button">↻ Replay</button>
+          </p>
+          <div class="runs">
+            <div class="runbox legacy">
+              <h3>Legacy correspondent banking</h3>
+              <div class="run" id="l1"><span class="n">run 1</span><span class="p">AU → USD hub → SG · 31h</span></div>
+              <div class="run" id="l2"><span class="n">run 2</span><span class="p">AU → SGD direct → SG · 6h</span></div>
+              <div class="run" id="l3"><span class="n">run 3</span><span class="p">AU → USD → HKD → SG · 74h</span></div>
+              <p class="runnote" id="lnote">Three paths. Nobody chose them. Nobody can
+                reconstruct why.</p>
+            </div>
+            <div class="runbox aiva">
+              <h3>Aiva</h3>
+              <div class="run" id="a1"><span class="n">run 1</span><span class="p">AU → SGD direct → SG · 0.84</span></div>
+              <div class="run" id="a2"><span class="n">run 2</span><span class="p">AU → SGD direct → SG · 0.84</span></div>
+              <div class="run" id="a3"><span class="n">run 3</span><span class="p">AU → SGD direct → SG · 0.84</span></div>
+              <p class="runnote" id="anote">Same inputs, same output. Every time — and the
+                reasoning is recorded.</p>
+            </div>
+          </div>
+        </div>
+        <div class="pull" style="margin-top:1.5rem;border-color:var(--flow)">
+          <strong>Deterministic means: given the same inputs, you get the same output.</strong>
+          No randomness, no human judgment inserted mid-flow. The outcome is computed — and
+          knowable <em>before</em> the money moves.
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 08 · The handoff</p>
+        <h2>The execution blueprint</h2>
+        <p style="margin-bottom:1.4rem">Aiva's output isn't "use route B." It's a complete,
+          deterministic instruction set handed down to Rail — which executes it
+          <strong>exactly</strong> as specified, adding no judgment of its own.</p>
+        <div class="bp">
+          <div class="bpi" style="animation-delay:.05s">Optimal corridor path</div>
+          <div class="bpi" style="animation-delay:.11s">Hop-level timing model</div>
+          <div class="bpi" style="animation-delay:.17s">Liquidity requirements</div>
+          <div class="bpi" style="animation-delay:.23s">Compliance probability matrix</div>
+          <div class="bpi" style="animation-delay:.29s">FX exposure curve</div>
+          <div class="bpi" style="animation-delay:.35s">Fallback tree</div>
+          <div class="bpi" style="animation-delay:.41s">Evidence anchor map → Cloked</div>
+        </div>
+        <p class="mono muted" style="margin-top:1.3rem">
+          The fallback tree matters most. It's why Rail can correct <em>forward</em> when a hop
+          fails — the alternate was computed before the payment ever moved. That's Lesson 8.
+        </p>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 09 · Honest scope</p>
+        <h2>What V0 actually implements</h2>
+        <div class="cov">
+          <div class="cvr in"><span class="m">✓</span><span class="nm">Hop</span>
+            <span class="as">→ settlement time per provider</span></div>
+          <div class="cvr in"><span class="m">✓</span><span class="nm">Corridor</span>
+            <span class="as">→ 21 real provider routes, live FX</span></div>
+          <div class="cvr in"><span class="m">✓</span><span class="nm">Volatility</span>
+            <span class="as">→ the watcher's 60-day σ and z-score</span></div>
+          <div class="cvr in"><span class="m">✓</span><span class="nm">Failure</span>
+            <span class="as">→ reliability score per provider</span></div>
+          <div class="cvr out"><span class="m">~</span><span class="nm">Liquidity</span>
+            <span class="as">→ modelled in fee spreads, not tracked directly</span></div>
+          <div class="cvr out"><span class="m">✗</span><span class="nm">Compliance</span>
+            <span class="as">→ not built. Deliberately out of V0 scope.</span></div>
+          <div class="cvr out"><span class="m">✗</span><span class="nm">Medical urgency</span>
+            <span class="as">→ Phase 2 direction only</span></div>
+        </div>
+        <p class="mono" style="margin-top:1.4rem;color:var(--ink-2)">
+          Say this plainly when asked: <span style="color:var(--flow)">"V0 implements four of the
+          seven graphs, partially a fifth, and skips compliance on purpose."</span>
+        </p>
+        <p class="muted" style="margin-top:.7rem">Naming the gap precisely reads as competence.
+          Vagueness reads as not understanding your own system.</p>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 10 · The thesis</p>
+        <h2>Computed, not guessed</h2>
+        <div class="vs" style="margin-bottom:1.6rem">
+          <div class="vs-side now">
+            <h3>Legacy routing</h3>
+            <ul>
+              <li>A list of pre-agreed correspondents</li>
+              <li>Constraints checked one at a time</li>
+              <li>First rejection ends the payment</li>
+              <li>Two identical payments, two paths</li>
+              <li>No record of what was considered</li>
+            </ul>
+          </div>
+          <div class="vs-side next">
+            <h3>Aiva</h3>
+            <ul>
+              <li>Seven graphs over every viable path</li>
+              <li>All constraints weighed simultaneously</li>
+              <li>Rejection on one axis triggers a re-route</li>
+              <li>Same inputs, same route, every time</li>
+              <li>A blueprint plus an evidence anchor map</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pull">
+          "Legacy routing checks constraints one at a time, so a compliance flag kills a payment
+          that a different corridor would have sailed through. Aiva evaluates seven dimensions
+          simultaneously and outputs a deterministic blueprint — <strong>same inputs, same
+          route, every time, knowable before the money moves.</strong>"
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="scene">
+      <div class="wrap">
+        <p class="eyebrow">Scene 11 · Check yourself</p>
+        <h2>Say these out loud</h2>
+        <p style="margin-bottom:1.4rem">Both of today's questions are on your list of twelve.
+          Neither came out right in April.</p>
+        <div class="qs">
+          <details>
+            <summary>Why is simultaneous evaluation better than sequential?<span class="badge gap">Mechanism #3</span></summary>
+            <p>Not because it's faster — because it produces <strong>better decisions</strong>.
+              In a sequential engine, a constraint checked first can terminate the payment
+              before the routing engine ever runs, so the corridor where that flag never fires
+              is never discovered. Each system decides in isolation, blind to the others. Aiva
+              evaluates all seven at once and can find paths sequential systems structurally
+              cannot reach.</p>
+          </details>
+          <details>
+            <summary>Define "deterministic" in one sentence.<span class="badge gap">Mechanism #5</span></summary>
+            <p><strong>Given the same inputs, you get the same output — every time, with no
+              randomness and no human judgment in the middle.</strong> Legacy systems are
+              non-deterministic: two identical payments an hour apart can take different paths
+              for reasons nobody can afterwards reconstruct. Note this is a separate idea from
+              simultaneous evaluation — that's <em>how</em> Aiva computes; determinism is a
+              property of the <em>result</em>.</p>
+          </details>
+          <details>
+            <summary>What does Aiva hand to Rail, and which part matters most?</summary>
+            <p>An execution blueprint: corridor path, hop-level timing model, liquidity
+              requirements, compliance probability matrix, FX exposure curve, fallback tree, and
+              the evidence anchor map for Cloked. The <strong>fallback tree</strong> is the
+              critical one — it's what lets Rail correct forward instead of rolling back when a
+              hop fails.</p>
+          </details>
+        </div>
+        <p class="mono muted" style="margin-top:2rem">
+          Lesson 4 complete → next: 5. Scoring — How Routes Get Judged
+        </p>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="hint">← → to move</div>
+
+<div class="controls">
+  <button class="btn" id="prev" disabled>Prev</button>
+  <span class="pos"><span id="cur">01</span> / 11</span>
+  <button class="btn" id="next">Next</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var scenes = Array.prototype.slice.call(document.querySelectorAll(".scene"));
+  var dots   = Array.prototype.slice.call(document.querySelectorAll(".dot"));
+  var prevB = document.getElementById("prev"), nextB = document.getElementById("next");
+  var curEl = document.getElementById("cur");
+  var i = 0, timers = [];
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function clearTimers(){ timers.forEach(clearTimeout); timers.forEach(clearInterval); timers = []; }
+  function later(fn, ms){ var t = setTimeout(fn, reduced ? 0 : ms); timers.push(t); return t; }
+
+  function go(n){
+    n = Math.max(0, Math.min(scenes.length - 1, n));
+    clearTimers();
+    scenes[i].classList.remove("is-active");
+    i = n;
+    scenes[i].classList.add("is-active");
+    dots.forEach(function(d, k){
+      d.setAttribute("aria-current", k === i ? "true" : "false");
+      if (k <= i) d.classList.add("seen");
+    });
+    curEl.textContent = String(i + 1).padStart(2, "0");
+    prevB.disabled = i === 0;
+    nextB.disabled = i === scenes.length - 1;
+    scenes[i].scrollTop = 0;
+    if (i === 3) playEngines();
+    if (i === 5) playMerge();
+    if (i === 6) playDet();
+  }
+
+  /* S4 · sequential dies at gate 1; simultaneous finds the way around */
+  function playEngines(){
+    var gates = document.querySelectorAll("#gates .gate");
+    var sqs   = document.querySelectorAll("#simgrid .sq");
+    var paths = ["p1","p2","p3"].map(function(id){ return document.getElementById(id); });
+    var vSeq = document.getElementById("vSeq"), vSim = document.getElementById("vSim");
+    if (!gates.length) return;
+
+    gates.forEach(function(g){ g.className = "gate"; });
+    sqs.forEach(function(s){ s.classList.remove("on"); });
+    paths.forEach(function(p){ p.classList.remove("on"); });
+    vSeq.classList.remove("on"); vSim.classList.remove("on");
+
+    /* sequential: gate 1 kills it, everything after never runs */
+    later(function(){
+      gates[0].classList.add("kill");
+      later(function(){
+        for (var k = 1; k < gates.length; k++) gates[k].classList.add("skip");
+        later(function(){ vSeq.classList.add("on"); }, 500);
+      }, 700);
+    }, 400);
+
+    /* simultaneous: all six graphs light together, then paths resolve */
+    later(function(){
+      sqs.forEach(function(s, k){ later(function(){ s.classList.add("on"); }, k * 70); });
+      later(function(){
+        paths.forEach(function(p, k){ later(function(){ p.classList.add("on"); }, k * 380); });
+        later(function(){ vSim.classList.add("on"); }, 1500);
+      }, 700);
+    }, 2200);
+  }
+
+  /* S6 · six scores fill, then the composite resolves */
+  function playMerge(){
+    var bars = document.querySelectorAll("#merge .mbar");
+    var sum  = document.getElementById("msum");
+    if (!bars.length) return;
+    bars.forEach(function(b){ b.style.right = "100%"; });
+    sum.classList.remove("on");
+    bars.forEach(function(b, k){
+      later(function(){ b.style.right = (100 - parseFloat(b.dataset.w)) + "%"; }, 300 + k * 260);
+    });
+    later(function(){ sum.classList.add("on"); }, 300 + bars.length * 260 + 500);
+  }
+
+  /* S7 · three runs each, side by side */
+  function playDet(){
+    var L = ["l1","l2","l3"].map(function(id){ return document.getElementById(id); });
+    var A = ["a1","a2","a3"].map(function(id){ return document.getElementById(id); });
+    var ln = document.getElementById("lnote"), an = document.getElementById("anote");
+    if (!L[0]) return;
+    L.concat(A).forEach(function(e){ e.classList.remove("on"); });
+    ln.classList.remove("on"); an.classList.remove("on");
+    for (var k = 0; k < 3; k++){
+      (function(k){
+        later(function(){ L[k].classList.add("on"); A[k].classList.add("on"); }, 400 + k * 750);
+      })(k);
+    }
+    later(function(){ ln.classList.add("on"); an.classList.add("on"); }, 400 + 3 * 750 + 400);
+  }
+
+  nextB.addEventListener("click", function(){ go(i + 1); });
+  prevB.addEventListener("click", function(){ go(i - 1); });
+  document.getElementById("rEng").addEventListener("click", function(){ clearTimers(); playEngines(); });
+  document.getElementById("rMerge").addEventListener("click", function(){ clearTimers(); playMerge(); });
+  document.getElementById("rDet").addEventListener("click", function(){ clearTimers(); playDet(); });
+  dots.forEach(function(d){ d.addEventListener("click", function(){ go(parseInt(d.dataset.go, 10)); }); });
+  document.addEventListener("keydown", function(e){
+    if (e.target.tagName === "SUMMARY" && (e.key === " " || e.key === "Enter")) return;
+    if (e.key === "ArrowRight" || e.key === "PageDown"){ e.preventDefault(); go(i + 1); }
+    if (e.key === "ArrowLeft"  || e.key === "PageUp"){   e.preventDefault(); go(i - 1); }
+    if (e.key === " "){ e.preventDefault(); go(i + 1); }
+    if (e.key === "Home"){ e.preventDefault(); go(0); }
+    if (e.key === "End"){  e.preventDefault(); go(scenes.length - 1); }
+  });
+
+  go(0);
+})();
+</script>
