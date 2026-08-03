@@ -223,7 +223,7 @@ figure.seen{opacity:1;transform:none}
     beneath a layer that guarantees ordered delivery. The network stayed messy. The interface
     became certain.</p>
 
-  <p><strong>Compute, 2006.</strong> Before EC2, capacity meant procurement: quotes, purchase
+  <p><strong>Compute, 2006.</strong> Before EC2 entered public beta, capacity meant procurement: quotes, purchase
     orders, racking, weeks of lead time and a guess about demand. After, it meant an API call
     and a service level agreement. The resource did not change. <strong>The predictability of
     obtaining it did.</strong></p>
@@ -341,7 +341,7 @@ figure.seen{opacity:1;transform:none}
     everything that follows.</p>
 
   <figure class="wide">
-    <figcaption><span>Fig. 3 — Observed latency, Australia–Singapore corridor</span><span>same payment</span></figcaption>
+    <figcaption><span>Fig. 3 — Latency bands, AU → SG → DE</span><span>cited, not measured</span></figcaption>
     <div class="spread">
       <div class="sp"><span class="sp-l">Best</span>
         <span class="sp-t"><span class="sp-b" data-w="2" style="background:var(--flow)"></span></span>
@@ -356,7 +356,8 @@ figure.seen{opacity:1;transform:none}
         <span class="sp-t"><span class="sp-b" data-w="100" style="background:var(--friction)"></span></span>
         <span class="sp-v">7–11 d</span></div>
     </div>
-    <div class="ratio"><b>106×</b><span>best to worst, undisclosed to the payer</span></div>
+    <div class="ratio"><b>106×</b><span>best to worst, three-leg corridor</span></div>
+    <p class="fig-note">Cited from an internal research document for the three-leg corridor <strong>AU → SG → DE</strong>, not AU → SG alone. Not independently verified.</p>
   </figure>
 
   <p>Compare that to any other infrastructure you depend on. A cloud API call that took 106× its
@@ -369,17 +370,17 @@ figure.seen{opacity:1;transform:none}
     liquidity premium, corridor cost, delay premium and a compliance risk buffer.</p>
 
   <figure class="wide">
-    <figcaption><span>Fig. 4 — Degradation from interbank spot</span><span>A$500,000 · AUD→SGD</span></figcaption>
+    <figcaption><span>Fig. 4 — The eight components</span><span>illustrative values</span></figcaption>
     <div class="stack" id="stack"></div>
-    <div class="slbl"><span class="q">visible to the payer · 12 bps</span><span class="a">actually paid · 54 bps</span></div>
+    <div class="slbl"><span class="q">visible to the payer · 2 of 8</span><span class="a">not disclosed · 6 of 8</span></div>
     <div class="comps" id="comps"></div>
-    <p class="fig-note">Two of eight components are visible to the payer. The remaining six
-      total roughly 42 basis points.</p>
+    <p class="fig-note">The eight-component formula is cited. The <strong>values</strong> shown are illustrative — no basis-point split for this corridor has been measured. See <code>docs/provenance.md</code>.</p>
   </figure>
 
   <blockquote>
-    <p><strong>A$2,100 of cost on a single transfer, arising from decisions the payer cannot
-      see, made by parties they did not choose, for reasons they will never be told.</strong></p>
+    <p><strong>Six of the eight components are not disclosed to the payer at any point — so the
+      payer cannot evaluate the transaction they are agreeing to, whatever the figure turns out
+      to be.</strong></p>
   </blockquote>
 
   <p>And one of those hidden components is the price of delay itself — which means
@@ -420,7 +421,7 @@ figure.seen{opacity:1;transform:none}
   <h2 id="s6"><span class="sn">1.6</span>What follows</h2>
 
   <p>The remainder of this essay argues that value movement is now at the point shipping reached
-    in 1955, storage reached in 1978 and compute reached in 2005 — a domain where the
+    in 1955, storage reached in 1978 and compute reached in 2005 (EC2 beta 2006, GA 2008) — a domain where the
     dysfunction is fully understood, the enabling components have quietly arrived, and nobody
     has yet assembled them.</p>
 

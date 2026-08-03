@@ -372,16 +372,20 @@ details p{margin:.85rem 0 0;color:var(--ink-2);font-size:.94rem;max-width:44em}
         </p>
         <div class="fig">
           <p class="fig-cap">
-            <span>Degradation from interbank spot · A$500,000 AUD→SGD</span>
+            <span>Illustrative only — these bps values are not measured</span>
             <button class="replay" id="rStack" type="button">↻ Replay</button>
           </p>
           <div class="marks">
-            <span class="mk quoted" id="mkQ" style="left:0">↓ what you're quoted · 12 bps</span>
-            <span class="mk actual" id="mkA" style="left:0">↓ what you actually pay · 54 bps</span>
+            <span class="mk quoted" id="mkQ" style="left:0">↓ quoted (illustrative) · 12 bps</span>
+            <span class="mk actual" id="mkA" style="left:0">↓ paid (illustrative) · 54 bps</span>
           </div>
           <div class="stackbar" id="stackbar"></div>
           <div class="legend" id="legend"></div>
           <p class="mono" style="margin-top:1.3rem;color:var(--friction)" id="hidden"></p>
+          <p class="mono muted" style="margin-top:.7rem;line-height:1.7">
+            The eight components are real and cited. The <strong>values</strong> shown here are
+            invented to demonstrate the shape of the stack. See <code>docs/provenance.md</code>.
+          </p>
         </div>
       </div>
     </section>
@@ -710,8 +714,8 @@ details p{margin:.85rem 0 0;color:var(--ink-2);font-size:.94rem;max-width:44em}
     later(function(){
       mkA.style.left = "calc(100% - 13rem)";
       mkA.classList.add("on");
-      hid.textContent = "Hidden from you: 42 bps — A$" +
-        (AMOUNT * 42 / 10000).toLocaleString("en-AU") + " on this transfer.";
+      hid.textContent = "Illustrative split. The source gives the eight-component "
+        + "formula but no values — these are chosen to show the shape, not measured.";
     }, 400 + withBps.length * 480 + 400);
   }
 

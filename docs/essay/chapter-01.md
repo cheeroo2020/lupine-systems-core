@@ -25,7 +25,7 @@ The history of modern infrastructure is largely the history of things becoming p
 
 **Communications, 1974.** Raw packet networks drop packets, reorder them, and duplicate them. TCP did not eliminate that — it made it *irrelevant to the application*. Sequence numbers, acknowledgements and retransmission moved unreliability beneath a layer that guarantees ordered delivery. The network stayed messy. The interface became certain.
 
-**Compute, 2006.** Before EC2, capacity meant procurement: quotes, purchase orders, racking, weeks of lead time, and a guess about demand. After, it meant an API call and a service level agreement. The resource did not change. **The predictability of obtaining it did.**
+**Compute, 2006.** Before EC2 entered public beta, capacity meant procurement: quotes, purchase orders, racking, weeks of lead time, and a guess about demand. After, it meant an API call and a service level agreement. The resource did not change. **The predictability of obtaining it did.**
 
 Four different domains, four different decades, four different technical mechanisms. One shared pattern:
 
@@ -81,11 +81,15 @@ On the Australia–Singapore corridor:
 
 **Best to worst: a factor of roughly 106×.**
 
+> **Provenance.** These bands are cited from an internal research document for the
+> three-leg corridor **AU → SG → DE**, not for AU → SG alone, and have not been
+> independently verified. See `docs/provenance.md`.
+
 Compare that to any other infrastructure you depend on. A cloud API call that took 106× its median latency would be a Sev-1 incident. A container ship arriving 106× late would end a shipping line. In cross-border value movement, that spread is not an incident. **It is the normal operating envelope**, and it is not disclosed to the payer.
 
-The cost side is similar. The rate you are quoted is one number. The rate you actually pay is the sum of eight components — interbank spot, spread, forward points, volatility premium, liquidity premium, corridor cost, delay premium, and a compliance risk buffer. On a representative A$500,000 AUD→SGD transfer, two of those eight are visible to the payer, totalling around 12 basis points. The other six total around 42.
+The cost side is similar. The rate you are quoted is one number. The rate you actually pay is the sum of eight components — interbank spot, spread, forward points, volatility premium, liquidity premium, corridor cost, delay premium, and a compliance risk buffer. The formula is cited; the values are not. No basis-point split for this corridor has been measured, and any figure given for one here would be invented.
 
-> **A$2,100 of cost on a single transfer, arising from decisions the payer cannot see, made by parties they did not choose, for reasons they will never be told.**
+> **Six of the eight components are not disclosed to the payer at any point — so the payer cannot evaluate the transaction they are agreeing to, whatever the figure turns out to be.**
 
 And one of those hidden components is the price of delay itself — which means unpredictability is not merely inconvenient. It is directly, quantifiably expensive.
 
@@ -111,7 +115,7 @@ That is the gap this essay is about. Not *what does it cost* — but:
 
 ## 1.6 · What follows
 
-The remainder of this essay argues that value movement is now at the point shipping reached in 1955, storage reached in 1978, and compute reached in 2005 — a domain where the dysfunction is fully understood, the enabling components have quietly arrived, and nobody has yet assembled them.
+The remainder of this essay argues that value movement is now at the point shipping reached in 1955, storage reached in 1978, and compute reached in 2005 (EC2 beta 2006, general availability 2008) — a domain where the dysfunction is fully understood, the enabling components have quietly arrived, and nobody has yet assembled them.
 
 The enabling components exist. ISO 20022 gives structured, schema-validated payment data where MT103 gave ambiguous free text. Real-time FX is available to anyone with an HTTP client. Cryptographic evidence chains are decades-old technology, cheap to run. What has not existed is a layer that treats a payment as a *decision to be computed* rather than an *instruction to be forwarded*.
 
