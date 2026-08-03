@@ -79,7 +79,7 @@ Click-through visual versions of each day, hosted on the project's own site. The
 | 1 | [Why the System Is Broken](https://cheeroo2020.github.io/lupine-systems-core/lessons/01-why-the-system-is-broken.html) | `01-why-the-system-is-broken.html` | ✅ live |
 | 2 | [Messaging Is the Real Control Layer](https://cheeroo2020.github.io/lupine-systems-core/lessons/02-messaging-is-the-control-layer.html) | `02-messaging-is-the-control-layer.html` | ✅ live |
 | 3 | [Corridors and the Real FX Rate](https://cheeroo2020.github.io/lupine-systems-core/lessons/03-corridors-and-the-real-fx-rate.html) | `03-corridors-and-the-real-fx-rate.html` | ✅ live |
-| 4 | Aiva's Brain — Seven Graphs at Once | `04-aivas-brain-seven-graphs.html` | — |
+| 4 | [Aiva's Brain — Seven Graphs at Once](https://cheeroo2020.github.io/lupine-systems-core/lessons/04-aivas-brain-seven-graphs.html) | `04-aivas-brain-seven-graphs.html` | ✅ live |
 | 5 | Scoring — How Routes Get Judged | `05-scoring-how-routes-get-judged.html` | — |
 | 6 | Pareto and Constraints | `06-pareto-and-constraints.html` | — |
 | 7 | Consolidation | `07-consolidation.html` | — |
@@ -328,6 +328,7 @@ Liquidity evaporation · regulatory shock · volatility spikes · window misalig
 ## Day 4 — Aiva's brain: seven graphs at once
 
 > 📖 **Read first:** HTML → *Part II — Chapter 1* · PDF pp. 15–18
+> 🎬 **Animated lesson:** [4. Aiva's Brain — Seven Graphs at Once](https://cheeroo2020.github.io/lupine-systems-core/lessons/04-aivas-brain-seven-graphs.html)
 > 🗂 **Repo:** none — this is the heaviest theory day, keep it clear
 
 ### The one idea
