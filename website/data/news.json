@@ -1,23 +1,23 @@
 {
-  "date": "2026-08-03",
+  "date": "2026-08-04",
   "stories": [
     {
-      "headline": "Hong Kong Stock Market May Continue To Roll On Monday",
-      "body": "(RTTNews) - The Hong Kong stock market has finished higher in six straight sessions, advancing almost 930 points or 3.7 percent along the way. The Hang Seng Index now sits just above the 25,880-point plateau and it's looking at another green light for Monday's trade.",
-      "source": "Nasdaq",
-      "pub_date": "03 Aug 2026"
-    },
-    {
-      "headline": "Retailers Report 69% Increase in Phone Scams as Shoplifting Dips",
-      "body": "Efforts by American retailers to prevent shoplifting appear to be paying off. That’s according to new research from the National Retail Federation (NRF), which finds external theft and fraud cases on the rise, even as the average number of shoplifting and merchandise theft cases declined for the first time in several years. The research, released",
+      "headline": "Sponsor Banks Discover That Deposits Don’t Have to Sit Still",
+      "body": "Banking-as-a-service has traditionally had sponsor banks for doing everything themselves: issuing accounts, holding deposits, processing payments and financing lending. But latest earnings from two sponsor-bank operators suggest some flexibility in the model, where deposits can be managed independently from the FinTech relationship itself. First Internet Bancorp indicated that its banking-as-a-service fee revenue increased 172% from",
       "source": "PYMNTS",
       "pub_date": "03 Aug 2026"
     },
     {
-      "headline": "Goldman traders are on pace for a record year. A close-up look at how they're doing it",
-      "body": "In a new interview with CNBC, a Goldman exec breaks down what's driving stocks, where markets are headed, and how the bank’s equities desk fuels its growth.",
-      "source": "CNBC Finance",
-      "pub_date": "02 Aug 2026"
+      "headline": "NJ bank is in a rare spot: Total losses on some C&I loans",
+      "body": "A portfolio review initiated by BCB Bancorp's new CEO, Tom O'Brien, led to a spike in nonaccrual loans at the Bayonne, New Jersey-based bank.",
+      "source": "American Banker",
+      "pub_date": "03 Aug 2026"
+    },
+    {
+      "headline": "Visa To Acquire BioCatch To Strengthen AI-Powered Fraud Protection",
+      "body": "(RTTNews) - Visa Inc. (V) has agreed to acquire fraud detection company BioCatch for $2.4 billion in cash, expanding its cybersecurity capabilities as financial institutions face a sharp rise in AI-driven scams and account takeover fraud.",
+      "source": "Nasdaq",
+      "pub_date": "03 Aug 2026"
     }
   ]
 }
