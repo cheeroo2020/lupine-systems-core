@@ -145,12 +145,12 @@ custody, HBML/TGA/FDA, "Deterministic Biological Movement Engine"). It is a futu
 
 - **Container-style naming:** names gain meaning through the product, they don't describe
   function (Lupine, Aiva, Rail, Cloked, Keel, Cairn). Don't "clarify" them into functional names.
-- **Two themes, by surface.** Essays and the revision handbook stay light (paper ground, serif).
-  The **lesson slides use the Lupine Command theme**: dark `#0A0A0A` ground, `#E2E8F0` text, Inter
-  for prose, JetBrains Mono for all numbers, equations, scores and route data. Cyan `#00E5FF` is
-  reserved for the winning route and the final score; red `#FF3366` for failure states and time
-  limits. Nothing else uses either colour. Square corners, 1px grid borders, linear transitions,
-  no easing or overshoot.
+- **One surface, premium B2B fintech.** Slate ground `#F8FAFC`, pure white panels with
+  `border-radius:12px`, `1px solid #E2E8F0` and `box-shadow:0 4px 20px rgba(0,0,0,.05)`.
+  Text is deep navy `#0F172A` — never pure black. `Inter` for prose, `JetBrains Mono` for
+  every equation, score and route datum. Blue `#2563EB` is reserved for the active or winning
+  route; coral `#EF4444` for rejected routes and limits. Nothing else uses either.
+  Applies to the lesson slides and the dashboard slides. Essays keep their own paper treatment.
 - Preserve the `Cloked` spelling and the `_lite` suffixes.
 - Determinism, idempotency, verifiable evidence are values, not features — prefer reproducible,
   auditable designs.
