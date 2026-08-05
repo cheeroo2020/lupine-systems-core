@@ -1,0 +1,483 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aiva · Route Scoring — Lupine Systems</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   LUPINE · AIVA SCORING DASHBOARD
+   Soothing fintech surface. Slate ground, white panels, one blue.
+   Blue is reserved for the selected route and primary emphasis.
+   Coral is reserved for rejected routes and hard limits.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#F1F5F9;
+  --panel:#FFFFFF;
+  --ink:#0F172A;
+  --ink-2:#475569;
+  --ink-3:#94A3B8;
+  --line:#E2E8F0;
+  --line-2:#F1F5F9;
+
+  --blue:#2563EB;
+  --blue-50:#EFF6FF;
+  --blue-100:#DBEAFE;
+  --coral:#EF4444;
+  --coral-50:#FEF2F2;
+  --mint:#059669;
+
+  --shadow:0 4px 20px rgba(0,0,0,.05);
+  --shadow-lift:0 8px 30px rgba(15,23,42,.08);
+  --r:12px;
+
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --mono:'JetBrains Mono','Roboto Mono',ui-monospace,'SF Mono',Menlo,monospace;
+}
+:root[data-theme="dark"],:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  padding:clamp(1.25rem,3vw,2.5rem);
+}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+/* ─── frame ──────────────────────────────────────────────────── */
+.deck{max-width:1440px;margin:0 auto;display:flex;flex-direction:column;gap:1.25rem}
+
+/* ─── masthead ───────────────────────────────────────────────── */
+.top{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:1.15rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:.85rem}
+.mark{
+  width:34px;height:34px;border-radius:9px;background:var(--blue);
+  display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px;
+  box-shadow:0 2px 8px rgba(37,99,235,.28);
+}
+.brand h1{font-size:16px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
+.brand p{font-size:12px;color:var(--ink-3);font-weight:500}
+.facts{display:flex;gap:2.25rem;flex-wrap:wrap}
+.fact{display:flex;flex-direction:column;gap:2px}
+.fact .k{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.fact .v{font-size:15px;font-weight:600}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;
+  color:var(--mint);letter-spacing:.03em}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--mint);
+  box-shadow:0 0 0 3px rgba(5,150,105,.15)}
+
+/* ─── two-column grid ────────────────────────────────────────── */
+.grid{display:grid;gap:1.25rem;grid-template-columns:1fr}
+@media(min-width:1080px){.grid{grid-template-columns:minmax(0,420px) minmax(0,1fr)}}
+.col{display:flex;flex-direction:column;gap:1.25rem;min-width:0}
+
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:1.35rem;
+}
+.card h2{font-size:14px;font-weight:600;letter-spacing:-.005em;margin-bottom:.25rem}
+.card .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:1.15rem}
+.eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:.55rem}
+
+/* ─── formula block ──────────────────────────────────────────── */
+.formula{
+  background:var(--blue-50);border:1px solid var(--blue-100);border-radius:10px;
+  padding:.95rem 1rem;font-family:var(--mono);font-size:13px;font-weight:500;
+  color:var(--blue);line-height:1.7;letter-spacing:-.01em;
+}
+.formula .dim{color:#7DA2F0}
+.note{font-size:12px;color:var(--ink-2);line-height:1.6;margin-top:.9rem}
+.note code{font-family:var(--mono);font-size:11.5px;background:var(--bg);
+  padding:1px 5px;border-radius:4px;color:var(--ink)}
+
+/* ─── urgency selector ───────────────────────────────────────── */
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--bg);
+  padding:4px;border-radius:10px;margin-bottom:1.15rem}
+.seg button{
+  font:inherit;font-size:11.5px;font-weight:600;padding:.5rem .25rem;border:0;
+  background:transparent;border-radius:7px;cursor:pointer;color:var(--ink-2);
+  transition:background .15s ease,color .15s ease,box-shadow .15s ease;
+  letter-spacing:.01em;
+}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--panel);color:var(--blue);
+  box-shadow:0 1px 3px rgba(15,23,42,.10)}
+.seg button:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+
+/* ─── weight bars ────────────────────────────────────────────── */
+.weights{display:flex;flex-direction:column;gap:.7rem}
+.wrow{display:grid;grid-template-columns:74px 1fr 44px;gap:.75rem;align-items:center}
+.wlabel{font-size:12px;font-weight:500;color:var(--ink-2)}
+.wtrack{height:7px;background:var(--line-2);border-radius:99px;overflow:hidden}
+.wfill{height:100%;border-radius:99px;width:0;background:var(--blue);
+  transition:width .35s cubic-bezier(.4,0,.2,1)}
+.wfill.c2{background:#60A5FA}.wfill.c3{background:#93C5FD}
+.wval{font-family:var(--mono);font-size:12px;font-weight:600;text-align:right;
+  font-variant-numeric:tabular-nums}
+
+/* ─── working ────────────────────────────────────────────────── */
+.working{background:var(--bg);border-radius:10px;padding:.95rem 1rem;margin-top:1.15rem}
+.wk{display:grid;grid-template-columns:1fr auto;gap:.6rem;font-family:var(--mono);
+  font-size:11.5px;color:var(--ink-2);padding:.28rem 0;font-variant-numeric:tabular-nums}
+.wk b{color:var(--ink);font-weight:500}
+.wk.total{border-top:1px solid var(--line);margin-top:.45rem;padding-top:.55rem;
+  color:var(--ink);font-weight:600}
+.wk.total b{color:var(--blue);font-size:14px}
+
+/* ─── route cards ────────────────────────────────────────────── */
+.routes{display:grid;gap:1rem;grid-template-columns:1fr}
+@media(min-width:720px){.routes{grid-template-columns:1fr 1fr}}
+
+.route{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:1.3rem;position:relative;overflow:hidden;
+  transition:box-shadow .2s ease,border-color .2s ease,transform .2s ease;
+}
+.route:hover{box-shadow:var(--shadow-lift);transform:translateY(-1px)}
+.route.win{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.10),var(--shadow-lift)}
+.route.rej{background:linear-gradient(180deg,var(--coral-50) 0%,var(--panel) 55%)}
+
+.rtop{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+  margin-bottom:1.1rem}
+.rname{font-size:17px;font-weight:600;letter-spacing:-.015em}
+.rkind{font-size:11.5px;color:var(--ink-3);font-weight:500;margin-top:1px}
+.pill{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  padding:4px 9px;border-radius:99px;white-space:nowrap}
+.pill.win{background:var(--blue);color:#fff}
+.pill.rej{background:var(--coral-50);color:var(--coral);border:1px solid #FECACA}
+.pill.alt{background:var(--bg);color:var(--ink-3);border:1px solid var(--line)}
+
+.score{display:flex;align-items:baseline;gap:.55rem;margin-bottom:1.15rem}
+.score .big{font-family:var(--mono);font-size:34px;font-weight:600;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;line-height:1}
+.route.win .score .big{color:var(--blue)}
+.route.rej .score .big{color:var(--coral)}
+.score .cap{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3)}
+
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:.65rem .9rem;
+  border-top:1px solid var(--line);padding-top:1rem}
+.m{display:flex;flex-direction:column;gap:1px}
+.m .k{font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-3)}
+.m .v{font-family:var(--mono);font-size:14px;font-weight:500;font-variant-numeric:tabular-nums}
+
+.bars{margin-top:1rem;display:flex;flex-direction:column;gap:.45rem}
+.br{display:grid;grid-template-columns:60px 1fr 38px;gap:.6rem;align-items:center}
+.br .k{font-size:10.5px;color:var(--ink-3);font-weight:500}
+.br .t{height:5px;background:var(--line-2);border-radius:99px;overflow:hidden}
+.br .f{height:100%;width:0;border-radius:99px;background:var(--ink-3);
+  transition:width .35s cubic-bezier(.4,0,.2,1)}
+.route.win .br .f{background:var(--blue)}
+.route.rej .br .f{background:#FCA5A5}
+.br .v{font-family:var(--mono);font-size:11px;text-align:right;color:var(--ink-2);
+  font-variant-numeric:tabular-nums}
+
+/* ─── delta strip ────────────────────────────────────────────── */
+.delta{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:1.15rem 1.35rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;
+}
+.delta .lab{font-size:12.5px;color:var(--ink-2);max-width:34em}
+.delta .lab b{color:var(--ink);font-weight:600}
+.delta .amt{display:flex;align-items:baseline;gap:.5rem}
+.delta .amt .n{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--blue);
+  letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.delta .amt .u{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3)}
+
+/* ─── candidate table ────────────────────────────────────────── */
+table{width:100%;border-collapse:collapse}
+thead th{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3);text-align:left;padding:0 0 .6rem;border-bottom:1px solid var(--line)}
+thead th:not(:first-child),tbody td:not(:first-child){text-align:right}
+tbody td{padding:.6rem 0;border-bottom:1px solid var(--line-2);font-size:13px}
+tbody tr:last-child td{border-bottom:0}
+tbody td:not(:first-child){font-family:var(--mono);font-variant-numeric:tabular-nums;
+  color:var(--ink-2);font-size:12.5px}
+tbody tr.lead td{color:var(--blue);font-weight:600}
+tbody tr.lead td:first-child{position:relative;padding-left:.7rem}
+tbody tr.lead td:first-child::before{content:"";position:absolute;left:0;top:.72rem;
+  width:3px;height:13px;border-radius:99px;background:var(--blue)}
+tbody tr.out td{color:var(--ink-3)}
+
+/* ─── footer ─────────────────────────────────────────────────── */
+.foot{font-size:11.5px;color:var(--ink-3);line-height:1.6;padding:0 .35rem}
+.foot b{color:var(--ink-2);font-weight:600}
+.foot .tag{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:500;
+  padding:2px 7px;border-radius:5px;margin-right:5px}
+.tag.meas{background:#ECFDF5;color:var(--mint)}
+.tag.mod{background:var(--bg);color:var(--ink-2);border:1px solid var(--line)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="deck">
+
+  <!-- masthead -->
+  <header class="top">
+    <div class="brand">
+      <div class="mark">L</div>
+      <div>
+        <h1>Aiva · Route Scoring Engine</h1>
+        <p>Deterministic settlement routing · AUD → SGD corridor</p>
+      </div>
+    </div>
+    <div class="facts">
+      <div class="fact"><span class="k">Amount</span><span class="v num">A$500,000</span></div>
+      <div class="fact"><span class="k">Mid-market</span><span class="v num" id="fx">0.901740</span></div>
+      <div class="fact"><span class="k">Candidates</span><span class="v num">21</span></div>
+      <div class="fact"><span class="k">Feed</span><span class="v live"><span class="pulse"></span>4 sources</span></div>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <!-- ═══ LEFT · the scoring logic ═══ -->
+    <div class="col">
+
+      <section class="card">
+        <p class="eyebrow">Composite utility</p>
+        <h2>How a route is scored</h2>
+        <p class="sub">Every candidate is reduced to one comparable number.</p>
+
+        <div class="formula">
+          U(R) = w₁·<b>Speed</b> + w₂·<b>Cost</b> + w₃·<b>Reliability</b><br>
+          <span class="dim">speed = 1 − t / t_max&nbsp;&nbsp;·&nbsp;&nbsp;cost = 1 − bps / bps_max</span>
+        </div>
+
+        <p class="note">Speed is in hours, cost in basis points, reliability already a probability
+          — so each is normalised to <code>0–1</code> against the candidate set before any weight
+          is applied. Only then can the weights mean anything.</p>
+      </section>
+
+      <section class="card">
+        <p class="eyebrow">Urgency profile</p>
+        <h2>The weights shift</h2>
+        <p class="sub">Same engine, same corridor, same instant. Different priorities.</p>
+
+        <div class="seg" id="seg" role="group" aria-label="Urgency profile">
+          <button data-u="low"      aria-pressed="false">Low</button>
+          <button data-u="normal"   aria-pressed="true">Normal</button>
+          <button data-u="high"     aria-pressed="false">High</button>
+          <button data-u="critical" aria-pressed="false">Critical</button>
+        </div>
+
+        <div class="weights">
+          <div class="wrow"><span class="wlabel">Speed</span>
+            <span class="wtrack"><span class="wfill" id="wSpeed"></span></span>
+            <span class="wval" id="vSpeed">—</span></div>
+          <div class="wrow"><span class="wlabel">Cost</span>
+            <span class="wtrack"><span class="wfill c2" id="wCost"></span></span>
+            <span class="wval" id="vCost">—</span></div>
+          <div class="wrow"><span class="wlabel">Reliability</span>
+            <span class="wtrack"><span class="wfill c3" id="wRel"></span></span>
+            <span class="wval" id="vRel">—</span></div>
+        </div>
+
+        <p class="note" id="wnote"></p>
+      </section>
+
+      <section class="card">
+        <p class="eyebrow">Working</p>
+        <h2>The selected route, computed</h2>
+        <p class="sub" id="wkSub">—</p>
+        <div class="working" id="working"></div>
+      </section>
+
+    </div>
+
+    <!-- ═══ RIGHT · route comparison ═══ -->
+    <div class="col">
+
+      <div class="routes">
+        <article class="route rej" id="cardLegacy">
+          <div class="rtop">
+            <div><div class="rname">Bank SWIFT</div><div class="rkind">Legacy correspondent</div></div>
+            <span class="pill rej">Rejected</span>
+          </div>
+          <div class="score"><span class="big num" id="lgScore">—</span><span class="cap">Composite</span></div>
+          <div class="metrics">
+            <div class="m"><span class="k">Settlement</span><span class="v">36 h</span></div>
+            <div class="m"><span class="k">All-in cost</span><span class="v">250.4 bps</span></div>
+            <div class="m"><span class="k">Reliability</span><span class="v">0.88</span></div>
+            <div class="m"><span class="k">Recipient</span><span class="v" id="lgRecv">—</span></div>
+          </div>
+          <div class="bars" id="lgBars"></div>
+        </article>
+
+        <article class="route win" id="cardWin">
+          <div class="rtop">
+            <div><div class="rname" id="wnName">—</div><div class="rkind" id="wnKind">—</div></div>
+            <span class="pill win">Selected</span>
+          </div>
+          <div class="score"><span class="big num" id="wnScore">—</span><span class="cap">Composite</span></div>
+          <div class="metrics">
+            <div class="m"><span class="k">Settlement</span><span class="v" id="wnTime">—</span></div>
+            <div class="m"><span class="k">All-in cost</span><span class="v" id="wnCost">—</span></div>
+            <div class="m"><span class="k">Reliability</span><span class="v" id="wnRel">—</span></div>
+            <div class="m"><span class="k">Recipient</span><span class="v" id="wnRecv">—</span></div>
+          </div>
+          <div class="bars" id="wnBars"></div>
+        </article>
+      </div>
+
+      <section class="delta">
+        <p class="lab">Difference against the legacy correspondent route, on this transfer.
+          <b id="dlNote">—</b></p>
+        <div class="amt"><span class="n" id="dlAmt">—</span><span class="u">saved</span></div>
+      </section>
+
+      <section class="card">
+        <p class="eyebrow">Candidate set</p>
+        <h2>All routes, scored simultaneously</h2>
+        <p class="sub">Ranked live under the selected urgency profile.</p>
+        <table>
+          <thead><tr><th>Route</th><th>Time</th><th>Cost</th><th>Rel.</th><th>Composite</th></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </section>
+
+    </div>
+  </div>
+
+  <p class="foot">
+    <span class="tag meas">measured</span> Mid-market rate and cross-source dispersion, from a
+    four-source feed logged hourly.
+    <span class="tag mod" style="margin-left:.75rem">modelled</span> Provider cost, settlement time
+    and reliability are constants in <b>router.py</b> derived from published fee schedules; they are
+    not live quotes. Reliability in particular is not published by any provider. Full status per
+    figure: <b>docs/provenance.md</b>.
+  </p>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var WEIGHTS = {
+    low:      { speed:.15, cost:.55, reliability:.30 },
+    normal:   { speed:.25, cost:.35, reliability:.40 },
+    high:     { speed:.50, cost:.15, reliability:.35 },
+    critical: { speed:.60, cost:.05, reliability:.35 }
+  };
+
+  /* Modelled constants, mirrored from src/aiva_lite/router.py */
+  var ROUTES = [
+    { n:"Nium",             k:"Real-time rails",        h:2,    b:25   },
+    { n:"Airwallex",        k:"Business spread",        h:3,    b:30   },
+    { n:"WorldFirst",       k:"FX dealer",              h:24,   b:35   },
+    { n:"Revolut Business", k:"Interbank",              h:2,    b:40   },
+    { n:"Wise",             k:"Mid-market + fee",       h:1,    b:45   },
+    { n:"OFX",              k:"No-fee large transfer",  h:24,   b:50   },
+    { n:"DBS Remit",        k:"Bank digital",           h:18,   b:80   },
+    { n:"Bank SWIFT",       k:"Legacy correspondent",   h:36,   b:250.4}
+  ];
+  var REL = { "Nium":.87,"Airwallex":.92,"WorldFirst":.90,"Revolut Business":.86,
+              "Wise":.95,"OFX":.91,"DBS Remit":.90,"Bank SWIFT":.88 };
+  var AMOUNT = 500000, FX = 0.901740;
+
+  var maxH = Math.max.apply(null, ROUTES.map(function(r){ return r.h; }));
+  var maxB = Math.max.apply(null, ROUTES.map(function(r){ return r.b; }));
+
+  function score(r, w){
+    var sp = 1 - r.h / maxH, co = 1 - r.b / maxB, re = REL[r.n];
+    return { n:r.n, k:r.k, h:r.h, b:r.b, sp:sp, co:co, re:re,
+             u: w.speed*sp + w.cost*co + w.reliability*re };
+  }
+  function money(v){ return "A$" + Math.round(v).toLocaleString("en-AU"); }
+  function recv(bps){ return "S$" + Math.round((AMOUNT - AMOUNT*bps/10000) * FX).toLocaleString("en-AU"); }
+  function bars(host, s, cls){
+    host.innerHTML = [["Speed",s.sp],["Cost",s.co],["Rel.",s.re]].map(function(p){
+      return '<div class="br"><span class="k">'+p[0]+'</span><span class="t">'+
+             '<span class="f" data-w="'+(p[1]*100).toFixed(1)+'"></span></span>'+
+             '<span class="v">'+p[1].toFixed(2)+'</span></div>';
+    }).join("");
+    requestAnimationFrame(function(){
+      host.querySelectorAll(".f").forEach(function(f){ f.style.width = f.dataset.w + "%"; });
+    });
+  }
+
+  function render(u){
+    var w = WEIGHTS[u];
+
+    /* weights */
+    [["wSpeed","vSpeed",w.speed],["wCost","vCost",w.cost],["wRel","vRel",w.reliability]]
+      .forEach(function(p){
+        document.getElementById(p[0]).style.width = (p[2]*100) + "%";
+        document.getElementById(p[1]).textContent = Math.round(p[2]*100) + "%";
+      });
+    var lowest = Math.min(w.speed, w.cost, w.reliability) * 100;
+    document.getElementById("wnote").innerHTML =
+      "The lightest term still carries <code>" + Math.round(lowest) + "%</code>. Weights shift with " +
+      "urgency; they never fall to zero, so a route that fails badly on one axis cannot win on the others.";
+
+    /* score everything */
+    var scored = ROUTES.map(function(r){ return score(r, w); })
+                       .sort(function(a,b){ return b.u - a.u; });
+    var win = scored[0];
+    var legacy = scored.filter(function(s){ return s.n === "Bank SWIFT"; })[0];
+
+    /* winner card */
+    document.getElementById("wnName").textContent  = win.n;
+    document.getElementById("wnKind").textContent  = win.k;
+    document.getElementById("wnScore").textContent = win.u.toFixed(3);
+    document.getElementById("wnTime").textContent  = win.h + " h";
+    document.getElementById("wnCost").textContent  = win.b + " bps";
+    document.getElementById("wnRel").textContent   = win.re.toFixed(2);
+    document.getElementById("wnRecv").textContent  = recv(win.b);
+    bars(document.getElementById("wnBars"), win);
+
+    /* legacy card */
+    document.getElementById("lgScore").textContent = legacy.u.toFixed(3);
+    document.getElementById("lgRecv").textContent  = recv(legacy.b);
+    bars(document.getElementById("lgBars"), legacy);
+
+    /* delta */
+    var saved = AMOUNT * (legacy.b - win.b) / 10000;
+    document.getElementById("dlAmt").textContent = money(saved);
+    document.getElementById("dlNote").textContent =
+      win.n + " settles in " + win.h + "h against 36h, at " + win.b +
+      " bps against 250.4.";
+
+    /* working */
+    document.getElementById("wkSub").textContent =
+      win.n + " · " + u + " urgency";
+    document.getElementById("working").innerHTML =
+      [["speed", win.sp, w.speed], ["cost", win.co, w.cost], ["reliability", win.re, w.reliability]]
+        .map(function(p){
+          return '<div class="wk"><span>' + p[0] + ' <b>' + p[1].toFixed(3) +
+                 '</b> × ' + p[2].toFixed(2) + '</span><span>' + (p[1]*p[2]).toFixed(3) + '</span></div>';
+        }).join("") +
+      '<div class="wk total"><span>Composite utility</span><b>' + win.u.toFixed(3) + '</b></div>';
+
+    /* table */
+    document.getElementById("tbody").innerHTML = scored.map(function(s){
+      var cls = s.n === win.n ? "lead" : (s.n === "Bank SWIFT" ? "out" : "");
+      return '<tr class="' + cls + '"><td>' + s.n + '</td><td>' + s.h + ' h</td><td>' +
+             s.b + '</td><td>' + s.re.toFixed(2) + '</td><td>' + s.u.toFixed(3) + '</td></tr>';
+    }).join("");
+  }
+
+  var seg = document.getElementById("seg");
+  seg.addEventListener("click", function(e){
+    var b = e.target.closest("button[data-u]"); if (!b) return;
+    [].forEach.call(seg.children, function(c){
+      c.setAttribute("aria-pressed", String(c === b));
+    });
+    render(b.dataset.u);
+  });
+
+  document.getElementById("fx").textContent = FX.toFixed(6);
+  render("normal");
+})();
+</script>
