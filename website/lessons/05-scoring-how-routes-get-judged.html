@@ -1,0 +1,665 @@
+<title>5. Scoring — How Routes Get Judged · Lupine</title>
+
+<style>
+:root{
+  --paper:#EAE7DF;
+  --paper-2:#E1DDD2;
+  --paper-3:#F3F1EB;
+  --ink:#191D1B;
+  --ink-2:rgba(25,29,27,.62);
+  --ink-3:rgba(25,29,27,.40);
+  --rule:rgba(25,29,27,.16);
+  --rule-2:rgba(25,29,27,.08);
+
+  /* Same semantic actors as Lessons 1–2 — these never swap roles. */
+  --wire:#2B4A78;      /* the message  */
+  --flow:#1E5B48;      /* the money    */
+  --friction:#A84126;  /* the friction */
+  --wire-w:rgba(43,74,120,.12);
+  --flow-w:rgba(30,91,72,.12);
+  --friction-w:rgba(168,65,38,.12);
+
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,"Hoefler Text",Georgia,serif;
+
+  --t-hero:clamp(2.1rem,5.4vw,3.9rem);
+  --t-title:clamp(1.45rem,3.1vw,2.25rem);
+  --t-lede:clamp(1.02rem,1.65vw,1.22rem);
+  --t-body:clamp(.95rem,1.25vw,1.02rem);
+  --t-mono:clamp(.72rem,1vw,.82rem);
+  --t-micro:.67rem;
+
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+:root[data-theme="dark"],:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:var(--t-body);line-height:1.62;
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(to bottom,transparent 0 43px,rgba(30,91,72,.016) 43px 86px)}
+
+/* ─── shell ─────────────────────────────────────────── */
+.stage{position:relative;z-index:1;height:100dvh;display:grid;grid-template-columns:auto 1fr}
+.rail{display:flex;flex-direction:column;gap:.55rem;padding:1.6rem .95rem;
+  border-right:1px solid var(--rule);background:var(--paper-2)}
+.rail-mark{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;
+  color:var(--ink-3);writing-mode:vertical-rl;margin-bottom:.7rem;text-transform:uppercase}
+.dot{appearance:none;border:1px solid var(--rule);background:transparent;
+  width:26px;height:26px;border-radius:50%;cursor:pointer;padding:0;
+  font-family:var(--mono);font-size:.62rem;color:var(--ink-3);
+  display:grid;place-items:center;transition:all .3s var(--ease)}
+.dot:hover{border-color:var(--ink-3);color:var(--ink-2)}
+.dot[aria-current="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.dot.seen:not([aria-current="true"]){border-color:var(--ink-3);color:var(--ink-2)}
+.dot:focus-visible{outline:2px solid var(--wire);outline-offset:3px}
+
+.viewport{position:relative;overflow:hidden}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;
+  padding:clamp(1.4rem,4vw,3.4rem);overflow-y:auto;
+  opacity:0;visibility:hidden;transform:translateY(14px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease),visibility .5s}
+.scene.is-active{opacity:1;visibility:visible;transform:none}
+.wrap{width:100%;max-width:64rem;margin:auto}
+
+/* ─── type ──────────────────────────────────────────── */
+.eyebrow{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 1rem}
+h1{font-family:var(--mono);font-size:var(--t-hero);font-weight:600;
+  letter-spacing:-.035em;line-height:1.02;margin:0;text-wrap:balance;text-transform:uppercase}
+h2{font-family:var(--mono);font-size:var(--t-title);font-weight:600;
+  letter-spacing:-.02em;line-height:1.1;margin:0 0 1.1rem;text-wrap:balance;text-transform:uppercase}
+/* Formulae must not be uppercased — σ (volatility) would become Σ (summation). */
+.exact{text-transform:none}
+p{max-width:36em;margin:0}
+.muted{color:var(--ink-2)}
+strong{font-weight:600}
+.pull{border-left:2px solid var(--ink);padding:.1rem 0 .1rem 1.1rem;
+  font-size:var(--t-lede);line-height:1.5;max-width:33em}
+
+.fig{background:var(--paper-3);border:1px solid var(--rule);
+  padding:clamp(1rem,2.4vw,1.7rem);overflow-x:auto}
+.fig-cap{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 1.1rem;
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center}
+.mono{font-family:var(--mono);font-size:var(--t-mono);font-variant-numeric:tabular-nums}
+.cols{display:grid;gap:clamp(1.1rem,2.6vw,2.2rem);grid-template-columns:1fr}
+@media(min-width:900px){.cols.two{grid-template-columns:1fr 1.15fr;align-items:center}}
+
+.replay{appearance:none;border:1px solid var(--rule);background:transparent;cursor:pointer;
+  font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-2);padding:.28rem .7rem;transition:all .2s;white-space:nowrap}
+.replay:hover{border-color:var(--ink-3);color:var(--ink);background:var(--paper-2)}
+.replay:focus-visible{outline:2px solid var(--wire);outline-offset:2px}
+
+/* ─── S2 · three corridors ──────────────────────────── */
+.corr{display:flex;flex-direction:column;gap:.55rem;min-width:520px}
+.corr-row{display:grid;grid-template-columns:11rem 1fr 5.5rem;gap:.9rem;align-items:center;
+  padding:.62rem .8rem;background:var(--paper-2);border-left:2px solid var(--rule);
+  opacity:0;transform:translateX(-10px)}
+.is-active .corr-row{animation:slideIn .45s var(--ease) forwards}
+.corr-row.best{border-left-color:var(--flow);background:var(--flow-w)}
+.corr-row.worst{border-left-color:var(--friction);background:var(--friction-w)}
+.corr-path{font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.04em}
+.corr-note{font-size:.83rem;color:var(--ink-2)}
+.corr-cost{font-family:var(--mono);font-size:var(--t-mono);font-variant-numeric:tabular-nums;text-align:right}
+@keyframes slideIn{to{opacity:1;transform:none}}
+
+/* ─── S3 · tiers ────────────────────────────────────── */
+.tier{display:grid;grid-template-columns:4.5rem 1fr;gap:1rem;align-items:center;
+  padding:.75rem .9rem;background:var(--paper-2);margin-bottom:5px;
+  border-left:2px solid var(--rule);opacity:0;transform:translateX(-10px)}
+.is-active .tier{animation:slideIn .45s var(--ease) forwards}
+.tier .t{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3)}
+.tier .nm{font-family:var(--mono);font-size:var(--t-mono)}
+.tier .dd{font-size:.82rem;color:var(--ink-2);grid-column:2}
+.tier.deep{border-left-color:var(--flow)}
+.tier.thin{border-left-color:var(--friction)}
+
+/* ─── S5 · the 8 components ─────────────────────────── */
+.stackbar{position:relative;height:54px;background:var(--paper-2);
+  display:flex;overflow:hidden;margin-bottom:.4rem}
+.seg{width:0;transition:width .55s var(--ease);position:relative;
+  border-right:1px solid rgba(243,241,235,.55)}
+.marks{position:relative;height:2.6rem;margin-bottom:.9rem}
+.mk{position:absolute;top:0;font-family:var(--mono);font-size:var(--t-micro);
+  letter-spacing:.06em;white-space:nowrap;opacity:0;transition:opacity .5s}
+.mk.on{opacity:1}
+.mk::before{content:"";position:absolute;top:-.55rem;left:0;width:1px;height:.5rem;background:currentColor}
+.mk.quoted{color:var(--ink-2)}
+.mk.actual{color:var(--friction)}
+.legend{display:grid;gap:.3rem 1.1rem;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:1.1rem}
+.lg{display:grid;grid-template-columns:auto 1.5rem 1fr auto;gap:.5rem;align-items:baseline;
+  font-family:var(--mono);font-size:var(--t-micro);opacity:.25;transition:opacity .4s}
+.lg.on{opacity:1}
+.lg .sw{width:9px;height:9px;align-self:center}
+.lg .sym{color:var(--ink-3)}
+.lg .nm{color:var(--ink-2);letter-spacing:.03em}
+.lg .bp{font-variant-numeric:tabular-nums;color:var(--ink)}
+
+/* ─── S6 · the curve ────────────────────────────────── */
+.curvewrap{position:relative;width:100%;max-width:640px;margin:0 auto}
+canvas{display:block;width:100%;height:auto}
+.readout{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));
+  margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--rule-2)}
+.readout div{display:flex;flex-direction:column;gap:.15rem}
+.readout .k{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3)}
+.readout .v{font-family:var(--mono);font-size:1.35rem;font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;color:var(--friction)}
+
+/* ─── S7 · the race ─────────────────────────────────── */
+.race{display:flex;flex-direction:column;gap:1.9rem;min-width:600px}
+.rrow{display:flex;flex-direction:column;gap:.5rem}
+.rhead{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.rname{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase}
+.rname b{font-weight:600}
+.rname span{color:var(--ink-3)}
+.rtime{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-3);
+  font-variant-numeric:tabular-nums}
+.rtrack{height:24px;background:var(--paper-2);position:relative;overflow:hidden}
+.rfill{position:absolute;top:0;bottom:0;left:0;width:0;
+  background:var(--flow-w);border-bottom:2px solid var(--flow)}
+.rcost{height:20px;background:var(--paper-2);position:relative;overflow:hidden}
+.rcostfill{position:absolute;top:0;bottom:0;left:0;width:0;
+  background:var(--friction-w);border-bottom:2px solid var(--friction);transition:width .9s var(--ease)}
+.rcostlbl{display:flex;justify-content:space-between;font-family:var(--mono);
+  font-size:var(--t-micro);color:var(--ink-3);margin-top:.25rem}
+.rcostlbl b{color:var(--friction);font-weight:400}
+.winner{font-family:var(--mono);font-size:var(--t-mono);margin-top:1.4rem;
+  padding-top:1.1rem;border-top:1px solid var(--rule-2);opacity:0;transition:opacity .6s}
+.winner.on{opacity:1}
+.winner .hl{color:var(--flow)}
+.winner .lo{color:var(--friction)}
+
+/* ─── S8 · the loop ─────────────────────────────────── */
+.loop{display:grid;gap:.75rem;grid-template-columns:1fr;max-width:34rem}
+@media(min-width:720px){.loop{grid-template-columns:repeat(3,1fr);align-items:stretch}}
+.node{padding:.9rem;background:var(--paper-2);border-left:2px solid var(--friction);
+  opacity:0;transform:translateY(8px)}
+.is-active .node{animation:rise .5s var(--ease) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.node .k{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--friction);display:block;margin-bottom:.25rem}
+.node .v{font-size:.86rem;color:var(--ink-2)}
+
+/* ─── S9 · who optimises what ───────────────────────── */
+.who{display:grid;gap:1px;background:var(--rule);grid-template-columns:1fr}
+@media(min-width:820px){.who{grid-template-columns:repeat(3,1fr)}}
+.who-side{background:var(--paper-3);padding:1.15rem}
+.who-side h3{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.16em;
+  text-transform:uppercase;margin:0 0 .7rem;color:var(--ink-3)}
+.who-side.us h3{color:var(--flow)}
+.who-side .q{font-family:var(--mono);font-size:var(--t-mono);margin:0 0 .7rem;color:var(--ink)}
+.who-side p{font-size:.86rem;color:var(--ink-2)}
+
+/* ─── S10 · thesis ──────────────────────────────────── */
+.vs{display:grid;gap:1px;background:var(--rule);grid-template-columns:1fr}
+@media(min-width:760px){.vs{grid-template-columns:1fr 1fr}}
+.vs-side{background:var(--paper-3);padding:1.3rem}
+.vs-side h3{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.18em;
+  text-transform:uppercase;margin:0 0 .8rem;color:var(--ink-3)}
+.vs-side.now h3{color:var(--friction)}
+.vs-side.next h3{color:var(--flow)}
+.vs-side ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.4rem}
+.vs-side li{font-size:.9rem;color:var(--ink-2)}
+
+/* ─── S11 · questions ───────────────────────────────── */
+.qs{display:flex;flex-direction:column;gap:.7rem}
+details{background:var(--paper-3);border:1px solid var(--rule);padding:.95rem 1.15rem}
+details[open]{border-color:var(--ink-3)}
+summary{cursor:pointer;font-size:var(--t-lede);line-height:1.45;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";font-family:var(--mono);color:var(--ink-3);font-size:.85em}
+details[open] summary::before{content:"▾ "}
+summary:focus-visible{outline:2px solid var(--wire);outline-offset:3px}
+details p{margin:.85rem 0 0;color:var(--ink-2);font-size:.94rem;max-width:44em}
+.badge{display:inline-block;font-family:var(--mono);font-size:var(--t-micro);
+  letter-spacing:.1em;text-transform:uppercase;padding:.15rem .5rem;margin-left:.5rem}
+.badge.gap{color:var(--friction);background:var(--friction-w)}
+.badge.ok{color:var(--flow);background:var(--flow-w)}
+
+/* ─── controls ──────────────────────────────────────── */
+.controls{position:fixed;right:clamp(1rem,3vw,2.2rem);bottom:clamp(1rem,3vw,2rem);
+  display:flex;align-items:center;gap:.5rem;z-index:20;
+  background:var(--paper-3);border:1px solid var(--rule);padding:.4rem}
+.btn{appearance:none;border:0;background:transparent;cursor:pointer;
+  font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink);padding:.5rem .9rem;transition:background .2s}
+.btn:hover:not(:disabled){background:var(--paper-2)}
+.btn:disabled{color:var(--ink-3);cursor:not-allowed}
+.btn:focus-visible{outline:2px solid var(--wire);outline-offset:-2px}
+.pos{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-3);
+  font-variant-numeric:tabular-nums;padding:0 .5rem;letter-spacing:.1em}
+.hint{position:fixed;left:clamp(4.5rem,7vw,6rem);bottom:clamp(1.1rem,3vw,2.1rem);
+  font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);z-index:20}
+@media(max-width:640px){.hint{display:none}}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  .corr-row,.tier,.node{opacity:1;transform:none}
+}
+
+/* ─── lesson 5 additions ─────────────────────────────── */
+.wgrid{display:flex;flex-direction:column;gap:.4rem;min-width:400px}
+.wr{display:grid;grid-template-columns:6.5rem 1fr 3rem;gap:.8rem;align-items:center}
+.wl{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
+.wt{height:16px;background:var(--paper-2);position:relative;overflow:hidden}
+.wb{position:absolute;inset:0 100% 0 0;transition:right .6s var(--ease)}
+.wv{font-family:var(--mono);font-size:var(--t-mono);font-variant-numeric:tabular-nums;color:var(--ink-2);text-align:right}
+.urow{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:1rem}
+.urow button{padding:.55rem .3rem;background:var(--paper-2);border:1px solid var(--rule);
+  font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;color:var(--ink-2);transition:all .2s var(--ease)}
+.urow button:hover{border-color:var(--ink-3);color:var(--ink)}
+.urow button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.urow button:focus-visible{outline:2px solid var(--wire);outline-offset:2px}
+.board{display:flex;flex-direction:column;gap:5px;min-width:440px}
+.brow{display:grid;grid-template-columns:6rem 1fr 4.2rem;gap:.85rem;align-items:center;
+  padding:.55rem .8rem;background:var(--paper-2);border-left:2px solid var(--rule);transition:all .45s var(--ease)}
+.brow.lead{border-left-color:var(--flow);background:var(--flow-w)}
+.bn{font-family:var(--mono);font-size:var(--t-mono)}
+.bt{height:12px;background:var(--paper-3);position:relative;overflow:hidden}
+.bf{position:absolute;inset:0 100% 0 0;background:var(--wire);transition:right .55s var(--ease)}
+.brow.lead .bf{background:var(--flow)}
+.bs{font-family:var(--mono);font-size:var(--t-mono);font-variant-numeric:tabular-nums;text-align:right;color:var(--ink-2)}
+.gate{display:flex;flex-direction:column;gap:5px;min-width:460px}
+.grow{display:grid;grid-template-columns:11rem 1fr 5.5rem;gap:.85rem;align-items:center;
+  padding:.6rem .8rem;background:var(--paper-2);border-left:2px solid var(--rule);transition:all .5s var(--ease)}
+.grow .gm{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-3);letter-spacing:.06em;text-align:right}
+.grow.killed{border-left-color:var(--friction);background:var(--friction-w);opacity:.55}
+.grow.killed .gm{color:var(--friction)}
+.grow.pass{border-left-color:var(--flow)}
+.grow.pass .gm{color:var(--flow)}
+.tiers{display:grid;gap:5px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.tier2{padding:.7rem .8rem;background:var(--paper-2);border-left:2px solid var(--rule);opacity:0;transform:translateY(6px)}
+.is-active .tier2{animation:rise2 .4s var(--ease) forwards}
+@keyframes rise2{to{opacity:1;transform:none}}
+.tier2 .k{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.2rem}
+.tier2 .v{font-size:.82rem;color:var(--ink-2)}
+.tier2.opt{border-left-color:var(--flow)} .tier2.opt .k{color:var(--flow)}
+.tier2.adm{border-left-color:var(--wire)} .tier2.adm .k{color:var(--wire)}
+.tier2.fb{border-left-color:var(--ink-3)} .tier2.fb .k{color:var(--ink-3)}
+.tier2.el{border-left-color:var(--friction)} .tier2.el .k{color:var(--friction)}
+.vs{display:grid;gap:1px;background:var(--rule);grid-template-columns:1fr}
+@media(min-width:760px){.vs{grid-template-columns:1fr 1fr}}
+.vs-side{background:var(--paper-3);padding:1.3rem}
+.vs-side h3{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.18em;text-transform:uppercase;margin:0 0 .8rem;color:var(--ink-3)}
+.vs-side.now h3{color:var(--friction)} .vs-side.next h3{color:var(--flow)}
+.vs-side ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.4rem}
+.vs-side li{font-size:.9rem;color:var(--ink-2)}
+.qs{display:flex;flex-direction:column;gap:.7rem}
+details{background:var(--paper-3);border:1px solid var(--rule);padding:.95rem 1.15rem}
+details[open]{border-color:var(--ink-3)}
+summary{cursor:pointer;font-size:var(--t-lede);line-height:1.45;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"\25B8 ";font-family:var(--mono);color:var(--ink-3);font-size:.85em}
+details[open] summary::before{content:"\25BE "}
+summary:focus-visible{outline:2px solid var(--wire);outline-offset:3px}
+details p{margin:.85rem 0 0;color:var(--ink-2);font-size:.94rem;max-width:44em}
+.badge{display:inline-block;font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.1em;
+  text-transform:uppercase;padding:.15rem .5rem;margin-left:.5rem}
+.badge.gap{color:var(--friction);background:var(--friction-w)}
+</style>
+
+<div class="stage">
+  <nav class="rail" aria-label="Lesson scenes">
+    <span class="rail-mark">Lesson 05</span>
+    <button class="dot" data-go="0" aria-current="true">1</button>
+    <button class="dot" data-go="1">2</button>
+    <button class="dot" data-go="2">3</button>
+    <button class="dot" data-go="3">4</button>
+    <button class="dot" data-go="4">5</button>
+    <button class="dot" data-go="5">6</button>
+    <button class="dot" data-go="6">7</button>
+    <button class="dot" data-go="7">8</button>
+    <button class="dot" data-go="8">9</button>
+    <button class="dot" data-go="9">10</button>
+    <button class="dot" data-go="10">11</button>
+  </nav>
+
+  <div class="viewport">
+
+    <section class="scene is-active"><div class="wrap">
+      <p class="eyebrow">Lupine Systems · Revision · Lesson 5 of 14</p>
+      <h1>5. Scoring —<br>how routes<br>get judged</h1>
+      <div class="pull" style="margin-top:2rem">The engine never changes.
+        <strong>The weights change.</strong> Same corridors, same instant, different urgency —
+        different winner.</div>
+      <p class="mono muted" style="margin-top:2rem">11 scenes · ~10 min · read Part II Ch 2 first ·
+        carries mechanisms #6 and #7</p>
+    </div></section>
+
+    <section class="scene"><div class="wrap">
+      <p class="eyebrow">Scene 02 · The function</p>
+      <h2>One number from many</h2>
+      <p class="mono" style="margin-bottom:1.3rem;color:var(--ink-2)"><span class="exact">U(R) =
+        &#945;&#8321;&#183;Liq + &#945;&#8322;&#183;Lat + &#945;&#8323;&#183;FX + &#945;&#8324;&#183;Rel +
+        &#945;&#8325;&#183;Comp + &#945;&#8326;&#183;Exp + &#945;&#8327;&#183;Urg</span></p>
+      <div class="cols two">
+        <div style="display:flex;flex-direction:column;gap:1.1rem">
+          <p>Every route gets a <strong>score vector</strong>, not a single number — seven separate
+            measurements describing what the route is like.</p>
+          <p>The composite is a weighted sum of those scores. Change the weights and the same vector
+            produces a different total.</p>
+          <div class="pull" style="border-color:var(--wire)">V0 implements three of the seven:
+            speed, cost, reliability.</div>
+        </div>
+        <div class="fig">
+          <p class="fig-cap"><span>The four V0-relevant scoring models</span><span>cited</span></p>
+          <div class="mono" style="display:flex;flex-direction:column;gap:.85rem">
+            <span><b style="color:var(--friction)">Liquidity</b><br>&#946;&#8321;&#183;Depth +
+              &#946;&#8322;&#183;Stability + &#946;&#8323;&#183;WindowFit + &#946;&#8324;&#183;VolInverse</span>
+            <span><b style="color:var(--wire)">Latency</b><br>1 / ExpectedLatency</span>
+            <span><b style="color:var(--wire)">Reliability</b><br>1 &minus; P(failure), Bayesian</span>
+            <span><b style="color:var(--flow)">FX cost + Exposure</b><br>S&#8320;+&#916;S+C+D+V+L,
+              paired with <span class="exact">&#963;&radic;t</span></span>
+          </div>
+          <p class="mono muted" style="margin-top:1.1rem">FX cost and exposure are scored as a
+            <strong>pair</strong>, because delay increases exposure which increases cost.</p>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="scene"><div class="wrap">
+      <p class="eyebrow">Scene 03 · Normalisation</p>
+      <h2>Everything to 0&ndash;1 first</h2>
+      <div class="cols two">
+        <div style="display:flex;flex-direction:column;gap:1.1rem">
+          <p>Speed is measured in hours. Cost is in basis points. Reliability is already a
+            probability. <strong>You cannot add those.</strong></p>
+          <p class="mono muted">speed = 1 &minus; time/max_time<br>cost&nbsp; = 1 &minus; bps/max_bps</p>
+          <p>Both become 0&ndash;1, where 1 is always best. Only then can a weight mean anything.</p>
+        </div>
+        <div class="fig">
+          <p class="fig-cap"><span>Three rails, raw then normalised</span><span>max 36h · max 250 bps</span></p>
+          <div class="mono" style="display:flex;flex-direction:column;gap:.7rem">
+            <span style="color:var(--ink-3)">rail&nbsp;&nbsp;&nbsp;&nbsp;raw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rarr; speed&nbsp; cost</span>
+            <span>Wise&nbsp;&nbsp;&nbsp;&nbsp;1h &#183; 45bps&nbsp;&nbsp;&rarr; 0.97&nbsp;&nbsp; 0.82</span>
+            <span>Nium&nbsp;&nbsp;&nbsp;&nbsp;2h &#183; 25bps&nbsp;&nbsp;&rarr; 0.94&nbsp;&nbsp; 0.90</span>
+            <span>SWIFT&nbsp;&nbsp;36h &#183; 250bps &rarr; 0.00&nbsp;&nbsp; 0.00</span>
+          </div>
+          <p class="mono muted" style="margin-top:1.2rem">The slowest rail scores 0 on speed and the
+            dearest scores 0 on cost. Normalisation is relative to the candidate set, not an
+            absolute scale.</p>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="scene"><div class="wrap">
+      <p class="eyebrow">Scene 04 · Mechanism #7</p>
+      <h2>Weights shift, never zero</h2>
+      <div class="fig">
+        <p class="fig-cap"><span>Click a profile — watch every bar, not just speed</span>
+          <button class="replay" id="rW" type="button">&#8635; Reset</button></p>
+        <div class="urow" id="urow">
+          <button data-u="low">low</button><button data-u="normal">normal</button>
+          <button data-u="high">high</button><button data-u="critical">critical</button>
+        </div>
+        <div class="wgrid" id="wgrid"></div>
+        <p class="mono" style="margin-top:1.2rem;color:var(--ink-2)" id="wnote">Select a profile.</p>
+      </div>
+      <div class="pull" style="margin-top:1.5rem;border-color:var(--flow)">Reliability never drops
+        below <strong>30%</strong>. Cost never disappears, even at 5%. A route with a 40% failure
+        probability loses under <em>every</em> profile.</div>
+    </div></section>
+
+    <section class="scene"><div class="wrap">
+      <p class="eyebrow">Scene 05 · The correction</p>
+      <h2>What you said in April</h2>
+      <div class="cols two">
+        <div class="fig">
+          <p class="fig-cap"><span>Comprehension check · P2-Ch2</span><span>14 Apr 2026</span></p>
+          <p class="mono" style="color:var(--friction);line-height:1.7">"Speed and exposure is
+            considered and cost and reliability is not considered."</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1.1rem">
+          <p>Half right. Speed and exposure <em>do</em> get weighted up under pressure.</p>
+          <p>But cost and reliability are <strong>not ignored</strong> — they stay in the equation
+            with lower weights. That difference is the whole distinction between a real optimiser
+            and a sort-by-speed.</p>
+          <div class="pull" style="border-color:var(--flow)">"We don't just pick the fastest route
+            under pressure — we pick the best <strong>reliability-adjusted</strong> outcome under
+            time pressure."</div>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="scene"><div class="wrap">
+      <p class="eyebrow">Scene 06 · Same board, four verdicts</p>
+      <h2>The winner moves</h2>
+      <div class="fig">
+        <p class="fig-cap"><span>Five rails, one instant, urgency stepping low &rarr; critical</span>
+          <button class="replay" id="rB" type="button">&#8635; Replay</button></p>
+        <div class="board" id="board"></div>
+        <p class="mono" style="margin-top:1.2rem;color:var(--ink-2)" id="bnote">&mdash;</p>
+      </div>
+    </div></section>
+
+    <section class="scene"><div class="wrap">
+      <p class="eyebrow">Scene 07 · Mechanism #6</p>
+      <h2>Liquidity is a gate</h2>
+      <div class="fig">
+        <p class="fig-cap"><span>Four corridors · hard filter runs before any scoring</span>
+          <button class="replay" id="rG" type="button">&#8635; Replay</button></p>
+        <div class="gate" id="gate">
+          <div class="grow" data-kill="0"><span class="bn">AUD &rarr; SGD direct</span>
+            <span class="mono muted">liq 0.88 · lat 0.72 · comp 0.94</span><span class="gm">&mdash;</span></div>
+          <div class="grow" data-kill="0"><span class="bn">AUD &rarr; USD &rarr; SGD</span>
+            <span class="mono muted">liq 0.64 · lat 0.55 · comp 0.91</span><span class="gm">&mdash;</span></div>
+          <div class="grow" data-kill="1"><span class="bn">AUD &rarr; XXX &rarr; SGD</span>
+            <span class="mono muted">liq 0.00 · lat 0.98 · comp 0.99</span><span class="gm">&mdash;</span></div>
+          <div class="grow" data-kill="0"><span class="bn">AUD &rarr; HKD &rarr; SGD</span>
+            <span class="mono muted">liq 0.51 · lat 0.61 · comp 0.78</span><span class="gm">&mdash;</span></div>
+        </div>
+        <p class="mono" style="margin-top:1.2rem;color:var(--ink-2)" id="gnote">&mdash;</p>
+      </div>
+      <div class="pull" style="margin-top:1.5rem;border-color:var(--friction)">Best latency and best
+        compliance on the board — and still impossible. A corridor with no liquidity
+        <strong>physically cannot execute</strong>, whatever else it scores.</div>
+    </div></section>
+
+    <section class="scene"><div class="wrap">
+      <p class="eyebrow">Scene 08 · Why a gate and not a weight</p>
+      <h2>You cannot score a missing bridge</h2>
+      <div class="cols two">
+        <div style="display:flex;flex-direction:column;gap:1.1rem">
+          <p>Suppose liquidity were just another weighted term at, say, 20%.</p>
+          <p>The dead corridor scores <strong>0.00 &times; 0.20 = 0</strong> on liquidity, and
+            <em>0.98 and 0.99</em> on everything else. It could still finish top of the board and be
+            selected — and then fail, because there is no money in the account.</p>
+          <div class="pull" style="border-color:var(--friction)">A weight lets a fatal flaw be
+            outvoted.<br><strong>A gate does not.</strong></div>
+        </div>
+        <div class="fig">
+          <p class="fig-cap"><span>If liquidity were weighted at 20%</span><span>the failure mode</span></p>
+          <div class="mono" style="display:flex;flex-direction:column;gap:.6rem">
+            <span>liq&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.00 &times; 0.20 = 0.000</span>
+            <span>latency&nbsp;&nbsp;0.98 &times; 0.40 = 0.392</span>
+            <span>comp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.99 &times; 0.40 = 0.396</span>
+            <span style="border-top:1px solid var(--rule);padding-top:.5rem;color:var(--friction)">composite
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.788 &rarr; selected</span>
+          </div>
+          <p class="mono" style="margin-top:1.2rem;color:var(--friction)">Highest score on the board.
+            Cannot move a cent.</p>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="scene"><div class="wrap">
+      <p class="eyebrow">Scene 09 · The output</p>
+      <h2>Four route tiers</h2>
+      <p style="margin-bottom:1.3rem">Scoring does not return a winner. It returns a
+        <strong>classification</strong>, and the winner is one of four categories.</p>
+      <div class="tiers">
+        <div class="tier2 opt" style="animation-delay:.05s"><span class="k">Optimal</span>
+          <span class="v">Highest composite utility. Selected and sent to Rail.</span></div>
+        <div class="tier2 adm" style="animation-delay:.15s"><span class="k">Admissible</span>
+          <span class="v">On the Pareto frontier. Valid alternatives, not chosen this time.</span></div>
+        <div class="tier2 fb" style="animation-delay:.25s"><span class="k">Fallback</span>
+          <span class="v">Used if the optimal route fails mid-execution. Pre-computed.</span></div>
+        <div class="tier2 el" style="animation-delay:.35s"><span class="k">Eliminated</span>
+          <span class="v">Liquidity-starved or too risky. Never selected under any weighting.</span></div>
+      </div>
+      <p class="mono muted" style="margin-top:1.3rem">The fallback tier is what Rail uses to correct
+        <em>forward</em> when a hop fails — which is Lesson 8. Scoring is where that alternate gets
+        computed, before the money moves.</p>
+    </div></section>
+
+    <section class="scene"><div class="wrap">
+      <p class="eyebrow">Scene 10 · The thesis</p>
+      <h2>Same engine, different weights</h2>
+      <div class="vs" style="margin-bottom:1.6rem">
+        <div class="vs-side now"><h3>What a naive system does</h3><ul>
+          <li>Sorts by one dimension at a time</li><li>Treats every constraint as a weight</li>
+          <li>Can select a corridor that cannot execute</li><li>Returns one answer, no alternatives</li>
+          <li>Same output regardless of urgency</li></ul></div>
+        <div class="vs-side next"><h3>What Aiva does</h3><ul>
+          <li>Normalises every score to 0&ndash;1 first</li>
+          <li>Eliminates the impossible before weighting</li>
+          <li>Shifts weights by urgency, never to zero</li>
+          <li>Classifies into optimal / admissible / fallback</li>
+          <li>Produces the fallback before it is needed</li></ul></div>
+      </div>
+      <div class="pull">"The same scoring engine, evaluating the same corridors, produces a different
+        best route depending on the weights. <strong>The engine doesn't change. The weights
+        do.</strong>"</div>
+    </div></section>
+
+    <section class="scene"><div class="wrap">
+      <p class="eyebrow">Scene 11 · Check yourself</p>
+      <h2>Say these out loud</h2>
+      <p style="margin-bottom:1.4rem">Both of today's mechanisms are on your list of twelve. Neither
+        came out right in April.</p>
+      <div class="qs">
+        <details><summary>Why is liquidity a gate rather than a weight?<span class="badge gap">Mechanism #6</span></summary>
+          <p>A corridor with no liquidity <strong>physically cannot execute the payment</strong> — it
+            does not matter how good its latency, cost or compliance scores are, because there is no
+            money in the nostro account. As a weight, a fatal flaw can be outvoted by strong scores
+            elsewhere and the dead corridor gets selected. Aiva eliminates impossible paths first, so
+            no computation is spent scoring routes that can never work.</p></details>
+        <details><summary>At critical urgency, what happens to cost and reliability?<span class="badge gap">Mechanism #7</span></summary>
+          <p>They stay in the equation with lower weights — cost at 5%, reliability at 35%. They are
+            <strong>not</strong> ignored. A fast route with a 40% failure probability still loses,
+            because reliability drags the composite down far enough. Weights shift; they never zero
+            out.</p></details>
+        <details><summary>What are the four route tiers, and which matters for Rail?</summary>
+          <p>Optimal (selected), admissible (on the frontier, valid alternatives), fallback (used if
+            the optimal fails), eliminated (never selected). <strong>Fallback</strong> is the one Rail
+            depends on — the pre-computed alternate that lets execution correct forward instead of
+            rolling back.</p></details>
+      </div>
+      <p class="mono muted" style="margin-top:2rem">Lesson 5 complete &rarr; next: 6. Pareto and
+        Constraints</p>
+    </div></section>
+
+  </div>
+</div>
+
+<div class="hint">&larr; &rarr; to move</div>
+<div class="controls">
+  <button class="btn" id="prev" disabled>Prev</button>
+  <span class="pos"><span id="cur">01</span> / 11</span>
+  <button class="btn" id="next">Next</button>
+</div>
+<script>
+(function(){
+"use strict";
+var scenes=[].slice.call(document.querySelectorAll(".scene"));
+var dots=[].slice.call(document.querySelectorAll(".dot"));
+var prevB=document.getElementById("prev"),nextB=document.getElementById("next");
+var curEl=document.getElementById("cur"),i=0,timers=[];
+var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function clearT(){timers.forEach(clearTimeout);timers=[];}
+function later(fn,ms){var t=setTimeout(fn,reduced?0:ms);timers.push(t);return t;}
+var WP={low:{speed:.15,cost:.55,reliability:.30},normal:{speed:.25,cost:.35,reliability:.40},
+        high:{speed:.50,cost:.15,reliability:.35},critical:{speed:.60,cost:.05,reliability:.35}};
+var RAILS=[{n:"Nium",sp:.94,co:.90,re:.87},{n:"Wise",sp:.97,co:.82,re:.95},
+           {n:"OFX",sp:.33,co:.80,re:.91},{n:"DBS",sp:.50,co:.68,re:.90},
+           {n:"SWIFT",sp:.00,co:.00,re:.88}];
+function go(n){
+  n=Math.max(0,Math.min(scenes.length-1,n));clearT();
+  scenes[i].classList.remove("is-active");i=n;scenes[i].classList.add("is-active");
+  dots.forEach(function(d,k){d.setAttribute("aria-current",k===i?"true":"false");if(k<=i)d.classList.add("seen");});
+  curEl.textContent=String(i+1).padStart(2,"0");
+  prevB.disabled=i===0;nextB.disabled=i===scenes.length-1;scenes[i].scrollTop=0;
+  if(i===3)initW();if(i===5)playBoard();if(i===6)playGate();
+}
+function paintW(u){
+  var w=WP[u],g=document.getElementById("wgrid");
+  g.innerHTML=Object.keys(w).map(function(k){
+    var v=w[k],col=k==="speed"?"var(--friction)":(k==="cost"?"var(--wire)":"var(--flow)");
+    return '<div class="wr"><span class="wl">'+k+'</span><span class="wt">'+
+      '<span class="wb" style="right:'+(100-v*100)+'%;background:'+col+'"></span></span>'+
+      '<span class="wv">'+(v*100).toFixed(0)+'%</span></div>';}).join("");
+  var lo=Math.min(w.speed,w.cost,w.reliability)*100;
+  document.getElementById("wnote").innerHTML="speed <b>"+(w.speed*100).toFixed(0)+
+    "%</b> · cost <b>"+(w.cost*100).toFixed(0)+"%</b> · reliability <b>"+
+    (w.reliability*100).toFixed(0)+"%</b> &nbsp;&mdash;&nbsp; lowest weight on the board is "+
+    lo.toFixed(0)+"%, never 0.";
+}
+function initW(){
+  var box=document.getElementById("urow");
+  if(box.dataset.wired)return;box.dataset.wired="1";
+  box.addEventListener("click",function(e){
+    var b=e.target.closest("button[data-u]");if(!b)return;
+    [].forEach.call(box.children,function(c){c.classList.toggle("on",c===b);});
+    paintW(b.dataset.u);});
+  document.getElementById("rW").addEventListener("click",function(){
+    [].forEach.call(box.children,function(c){c.classList.remove("on");});
+    document.getElementById("wgrid").innerHTML="";
+    document.getElementById("wnote").textContent="Select a profile.";});
+}
+function playBoard(){
+  var board=document.getElementById("board"),note=document.getElementById("bnote");
+  board.innerHTML=RAILS.map(function(r){return '<div class="brow" data-n="'+r.n+
+    '"><span class="bn">'+r.n+'</span><span class="bt"><span class="bf"></span></span>'+
+    '<span class="bs">&mdash;</span></div>';}).join("");
+  var order=["low","normal","high","critical"];
+  order.forEach(function(u,k){later(function(){
+    var w=WP[u];
+    var sc=RAILS.map(function(r){return {n:r.n,s:w.speed*r.sp+w.cost*r.co+w.reliability*r.re};});
+    var best=sc.reduce(function(a,b){return b.s>a.s?b:a;});
+    sc.forEach(function(x){
+      var row=board.querySelector('[data-n="'+x.n+'"]');
+      row.querySelector(".bf").style.right=(100-x.s*100)+"%";
+      row.querySelector(".bs").textContent=x.s.toFixed(3);
+      row.classList.toggle("lead",x.n===best.n);});
+    note.innerHTML="<b>"+u+"</b> urgency &nbsp;·&nbsp; speed "+(w.speed*100).toFixed(0)+
+      "% cost "+(w.cost*100).toFixed(0)+"% rel "+(w.reliability*100).toFixed(0)+
+      "% &nbsp;&rarr;&nbsp; leader <b style='color:var(--flow)'>"+best.n+"</b> at "+best.s.toFixed(3);
+  },500+k*1700);});
+  later(function(){note.innerHTML+="<br><span style='color:var(--ink-3)'>Nium leads while cost is "+
+    "weighted heavily; Wise takes over once speed and reliability dominate. Same five rails "+
+    "throughout, same instant.</span>";},500+order.length*1700+300);
+}
+function playGate(){
+  var rows=[].slice.call(document.getElementById("gate").children);
+  var note=document.getElementById("gnote");
+  rows.forEach(function(r){r.className="grow";r.querySelector(".gm").innerHTML="&mdash;";});
+  note.innerHTML="&mdash;";
+  later(function(){
+    rows.forEach(function(r,k){later(function(){
+      var kill=r.dataset.kill==="1";
+      r.classList.add(kill?"killed":"pass");
+      r.querySelector(".gm").textContent=kill?"eliminated":"feasible";},k*420);});
+    later(function(){note.innerHTML="Hard filter complete &mdash; <b style='color:var(--friction)'>"+
+      "1 eliminated</b>, 3 pass to scoring. Note the eliminated corridor had the <b>highest</b> "+
+      "latency and compliance scores on the board.";},rows.length*420+400);},400);
+}
+nextB.addEventListener("click",function(){go(i+1);});
+prevB.addEventListener("click",function(){go(i-1);});
+document.getElementById("rB").addEventListener("click",function(){clearT();playBoard();});
+document.getElementById("rG").addEventListener("click",function(){clearT();playGate();});
+dots.forEach(function(d){d.addEventListener("click",function(){go(parseInt(d.dataset.go,10));});});
+document.addEventListener("keydown",function(e){
+  if(e.target.tagName==="SUMMARY"&&(e.key===" "||e.key==="Enter"))return;
+  if(e.key==="ArrowRight"||e.key==="PageDown"){e.preventDefault();go(i+1);}
+  if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();go(i-1);}
+  if(e.key===" "){e.preventDefault();go(i+1);}});
+go(0);
+})();
+</script>

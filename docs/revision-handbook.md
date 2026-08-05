@@ -80,7 +80,7 @@ Click-through visual versions of each day, hosted on the project's own site. The
 | 2 | [Messaging Is the Real Control Layer](https://cheeroo2020.github.io/lupine-systems-core/lessons/02-messaging-is-the-control-layer.html) | `02-messaging-is-the-control-layer.html` | ✅ live |
 | 3 | [Corridors and the Real FX Rate](https://cheeroo2020.github.io/lupine-systems-core/lessons/03-corridors-and-the-real-fx-rate.html) | `03-corridors-and-the-real-fx-rate.html` | ✅ live |
 | 4 | [Aiva's Brain — Seven Graphs at Once](https://cheeroo2020.github.io/lupine-systems-core/lessons/04-aivas-brain-seven-graphs.html) | `04-aivas-brain-seven-graphs.html` | ✅ live |
-| 5 | Scoring — How Routes Get Judged | `05-scoring-how-routes-get-judged.html` | — |
+| 5 | [Scoring — How Routes Get Judged](https://cheeroo2020.github.io/lupine-systems-core/lessons/05-scoring-how-routes-get-judged.html) | `05-scoring-how-routes-get-judged.html` | ✅ live |
 | 6 | Pareto and Constraints | `06-pareto-and-constraints.html` | — |
 | 7 | Consolidation | `07-consolidation.html` | — |
 | 8 | RAIL — Making It Actually Happen | `08-rail-making-it-happen.html` | — |
@@ -394,6 +394,7 @@ After computing, Aiva hands Rail a deterministic blueprint: optimal corridor pat
 ## Day 5 — Scoring: how routes get judged
 
 > 📖 **Read first:** HTML → *Part II — Chapter 2* · PDF pp. 19–21
+> 🎬 **Animated lesson:** [5. Scoring — How Routes Get Judged](https://cheeroo2020.github.io/lupine-systems-core/lessons/05-scoring-how-routes-get-judged.html)
 > 🗂 **Repo:** [**R3 — Aiva**](#r3--aiva-day-5-20-min) *(20 min — the best pairing in the course)*
 
 ### The one idea
