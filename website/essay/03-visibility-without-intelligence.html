@@ -1,4 +1,4 @@
-<title>II. What Non-Determinism Costs · Deterministic Value</title>
+<title>III. Visibility Without Intelligence · Deterministic Value</title>
 
 <style>
 :root{
@@ -178,218 +178,219 @@ figure.seen{opacity:1;transform:none}
 
   <header>
     <p class="kicker">Deterministic Value · An essay in seven chapters</p>
-    <p class="chapnum">II</p>
-    <h1>What<br>non-determinism<br>costs</h1>
+    <p class="chapnum">III</p>
+    <h1>Visibility<br>without<br>intelligence</h1>
     <p class="byline">Chirantan Gogoi · Lupine Systems · Draft</p>
   </header>
 
-  <p class="lede opener">Chapter I argued that value movement is the last major flow still
-    managed reactively. This chapter is about what that costs, however it has to begin with an
-    admission, because the honest answer to "what does it cost" is that almost nobody knows,
-    including the people charging it.</p>
+  <p class="lede opener">The first two chapters described a flow that is neither predictable nor
+    measured. The obvious question is why it has stayed that way, given that the industry is
+    large, sophisticated and well capitalised, and the answer is not that nobody noticed.</p>
 
-  <p>That is not a rhetorical opening. It is the finding.</p>
+  <p>The industry noticed, built a solution, and shipped it. The solution addressed the wrong
+    half of the problem.</p>
 
-  <h2 id="s1"><span class="sn">2.1</span>The rate is not a number</h2>
+  <h2 id="s1"><span class="sn">3.1</span>SWIFT does not move money</h2>
 
-  <p>The number you are quoted is a single figure, whereas the rate you actually pay is the sum
-    of eight components. Two of them are normally visible to the payer and six are not, and that
-    is the structural point, which does not depend on knowing their sizes.</p>
+  <p>This is the single most common misunderstanding about cross-border payments, and correcting
+    it is necessary before anything else in this chapter makes sense.</p>
 
-  <figure class="wide">
-    <figcaption><span>Fig. 1 — Effective rate = S₀ + ΔS + F + V + L + C + D + R</span><span>formula cited · values not</span></figcaption>
-    <div class="stack" id="stack"></div>
-    <div class="slbl"><span class="q">visible to the payer · 2 of 8</span><span class="a">not disclosed · 6 of 8</span></div>
-    <div class="comps" id="comps"></div>
-    <p class="fig-note">The eight-component formula is cited. The <strong>proportions shown are
-      illustrative</strong> — no basis-point decomposition for this corridor has been published
-      by anyone, and any figure given for one would be invented. See <code>docs/provenance.md</code>.</p>
-  </figure>
-
-  <p><strong>What we cannot tell you is the split.</strong> As per the source material, the
-    formula is given and the values are not. An earlier draft of this essay invented a
-    decomposition and presented it as measured, which is the reason this project now maintains a
-    provenance manifest.</p>
-
-  <h2 id="s2"><span class="sn">2.2</span>What can be established</h2>
-
-  <p>Three things about the cost side can be stated with a source behind them.</p>
+  <p>SWIFT is a <strong>messaging network</strong>. It carries instructions between financial
+    institutions and it has never moved a dollar. The money itself moves through RTGS systems,
+    through pre-funded nostro and vostro balances, through FX desks and through clearing houses,
+    whereas SWIFT is what tells those systems to act.</p>
 
   <figure class="wide">
-    <figcaption><span>Fig. 2 — Disclosed figures, Wise IPO prospectus 2021</span><span>cited</span></figcaption>
+    <figcaption><span>Fig. 1 — Where each layer sits, and where firms build</span><span>cited</span></figcaption>
     <div class="prec">
       <div>
-        <span class="yr">FY2021</span>
-        <span class="dm">Cross-currency take rate</span>
-        <span class="mv">0.70%, against 0.68% and 0.64% the two years before. Total take rate 0.77%.</span>
+        <span class="yr">Layer 5–4</span>
+        <span class="dm">User and API</span>
+        <span class="mv">Bank UI, ERP, procurement. REST and bank APIs. Most fintechs stop here.</span>
       </div>
       <div>
-        <span class="yr">UK FPS</span>
-        <span class="dm">Direct integration</span>
-        <span class="mv">Partner bank fees fell nine-fold; transfers dropped under twenty seconds.</span>
+        <span class="yr">Layer 3</span>
+        <span class="dm">Messaging</span>
+        <span class="mv">SWIFT MT, ISO 20022, gpi. Legal and operational instructions. Real control sits here.</span>
       </div>
       <div>
-        <span class="yr">Hungary</span>
-        <span class="dm">Central bank integration</span>
-        <span class="mv">Prices fell 14% on average; instant transfers rose from 17% to 82% of volume.</span>
+        <span class="yr">Layer 2</span>
+        <span class="dm">Settlement</span>
+        <span class="mv">RTGS, ACH, SEPA, NPP, CHAPS. Where value actually changes hands.</span>
       </div>
       <div>
-        <span class="yr">Scale</span>
-        <span class="dm">What it covers</span>
-        <span class="mv">£5bn a month across 2,500 currency routes, audited and published.</span>
+        <span class="yr">Layer 1</span>
+        <span class="dm">Balance</span>
+        <span class="mv">Nostro, vostro, internal ledgers. The pre-funded pools that can run dry.</span>
       </div>
     </div>
-    <p class="fig-note">The 0.70% cross-currency take rate is the closest thing the industry has
-      to an honest benchmark, whereas the integration figures establish that the cost is
-      structural rather than natural.</p>
+    <p class="fig-note">Messages are not descriptions of a payment that happened elsewhere. They
+      are the instruction that makes it happen, which is why the messaging layer is the control
+      point rather than the reporting layer.</p>
   </figure>
 
-  <p><strong>Nobody publishes the decomposition.</strong> Wise reports a take rate. Remitly
-    reports corridor counts and speed. Adyen reports platform metrics. None of them break the
-    effective rate into its components for a given corridor on a given day, because there is no
-    commercial reason to.</p>
+  <p>One MT103 arriving at a correspondent triggers a sanctions screen, a treasury reservation
+    against the nostro pool, an RTGS settlement instruction, a ledger entry and, frequently, a
+    compliance case file. Five systems in different institutions act on one block of text,
+    which means that if the text is ambiguous, <strong>they act differently.</strong></p>
 
-  <h2 id="s3"><span class="sn">2.3</span>Delay is one of the components</h2>
+  <h2 id="s2"><span class="sn">3.2</span>Three generations of the same layer</h2>
 
-  <p>The most under-recognised term in the stack is <strong>D</strong>, the delay premium, and
-    the reason it matters is that it does not stand alone.</p>
+  <p>The messaging layer has been rebuilt twice, and the pattern of what each generation fixed
+    is the argument of this chapter.</p>
 
-  <blockquote>
-    <p><strong>Exposure = σ × √t</strong></p>
-  </blockquote>
+  <p><strong>SWIFT MT103</strong> still runs much of the world, however its fields are free
+    text. Each hop re-keys and truncates them to fit its own systems, so a debtor name entered
+    as <code>LUPINE SYSTEMS PTY LTD</code> can arrive four hops later as
+    <code>LUPINE SYS PTY L</code>, with the address line dropped and the remittance reference cut
+    short. At that point a sanctions engine cannot resolve the party, and the payment goes to
+    manual review — which is a delay caused entirely by the format rather than by anything the
+    payer did.</p>
 
-  <p>Volatility multiplied by the square root of settlement time. The square root is the whole
-    insight, based on the fact that exposure grows non-linearly, so quadrupling the settlement
-    time only doubles the damage, which means the first hours of delay are disproportionately
-    expensive compared with the last ones.</p>
+  <p><strong>ISO 20022</strong> replaced free text with structured XML, based on schemas that
+    define every field, so the data survives the journey intact and arrives machine-readable and
+    compliance-ready. This is a genuine improvement and the migration is underway across the
+    industry.</p>
 
-  <figure class="wide">
-    <figcaption><span>Fig. 3 — Exposure against settlement time</span><span>σ = 6 bps, illustrative</span></figcaption>
-    <div class="spread">
-      <div class="sp"><span class="sp-l">1 hour</span>
-        <span class="sp-t"><span class="sp-b" data-w="17" style="background:var(--wire)"></span></span>
-        <span class="sp-v">6 bps</span></div>
-      <div class="sp"><span class="sp-l">4 hours</span>
-        <span class="sp-t"><span class="sp-b" data-w="33" style="background:var(--wire)"></span></span>
-        <span class="sp-v">12 bps</span></div>
-      <div class="sp"><span class="sp-l">16 hours</span>
-        <span class="sp-t"><span class="sp-b" data-w="67" style="background:var(--friction)"></span></span>
-        <span class="sp-v">24 bps</span></div>
-      <div class="sp"><span class="sp-l">36 hours</span>
-        <span class="sp-t"><span class="sp-b" data-w="100" style="background:var(--friction)"></span></span>
-        <span class="sp-v">36 bps</span></div>
-    </div>
-    <div class="ratio"><b>4×</b><span>the time, twice the damage</span></div>
-    <p class="fig-note">The relationship is cited; σ = 6 bps is chosen to show the shape.</p>
-  </figure>
+  <p><strong>SWIFT gpi</strong> is an overlay rather than a replacement. It bolts end-to-end
+    tracking onto the existing rails and gives hop-level timestamps and fee transparency, which
+    the industry had nothing comparable to beforehand.</p>
 
-  <p>There is a chain reaction here that is easy to miss, whereas it does most of the damage.
-    Delay increases the time in flight, which increases volatility exposure, which liquidity
-    providers price into a wider spread. The three terms are not independent, and a model that
-    scores latency and cost as separate dimensions will systematically misprice slow routes.</p>
+  <h2 id="s3"><span class="sn">3.3</span>What gpi gave, and what it did not</h2>
 
-  <blockquote>
-    <p>A fast route through a volatile corridor can cost more in total than a slower route
-      through a stable one. <strong>Optimising for speed is not the same as optimising for
-      outcome</strong>, however most routing in production does not distinguish between the two,
-      based on the fact that it is not computing either.</p>
-  </blockquote>
-
-  <p>For a multi-hop route the exposures sum across the legs, as <strong>σ_total = Σ(σᵢ ×
-    √tᵢ)</strong>. A three-hop corridor carries three separate exposure calculations added
-    together, which is why a corridor that looks cheap on headline spread can breach an exposure
-    cap once the hops are counted.</p>
-
-  <h2 id="s4"><span class="sn">2.4</span>The rate is not even one number</h2>
-
-  <p>This is the part we can speak to directly, because we measured it. Lupine queries four
-    independent public mid-market sources for AUD/SGD, and on 3 August 2026 three of the four
-    were reachable and returned, at the same instant:</p>
+  <p>Consider a payment that sits at the Singapore correspondent for ninety minutes waiting for
+    liquidity. A gpi tracker will report it accurately:</p>
 
   <figure class="wide">
-    <figcaption><span>Fig. 4 — Independent mid-market sources, one instant</span><span>measured</span></figcaption>
+    <figcaption><span>Fig. 2 — gpi hop log, single payment</span><span>illustrative sequence</span></figcaption>
     <table class="win">
-      <thead><tr><th>Source</th><th>Rate</th><th>Source date</th></tr></thead>
+      <thead><tr><th>Time</th><th>Hop</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td>open.er-api.com</td><td>0.902119</td><td>2026-08-03</td></tr>
-        <tr><td>jsdelivr currency-api</td><td>0.901730</td><td>2026-08-02</td></tr>
-        <tr><td>Frankfurter (ECB)</td><td>0.901740</td><td>2026-07-31</td></tr>
+        <tr><td>08:00</td><td>AU</td><td>sent</td></tr>
+        <tr><td>08:12</td><td>C1</td><td>credited</td></tr>
+        <tr><td>08:31</td><td>C2</td><td>credited</td></tr>
+        <tr><td>09:42</td><td>C3</td><td>credited — 90 min delay, liquidity</td></tr>
       </tbody>
     </table>
-    <div class="ratio"><b>4.32</b><span>basis points of dispersion, same instant</span></div>
-    <p class="fig-note">Recorded by <code>scripts/spread_log.py</code>, stored in
-      <code>spread_log.jsonl</code>. One observation. The logger refuses to describe the dataset
-      as citable below thirty, so this is a demonstration of method rather than a finding.</p>
+    <p class="fig-note">Accurate, complete, and delivered at 09:42 — which is to say, after the
+      ninety minutes had already been spent.</p>
   </figure>
 
-  <p>Two observations follow, and the second is the more interesting one. First, the sources
-    disagree — not by much on this reading, however 4.32 bps is roughly a tenth of what a
-    competitive provider charges in total, and it sits underneath every spread anyone quotes on
-    top of it.</p>
+  <figure class="wide">
+    <figcaption><span>Fig. 3 — Elapsed time per hop, same payment</span><span>minutes</span></figcaption>
+    <div class="spread">
+      <div class="sp"><span class="sp-l">AU → C1</span>
+        <span class="sp-t"><span class="sp-b" data-w="13" style="background:var(--flow)"></span></span>
+        <span class="sp-v">12 min</span></div>
+      <div class="sp"><span class="sp-l">C1 → C2</span>
+        <span class="sp-t"><span class="sp-b" data-w="21" style="background:var(--flow)"></span></span>
+        <span class="sp-v">19 min</span></div>
+      <div class="sp"><span class="sp-l">C2 → C3</span>
+        <span class="sp-t"><span class="sp-b" data-w="100" style="background:var(--friction)"></span></span>
+        <span class="sp-v">90 min</span></div>
+    </div>
+    <div class="ratio"><b>74%</b><span>of elapsed time spent on one stalled hop</span></div>
+    <p class="fig-note">gpi reports the stall correctly and reports it at 09:42, which is the
+      moment it ends. Nothing in the log is wrong; nothing in it is actionable.</p>
+  </figure>
 
-  <p>Second, <strong>the three sources are not describing the same day.</strong> Frankfurter's
-    figure was three days old at the moment of reading, so the phrase "the mid-market rate"
-    resolves differently depending on who you ask and how stale they are, before any provider
-    has added a single basis point of margin.</p>
-
-  <h2 id="s5"><span class="sn">2.5</span>Why this is not measured</h2>
-
-  <p>The obvious question is why an industry moving trillions has no public decomposition of its
-    own pricing. The answer is that <strong>nobody in the chain is positioned to produce
-    one:</strong></p>
-
-  <ul>
-    <li>A <strong>bank</strong> sees its own leg, and prices it against its own treasury cost.</li>
-    <li>A <strong>correspondent</strong> sees only the hop in front of it.</li>
-    <li>A <strong>fintech</strong> sees inside its own network and, reasonably, treats the
-      composition of its spread as commercial information.</li>
-    <li>The <strong>payer</strong> sees a single quoted number at the start and a single
-      credited amount at the end, whereas everything in between is distributed across parties
-      with no shared record and no obligation to assemble one.</li>
-  </ul>
+  <p>Everything in that log is correct. What gpi cannot do is <strong>predict the shortage,
+    reroute around it, or score whether a different corridor would have been faster</strong>,
+    and it cannot do any of those things because it is an observation layer rather than a
+    decision layer. It reports the delay at the moment the delay finishes.</p>
 
   <blockquote>
-    <p>It is not that the information is secret. It is that it is <strong>never
-      assembled</strong>, and the only party with an interest in assembling it is the one party
-      with no access.</p>
+    <p>gpi tracks problems. It does not prevent them. <strong>The industry solved visibility and
+      left intelligence untouched</strong>, which is why a payer today can watch a payment be
+      late in real time and still not be able to do anything about it.</p>
   </blockquote>
 
-  <h2 id="s6"><span class="sn">2.6</span>What follows</h2>
+  <h2 id="s4"><span class="sn">3.4</span>Structured data is necessary, not sufficient</h2>
 
-  <p>The cost of non-determinism is real, it is structural, and its precise size is presently
-    unmeasured by anyone including us. That is an uncomfortable position for an essay to take
-    and it is the correct one, whereas a fabricated decomposition would have read better and
-    been worth nothing.</p>
+  <p>ISO 20022 matters more than it is usually given credit for, however not for the reason
+    normally cited. Banks adopt it for migration compliance and data quality, whereas the same
+    structured fields can be read as <strong>intelligence input</strong>.</p>
 
-  <p><strong>Chapter III</strong> turns to why the problem has persisted: what SWIFT actually
-    does and does not do, why gpi delivered visibility without intelligence, and why the
-    incumbents are structurally unable to close the gap even where they can see it.</p>
+  <p>In a routing model, one payment is simultaneously a constraint set, a risk vector, a
+    compliance object, a node on a corridor graph, a time-window object and a liquidity demand
+    event. None of that is readable from free text, and all of it is readable from
+    schema-validated fields.</p>
+
+  <p>The same property underwrites cryptographic evidence, and this is the part that carries
+    into Chapters V and VI. To hash a field you must know exactly where it begins and ends. ISO
+    20022 gives discrete, labelled, validated fields; MT103 runs names, addresses and purpose
+    codes together with no programmatic separation, so there is nothing discrete to hash.</p>
+
+  <blockquote>
+    <p><strong>You cannot hash ambiguity.</strong> Verifiable evidence is not merely a feature
+      that MT103 lacks — it is structurally impossible on top of it.</p>
+  </blockquote>
+
+  <h2 id="s5"><span class="sn">3.5</span>Why the incumbents cannot close it</h2>
+
+  <p>The remaining question is why the firms with the most capability have not built the
+    decision layer, and the answer is not that they are incapable. Chapter II established that
+    integration works: Wise cut UK partner bank fees nine-fold and took Hungarian instant
+    transfers from 17% to 82% of volume. These are firms that execute.</p>
+
+  <p>The constraint is structural rather than technical:</p>
+
+  <ul>
+    <li><strong>Wise</strong> spent a decade and sixty-three licences building its own rails
+      across 2,500 currency routes, which is a genuine asset and also a boundary — it optimises
+      inside its own network, whereas it cannot recommend a competitor's corridor.</li>
+    <li><strong>Remitly</strong> operates 1,700 corridors with direct integrations to a hundred
+      partners, and more than 75% of its 2020 transactions completed inside an hour. That is
+      real engineering, applied within one network.</li>
+    <li><strong>Adyen</strong> runs six live data centres with real-time rerouting on outage,
+      which is forward correction in production since 2018 — between Adyen's own data centres,
+      for Adyen's own traffic.</li>
+    <li><strong>Banks</strong> route on treasury cost optimisation, based on pre-funded nostro
+      accounts and correspondent agreements signed years earlier, so they ask what is cheapest
+      for them rather than what is best for the payment.</li>
+  </ul>
+
+  <p>Each of these is rational. None of them can produce a cross-provider recommendation,
+    however, because doing so would mean routing volume away from the network that constitutes
+    the firm's value. <strong>The neutrality that the problem requires is the one thing an
+    incumbent cannot supply without cannibalising itself.</strong></p>
+
+  <h2 id="s6"><span class="sn">3.6</span>What follows</h2>
+
+  <p>The gap is now precisely located. Messaging is the control layer and the industry rebuilt
+    it twice, whereas both rebuilds improved <em>description</em> — better structured data,
+    better tracking — and neither added <em>decision</em>. The firms best placed to add it are
+    structurally prevented from doing so by the shape of their own businesses.</p>
+
+  <p><strong>Chapter IV</strong> describes what a decision layer actually requires: computing
+    every viable path simultaneously rather than checking constraints in sequence, and producing
+    an output that is the same every time the inputs are.</p>
 
   <figure class="wide">
     <figcaption><span>Provenance — every claim in this chapter</span><span>docs/provenance.md</span></figcaption>
     <table class="win">
       <thead><tr><th>Claim</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td>Eight-component formula</td><td>cited — formula only</td></tr>
-        <tr><td>Component basis-point split</td><td>not established</td></tr>
-        <tr><td>Wise take rate 0.70% / 0.77%</td><td>cited</td></tr>
-        <tr><td>UK FPS nine-fold reduction</td><td>cited</td></tr>
-        <tr><td>Hungary −14%, 17% → 82%</td><td>cited</td></tr>
-        <tr><td>Exposure = σ√t</td><td>cited</td></tr>
-        <tr><td>4.32 bps source dispersion</td><td>measured, n=1</td></tr>
-        <tr><td>Three-day staleness spread</td><td>measured, n=1</td></tr>
-        <tr><td>"Nobody is positioned to measure it"</td><td>assertion</td></tr>
+        <tr><td>SWIFT carries messages, not value</td><td>cited</td></tr>
+        <tr><td>Five-layer stack</td><td>cited</td></tr>
+        <tr><td>MT103 free-text degradation</td><td>cited</td></tr>
+        <tr><td>ISO 20022 structured fields</td><td>cited</td></tr>
+        <tr><td>gpi provides tracking, not prediction</td><td>cited</td></tr>
+        <tr><td>gpi hop log timings</td><td>illustrative sequence</td></tr>
+        <tr><td>Wise 63 licences, 2,500 routes, FPS nine-fold</td><td>cited</td></tr>
+        <tr><td>Remitly 1,700 corridors, &gt;75% under 1 hour</td><td>cited</td></tr>
+        <tr><td>Adyen six data centres, real-time rerouting</td><td>cited</td></tr>
+        <tr><td>"Incumbents structurally cannot be neutral"</td><td>assertion</td></tr>
       </tbody>
     </table>
   </figure>
 
   <div class="next">
     <span>Next</span>
-    <a href="03-visibility-without-intelligence.html">III. Visibility Without Intelligence →</a>
+    <a href="#">IV. What a Decision Layer Requires →</a>
   </div>
 
 </article>
-
 <script>
 (function(){
   "use strict";
