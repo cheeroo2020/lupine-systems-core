@@ -1,37 +1,43 @@
 <title>2. Messaging Is the Real Control Layer · Lupine</title>
 
 <style>
+/* ═══════════════════════════════════════════════════════════
+   LUPINE COMMAND THEME — dark, instrument-grade.
+   Cyan is reserved for the winning route and the final score.
+   Red is reserved for failure states and time limits.
+   Everything else is neutral slate. No exceptions.
+   ═══════════════════════════════════════════════════════════ */
 :root{
-  --paper:#EAE7DF;
-  --paper-2:#E1DDD2;
-  --paper-3:#F3F1EB;
-  --ink:#191D1B;
-  --ink-2:rgba(25,29,27,.62);
-  --ink-3:rgba(25,29,27,.40);
-  --rule:rgba(25,29,27,.16);
-  --rule-2:rgba(25,29,27,.08);
+  --paper:#0A0A0A;          /* ground            */
+  --paper-2:#101317;        /* sunk panel        */
+  --paper-3:#0D1014;        /* figure well       */
+  --ink:#E2E8F0;            /* primary text      */
+  --ink-2:#94A3B8;          /* secondary         */
+  --ink-3:#5B6B7D;          /* tertiary / labels */
+  --rule:#1E2937;           /* 1px grid line     */
+  --rule-2:#161D26;         /* fainter divider   */
 
-  /* Same semantic actors as Lesson 1 — these never swap roles. */
-  --wire:#2B4A78;      /* the message  */
-  --flow:#1E5B48;      /* the money    */
-  --friction:#A84126;  /* the friction */
-  --wire-w:rgba(43,74,120,.12);
-  --flow-w:rgba(30,91,72,.12);
-  --friction-w:rgba(168,65,38,.12);
+  --wire:#5B8DB8;           /* the message  — neutral steel        */
+  --flow:#00E5FF;           /* the money / the winner — used rarely */
+  --friction:#FF3366;       /* failure, time limit                  */
+  --wire-w:rgba(91,141,184,.09);
+  --flow-w:rgba(0,229,255,.08);
+  --friction-w:rgba(255,51,102,.09);
 
-  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
-  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,"Hoefler Text",Georgia,serif;
+  /* --serif keeps its name so no rule has to change; it is Inter now. */
+  --serif:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono","SFMono-Regular",ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
 
-  --t-hero:clamp(2.1rem,5.4vw,3.9rem);
-  --t-title:clamp(1.45rem,3.1vw,2.25rem);
-  --t-lede:clamp(1.02rem,1.65vw,1.22rem);
-  --t-body:clamp(.95rem,1.25vw,1.02rem);
-  --t-mono:clamp(.72rem,1vw,.82rem);
-  --t-micro:.67rem;
+  --t-hero:clamp(2rem,5vw,3.5rem);
+  --t-title:clamp(1.3rem,2.8vw,2rem);
+  --t-lede:clamp(1rem,1.6vw,1.15rem);
+  --t-body:clamp(.92rem,1.2vw,1rem);
+  --t-mono:clamp(.72rem,1vw,.8rem);
+  --t-micro:.66rem;
 
-  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease:linear;            /* nothing eases. things snap. */
 }
-:root[data-theme="dark"],:root[data-theme="light"]{color-scheme:light}
+
 
 *{box-sizing:border-box}
 
@@ -120,7 +126,7 @@ strong{font-weight:600}
   letter-spacing:.02em;white-space:pre-wrap;word-break:break-word;padding:.75rem .85rem;min-height:9.5rem}
 .msg.mt{background:var(--friction-w);color:var(--friction)}
 .msg.iso{background:var(--wire-w);color:var(--wire)}
-.msg .lost{background:rgba(168,65,38,.82);color:#F6F2EC;padding:0 .2rem}
+.msg .lost{background:rgba(255,51,102,.88);color:#0A0A0A;padding:0 .2rem}
 .hopbar{display:flex;gap:4px;margin-bottom:.9rem}
 .hopbar span{flex:1;height:3px;background:var(--rule);transition:background .3s}
 .hopbar span.on{background:var(--friction)}
@@ -236,6 +242,93 @@ details p{margin:.85rem 0 0;color:var(--ink-2);font-size:.94rem;max-width:44em}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
   .slab,.facet{opacity:1;transform:none}
+}
+
+/* ═══ COMMAND OVERRIDES ════════════════════════════════════
+   Applied last so it wins regardless of source order.
+   ═══════════════════════════════════════════════════════════ */
+
+/* dark is not a preference here — lock it against the viewer toggle */
+:root,:root[data-theme="dark"],:root[data-theme="light"]{color-scheme:dark}
+
+/* sharp everything */
+*,*::before,*::after{border-radius:0 !important}
+
+/* fast, linear, no overshoot */
+*,*::before,*::after{
+  transition-timing-function:linear !important;
+  animation-timing-function:linear !important;
+  transition-duration:120ms !important;
+  animation-duration:140ms !important;
+}
+/* bars and fills may take slightly longer, still linear */
+.sp-bar,.mbar,.bf,.wb,.seg,.stack span,.tl-seg,.rfill,.rcostfill,.pool-fill,.hop-link::after{
+  transition-duration:420ms !important;
+}
+/* nothing translates into place — opacity only */
+@keyframes slideIn{from{opacity:0}to{opacity:1}}
+@keyframes rise{from{opacity:0}to{opacity:1}}
+@keyframes rise2{from{opacity:0}to{opacity:1}}
+@keyframes pop{from{opacity:0}to{opacity:1}}
+.layer,.g,.bpi,.mode,.facet,.tier,.tier2,.corr-row,.node,.slab,.q-item{transform:none !important}
+
+/* grid ground instead of paper banding */
+body::before{
+  background:
+    linear-gradient(to right,rgba(226,232,240,.028) 1px,transparent 1px) 0 0/56px 56px,
+    linear-gradient(to bottom,rgba(226,232,240,.028) 1px,transparent 1px) 0 0/56px 56px !important;
+}
+
+/* dashboard chrome */
+.rail{background:#0C0F13;border-right:1px solid var(--rule)}
+.fig{background:var(--paper-3);border:1px solid var(--rule)}
+.dot{border:1px solid var(--rule);color:var(--ink-3)}
+.dot.seen:not([aria-current="true"]){border-color:#2C3A4A;color:var(--ink-2)}
+.dot[aria-current="true"]{background:transparent;border-color:var(--flow);color:var(--flow)}
+.controls{background:#0C0F13;border:1px solid var(--rule)}
+.btn{color:var(--ink)}
+.btn:hover:not(:disabled){background:var(--paper-2)}
+.replay{border:1px solid var(--rule);color:var(--ink-2)}
+.replay:hover{border-color:var(--flow);color:var(--flow);background:transparent}
+
+/* type: Inter for prose, mono for every figure and datum */
+h1,h2{font-family:var(--mono);letter-spacing:-.01em}
+.mono,code,table,.num,.sp-val,.wv,.bs,.mval,.hv,.lane-out,.rtime,.gm,
+.hop-t,.corr-cost,.sp-lbl,.win-state,.readout .v{
+  font-family:var(--mono) !important;font-variant-numeric:tabular-nums}
+
+/* the two reserved colours, applied where they mean something */
+.pull{border-left:1px solid var(--rule)}
+.opt.right,.row.hit,.brow.lead,.grow.pass,.corr-row.best,.tier2.opt,.path.win{
+  border-color:var(--flow) !important;background:var(--flow-w) !important}
+.brow.lead .bf,.tier2.opt .k,.path.win{color:var(--flow)}
+.opt.wrong,.row.miss,.grow.killed,.corr-row.worst,.tier2.el,.path.out,.q-item.held{
+  border-color:var(--friction) !important;background:var(--friction-w) !important}
+.verdict.ok,.vd.ok{border-color:var(--flow);background:var(--flow-w)}
+.verdict.no,.vd.no{border-color:var(--friction);background:var(--friction-w)}
+.badge.gap{color:var(--friction);background:var(--friction-w)}
+.badge.ok{color:var(--flow);background:var(--flow-w)}
+
+/* tables and panels get the 1px grid treatment */
+details{background:var(--paper-3);border:1px solid var(--rule)}
+details[open]{border-color:#2C3A4A}
+.vs-side,.gen-side,.who-side{background:var(--paper-3)}
+.vs,.gen,.who{background:var(--rule)}
+.layer,.tier,.g,.facet,.bpi,.mode,.node,.slab,.tier2,.corr-row,.brow,.grow,.q-item,.path{
+  background:var(--paper-2);border:1px solid var(--rule)}
+
+/* selection + focus read as instrument, not web page */
+::selection{background:rgba(0,229,255,.22);color:#fff}
+:focus-visible{outline:1px solid var(--flow) !important;outline-offset:2px !important}
+
+
+/* the winning score itself carries the accent, not only its bar */
+.brow.lead .bs,.corr-row.best .corr-cost,.opt.right .val,.row.hit .v,
+.msum b,.ratio b,.tally .v{color:var(--flow)}
+.grow.killed .bn,.corr-row.worst .corr-cost{color:var(--friction)}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:1ms !important;animation-duration:1ms !important}
 }
 </style>
 

@@ -145,7 +145,12 @@ custody, HBML/TGA/FDA, "Deterministic Biological Movement Engine"). It is a futu
 
 - **Container-style naming:** names gain meaning through the product, they don't describe
   function (Lupine, Aiva, Rail, Cloked, Keel, Cairn). Don't "clarify" them into functional names.
-- **Light themes only** for any UI / `website/` / docs output. Dark themes are rejected.
+- **Two themes, by surface.** Essays and the revision handbook stay light (paper ground, serif).
+  The **lesson slides use the Lupine Command theme**: dark `#0A0A0A` ground, `#E2E8F0` text, Inter
+  for prose, JetBrains Mono for all numbers, equations, scores and route data. Cyan `#00E5FF` is
+  reserved for the winning route and the final score; red `#FF3366` for failure states and time
+  limits. Nothing else uses either colour. Square corners, 1px grid borders, linear transitions,
+  no easing or overshoot.
 - Preserve the `Cloked` spelling and the `_lite` suffixes.
 - Determinism, idempotency, verifiable evidence are values, not features — prefer reproducible,
   auditable designs.
