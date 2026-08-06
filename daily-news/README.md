@@ -123,3 +123,4 @@ No manual input needed. Fully automated.
 | [2026-08-03](./2026-08-03.md) | Hong Kong Stock Market May Continue To Roll On Monday |
 | [2026-08-04](./2026-08-04.md) | Sponsor Banks Discover That Deposits Don’t Have to Sit Still |
 | [2026-08-05](./2026-08-05.md) | Samsung Pursues Digital Assets With Crypto Exchange Deal and Stable… |
+| [2026-08-06](./2026-08-06.md) | Delek US Holdings (DK) Q2 2026 Earnings Call Transcript |
