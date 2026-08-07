@@ -1,23 +1,23 @@
 {
-  "date": "2026-08-06",
+  "date": "2026-08-07",
   "stories": [
     {
-      "headline": "Delek US Holdings (DK) Q2 2026 Earnings Call Transcript",
+      "headline": "FIS Expands Commercial Banking Platform to APAC Region",
+      "body": "FIS has completed the global rollout of its Digital One Commercial platform by launching it in the Asia-Pacific (APAC) region, the FinTech company said in a Wednesday (Aug. 5) press release. The platform is already available across the United States and the Europe, Middle East and Africa (EMEA) region, according to the release. Digital One",
+      "source": "PYMNTS",
+      "pub_date": "07 Aug 2026"
+    },
+    {
+      "headline": "Millicom (TIGO) Q2 2026 Earnings Call Transcript",
       "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
       "source": "Nasdaq",
-      "pub_date": "06 Aug 2026"
+      "pub_date": "07 Aug 2026"
     },
     {
-      "headline": "Chime Converts More Paychecks Into More Products",
-      "body": "For Chime Financial, direct deposit is proving to be the underwriting and repayment infrastructure for a growing lending business. That connection was clear in second-quarter results released after the markets closed Wednesday (Aug. 5). Instant Loan originations rose nearly 70% from the prior quarter to $300 million, aided by automatic prequalification for qualifying Chime Prime",
-      "source": "PYMNTS",
-      "pub_date": "06 Aug 2026"
-    },
-    {
-      "headline": "What we know about the CFPB's forthcoming open-banking rule",
-      "body": "The Trump administration is currently reviewing a soon-to-be-released proposal on consumer financial data rights.",
+      "headline": "How better understanding brain science can boost advisors' business",
+      "body": "From showing up authentically to understanding oxytocin, a session at this week's CAAFP held by The American College of Financial Services called into question some traditional industry approaches to planning.",
       "source": "American Banker",
-      "pub_date": "05 Aug 2026"
+      "pub_date": "06 Aug 2026"
     }
   ]
 }
