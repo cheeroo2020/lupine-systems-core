@@ -1,22 +1,22 @@
 {
-  "date": "2026-08-09",
+  "date": "2026-08-10",
   "stories": [
     {
-      "headline": "Nvidia vs. Navitas Semiconductor: Here's What Their Revenue Trends Tell Investors About These Artificial Intelligence Companies",
-      "body": "Key PointsNvidia currently demonstrates a stronger overall revenue profile by maintaining a consistently expanding financial scale, whereas Navitas Semiconductor exhibits a structurally lower baseline characterized by a more unpredictable operational history.",
+      "headline": "AI Helped British Airways Reach Its Best On-Time Performance",
+      "body": "British Airways spent years struggling with delays and cancellations at its Heathrow hub, and the airline now says artificial intelligence is why that has changed. CEO Sean Doyle called the technology “game-changing” for cutting flight delays, telling the Financial Times that 86% of BA’s flights from Heathrow departed on time in the first quarter of",
+      "source": "PYMNTS",
+      "pub_date": "10 Aug 2026"
+    },
+    {
+      "headline": "The Federal Reserve Just Released Its August Inflation Forecast, and It Could Put the FOMC on a Collision Course for Its September Meeting",
+      "body": "Key PointsThe Federal Reserve Bank of Cleveland has regular estimates of upcoming inflation data.",
       "source": "Nasdaq",
-      "pub_date": "08 Aug 2026"
+      "pub_date": "09 Aug 2026"
     },
     {
       "headline": "Next big push in ETF industry? Why these risk assets are gaining traction as interest rate uncertainty persists",
       "body": "Collateralized loan obligations may become the next big push in the exchange-traded fund industry.",
       "source": "CNBC Finance",
-      "pub_date": "08 Aug 2026"
-    },
-    {
-      "headline": "Homer’s Economy Ran on Oxen, Wine and Trust",
-      "body": "Odysseus had no Visa, no Venmo and no helpful fraud alert from Ithaca National Bank warning that a palace full of unfamiliar men was charging dinner to his household. Yet his financial life was a mess: years away from home, a fleet written off, a palace full of freeloaders and no apparent spend controls. Forget",
-      "source": "PYMNTS",
       "pub_date": "08 Aug 2026"
     }
   ]
