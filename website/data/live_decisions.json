@@ -1,7 +1,7 @@
 {
-  "generated": "2026-08-11T00:54:27Z",
+  "generated": "2026-08-12T01:01:26Z",
   "date": "2026-08-11",
-  "fx_rate": 0.903667,
+  "fx_rate": 0.903952,
   "fx_source": "open.er-api.com",
   "amount": 500000,
   "corridor": "AUD/SGD",
@@ -210,9 +210,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "0d5b2baa56105bc9db43353308d75d8fc62bc585a87bc84759cd08230c4f6661",
+      "evidence_hash": "bf2a4f7a7ff38e0eb7f0ff1674d95c743c9fdccf6fba6200de4ec9c6033ff830",
       "chain_valid": true,
-      "request_id": "b68d860e-d71b-4da7-9e9d-a78527462e77"
+      "request_id": "a8ea1125-37fc-43e1-8d18-2b34e5bd1630"
     },
     "normal": {
       "selected": "Wise",
@@ -418,9 +418,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "1f37b2e4cee2cfc1a8ad5de9deae9a03f048f50f1ffd2e4d0a54531ca1c7ff30",
+      "evidence_hash": "4f0b0f21766963b6d3deec2ba8c5eddab2a27cf4c4eaaab49c475ee9861994ba",
       "chain_valid": true,
-      "request_id": "2fe2d5af-d328-42f2-8b39-91a50237357d"
+      "request_id": "1dbc613b-ffe5-4176-a732-d796dea76c93"
     },
     "high": {
       "selected": "Wise",
@@ -626,9 +626,9 @@
           "time_hours": 48.0
         }
       ],
-      "evidence_hash": "e70f8f7448085dd242721a51e618a50868a71ff4ee6c6bfa6c6191e86e49bc59",
+      "evidence_hash": "f4e1a5341fb32dd5b899d330fa164206b61e9de61f6c6b4d96c9b267acd74d93",
       "chain_valid": true,
-      "request_id": "6f937547-5bba-4261-8ce2-e0869a97b060"
+      "request_id": "04cd2057-778f-4fc7-adb0-8ad13ad913be"
     },
     "critical": {
       "selected": "Wise",
@@ -834,9 +834,9 @@
           "time_hours": 48.0
         }
       ],
-      "evidence_hash": "6882f5fa48c0a7c0c9762f1de962c7dd76c9dc0ba87063fbd3644e154c2bc746",
+      "evidence_hash": "deb184abeb2e470b5a1d758b0d8dd80d5dc0ab6faa137d37f074d03dc986ffb5",
       "chain_valid": true,
-      "request_id": "92b677e0-7484-49d3-aba3-708ec972d369"
+      "request_id": "4bdeb5d8-ba27-4b17-a7e5-4e71746ea2d9"
     }
   }
 }

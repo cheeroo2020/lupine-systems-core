@@ -129,3 +129,4 @@ No manual input needed. Fully automated.
 | [2026-08-09](./2026-08-09.md) | Nvidia vs. Navitas Semiconductor: Here's What Their Revenue Trends … |
 | [2026-08-10](./2026-08-10.md) | AI Helped British Airways Reach Its Best On-Time Performance |
 | [2026-08-11](./2026-08-11.md) | Kaspi.kz (KSPI) Q2 2026 Earnings Call Transcript |
+| [2026-08-12](./2026-08-12.md) | Trivago (TRVG) Q2 2026 Earnings Call Transcript |

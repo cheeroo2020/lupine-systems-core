@@ -1,23 +1,23 @@
 {
-  "date": "2026-08-11",
+  "date": "2026-08-12",
   "stories": [
     {
-      "headline": "Kaspi.kz (KSPI) Q2 2026 Earnings Call Transcript",
+      "headline": "Trivago (TRVG) Q2 2026 Earnings Call Transcript",
       "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
       "source": "Nasdaq",
+      "pub_date": "12 Aug 2026"
+    },
+    {
+      "headline": "HappyRobot Vaults to $1.2 Billion Valuation as Enterprise Demand for AI Automation Soars",
+      "body": "Artificial intelligence (AI) agent platform HappyRobot was valued at $1.2 billion post-money in a Series C funding round in which it raised $150 million, the company said in an Aug. 4 press release. The round brought HappyRobot’s total funding to $200 million, according to the release. It was reported in September that HappyRobot was valued at $500 million in a",
+      "source": "PYMNTS",
       "pub_date": "11 Aug 2026"
     },
     {
-      "headline": "Synchrony and PayPal Bring Special Financing to Entire Mastercard Network",
-      "body": "Synchrony and PayPal now offer PayPal Credit Card cardholders special financing everywhere Mastercard is accepted. This special financing is now available both in online checkout and in stores across the Mastercard network. It offers six months special financing on purchases of $149 or more, with pay over time at millions of merchants and with everything",
-      "source": "PYMNTS",
-      "pub_date": "10 Aug 2026"
-    },
-    {
-      "headline": "Louisiana bank faces unusual limits on who it can lend to",
-      "body": "First Guaranty in Hammond Louisiana agreed to a consent order with federal and state regulators that's aimed at improving its credit quality.",
+      "headline": "States sue OCC over mortgage escrow interest pre-emption",
+      "body": "A 10-state coalition is asking a federal court to put a halt to the OCC's rules which pre-empt laws on banks paying interest on mortgage escrow deposits.",
       "source": "American Banker",
-      "pub_date": "10 Aug 2026"
+      "pub_date": "11 Aug 2026"
     }
   ]
 }
