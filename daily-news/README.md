@@ -132,3 +132,4 @@ No manual input needed. Fully automated.
 | [2026-08-12](./2026-08-12.md) | Trivago (TRVG) Q2 2026 Earnings Call Transcript |
 | [2026-08-13](./2026-08-13.md) | Agilon Health (AGL) Q2 2026 Earnings Call Transcript |
 | [2026-08-14](./2026-08-14.md) | Bullish (BLSH) Q2 2026 Earnings Call Transcript |
+| [2026-08-15](./2026-08-15.md) | Mastercard Offers Brazilian Acquirers 50% Payout and Services in Wi… |

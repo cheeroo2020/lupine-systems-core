@@ -1,23 +1,23 @@
 {
-  "date": "2026-08-14",
+  "date": "2026-08-15",
   "stories": [
     {
-      "headline": "Bullish (BLSH) Q2 2026 Earnings Call Transcript",
-      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
-      "source": "Nasdaq",
-      "pub_date": "14 Aug 2026"
-    },
-    {
-      "headline": "Citi Plans to Acquire Kard to Deliver More Personalized Rewards",
-      "body": "Citi’s U.S. Consumer Cards business plans to expand its customer engagement and commerce media capabilities by acquiring Kard Financial, a commerce media and rewards platform for banks and FinTechs, Citi said in a Thursday (Aug. 13) press release. The transaction is subject to customary closing conditions, and the companies will continue to operate as independent organizations until",
+      "headline": "Mastercard Offers Brazilian Acquirers 50% Payout and Services in Will Bank Dispute",
+      "body": "Mastercard is proposing to pay half the amount demanded by Brazilian merchant acquirers that were impacted by the collapse of Will Financeira, also known as Will Bank, a FinTech tied to the failed Banco Master, Bloomberg reported Friday (Aug. 14), citing unnamed sources. In addition, Mastercard is proposing to provide the firms with services such",
       "source": "PYMNTS",
+      "pub_date": "15 Aug 2026"
+    },
+    {
+      "headline": "Florida bank takes additional steps to clean up SBA mess",
+      "body": "BayFirst Financial in St. Petersburg plans to focus on larger commercial deals after repairing the damage from a failed strategy that emphasized small-dollar loans backed by the U.S. Small Business Administration.",
+      "source": "American Banker",
       "pub_date": "14 Aug 2026"
     },
     {
-      "headline": "New York puts bank boards on the hook for vendor tech",
-      "body": "Many banks can't say what software their IT provider runs. Only 58% of community and midsize banks even hold the right to audit that vendor, a survey found.",
-      "source": "American Banker",
-      "pub_date": "13 Aug 2026"
+      "headline": "Goldman’s latest cash cow is all about funding the AI infrastructure boom",
+      "body": "Nvidia and Intel recently tapped the bank to help them meeting soaring demand for compute.",
+      "source": "CNBC Finance",
+      "pub_date": "14 Aug 2026"
     }
   ]
 }
