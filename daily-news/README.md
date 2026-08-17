@@ -134,3 +134,4 @@ No manual input needed. Fully automated.
 | [2026-08-14](./2026-08-14.md) | Bullish (BLSH) Q2 2026 Earnings Call Transcript |
 | [2026-08-15](./2026-08-15.md) | Mastercard Offers Brazilian Acquirers 50% Payout and Services in Wi… |
 | [2026-08-16](./2026-08-16.md) | Should You Buy CrowdStrike Stock Before the Huge Investor Update? |
+| [2026-08-17](./2026-08-17.md) | Should Investors Be Concerned that Costco Stock Trades at Over 40 T… |
