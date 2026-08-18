@@ -1,10 +1,10 @@
 {
   "method": "derived from measured values only",
   "pair": "AUD/SGD",
-  "observations": 246,
-  "observations_with_dispersion": 246,
+  "observations": 247,
+  "observations_with_dispersion": 247,
   "first": "2026-08-03T02:48:39+00:00",
-  "last": "2026-08-18T05:02:13+00:00",
+  "last": "2026-08-18T05:54:41+00:00",
   "source_extremes": {
     "open.er-api.com": {
       "highest": 56,
@@ -12,21 +12,21 @@
     },
     "jsdelivr currency-api": {
       "highest": 121,
-      "lowest": 78
+      "lowest": 79
     },
     "Frankfurter (ECB)": {
-      "highest": 69,
+      "highest": 70,
       "lowest": 91
     }
   },
-  "generated": "2026-08-18T05:02:14+00:00",
+  "generated": "2026-08-18T05:54:42+00:00",
   "dispersion_bps": {
-    "mean": 16.515,
+    "mean": 16.582,
     "median": 13.12,
     "min": 0.15,
     "max": 46.27,
-    "stdev": 10.41
+    "stdev": 10.442
   },
   "citable": true,
-  "citation_note": "246 observations. Sufficient to quote a range."
+  "citation_note": "247 observations. Sufficient to quote a range."
 }
