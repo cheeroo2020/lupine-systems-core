@@ -136,3 +136,4 @@ No manual input needed. Fully automated.
 | [2026-08-16](./2026-08-16.md) | Should You Buy CrowdStrike Stock Before the Huge Investor Update? |
 | [2026-08-17](./2026-08-17.md) | Should Investors Be Concerned that Costco Stock Trades at Over 40 T… |
 | [2026-08-18](./2026-08-18.md) | X Money Wants to Make the Feed a Financial Front Door |
+| [2026-08-19](./2026-08-19.md) | Fold (FLD) Q2 2026 Earnings Call Transcript |
