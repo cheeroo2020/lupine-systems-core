@@ -138,3 +138,4 @@ No manual input needed. Fully automated.
 | [2026-08-18](./2026-08-18.md) | X Money Wants to Make the Feed a Financial Front Door |
 | [2026-08-19](./2026-08-19.md) | Fold (FLD) Q2 2026 Earnings Call Transcript |
 | [2026-08-20](./2026-08-20.md) | Harmonic (HLIT) Q2 2026 Earnings Call Transcript |
+| [2026-08-21](./2026-08-21.md) | Banks Add Branches as Physical Networks Lift Digital Sales |
