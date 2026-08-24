@@ -141,3 +141,4 @@ No manual input needed. Fully automated.
 | [2026-08-21](./2026-08-21.md) | Banks Add Branches as Physical Networks Lift Digital Sales |
 | [2026-08-22](./2026-08-22.md) | Fifth Third Backs Payload’s Embedded Payments Expansion |
 | [2026-08-23](./2026-08-23.md) | The 30-Year Treasury Now Out-Yields Dividend Stocks by 2.2 Points. … |
+| [2026-08-24](./2026-08-24.md) | Helcim Raises $38 Million to Fill Small Business Banking Void |
