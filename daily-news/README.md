@@ -144,3 +144,4 @@ No manual input needed. Fully automated.
 | [2026-08-24](./2026-08-24.md) | Helcim Raises $38 Million to Fill Small Business Banking Void |
 | [2026-08-25](./2026-08-25.md) | Hawaii-Based American Savings Bank Files for IPO |
 | [2026-08-26](./2026-08-26.md) | Banks and FinTechs Are Unbundling the Cross-Border Stack to Win Ove… |
+| [2026-08-27](./2026-08-27.md) | Bank of England Welcomes Government Plan to Drive UK Payments Innov… |
