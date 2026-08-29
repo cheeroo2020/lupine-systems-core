@@ -146,3 +146,4 @@ No manual input needed. Fully automated.
 | [2026-08-26](./2026-08-26.md) | Banks and FinTechs Are Unbundling the Cross-Border Stack to Win Ove… |
 | [2026-08-27](./2026-08-27.md) | Bank of England Welcomes Government Plan to Drive UK Payments Innov… |
 | [2026-08-28](./2026-08-28.md) | Freetrailer Begins Share Repurchase Programme |
+| [2026-08-29](./2026-08-29.md) | Bill Ackman Just Bought Visa, Mastercard, and S&P Global Stock. Eac… |
