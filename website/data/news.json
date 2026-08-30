@@ -1,23 +1,23 @@
 {
-  "date": "2026-08-29",
+  "date": "2026-08-30",
   "stories": [
     {
-      "headline": "Bill Ackman Just Bought Visa, Mastercard, and S&P Global Stock. Each One Collects a Toll on Somebody Else's Sale.",
-      "body": "Key PointsPershing Square disclosed new stakes of about $1.1 billion each in Visa, Mastercard, and S&P Global as of June 30.",
-      "source": "Nasdaq",
+      "headline": "Truist, Fifth Third pause sales tied to life-insurance probe",
+      "body": "The banks are tapping the brakes on their role as sale channels for Delaware Life Insurance Co. amid a U.S. investigation of billionaire financier Mark Walter's sprawling business empire.",
+      "source": "American Banker",
       "pub_date": "29 Aug 2026"
     },
     {
-      "headline": "Small firms hate SBA's new size standards; lenders are intrigued",
-      "body": "The Small Business Administration's proposed rule increasing the size of firms eligible for government-backed loan programs could boost the appeal of SBA loan programs to banks and credit unions, but it's drawing sharp criticism from smaller firms.",
-      "source": "American Banker",
-      "pub_date": "28 Aug 2026"
+      "headline": "Malware Has a Branding Department and ToxicPanda Is Its Latest Star",
+      "body": "ToxicPanda sounds like an energy drink formulated for people who regard sleep as a character flaw. It’s actually an Android banking Trojan capable of taking over phones, stealing financial credentials and initiating unauthorized transactions. Its newly discovered sequel, ToxicPanda 2.0, is bigger, more capable and apparently produced by a franchise that believes every villain deserves",
+      "source": "PYMNTS",
+      "pub_date": "29 Aug 2026"
     },
     {
-      "headline": "Genius Group Targets Bitcoin Treasury Rebuild 5 Months After Selling Off",
-      "body": "Genius Group, a company that operates a bitcoin and artificial intelligence (AI) dual treasury strategy alongside its core education business, plans to acquire $827 million in bitcoin treasury and $800 million in AI treasury by its fiscal year 2031, the firm said in a Thursday (Aug. 27) press release. Genius Group plans to fund the",
-      "source": "PYMNTS",
-      "pub_date": "28 Aug 2026"
+      "headline": "Kansas City Fed's Schmid says inflation 'stubborn' and 'sticky,' policy rate not restrictive",
+      "body": "The policymaker stopped just short of calling for an interest rate hike.",
+      "source": "CNBC Finance",
+      "pub_date": "27 Aug 2026"
     }
   ]
 }
