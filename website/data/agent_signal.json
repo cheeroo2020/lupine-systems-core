@@ -1,6 +1,6 @@
 {
   "agent": "lupine-watcher-v1",
-  "generated": "2026-08-30T00:33:29Z",
+  "generated": "2026-08-30T07:06:51Z",
   "rate": 0.913841,
   "rate_date": "2026-08-30",
   "fx_source": "open.er-api.com",
@@ -17,8 +17,14 @@
     "momentum_7d_pips": 34.5,
     "history_n": 60
   },
-  "news_signals": [],
-  "evidence_hash": "a7fea95cbdae0d209d39f6ee3c7ba2324f6406162f67c4430f2bf666f952ec58",
+  "news_signals": [
+    {
+      "category": "bullish_aud",
+      "keyword": "rate hike",
+      "file": "2026-08-30"
+    }
+  ],
+  "evidence_hash": "1e6ddb17a19387a9914e971105783fc85e87c86636a034a63fb64d69a9c6be6c",
   "chain_valid": true,
-  "request_id": "watcher-2026-08-30-003329"
+  "request_id": "watcher-2026-08-30-070651"
 }
