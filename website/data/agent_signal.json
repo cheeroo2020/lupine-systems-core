@@ -1,30 +1,35 @@
 {
   "agent": "lupine-watcher-v1",
-  "generated": "2026-08-30T23:42:24Z",
-  "rate": 0.913841,
-  "rate_date": "2026-08-30",
+  "generated": "2026-08-31T05:55:11Z",
+  "rate": 0.913222,
+  "rate_date": "2026-08-31",
   "fx_source": "open.er-api.com",
   "signal": "STRIKE",
   "rationale": "Top 10% rate over the last 60 days. Act now.",
   "analysis": {
-    "rate": 0.91384,
+    "rate": 0.91322,
     "mean_60d": 0.90224,
     "mean_30d": 0.90473,
     "stdev_60d": 0.00541,
-    "z_score": 2.14,
+    "z_score": 2.03,
     "percentile_60d": 96.7,
-    "momentum_3d_pips": 1.6,
-    "momentum_7d_pips": 34.5,
+    "momentum_3d_pips": -4.5,
+    "momentum_7d_pips": 28.3,
     "history_n": 60
   },
   "news_signals": [
     {
       "category": "bullish_aud",
       "keyword": "rate hike",
+      "file": "2026-08-31"
+    },
+    {
+      "category": "bullish_aud",
+      "keyword": "rate hike",
       "file": "2026-08-30"
     }
   ],
-  "evidence_hash": "1e6ddb17a19387a9914e971105783fc85e87c86636a034a63fb64d69a9c6be6c",
+  "evidence_hash": "0b206985b81a53194ab5db63e69aa15b2e0c1e12e14c313a2bda076d2da5322a",
   "chain_valid": true,
-  "request_id": "watcher-2026-08-30-234224"
+  "request_id": "watcher-2026-08-31-055511"
 }
