@@ -150,3 +150,4 @@ No manual input needed. Fully automated.
 | [2026-08-30](./2026-08-30.md) | Truist, Fifth Third pause sales tied to life-insurance probe |
 | [2026-08-31](./2026-08-31.md) | Dormant Crypto Wallets Begin Moving Millions in Bitcoin |
 | [2026-09-01](./2026-09-01.md) | Retail Investing Opens Up to AI Assistants |
+| [2026-09-02](./2026-09-02.md) | Australian Market Sharply Lower |

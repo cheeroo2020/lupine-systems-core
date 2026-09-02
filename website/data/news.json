@@ -1,23 +1,23 @@
 {
-  "date": "2026-09-01",
+  "date": "2026-09-02",
   "stories": [
     {
-      "headline": "Retail Investing Opens Up to AI Assistants",
-      "body": "Scalable Capital became the first bank in Europe to open its investment platform directly to outside artificial intelligence assistants on Aug. 25, letting customers connect ChatGPT, Claude or Grok to a real brokerage account holding actual money, Scalable Capital said in its announcement. The German neobroker, which holds more than €60 billion for over 1",
+      "headline": "Australian Market Sharply Lower",
+      "body": "(RTTNews) - Australian shares are trading sharply lower on Wednesday, extending the losses in the previous two sessions, with the benchmark S&P/ASX 200 falling to near the 8,950 level, following the broadly negative cues from Wall Street overnight, with weakness in financial, min",
+      "source": "Nasdaq",
+      "pub_date": "02 Sep 2026"
+    },
+    {
+      "headline": "Incore Bank’s AI Hits 99% Accuracy on KYC Checks",
+      "body": "Know-your-customer (KYC) checks are expensive partly because a bank isn’t simply verifying an identity. Compliance teams have to collect information from documents, reconcile it across systems, investigate potential risk factors and build an auditable record explaining how they reached a decision. Incore Bank, a Swiss B2B transaction bank, is testing how much of that work",
       "source": "PYMNTS",
       "pub_date": "01 Sep 2026"
     },
     {
-      "headline": "Nonbank lender finds niche in airport concession business",
-      "body": "Los Angeles-based Lendistry recently received a $100 million credit facility from East West Bank to support loans to airport concession operators.",
+      "headline": "Zerohash refiles its trust bank charter application to OCC",
+      "body": "The crypto firm has resubmitted its request for national trust bank charter from the federal agency after its first filing was quietly returned.",
       "source": "American Banker",
-      "pub_date": "31 Aug 2026"
-    },
-    {
-      "headline": "Kalshi partners with brokerage Alpaca as it tries to build its international audience",
-      "body": "The prediction market platform and the financial infrastructure and brokerage startup are working to get Kalshi's event contracts to global investors.",
-      "source": "CNBC Finance",
-      "pub_date": "31 Aug 2026"
+      "pub_date": "01 Sep 2026"
     }
   ]
 }
