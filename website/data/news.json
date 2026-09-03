@@ -1,23 +1,23 @@
 {
-  "date": "2026-09-02",
+  "date": "2026-09-03",
   "stories": [
     {
-      "headline": "Australian Market Sharply Lower",
-      "body": "(RTTNews) - Australian shares are trading sharply lower on Wednesday, extending the losses in the previous two sessions, with the benchmark S&P/ASX 200 falling to near the 8,950 level, following the broadly negative cues from Wall Street overnight, with weakness in financial, min",
+      "headline": "Most Banks Wait Six Years for AI Payback. Discovery Didn’t.",
+      "body": "Banks have a lot of data on their customers, but most of it sits unused. The customer gets flooded the same generic offer everyone else gets, and the bank misses a warning sign of fraud its own systems could have caught earlier, simply because nothing connects the dots fast enough. Discovery Bank, the South African",
+      "source": "PYMNTS",
+      "pub_date": "03 Sep 2026"
+    },
+    {
+      "headline": "Why SSR Mining Stock Was a Winner on Wednesday",
+      "body": "Key PointsThey rose on increased hopes that the Fed won't raise interest rates.",
       "source": "Nasdaq",
       "pub_date": "02 Sep 2026"
     },
     {
-      "headline": "Incore Bank’s AI Hits 99% Accuracy on KYC Checks",
-      "body": "Know-your-customer (KYC) checks are expensive partly because a bank isn’t simply verifying an identity. Compliance teams have to collect information from documents, reconcile it across systems, investigate potential risk factors and build an auditable record explaining how they reached a decision. Incore Bank, a Swiss B2B transaction bank, is testing how much of that work",
-      "source": "PYMNTS",
-      "pub_date": "01 Sep 2026"
-    },
-    {
-      "headline": "Zerohash refiles its trust bank charter application to OCC",
-      "body": "The crypto firm has resubmitted its request for national trust bank charter from the federal agency after its first filing was quietly returned.",
+      "headline": "Fed to address conflicts of interest for reserve bank officials",
+      "body": "The Federal Reserve's Office of the Inspector General found inconsistencies in how reserve banks execute their search processes and review stock holdings for prospective directors.",
       "source": "American Banker",
-      "pub_date": "01 Sep 2026"
+      "pub_date": "02 Sep 2026"
     }
   ]
 }

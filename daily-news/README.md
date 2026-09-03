@@ -151,3 +151,4 @@ No manual input needed. Fully automated.
 | [2026-08-31](./2026-08-31.md) | Dormant Crypto Wallets Begin Moving Millions in Bitcoin |
 | [2026-09-01](./2026-09-01.md) | Retail Investing Opens Up to AI Assistants |
 | [2026-09-02](./2026-09-02.md) | Australian Market Sharply Lower |
+| [2026-09-03](./2026-09-03.md) | Most Banks Wait Six Years for AI Payback. Discovery Didn’t. |
