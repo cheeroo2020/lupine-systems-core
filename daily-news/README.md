@@ -152,3 +152,4 @@ No manual input needed. Fully automated.
 | [2026-09-01](./2026-09-01.md) | Retail Investing Opens Up to AI Assistants |
 | [2026-09-02](./2026-09-02.md) | Australian Market Sharply Lower |
 | [2026-09-03](./2026-09-03.md) | Most Banks Wait Six Years for AI Payback. Discovery Didn’t. |
+| [2026-09-04](./2026-09-04.md) | Bottomline Partners With Chainlink to Connect 600 Banks to Blockcha… |

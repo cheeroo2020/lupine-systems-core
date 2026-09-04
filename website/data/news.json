@@ -1,23 +1,23 @@
 {
-  "date": "2026-09-03",
+  "date": "2026-09-04",
   "stories": [
     {
-      "headline": "Most Banks Wait Six Years for AI Payback. Discovery Didn’t.",
-      "body": "Banks have a lot of data on their customers, but most of it sits unused. The customer gets flooded the same generic offer everyone else gets, and the bank misses a warning sign of fraud its own systems could have caught earlier, simply because nothing connects the dots fast enough. Discovery Bank, the South African",
+      "headline": "Bottomline Partners With Chainlink to Connect 600 Banks to Blockchain Settlement",
+      "body": "Bottomline, a top-three provider of Swift services, has partnered with Chainlink to give more than 600 bank customers access to blockchain-based cross-border settlement. The deal is one of the largest efforts yet to link the Swift messaging network, which banks have relied on for decades, with public and private blockchains, according to a report from",
       "source": "PYMNTS",
+      "pub_date": "04 Sep 2026"
+    },
+    {
+      "headline": "RIA referrals, tech and service: How TradePMR by Robinhood pitches advisors",
+      "body": "One year after $300M deal, referrals through Robinhood that put younger investors in the pipeline and an ongoing clearing relationship with Wells Fargo reflect how TradePMR is a growing rival to the giants of the custody channel.",
+      "source": "American Banker",
       "pub_date": "03 Sep 2026"
     },
     {
-      "headline": "Why SSR Mining Stock Was a Winner on Wednesday",
-      "body": "Key PointsThey rose on increased hopes that the Fed won't raise interest rates.",
-      "source": "Nasdaq",
-      "pub_date": "02 Sep 2026"
-    },
-    {
-      "headline": "Fed to address conflicts of interest for reserve bank officials",
-      "body": "The Federal Reserve's Office of the Inspector General found inconsistencies in how reserve banks execute their search processes and review stock holdings for prospective directors.",
-      "source": "American Banker",
-      "pub_date": "02 Sep 2026"
+      "headline": "China hits back at G20 statement on its reliance on exports, accusing them of 'promoting protectionism'",
+      "body": "China rejected G20 pressure over export-driven growth while also challenging U.S. Iran sanctions and European trade measures.",
+      "source": "CNBC Finance",
+      "pub_date": "03 Sep 2026"
     }
   ]
 }
