@@ -153,3 +153,4 @@ No manual input needed. Fully automated.
 | [2026-09-02](./2026-09-02.md) | Australian Market Sharply Lower |
 | [2026-09-03](./2026-09-03.md) | Most Banks Wait Six Years for AI Payback. Discovery Didn’t. |
 | [2026-09-04](./2026-09-04.md) | Bottomline Partners With Chainlink to Connect 600 Banks to Blockcha… |
+| [2026-09-05](./2026-09-05.md) | PayPal Pauses Venture Capital Portfolio Sale After Lowball Offers |
