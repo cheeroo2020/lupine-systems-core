@@ -1,6 +1,12 @@
 {
-  "date": "2026-09-05",
+  "date": "2026-09-06",
   "stories": [
+    {
+      "headline": "Donald Trump's Tariff Policy Has Repeatedly Triggered Multi-Trillion-Dollar Stock Swings Since Early 2025. Here's Why Markets Still Struggle to Price In His Next Move.",
+      "body": "Key PointsPresident Trump's imposition of new tariffs has sent the market into a tailspin on numerous occasions.",
+      "source": "Nasdaq",
+      "pub_date": "05 Sep 2026"
+    },
     {
       "headline": "PayPal Pauses Venture Capital Portfolio Sale After Lowball Offers",
       "body": "PayPal has paused its planned sale of its venture capital portfolio after offers came in at no higher than 60 cents on the dollar, Seeking Alpha reported Friday (Sept. 4), citing a paywalled article by Axios that was based on unnamed sources. The investments in PayPal’s portfolio include shopping app Tabby and crypto platform Anchorage, and the company’s attempt to sell the",
@@ -11,12 +17,6 @@
       "headline": "Georgia investors evolve their plan for starting a new bank",
       "body": "The group behind the proposed Georgia Skyline Bank says recapitalizing a 24-year-old Virginia bank offers a faster path to success than a new charter would.",
       "source": "American Banker",
-      "pub_date": "04 Sep 2026"
-    },
-    {
-      "headline": "Bitcoin heads for third winning week in a row as macro pressures mount",
-      "body": "Bitcoin headed for its third straight winning week, as traders searched for refuge amid volatile moves in equities, currencies and bond markets.",
-      "source": "CNBC Finance",
       "pub_date": "04 Sep 2026"
     }
   ]
