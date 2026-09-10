@@ -1,23 +1,23 @@
 {
-  "date": "2026-09-09",
+  "date": "2026-09-10",
   "stories": [
     {
-      "headline": "Block Pursues National Trust Bank Charter to Custody Bitcoin and Stablecoins",
-      "body": "Block aims to establish a national trust bank that would provide custody and related fiduciary services, including those for bitcoin and stablecoins, the company said in a Tuesday (Sept. 8) press release. Block said in the release that it submitted an application to the Office of the Comptroller of the Currency (OCC) to establish Builders",
-      "source": "PYMNTS",
-      "pub_date": "09 Sep 2026"
+      "headline": "Ant International partners with Visa, Mastercard on developing AI payments",
+      "body": "Visa, Mastercard and Ant International are working on common standards for AI-agent payments — including ways to verify and monitor their transactions.",
+      "source": "CNBC Finance",
+      "pub_date": "10 Sep 2026"
     },
     {
-      "headline": "Waterdrop (WDH) Q2 2026 Earnings Call Transcript",
+      "headline": "Anthropic Missed Fourth Claude Network Breakout",
+      "body": "Anthropic said in a Wednesday blog post that it discovered a fourth incident in which Claude models gained unauthorized access to third-party systems. The incident occurred in January but was not discovered during Anthropic’s earlier scan of transcripts that uncovered three other incidents that the company disclosed on July 30, the company said in the",
+      "source": "PYMNTS",
+      "pub_date": "10 Sep 2026"
+    },
+    {
+      "headline": "Optical Cable (OCC) Q3 2026 Earnings Call Transcript",
       "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
       "source": "Nasdaq",
-      "pub_date": "09 Sep 2026"
-    },
-    {
-      "headline": "Chime to buy longtime partner Stride Bank for $590 million",
-      "body": "Owning a bank will allow Chime to build products faster, shed partner banking fees, and reduce its funding cost, while also allowing the neobank to more efficiently expand its lending business.",
-      "source": "American Banker",
-      "pub_date": "08 Sep 2026"
+      "pub_date": "10 Sep 2026"
     }
   ]
 }
