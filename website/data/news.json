@@ -1,22 +1,22 @@
 {
-  "date": "2026-09-10",
+  "date": "2026-09-11",
   "stories": [
     {
-      "headline": "Ant International partners with Visa, Mastercard on developing AI payments",
-      "body": "Visa, Mastercard and Ant International are working on common standards for AI-agent payments — including ways to verify and monitor their transactions.",
-      "source": "CNBC Finance",
-      "pub_date": "10 Sep 2026"
-    },
-    {
-      "headline": "Anthropic Missed Fourth Claude Network Breakout",
-      "body": "Anthropic said in a Wednesday blog post that it discovered a fourth incident in which Claude models gained unauthorized access to third-party systems. The incident occurred in January but was not discovered during Anthropic’s earlier scan of transcripts that uncovered three other incidents that the company disclosed on July 30, the company said in the",
-      "source": "PYMNTS",
-      "pub_date": "10 Sep 2026"
-    },
-    {
-      "headline": "Optical Cable (OCC) Q3 2026 Earnings Call Transcript",
+      "headline": "Macy's (M) Q2 2026 Earnings Call Transcript",
       "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
       "source": "Nasdaq",
+      "pub_date": "11 Sep 2026"
+    },
+    {
+      "headline": "Anthropic Reports Chinese Labs Clone Claude Capabilities on Industrial Scale",
+      "body": "Seven labs based in China have targeted Anthropic’s generally available Claude models in illicit distillation attacks, Anthropic said in a report released Thursday (Sept. 10). Unauthorized labs use illicit distillation to extract and mimic capabilities from frontier models, without having to invest the time, computational power and cost it would take to develop them independently,",
+      "source": "PYMNTS",
+      "pub_date": "11 Sep 2026"
+    },
+    {
+      "headline": "Back to buying mode: Two banks acquire insurance agencies",
+      "body": "New York's Arrow Financial and Pennsylvania's First Commonwealth Financial were seeing their insurance revenue grow before they announced agency purchases this week. Prior to 2025, banks were shedding their insurance agencies.",
+      "source": "American Banker",
       "pub_date": "10 Sep 2026"
     }
   ]
