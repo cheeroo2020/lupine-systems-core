@@ -1,23 +1,23 @@
 {
-  "date": "2026-09-11",
+  "date": "2026-09-12",
   "stories": [
     {
-      "headline": "Macy's (M) Q2 2026 Earnings Call Transcript",
-      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
+      "headline": "Why is Lululemon Stock Crashing, and is it a Generational Buying Opportunity?",
+      "body": "Lululemon (NASDAQ: LULU) reported quarterly financial results that disappointed investors.",
       "source": "Nasdaq",
+      "pub_date": "12 Sep 2026"
+    },
+    {
+      "headline": "Maine bank hopes branch makeovers will attract deposits",
+      "body": "Mirroring the efforts of a number of larger institutions, Portland-based Northeast Bank plans to open a de novo branch in Bangor and renovate its seven existing branches.",
+      "source": "American Banker",
       "pub_date": "11 Sep 2026"
     },
     {
-      "headline": "Anthropic Reports Chinese Labs Clone Claude Capabilities on Industrial Scale",
-      "body": "Seven labs based in China have targeted Anthropic’s generally available Claude models in illicit distillation attacks, Anthropic said in a report released Thursday (Sept. 10). Unauthorized labs use illicit distillation to extract and mimic capabilities from frontier models, without having to invest the time, computational power and cost it would take to develop them independently,",
+      "headline": "FinTechs Follow Corporate Clients Into Bigger Financial Relationships",
+      "body": "FinTechs are finding more growth in large corporate relationships, whether by winning larger customers or handling more of the financial activity of companies they already serve. Revolut, for example, is targeting FTSE 250 businesses as it seeks a larger role in corporate banking, where its penetration has trailed its business among smaller companies, the Financial",
       "source": "PYMNTS",
       "pub_date": "11 Sep 2026"
-    },
-    {
-      "headline": "Back to buying mode: Two banks acquire insurance agencies",
-      "body": "New York's Arrow Financial and Pennsylvania's First Commonwealth Financial were seeing their insurance revenue grow before they announced agency purchases this week. Prior to 2025, banks were shedding their insurance agencies.",
-      "source": "American Banker",
-      "pub_date": "10 Sep 2026"
     }
   ]
 }
