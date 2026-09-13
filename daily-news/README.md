@@ -161,3 +161,4 @@ No manual input needed. Fully automated.
 | [2026-09-10](./2026-09-10.md) | Ant International partners with Visa, Mastercard on developing AI p… |
 | [2026-09-11](./2026-09-11.md) | Macy's (M) Q2 2026 Earnings Call Transcript |
 | [2026-09-12](./2026-09-12.md) | Why is Lululemon Stock Crashing, and is it a Generational Buying Op… |
+| [2026-09-13](./2026-09-13.md) | Tilray Trades Below $5 With Record Fiscal Revenue on the Books. Wha… |
