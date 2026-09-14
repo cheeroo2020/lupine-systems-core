@@ -1,23 +1,23 @@
 {
-  "date": "2026-09-13",
+  "date": "2026-09-14",
   "stories": [
     {
-      "headline": "Tilray Trades Below $5 With Record Fiscal Revenue on the Books. What's Holding the Stock Back?",
-      "body": "Key PointsShares of Tilray Brands have fallen roughly 50% so far in 2026.",
+      "headline": "Prediction markets are becoming more professionalized, but also harder to beat",
+      "body": "The institutionalization of prediction markets threatens to erode the edge of skilled traders who earn off mispricing and market inefficiencies, experts say.",
+      "source": "CNBC Finance",
+      "pub_date": "14 Sep 2026"
+    },
+    {
+      "headline": "BigBear.ai vs. Cerebras Systems: What Quarterly Revenue Trends for These Artificial Intelligence Companies Tell Investors",
+      "body": "Key PointsCerebras Systems currently looks stronger on revenue, as its reported financial totals remained consistently higher across all eight observed quarters when compared to results from BigBear.ai.",
       "source": "Nasdaq",
-      "pub_date": "13 Sep 2026"
+      "pub_date": "14 Sep 2026"
     },
     {
-      "headline": "Citizens sues SoFi as fights over talent, pipelines persist",
-      "body": "The bank is accusing its fintech rival of racketeering for raiding its offices across nine states and stealing an untold amount of confidential information.",
-      "source": "American Banker",
-      "pub_date": "12 Sep 2026"
-    },
-    {
-      "headline": "FinTechs Follow Corporate Clients Into Bigger Financial Relationships",
-      "body": "FinTechs are finding more growth in large corporate relationships, whether by winning larger customers or handling more of the financial activity of companies they already serve. Revolut, for example, is targeting FTSE 250 businesses as it seeks a larger role in corporate banking, where its penetration has trailed its business among smaller companies, the Financial",
+      "headline": "PayPal’s New CEO Bets on Going It Alone After $50 Billion Buyout Stalls",
+      "body": "PayPal is moving forward without a buyer, at least for now. CEO Enrique Lores is building a plan to run the payments giant as a stand-alone company after a proposed $50 billion-plus sale fell apart this summer. Many investors still doubt he can turn the business around alone. According to The Wall Street Journal, Lores",
       "source": "PYMNTS",
-      "pub_date": "11 Sep 2026"
+      "pub_date": "14 Sep 2026"
     }
   ]
 }
