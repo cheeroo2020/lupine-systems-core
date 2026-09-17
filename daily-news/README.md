@@ -165,3 +165,4 @@ No manual input needed. Fully automated.
 | [2026-09-14](./2026-09-14.md) | Prediction markets are becoming more professionalized, but also har… |
 | [2026-09-15](./2026-09-15.md) | Paymentus Scales Bill Payment Platform Across Additional Sectors |
 | [2026-09-16](./2026-09-16.md) | September Effect: 3 AI Stocks to Buy on a Potential Market Pullback |
+| [2026-09-17](./2026-09-17.md) | This Ethereum Treasury Company Is Close to Owning 5% of All ETH in … |
