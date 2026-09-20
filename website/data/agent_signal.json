@@ -1,6 +1,6 @@
 {
   "agent": "lupine-watcher-v1",
-  "generated": "2026-09-20T01:24:16Z",
+  "generated": "2026-09-20T06:42:29Z",
   "rate": 0.908752,
   "rate_date": "2026-09-20",
   "fx_source": "open.er-api.com",
@@ -22,14 +22,9 @@
       "category": "bullish_aud",
       "keyword": "rate hike",
       "file": "2026-09-18"
-    },
-    {
-      "category": "bullish_aud",
-      "keyword": "rate hike",
-      "file": "2026-09-17"
     }
   ],
-  "evidence_hash": "e7f4e60f046d1bded45d5a0a5fb07003c46a30063af89e74dc953ea007b0f860",
+  "evidence_hash": "523d662f83a8bf83d8f8a20ffc2307c6de7b7696148bf9c3207c4a0f7207dde7",
   "chain_valid": true,
-  "request_id": "watcher-2026-09-20-012416"
+  "request_id": "watcher-2026-09-20-064229"
 }
