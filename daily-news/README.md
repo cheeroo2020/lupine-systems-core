@@ -168,3 +168,4 @@ No manual input needed. Fully automated.
 | [2026-09-17](./2026-09-17.md) | This Ethereum Treasury Company Is Close to Owning 5% of All ETH in … |
 | [2026-09-18](./2026-09-18.md) | Citi Launches Mastercard Subscription Management Tool in UAE |
 | [2026-09-19](./2026-09-19.md) | Anthropic Targets November IPO as Revenue Surges |
+| [2026-09-20](./2026-09-20.md) | Fed Chair Kevin Warsh Defied President Donald Trump, and 17 Words F… |
