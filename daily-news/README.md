@@ -170,3 +170,4 @@ No manual input needed. Fully automated.
 | [2026-09-19](./2026-09-19.md) | Anthropic Targets November IPO as Revenue Surges |
 | [2026-09-20](./2026-09-20.md) | Fed Chair Kevin Warsh Defied President Donald Trump, and 17 Words F… |
 | [2026-09-21](./2026-09-21.md) | OCC Opens Three Bank Doors to Stablecoins and AI Agents |
+| [2026-09-22](./2026-09-22.md) | NJ bank's losses to mushroom as loan cleanup accelerates |
