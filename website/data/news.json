@@ -1,23 +1,23 @@
 {
-  "date": "2026-09-22",
+  "date": "2026-09-23",
   "stories": [
     {
-      "headline": "NJ bank's losses to mushroom as loan cleanup accelerates",
-      "body": "BCB Bancorp says red ink may top $130 million in the third quarter, as its new CEO moves to address credit-quality issues.",
-      "source": "American Banker",
-      "pub_date": "21 Sep 2026"
-    },
-    {
-      "headline": "ISO 42001 May Become a Payments AI Governance Benchmark",
-      "body": "Payments firms need a way to identify where artificial intelligence is being used and who’s responsible for it, as well as to monitor how those systems are managed over time. ISO/IEC 42001 puts a management framework around those systems, including AI a company buys rather than builds. Published in December 2023, the standard establishes requirements",
+      "headline": "Nuvei Case Turns Chargebacks Into an FTC Warning Sign",
+      "body": "Before a merchant can accept card payments, a processor or acquiring bank must decide whether to take on the business and its payment risk. Two September Federal Trade Commission (FTC) cases show how much can ride on that approval. The FTC alleged that Nuvei opened or maintained processing accounts for merchants it knew or should",
       "source": "PYMNTS",
-      "pub_date": "21 Sep 2026"
+      "pub_date": "22 Sep 2026"
     },
     {
-      "headline": "‘It's awful’: How tariffs, soaring fuel costs and higher interest rates are squeezing American companies",
-      "body": "Tariffs, fuel prices and interest rates are squeezing American companies, particularly manufacturers, auto suppliers, retailers and transportation businesses.",
+      "headline": "After year of rapid growth, Ohio bank revamps its top ranks",
+      "body": "First Financial Bancorp in Cincinnati named Chief Financial Officer Jamie Anderson as president. The move positions Anderson as heir apparent to CEO Archie Brown, according to one analyst.",
+      "source": "American Banker",
+      "pub_date": "22 Sep 2026"
+    },
+    {
+      "headline": "Kalshi asks CFTC to allow margin trading on its platform, letting users buy with borrowed funds",
+      "body": "It's the latest move by the company as it and other event contract exchanges seek to gain greater participation by institutional traders.",
       "source": "CNBC Finance",
-      "pub_date": "21 Sep 2026"
+      "pub_date": "22 Sep 2026"
     }
   ]
 }

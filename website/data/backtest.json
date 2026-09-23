@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-22",
+  "generated": "2026-09-23",
   "corridor": "AUD/SGD",
   "amount": 500000,
   "n_days": 86,
@@ -46,40 +46,6 @@
     }
   },
   "days": [
-    {
-      "date": "2026-05-25",
-      "rate": 0.91583,
-      "decisions": {
-        "low": {
-          "selected": "Airwallex",
-          "cost_bps": 30.0,
-          "composite": 0.901,
-          "saving_aud": 11020.0,
-          "bank_cost": 12520.0
-        },
-        "normal": {
-          "selected": "Wise",
-          "cost_bps": 45.0,
-          "composite": 0.912,
-          "saving_aud": 10270.0,
-          "bank_cost": 12520.0
-        },
-        "high": {
-          "selected": "Wise",
-          "cost_bps": 45.0,
-          "composite": 0.945,
-          "saving_aud": 10270.0,
-          "bank_cost": 12520.0
-        },
-        "critical": {
-          "selected": "Wise",
-          "cost_bps": 45.0,
-          "composite": 0.961,
-          "saving_aud": 10270.0,
-          "bank_cost": 12520.0
-        }
-      }
-    },
     {
       "date": "2026-05-26",
       "rate": 0.91562,
@@ -2939,6 +2905,40 @@
     {
       "date": "2026-09-21",
       "rate": 0.90986,
+      "decisions": {
+        "low": {
+          "selected": "Airwallex",
+          "cost_bps": 30.0,
+          "composite": 0.901,
+          "saving_aud": 11020.0,
+          "bank_cost": 12520.0
+        },
+        "normal": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.912,
+          "saving_aud": 10270.0,
+          "bank_cost": 12520.0
+        },
+        "high": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.945,
+          "saving_aud": 10270.0,
+          "bank_cost": 12520.0
+        },
+        "critical": {
+          "selected": "Wise",
+          "cost_bps": 45.0,
+          "composite": 0.961,
+          "saving_aud": 10270.0,
+          "bank_cost": 12520.0
+        }
+      }
+    },
+    {
+      "date": "2026-09-22",
+      "rate": 0.90634,
       "decisions": {
         "low": {
           "selected": "Airwallex",
