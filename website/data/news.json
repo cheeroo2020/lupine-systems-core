@@ -1,23 +1,23 @@
 {
-  "date": "2026-09-23",
+  "date": "2026-09-24",
   "stories": [
     {
-      "headline": "Nuvei Case Turns Chargebacks Into an FTC Warning Sign",
-      "body": "Before a merchant can accept card payments, a processor or acquiring bank must decide whether to take on the business and its payment risk. Two September Federal Trade Commission (FTC) cases show how much can ride on that approval. The FTC alleged that Nuvei opened or maintained processing accounts for merchants it knew or should",
-      "source": "PYMNTS",
-      "pub_date": "22 Sep 2026"
-    },
-    {
-      "headline": "After year of rapid growth, Ohio bank revamps its top ranks",
-      "body": "First Financial Bancorp in Cincinnati named Chief Financial Officer Jamie Anderson as president. The move positions Anderson as heir apparent to CEO Archie Brown, according to one analyst.",
-      "source": "American Banker",
-      "pub_date": "22 Sep 2026"
-    },
-    {
-      "headline": "Kalshi asks CFTC to allow margin trading on its platform, letting users buy with borrowed funds",
-      "body": "It's the latest move by the company as it and other event contract exchanges seek to gain greater participation by institutional traders.",
+      "headline": "U.S.-China trade truce extended for two months, Bessent says, as Xi begins state visit",
+      "body": "The deal, which was set to expire in November, will now be extended to Jan. 10, Bessent said, noting the need for Beijing to fulfill more deliverables.",
       "source": "CNBC Finance",
-      "pub_date": "22 Sep 2026"
+      "pub_date": "24 Sep 2026"
+    },
+    {
+      "headline": "Australian Market Sharply Lower",
+      "body": "(RTTNews) - The Australian market is sharply lower on Thursday, snapping a three-session winning streak, following the broadly negative cues from Wall Street overnight. The benchmark S&P/ASX 200 is falling to near the 8,650 level, with weakness in mining, financial and technology",
+      "source": "Nasdaq",
+      "pub_date": "24 Sep 2026"
+    },
+    {
+      "headline": "Banks Put Transaction Data to Work in Commerce Media",
+      "body": "A retailer can see what customers buy from that firm’s online and offline channels. A bank with a large card portfolio can see spending across a much wider range of merchants. Payments networks and technology providers have other views of transactions and checkout. Financial services companies are pushing deeper into commerce media, creating revenue opportunities",
+      "source": "PYMNTS",
+      "pub_date": "23 Sep 2026"
     }
   ]
 }
