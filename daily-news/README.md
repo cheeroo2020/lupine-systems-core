@@ -173,3 +173,4 @@ No manual input needed. Fully automated.
 | [2026-09-22](./2026-09-22.md) | NJ bank's losses to mushroom as loan cleanup accelerates |
 | [2026-09-23](./2026-09-23.md) | Nuvei Case Turns Chargebacks Into an FTC Warning Sign |
 | [2026-09-24](./2026-09-24.md) | U.S.-China trade truce extended for two months, Bessent says, as Xi… |
+| [2026-09-25](./2026-09-25.md) | The Trade Desk's Cash Flow Meets a Tough Test of Leadership and Com… |
