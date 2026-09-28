@@ -176,3 +176,4 @@ No manual input needed. Fully automated.
 | [2026-09-25](./2026-09-25.md) | The Trade Desk's Cash Flow Meets a Tough Test of Leadership and Com… |
 | [2026-09-26](./2026-09-26.md) | Banco Bradesco Director Alvarez Buys $2.3 Million Shares. Is the Br… |
 | [2026-09-27](./2026-09-27.md) | Reddit vs. The Trade Desk: Here's the Better Media Stock to Buy in … |
+| [2026-09-28](./2026-09-28.md) | 1 Top Warren Buffett Stock Trading 21% Below Its All-Time High That… |
