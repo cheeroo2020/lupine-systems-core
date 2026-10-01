@@ -179,3 +179,4 @@ No manual input needed. Fully automated.
 | [2026-09-28](./2026-09-28.md) | 1 Top Warren Buffett Stock Trading 21% Below Its All-Time High That… |
 | [2026-09-29](./2026-09-29.md) | Prediction: Rocket Lab Stock Trades Above $100 Again Before 2029 |
 | [2026-09-30](./2026-09-30.md) | Why ProPetro Stock Sank Today |
+| [2026-10-01](./2026-10-01.md) | SEC rule would let investors take exam to qualify as accredited |

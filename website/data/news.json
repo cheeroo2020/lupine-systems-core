@@ -1,23 +1,23 @@
 {
-  "date": "2026-09-30",
+  "date": "2026-10-01",
   "stories": [
     {
-      "headline": "Why ProPetro Stock Sank Today",
-      "body": "Key PointsScotiabank initiated coverage on ProPetro stock.",
-      "source": "Nasdaq",
-      "pub_date": "29 Sep 2026"
-    },
-    {
-      "headline": "U.S. Bank launches full-court press to attract manufacturers",
-      "body": "The Minneapolis-based superregional bank is leaning into a sector that has been at the center of the Trump administration's economic policies.",
+      "headline": "SEC rule would let investors take exam to qualify as accredited",
+      "body": "In addition to proposing broader access to private market investments for those who pass a test and for CFPs and other credential holders, the SEC also proposed expanding advisors' ability to charge performance-based fees.",
       "source": "American Banker",
-      "pub_date": "29 Sep 2026"
+      "pub_date": "30 Sep 2026"
     },
     {
       "headline": "Prediction market traders think the U.S. added more jobs in September than economists estimate",
       "body": "The higher-than-consensus expectations are a bet that the U.S. had another strong month of job growth.",
       "source": "CNBC Finance",
       "pub_date": "29 Sep 2026"
+    },
+    {
+      "headline": "Amex accelerates business AI as high-profile alternatives emerge",
+      "body": "Meta's Muse digital assistant and fintechs have drawn lots of attention, but Amex contends it can harness its long history and ample data to train its internally developed artificial intelligence agents.",
+      "source": "American Banker",
+      "pub_date": "30 Sep 2026"
     }
   ]
 }
