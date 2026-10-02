@@ -1,23 +1,23 @@
 {
-  "date": "2026-10-01",
+  "date": "2026-10-02",
   "stories": [
     {
-      "headline": "SEC rule would let investors take exam to qualify as accredited",
-      "body": "In addition to proposing broader access to private market investments for those who pass a test and for CFPs and other credential holders, the SEC also proposed expanding advisors' ability to charge performance-based fees.",
+      "headline": "Fed's Cook downplays systemic risks posed by private credit",
+      "body": "Federal Reserve Gov. Lisa Cook said Thursday that private credit does not seem to pose additional risks to the financial system at the moment, but added that more information about the opaque market is needed.",
       "source": "American Banker",
-      "pub_date": "30 Sep 2026"
+      "pub_date": "01 Oct 2026"
+    },
+    {
+      "headline": "Europe’s Payee Checks Set the Pace as US Plans Take Shape",
+      "body": "A payment moving from one country to another passes through banks, clearing systems and payment networks that operate under different rules. The recipient information used to check the payment and bolster security can be just as fragmented. Payee verification connects some of those far-flung systems. Banks and payment providers are placing account and beneficiary checks",
+      "source": "PYMNTS",
+      "pub_date": "01 Oct 2026"
     },
     {
       "headline": "Prediction market traders think the U.S. added more jobs in September than economists estimate",
       "body": "The higher-than-consensus expectations are a bet that the U.S. had another strong month of job growth.",
       "source": "CNBC Finance",
       "pub_date": "29 Sep 2026"
-    },
-    {
-      "headline": "Amex accelerates business AI as high-profile alternatives emerge",
-      "body": "Meta's Muse digital assistant and fintechs have drawn lots of attention, but Amex contends it can harness its long history and ample data to train its internally developed artificial intelligence agents.",
-      "source": "American Banker",
-      "pub_date": "30 Sep 2026"
     }
   ]
 }
