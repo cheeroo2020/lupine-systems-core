@@ -181,3 +181,4 @@ No manual input needed. Fully automated.
 | [2026-09-30](./2026-09-30.md) | Why ProPetro Stock Sank Today |
 | [2026-10-01](./2026-10-01.md) | SEC rule would let investors take exam to qualify as accredited |
 | [2026-10-02](./2026-10-02.md) | Fed's Cook downplays systemic risks posed by private credit |
+| [2026-10-03](./2026-10-03.md) | ICBA Sues OCC to Stop Alleged Fast-Track of Crypto Bank Charters |

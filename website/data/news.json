@@ -1,23 +1,23 @@
 {
-  "date": "2026-10-02",
+  "date": "2026-10-03",
   "stories": [
     {
-      "headline": "Fed's Cook downplays systemic risks posed by private credit",
-      "body": "Federal Reserve Gov. Lisa Cook said Thursday that private credit does not seem to pose additional risks to the financial system at the moment, but added that more information about the opaque market is needed.",
-      "source": "American Banker",
-      "pub_date": "01 Oct 2026"
-    },
-    {
-      "headline": "Europe’s Payee Checks Set the Pace as US Plans Take Shape",
-      "body": "A payment moving from one country to another passes through banks, clearing systems and payment networks that operate under different rules. The recipient information used to check the payment and bolster security can be just as fragmented. Payee verification connects some of those far-flung systems. Banks and payment providers are placing account and beneficiary checks",
+      "headline": "ICBA Sues OCC to Stop Alleged Fast-Track of Crypto Bank Charters",
+      "body": "Independent Community Bankers of America sued the Office of the Comptroller of the Currency, alleging that the regulator authorized cryptocurrency firms to enter the banking system without being subject to the same scrutiny as community banks, according to a Friday (Oct. 2) press release from the association. The lawsuit centers on the OCC’s March 2 final rule related to Interpretive",
       "source": "PYMNTS",
-      "pub_date": "01 Oct 2026"
+      "pub_date": "03 Oct 2026"
     },
     {
-      "headline": "Prediction market traders think the U.S. added more jobs in September than economists estimate",
-      "body": "The higher-than-consensus expectations are a bet that the U.S. had another strong month of job growth.",
+      "headline": "Fed extends deadline for Regulation O comments",
+      "body": "The central bank extended the deadline for comments on Regulation O by one month, to Nov. 4.",
+      "source": "American Banker",
+      "pub_date": "02 Oct 2026"
+    },
+    {
+      "headline": "How AI is redefining Wall Street jobs — and boosting demand for this new 'hottest skill' by 1,721%",
+      "body": "Banks are fueling a hiring surge for AI engineers who are good at \"agent orchestration\" — the ability to coordinate teams of specialized agents.",
       "source": "CNBC Finance",
-      "pub_date": "29 Sep 2026"
+      "pub_date": "02 Oct 2026"
     }
   ]
 }
