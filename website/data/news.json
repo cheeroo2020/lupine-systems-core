@@ -1,6 +1,12 @@
 {
-  "date": "2026-10-03",
+  "date": "2026-10-04",
   "stories": [
+    {
+      "headline": "3 Investing Rules That CNBC's Jim Cramer Swears By",
+      "body": "Key PointsJim Cramer's post-market television program \"Mad Money\" is widely followed by investors.",
+      "source": "Nasdaq",
+      "pub_date": "04 Oct 2026"
+    },
     {
       "headline": "ICBA Sues OCC to Stop Alleged Fast-Track of Crypto Bank Charters",
       "body": "Independent Community Bankers of America sued the Office of the Comptroller of the Currency, alleging that the regulator authorized cryptocurrency firms to enter the banking system without being subject to the same scrutiny as community banks, according to a Friday (Oct. 2) press release from the association. The lawsuit centers on the OCC’s March 2 final rule related to Interpretive",
@@ -11,12 +17,6 @@
       "headline": "Fed extends deadline for Regulation O comments",
       "body": "The central bank extended the deadline for comments on Regulation O by one month, to Nov. 4.",
       "source": "American Banker",
-      "pub_date": "02 Oct 2026"
-    },
-    {
-      "headline": "How AI is redefining Wall Street jobs — and boosting demand for this new 'hottest skill' by 1,721%",
-      "body": "Banks are fueling a hiring surge for AI engineers who are good at \"agent orchestration\" — the ability to coordinate teams of specialized agents.",
-      "source": "CNBC Finance",
       "pub_date": "02 Oct 2026"
     }
   ]

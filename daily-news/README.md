@@ -182,3 +182,4 @@ No manual input needed. Fully automated.
 | [2026-10-01](./2026-10-01.md) | SEC rule would let investors take exam to qualify as accredited |
 | [2026-10-02](./2026-10-02.md) | Fed's Cook downplays systemic risks posed by private credit |
 | [2026-10-03](./2026-10-03.md) | ICBA Sues OCC to Stop Alleged Fast-Track of Crypto Bank Charters |
+| [2026-10-04](./2026-10-04.md) | 3 Investing Rules That CNBC's Jim Cramer Swears By |
