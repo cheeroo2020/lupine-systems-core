@@ -183,3 +183,4 @@ No manual input needed. Fully automated.
 | [2026-10-02](./2026-10-02.md) | Fed's Cook downplays systemic risks posed by private credit |
 | [2026-10-03](./2026-10-03.md) | ICBA Sues OCC to Stop Alleged Fast-Track of Crypto Bank Charters |
 | [2026-10-04](./2026-10-04.md) | 3 Investing Rules That CNBC's Jim Cramer Swears By |
+| [2026-10-05](./2026-10-05.md) | If a Stock Market Crash Is Coming, History Says These Are the 3 Fin… |
