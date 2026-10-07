@@ -185,3 +185,4 @@ No manual input needed. Fully automated.
 | [2026-10-04](./2026-10-04.md) | 3 Investing Rules That CNBC's Jim Cramer Swears By |
 | [2026-10-05](./2026-10-05.md) | If a Stock Market Crash Is Coming, History Says These Are the 3 Fin… |
 | [2026-10-06](./2026-10-06.md) | Japanese Market Modestly Higher |
+| [2026-10-07](./2026-10-07.md) | Beware the AI sycophant and 'cognitive surrender' |

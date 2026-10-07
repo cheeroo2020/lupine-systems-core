@@ -1,23 +1,23 @@
 {
-  "date": "2026-10-06",
+  "date": "2026-10-07",
   "stories": [
     {
-      "headline": "Japanese Market Modestly Higher",
-      "body": "(RTTNews) - The Japanese stock market is trading modestly higher on Tuesday, extending the gains in the previous session, following the broadly positive cues from Wall Street overnight, with the Nikkei 225 moving above the 70,150 level, with gains in automakers, financial stocks.",
+      "headline": "Beware the AI sycophant and 'cognitive surrender'",
+      "body": "Research shows artificial-intelligence programs bolster bad decisions and reduce diversity of thought, posing risks to banks' culture and governance.",
+      "source": "American Banker",
+      "pub_date": "07 Oct 2026"
+    },
+    {
+      "headline": "Banco Bradesco Director Caffarelli Buys 31,266 Preference Shares. Is The Brazilian Bank Due to Rally?",
+      "body": "Key PointsDirector acquired 31,266 preference shares at an execution price of $17.98 per share, representing a total capital commitment of ~$562,163.",
       "source": "Nasdaq",
       "pub_date": "06 Oct 2026"
     },
     {
-      "headline": "Frozen or stolen? BofA customer struggles to get money back",
-      "body": "Kyle Horn, the owner of a precious-metals dealer in San Diego, says his Bank of America account, which had about $50,000 in it, has been frozen for 18 months. He's suing to get his money back — and to win protections for other customers like him.",
-      "source": "American Banker",
+      "headline": "Chart: A look at the S&P 500's remarkable and defiant trip to a new record",
+      "body": "The S&P 500 returned to an intraday record Tuesday as tech gains, easing oil prices and Treasury yields helped stocks overcome months of market shocks.",
+      "source": "CNBC Finance",
       "pub_date": "06 Oct 2026"
-    },
-    {
-      "headline": "FTC Chairman Urges Healthcare Services Companies to Ensure Price Transparency",
-      "body": "Healthcare services companies must provide patients with pricing information that is timely, accurate and complete, Federal Trade Commission (FTC) Chairman Andrew N. Ferguson said in letters sent to 24 of the largest such companies in the nation. Ferguson sent the letters to remind the companies of their legal obligations and to highlight concerns that healthcare",
-      "source": "PYMNTS",
-      "pub_date": "05 Oct 2026"
     }
   ]
 }
