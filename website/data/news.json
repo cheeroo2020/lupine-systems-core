@@ -1,23 +1,23 @@
 {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "stories": [
     {
-      "headline": "Beware the AI sycophant and 'cognitive surrender'",
-      "body": "Research shows artificial-intelligence programs bolster bad decisions and reduce diversity of thought, posing risks to banks' culture and governance.",
-      "source": "American Banker",
+      "headline": "Jensen Huang Said Nvidia Now Has \"a Lot Greater Visibility\" Into Demand, Letting It Forecast a Full Year Ahead for the First Time Ever. Does That Confidence Justify Nvidia's Premium Valuation?",
+      "body": "Key PointsNvidia stock trades at a forward P/E above 25, while the S&P 500 has a forward P/E of roughly 19.",
+      "source": "Nasdaq",
+      "pub_date": "08 Oct 2026"
+    },
+    {
+      "headline": "Citi Wealth Sees Long Runway for AI Spending Despite Bubble Warnings",
+      "body": "The artificial intelligence buildout is still in its early-to-middle stages, Citi Wealth said in a report released Wednesday (Oct. 7). The AI investment cycle is facing greater scrutiny due to higher interest rates, increasingly capable open-weight models, regulatory pressure and rising infrastructure costs, the bank said in the report. At the same time, despite the",
+      "source": "PYMNTS",
       "pub_date": "07 Oct 2026"
     },
     {
-      "headline": "Banco Bradesco Director Caffarelli Buys 31,266 Preference Shares. Is The Brazilian Bank Due to Rally?",
-      "body": "Key PointsDirector acquired 31,266 preference shares at an execution price of $17.98 per share, representing a total capital commitment of ~$562,163.",
-      "source": "Nasdaq",
-      "pub_date": "06 Oct 2026"
-    },
-    {
-      "headline": "Chart: A look at the S&P 500's remarkable and defiant trip to a new record",
-      "body": "The S&P 500 returned to an intraday record Tuesday as tech gains, easing oil prices and Treasury yields helped stocks overcome months of market shocks.",
-      "source": "CNBC Finance",
-      "pub_date": "06 Oct 2026"
+      "headline": "New data flips the script on winning rollover business",
+      "body": "While rollover assets increase with retirement savers' age, many rollover transactions occur well before retirement, according to new data and a panel of six experts. For financial advisors, that presents a potential business opportunity.",
+      "source": "American Banker",
+      "pub_date": "07 Oct 2026"
     }
   ]
 }
