@@ -1,23 +1,23 @@
 {
-  "date": "2026-10-08",
+  "date": "2026-10-09",
   "stories": [
     {
-      "headline": "Jensen Huang Said Nvidia Now Has \"a Lot Greater Visibility\" Into Demand, Letting It Forecast a Full Year Ahead for the First Time Ever. Does That Confidence Justify Nvidia's Premium Valuation?",
-      "body": "Key PointsNvidia stock trades at a forward P/E above 25, while the S&P 500 has a forward P/E of roughly 19.",
+      "headline": "Tokenization could unleash tens of billions of dollars in trapped capital, Nasdaq CEO says",
+      "body": "Nasdaq CEO Adena Friedman said tokenization could free up tens of billions of dollars in trapped capital.",
+      "source": "CNBC Finance",
+      "pub_date": "08 Oct 2026"
+    },
+    {
+      "headline": "Huge News for Uber Stock Investors as it Makes Multibillion Dollar Acquisition",
+      "body": "The company paid for this acquisition in cash.",
       "source": "Nasdaq",
       "pub_date": "08 Oct 2026"
     },
     {
-      "headline": "Citi Wealth Sees Long Runway for AI Spending Despite Bubble Warnings",
-      "body": "The artificial intelligence buildout is still in its early-to-middle stages, Citi Wealth said in a report released Wednesday (Oct. 7). The AI investment cycle is facing greater scrutiny due to higher interest rates, increasingly capable open-weight models, regulatory pressure and rising infrastructure costs, the bank said in the report. At the same time, despite the",
-      "source": "PYMNTS",
-      "pub_date": "07 Oct 2026"
-    },
-    {
-      "headline": "New data flips the script on winning rollover business",
-      "body": "While rollover assets increase with retirement savers' age, many rollover transactions occur well before retirement, according to new data and a panel of six experts. For financial advisors, that presents a potential business opportunity.",
+      "headline": "Fed, OCC order Amex to overhaul AML controls, fine $350M",
+      "body": "The Office of the Comptroller of the Currency Thursday fined American Express National Bank $350 million after uncovering $13 billion in suspected illicit activity. The Federal Reserve ordered the company to improve its financial crime controls in a separate order.",
       "source": "American Banker",
-      "pub_date": "07 Oct 2026"
+      "pub_date": "08 Oct 2026"
     }
   ]
 }

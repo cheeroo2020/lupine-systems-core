@@ -187,3 +187,4 @@ No manual input needed. Fully automated.
 | [2026-10-06](./2026-10-06.md) | Japanese Market Modestly Higher |
 | [2026-10-07](./2026-10-07.md) | Beware the AI sycophant and 'cognitive surrender' |
 | [2026-10-08](./2026-10-08.md) | Jensen Huang Said Nvidia Now Has "a Lot Greater Visibility" Into De… |
+| [2026-10-09](./2026-10-09.md) | Tokenization could unleash tens of billions of dollars in trapped c… |
