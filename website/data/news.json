@@ -1,22 +1,22 @@
 {
-  "date": "2026-10-10",
+  "date": "2026-10-11",
   "stories": [
     {
-      "headline": "Delta (DAL) Q3 2026 Earnings Call Transcript",
-      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
+      "headline": "Massive News for Alphabet Stock and Constellation Energy Stock Investors",
+      "body": "Alphabet (NASDAQ: GOOGL) (NASDAQ: GOOG) signed a deal with Constellation Energy (NASDAQ: CEG) that is worth billions of dollars over several years.",
       "source": "Nasdaq",
+      "pub_date": "11 Oct 2026"
+    },
+    {
+      "headline": "JPMorgan makes bullish call in fixed income space, suggests it's a once in a generation opportunity",
+      "body": "Why Priya Misra, a portfolio manager at the firm, is looking to take credit risk in high-quality companies.",
+      "source": "CNBC Finance",
       "pub_date": "10 Oct 2026"
     },
     {
       "headline": "Ex-Fed nominee Shelton tapped to advise Treasury's Bessent",
       "body": "The Department of the Treasury has picked Judy Shelton, an economist and former nominee for the Federal Reserve Board, to be a counselor in Secretary Scott Bessent's office.",
       "source": "American Banker",
-      "pub_date": "09 Oct 2026"
-    },
-    {
-      "headline": "Blockchain.com seeks U.S. approval for prediction markets, crypto derivatives trading",
-      "body": "Blockchain.com is seeking CFTC designation and registration to offer U.S. event contracts and cryptocurrency derivatives.",
-      "source": "CNBC Finance",
       "pub_date": "09 Oct 2026"
     }
   ]
