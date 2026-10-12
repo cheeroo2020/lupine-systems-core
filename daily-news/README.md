@@ -190,3 +190,4 @@ No manual input needed. Fully automated.
 | [2026-10-09](./2026-10-09.md) | Tokenization could unleash tens of billions of dollars in trapped c… |
 | [2026-10-10](./2026-10-10.md) | Delta (DAL) Q3 2026 Earnings Call Transcript |
 | [2026-10-11](./2026-10-11.md) | Massive News for Alphabet Stock and Constellation Energy Stock Inve… |
+| [2026-10-12](./2026-10-12.md) | Which Vanguard Bond ETF Is the Better Buy: Broad Market BND or Trea… |
