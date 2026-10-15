@@ -193,3 +193,4 @@ No manual input needed. Fully automated.
 | [2026-10-12](./2026-10-12.md) | Which Vanguard Bond ETF Is the Better Buy: Broad Market BND or Trea… |
 | [2026-10-13](./2026-10-13.md) | Asian Markets Trade Mostly Lower |
 | [2026-10-14](./2026-10-14.md) | Japanese Market Modestly Higher |
+| [2026-10-15](./2026-10-15.md) | Invesco QQQ Doesn't Own a Single Bank, and That's Not the Only Thin… |
