@@ -1,24 +1,24 @@
 {
   "agent": "lupine-watcher-v1",
-  "generated": "2026-10-14T22:29:34Z",
-  "rate": 0.89312,
-  "rate_date": "2026-10-14",
+  "generated": "2026-10-15T00:47:01Z",
+  "rate": 0.895619,
+  "rate_date": "2026-10-15",
   "fx_source": "open.er-api.com",
   "signal": "NEUTRAL",
   "rationale": "Rate within 1\u03c3 of 60-day mean. No actionable edge.",
   "analysis": {
-    "rate": 0.89312,
+    "rate": 0.89562,
     "mean_60d": 0.90334,
     "mean_30d": 0.90133,
     "stdev_60d": 0.00731,
-    "z_score": -1.4,
-    "percentile_60d": 15.0,
-    "momentum_3d_pips": -18.8,
-    "momentum_7d_pips": 1.6,
+    "z_score": -1.06,
+    "percentile_60d": 18.3,
+    "momentum_3d_pips": 6.2,
+    "momentum_7d_pips": 26.6,
     "history_n": 60
   },
   "news_signals": [],
-  "evidence_hash": "b7a7078f91157010487b07f17cd8683f273998f074d462ecb26ecc348fd84976",
+  "evidence_hash": "df3164ba2710ea8065a6faf3344d7a8890d8699065d01674d4414429829feccb",
   "chain_valid": true,
-  "request_id": "watcher-2026-10-14-222934"
+  "request_id": "watcher-2026-10-15-004701"
 }
