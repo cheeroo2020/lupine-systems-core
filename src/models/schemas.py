@@ -24,8 +24,18 @@ class ExecutionStatus(str, Enum):
     scored = "scored"
     route_selected = "route_selected"
     executing = "executing"
-    completed = "completed"
-    failed = "failed"
+    completed = "completed"      # accepted AND a usable reading shows the effect
+    failed = "failed"            # rejected, or established never to have arrived
+    mismatched = "mismatched"    # accepted, but a usable reading contradicts it
+    uncertain = "uncertain"      # outcome not established — must reconcile
+
+
+class Receipt(str, Enum):
+    """What the counterparty says about our instruction.
+    No answer at all is None — never one of these values."""
+    accepted = "accepted"        # it holds the instruction
+    rejected = "rejected"        # it refused the instruction
+    not_found = "not_found"      # it has no record of the instruction
 
 
 # ── Movement Request ──
@@ -76,8 +86,41 @@ class ExecutionState(BaseModel):
     route_id: str
     status: ExecutionStatus = ExecutionStatus.initiated
     state_history: list[dict] = Field(default_factory=list)
+    assessments: list[dict] = Field(default_factory=list)   # every verdict and its evidence
     started_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None
+
+
+# ── Outcome evidence ──
+
+class Instruction(BaseModel):
+    """What Rail asked the counterparty to do, and how success will be judged."""
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    target: float                      # the value asked for, e.g. 0.0 kW or 500000 SGD credited
+    tolerance: float                   # |reading − target| ≤ tolerance counts as met
+    issued_at: datetime
+    settle_seconds: float = 0.0        # readings earlier than this cannot judge the effect
+    max_reading_age_seconds: float = 60.0
+
+
+class Observation(BaseModel):
+    """Evidence about an instruction. Missing is None, never zero."""
+    receipt: Optional[Receipt] = None  # None = no answer (e.g. connection lost)
+    reading: Optional[float] = None    # None = unavailable
+    read_at: Optional[datetime] = None
+
+
+class Assessment(BaseModel):
+    """Rail's verdict on one Observation, with the reason it reached it."""
+    instruction_id: str
+    kind: str                          # "outcome" or "reconciliation"
+    outcome: ExecutionStatus           # completed / failed / mismatched / uncertain
+    reason: str
+    receipt: Optional[Receipt] = None
+    reading: Optional[float] = None
+    read_at: Optional[datetime] = None
+    reading_usable: bool
+    assessed_at: datetime
 
 
 # ── Evidence Log Entry ──

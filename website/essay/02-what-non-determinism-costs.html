@@ -1,4 +1,4 @@
-<title>II. What Non-Determinism Costs · Deterministic Value</title>
+<title>II. What Non-Determinism Costs · Deterministic Value</title><link rel="icon" href="../assets/brand/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../assets/brand/favicon-32.png"><link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
 
 <style>
 :root{
@@ -304,10 +304,10 @@ figure.seen{opacity:1;transform:none}
 
   <p>This is the part we can speak to directly, because we measured it. Lupine queries four
     independent public mid-market sources for AUD/SGD, and on 3 August 2026 three of the four
-    were reachable and returned, at the same instant:</p>
+    were reachable and returned, in a single collection run:</p>
 
   <figure class="wide">
-    <figcaption><span>Fig. 4 — Independent mid-market sources, one instant</span><span>measured</span></figcaption>
+    <figcaption><span>Fig. 4 — Independent mid-market sources, one collection run</span><span>measured</span></figcaption>
     <table class="win">
       <thead><tr><th>Source</th><th>Rate</th><th>Source date</th></tr></thead>
       <tbody>
@@ -316,10 +316,15 @@ figure.seen{opacity:1;transform:none}
         <tr><td>Frankfurter (ECB)</td><td>0.901740</td><td>2026-07-31</td></tr>
       </tbody>
     </table>
-    <div class="ratio"><b>4.32</b><span>basis points of dispersion, same instant</span></div>
+    <div class="ratio"><b>4.32</b><span>basis points between published values, one run</span></div>
     <p class="fig-note">Recorded by <code>scripts/spread_log.py</code>, stored in
       <code>spread_log.jsonl</code>. One observation. The logger refuses to describe the dataset
       as citable below thirty, so this is a demonstration of method rather than a finding.</p>
+    <p class="fig-note"><strong>Correction, 16 October 2026.</strong> An earlier version said
+      these values were returned "at the same instant". They were collected in one run, but each
+      source reports only a date, not the moment its rate was struck, so part of any dispersion
+      may be publication timing rather than disagreement about price. The observation is
+      unchanged. The description was wrong.</p>
   </figure>
 
   <p>Two observations follow, and the second is the more interesting one. First, the sources

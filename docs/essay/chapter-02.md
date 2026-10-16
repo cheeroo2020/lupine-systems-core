@@ -112,7 +112,7 @@ counted.
 This is the part we can speak to directly, because we measured it.
 
 Lupine queries four independent public mid-market sources for AUD/SGD. On 3 August 2026, three
-of the four were reachable and returned, at the same instant:
+of the four were reachable and returned, in a single collection run:
 
 | Source | Rate | Source date |
 |---|--:|---|
@@ -120,7 +120,7 @@ of the four were reachable and returned, at the same instant:
 | jsdelivr currency-api | 0.901730 | 2026-08-02 |
 | Frankfurter (ECB) | 0.901740 | 2026-07-31 |
 
-A dispersion of **4.32 basis points** between sources that are all describing the same thing.
+A dispersion of **4.32 basis points** between sources that all claim to describe the same thing.
 
 Two observations follow, and the second is the more interesting one.
 
@@ -136,6 +136,11 @@ point of margin.
 > **Provenance.** One observation, recorded by `scripts/spread_log.py` on 2026-08-03 and stored
 > in `website/data/spread_log.jsonl`. The logger refuses to describe the dataset as citable
 > below thirty observations. This is a demonstration of method, not yet a finding.
+>
+> **Correction, 16 October 2026.** An earlier draft said these values were returned "at the
+> same instant". They were collected in one run, but each source reports only a date, not the
+> moment its rate was struck, so part of any dispersion may be publication timing rather than
+> disagreement about price. The observation is unchanged. The description was wrong.
 
 ---
 
