@@ -52,10 +52,13 @@ src/
 │   ├── router.py            # generate 3 candidate routes (Fast, Cheap, Balanced) — simulated
 │   ├── scorer.py            # composite utility, urgency-weighted
 │   └── selector.py          # pick winner + human-readable rationale
-├── rail_lite/executor.py    # 5-state machine, validated transitions
+├── rail_lite/
+│   ├── executor.py          # state machine, validated transitions, reconcile()
+│   └── outcome.py           # evidence → verdict (completed/failed/mismatched/uncertain)
 ├── cloked_lite/logger.py    # SHA-256 hash chain + verify_chain()
 └── api/main.py              # FastAPI, 5 endpoints
-tests/  test_aiva.py · test_rail.py · test_cloked.py   (10 tests)
+tests/  test_aiva.py · test_rail.py · test_cloked.py   (27 tests)
+scripts/rail_uncertainty_demo.py   # SIMULATED battery controller exercising outcome rules
 docs/   v0_spec.md · guide.md (plain-English guide)
 ```
 
@@ -78,15 +81,31 @@ this to the book's 7-score model — that's a future step, not a bug to fix.
 
 ### Rail-lite state machine
 ```
-initiated → scored → route_selected → executing → completed
-                                       executing → failed
+initiated → scored → route_selected → executing → completed | failed | mismatched | uncertain
+                                       uncertain → completed | failed | mismatched   (reconcile only)
 ```
 Invalid transitions raise `ValueError`. The machine enforces every step.
+
+Outcome rules (`outcome.py`, pure function of instruction + observation + `now`):
+- **completed** needs both a counterparty `accepted` receipt and a usable reading within tolerance.
+- **failed** needs `rejected`, or `not_found` with no reading contradicting it.
+- **mismatched**: accepted, but a usable reading is outside tolerance. Not success.
+- **uncertain**: everything else. Missing readings are `None`, never zero; stale, pre-settle
+  or future-dated readings don't count. No receipt + matching reading is still uncertain
+  (the effect can't be attributed).
+- `safe_to_reissue()` is true only from `failed` — never re-send while uncertain.
+
+Domain-neutral: `target` is just a number (kW setpoint, amount credited). The API's
+`/execute` still uses `simulate_full_execution()` (always succeeds); the new rules are
+exercised by tests and `scripts/rail_uncertainty_demo.py`, not yet by the API.
 
 ### Cloked-lite evidence chain
 Append-only SHA-256 hash chain from a `genesis` entry; each entry stores `prev_hash`.
 `verify_chain()` recomputes every hash and checks linkage — any tamper returns `False`.
-Logged events: `request_created`, `routes_generated`, `routes_scored`, `execution_completed`.
+Logged events: `request_created`, `routes_generated`, `routes_scored`, `execution_completed`
+(API), plus `instruction_issued`, `outcome_assessed`, `reconciliation_attempted` (outcome
+demo; covered in `test_cloked.py`). A valid chain proves records weren't altered — it does
+**not** prove a reading was accurate or that an instruction caused an effect.
 
 ### API — 5-step flow (`src/api/main.py`)
 1. `POST /create-movement` (amount, from_currency, to_currency, urgency) → `request_id`

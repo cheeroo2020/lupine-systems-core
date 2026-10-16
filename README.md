@@ -235,7 +235,7 @@ lupine-systems-core/
 │   ├── data/             # multi-source FX feed
 │   ├── models/           # Pydantic schemas
 │   ├── aiva_lite/        # router · scorer · selector
-│   ├── rail_lite/        # 5-state execution machine
+│   ├── rail_lite/        # execution state machine + uncertain-outcome rules
 │   ├── cloked_lite/      # SHA-256 evidence chain
 │   └── api/              # FastAPI (5 endpoints)
 ├── scripts/
@@ -271,7 +271,7 @@ lupine-systems-core/
 | CLOKED evidence chain | ✅ |
 | Public dashboard (Pages) | ✅ |
 | FastAPI (5 endpoints) | ✅ |
-| Deterministic test suite (10 tests) | ✅ |
+| Deterministic test suite (27 tests) | ✅ |
 | CI (every push) | ✅ |
 
 ---

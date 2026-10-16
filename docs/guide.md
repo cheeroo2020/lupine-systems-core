@@ -92,6 +92,23 @@ It can't skip steps. It can't go backwards. If something goes wrong, it fails cl
 
 In V0, this is simulated. In a real deployment, each state would correspond to an actual action — locking funds, sending to a correspondent bank, confirming receipt.
 
+#### When RAIL doesn't know what happened
+
+Not every problem is a clean failure. Sometimes RAIL sends an instruction and the line goes quiet. From RAIL's side, three different things look exactly the same: the instruction never arrived, it was refused, or it worked and the reply got lost.
+
+RAIL is not allowed to guess. It uses four words, and each one needs specific evidence:
+
+| Word | What RAIL needs to say it |
+|---|---|
+| **completed** | The other side said "accepted" **and** a fresh reading shows it happened |
+| **failed** | The other side said "refused", or "I never got it" (and nothing contradicts that) |
+| **mismatched** | The other side said "accepted", but the reading shows it didn't happen. Not a success. |
+| **uncertain** | Anything else. No reading is not the same as a zero reading. Old readings don't count. |
+
+While a movement is **uncertain**, RAIL won't send it again, because the first one may already have gone through and sending twice could pay twice. It first **reconciles**: it asks the other side "do you have my instruction?" and takes a fresh reading. Only then does it decide.
+
+Try it: `PYTHONPATH=. python scripts/rail_uncertainty_demo.py` runs six cases against a pretend battery controller (simulated, not a real device).
+
 ### CLOKED — The evidence layer
 
 CLOKED records everything that happens and **makes it tamper-proof**.

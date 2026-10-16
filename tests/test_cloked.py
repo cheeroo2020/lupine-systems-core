@@ -23,3 +23,21 @@ def test_genesis_link():
     log = create_evidence_log("req-1")
     log = append_evidence(log, "first", {"x": 1})
     assert log.entries[0].previous_hash == "genesis"
+
+
+def test_uncertain_then_reconciled_chain_verifies():
+    log = create_evidence_log("req-1")
+    log = append_evidence(log, "instruction_issued", {"id": "cmd-1", "target": 50.0})
+    log = append_evidence(log, "outcome_assessed",
+                          {"outcome": "uncertain", "reason": "no receipt; no reading available"})
+    log = append_evidence(log, "reconciliation_attempted",
+                          {"outcome": "completed", "reading": 50.4})
+    assert verify_chain(log) is True
+
+
+def test_rewriting_an_uncertain_verdict_breaks_the_chain():
+    log = create_evidence_log("req-1")
+    log = append_evidence(log, "outcome_assessed", {"outcome": "uncertain"})
+    log = append_evidence(log, "reconciliation_attempted", {"outcome": "failed"})
+    log.entries[0].payload["outcome"] = "completed"   # pretend it worked
+    assert verify_chain(log) is False
