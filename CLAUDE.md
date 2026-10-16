@@ -57,7 +57,7 @@ src/
 │   └── outcome.py           # evidence → verdict (completed/failed/mismatched/uncertain)
 ├── cloked_lite/logger.py    # SHA-256 hash chain + verify_chain()
 └── api/main.py              # FastAPI, 5 endpoints
-tests/  test_aiva.py · test_rail.py · test_cloked.py   (27 tests)
+tests/  test_aiva.py · test_rail.py · test_cloked.py   (30 tests)
 scripts/rail_uncertainty_demo.py   # SIMULATED battery controller exercising outcome rules
 docs/   v0_spec.md · guide.md (plain-English guide)
 ```
@@ -88,12 +88,15 @@ Invalid transitions raise `ValueError`. The machine enforces every step.
 
 Outcome rules (`outcome.py`, pure function of instruction + observation + `now`):
 - **completed** needs both a counterparty `accepted` receipt and a usable reading within tolerance.
-- **failed** needs `rejected`, or `not_found` with no reading contradicting it.
+- **failed** needs `rejected` or `not_found`, with no usable reading showing the effect
+  anyway. Contradictory evidence stays **uncertain**.
 - **mismatched**: accepted, but a usable reading is outside tolerance. Not success.
 - **uncertain**: everything else. Missing readings are `None`, never zero; stale, pre-settle
   or future-dated readings don't count. No receipt + matching reading is still uncertain
   (the effect can't be attributed).
-- `safe_to_reissue()` is true only from `failed` — never re-send while uncertain.
+- Only `reconcile()` can leave `uncertain`; `advance_state()` refuses.
+- `safe_to_reissue()` is true only when the latest evidence verdict is `failed` — never
+  while uncertain, and not for a failure set by hand.
 
 Domain-neutral: `target` is just a number (kW setpoint, amount credited). The API's
 `/execute` still uses `simulate_full_execution()` (always succeeds); the new rules are
@@ -104,8 +107,10 @@ Append-only SHA-256 hash chain from a `genesis` entry; each entry stores `prev_h
 `verify_chain()` recomputes every hash and checks linkage — any tamper returns `False`.
 Logged events: `request_created`, `routes_generated`, `routes_scored`, `execution_completed`
 (API), plus `instruction_issued`, `outcome_assessed`, `reconciliation_attempted` (outcome
-demo; covered in `test_cloked.py`). A valid chain proves records weren't altered — it does
-**not** prove a reading was accurate or that an instruction caused an effect.
+demo; covered in `test_cloked.py`). A valid chain proves internal consistency only: a forger
+who recomputes every later hash also passes `verify_chain()`, so tamper-evidence needs the
+head hash kept elsewhere (not built). It also does **not** prove a reading was accurate or
+that an instruction caused an effect.
 
 ### API — 5-step flow (`src/api/main.py`)
 1. `POST /create-movement` (amount, from_currency, to_currency, urgency) → `request_id`

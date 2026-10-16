@@ -34,13 +34,13 @@ class SimulatedBattery:
     """A pretend controller. Each switch breaks one thing."""
 
     def __init__(self, *, loses_instruction=False, rejects=False, ignores=False,
-                 reply_lost=False, sensor_down=False):
+                 reply_lost=False, sensor_down=False, initial_kw=0.0):
         self.loses_instruction = loses_instruction
         self.rejects = rejects
         self.ignores = ignores
         self.reply_lost = reply_lost
         self.sensor_down = sensor_down
-        self.output_kw = 0.0
+        self.output_kw = initial_kw
         self.records: dict[str, Receipt] = {}
 
     def send(self, instr: Instruction) -> Optional[Receipt]:
@@ -66,6 +66,7 @@ SCENARIOS = [
     ("Reply lost — it was refused",      50.0, {"reply_lost": True, "rejects": True}),
     ("Instruction lost in transit",      50.0, {"loses_instruction": True}),
     ("Stop discharging, sensor down",     0.0, {"sensor_down": True}),
+    ("Refuses, yet output already there", 50.0, {"rejects": True, "initial_kw": 50.0}),
 ]
 
 
@@ -107,8 +108,9 @@ def main() -> int:
     all_valid = all(ok for _, ok in results)
     print(f"\n  Evidence chains: {len(results)} written, "
           f"{'all verify' if all_valid else 'VERIFICATION FAILED'}.")
-    print("  What that proves: none of these records was altered afterwards.")
-    print("  What it does not prove: that any reading was accurate.")
+    print("  What that proves: each record is consistent with the ones before it.")
+    print("  It catches a rewrite only against a copy of the final hash kept")
+    print("  elsewhere (not built yet). It does not prove any reading was accurate.")
     return 0 if all_valid else 1
 
 

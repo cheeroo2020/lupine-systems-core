@@ -138,7 +138,9 @@ flowchart LR
     E0 -->|prev_hash| E1 -->|prev_hash| E2 -->|prev_hash| E3
 ```
 
-`verify_chain()` recomputes every hash and checks linkage. Any tamper → False.
+`verify_chain()` recomputes every hash and checks linkage. Editing an entry → False —
+unless the forger recomputes every later hash too, which only a copy of the head hash
+stored elsewhere can catch (not yet built).
 The watcher and the daily decision generator both use this chain — every
 recommendation on the live site has a verifiable evidence trail.
 
@@ -271,7 +273,7 @@ lupine-systems-core/
 | CLOKED evidence chain | ✅ |
 | Public dashboard (Pages) | ✅ |
 | FastAPI (5 endpoints) | ✅ |
-| Deterministic test suite (27 tests) | ✅ |
+| Deterministic test suite (30 tests) | ✅ |
 | CI (every push) | ✅ |
 
 ---

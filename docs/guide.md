@@ -105,19 +105,19 @@ RAIL is not allowed to guess. It uses four words, and each one needs specific ev
 | **mismatched** | The other side said "accepted", but the reading shows it didn't happen. Not a success. |
 | **uncertain** | Anything else. No reading is not the same as a zero reading. Old readings don't count. |
 
-While a movement is **uncertain**, RAIL won't send it again, because the first one may already have gone through and sending twice could pay twice. It first **reconciles**: it asks the other side "do you have my instruction?" and takes a fresh reading. Only then does it decide.
+While a movement is **uncertain**, RAIL won't send it again, because the first one may already have gone through and sending twice could pay twice. It first **reconciles**: it asks the other side "do you have my instruction?" and takes a fresh reading. Only then does it decide. Nothing else can take it out of uncertain — not even code that calls the state machine directly.
 
 Try it: `PYTHONPATH=. python scripts/rail_uncertainty_demo.py` runs six cases against a pretend battery controller (simulated, not a real device).
 
 ### CLOKED — The evidence layer
 
-CLOKED records everything that happens and **makes it tamper-proof**.
+CLOKED records everything that happens and makes it **tamper-evident**, with one important limit.
 
 Every event — the request being created, routes being scored, the execution completing — gets hashed using SHA-256 (the same technology used in blockchain). Each new record is linked to the previous one, forming a chain.
 
-If anyone tries to change a record after the fact — even by one character — the chain breaks and verification fails.
+If anyone changes a record after the fact — even by one character — and leaves the rest alone, the chain breaks and verification fails.
 
-This means you can prove, to anyone, exactly what happened and when.
+**The limit:** someone who rewrites a record *and recomputes every fingerprint after it* produces a new chain that also passes verification. You only catch that by comparing against a copy of the final fingerprint saved somewhere they can't reach, and V0 doesn't save that copy anywhere yet. Even a perfect chain proves only that the records weren't changed, not that what they recorded was true.
 
 ---
 
@@ -194,7 +194,7 @@ V0 is the **proof of concept** — the first working loop of the full Lupine vis
 |---------|---------------------|
 | Score and select routes | Connect to real banks |
 | Simulate execution | Process real money |
-| Build a tamper-proof evidence log | Encrypt or anchor evidence externally |
+| Build a tamper-evident evidence log (in memory) | Encrypt or anchor evidence externally |
 | Run live against real FX rates | Handle compliance screening |
 | Expose a working API | Support multiple currency corridors |
 

@@ -152,3 +152,25 @@ def test_same_evidence_same_verdict():
     a = assess(_instr(), _seen(Receipt.accepted, 49.0), NOW)
     b = assess(_instr(), _seen(Receipt.accepted, 49.0), NOW)
     assert a == b
+
+
+# ── Regressions (found in review, 2026-10-16) ──
+
+def test_rejected_with_effect_present_is_contradiction_not_failure():
+    state = record_outcome(_executing(), _instr(), _seen(Receipt.rejected, 50.0), NOW)
+    assert state.status == S.uncertain
+    assert "contradictory" in state.assessments[-1]["reason"]
+    assert safe_to_reissue(state) is False
+
+
+def test_advance_state_cannot_bypass_reconciliation():
+    state = record_outcome(_executing(), _instr(), _seen(None, None), NOW)
+    with pytest.raises(ValueError):
+        advance_state(state, S.failed)
+    assert state.status == S.uncertain
+    assert safe_to_reissue(state) is False
+
+
+def test_failure_set_without_evidence_does_not_permit_reissue():
+    state = advance_state(_executing(), S.failed)
+    assert safe_to_reissue(state) is False

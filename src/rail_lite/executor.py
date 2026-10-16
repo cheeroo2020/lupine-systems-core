@@ -37,7 +37,19 @@ def advance_state(state: ExecutionState, to_status: ExecutionStatus) -> Executio
     Advance the execution to the next state.
     V0: deterministic progression (no real failures).
     Future: actual hop-level execution with retry logic.
+
+    An uncertain execution cannot be moved from here: only reconcile(),
+    with new evidence, may resolve it.
     """
+    if state.status == ExecutionStatus.uncertain:
+        raise ValueError(
+            "An uncertain outcome can only be resolved by reconcile() with new evidence"
+        )
+    return _transition(state, to_status)
+
+
+def _transition(state: ExecutionState, to_status: ExecutionStatus) -> ExecutionState:
+    """Validated state change. Callers decide whether evidence is required."""
     valid_transitions = {
         ExecutionStatus.initiated: [ExecutionStatus.scored],
         ExecutionStatus.scored: [ExecutionStatus.route_selected],
@@ -82,7 +94,7 @@ def record_outcome(state: ExecutionState, instruction: Instruction,
         raise ValueError(f"Can only record an outcome while executing, not {state.status}")
     verdict = assess(instruction, observation, now, kind="outcome")
     state.assessments.append(verdict.model_dump(mode="json"))
-    return advance_state(state, verdict.outcome)
+    return _transition(state, verdict.outcome)
 
 
 def reconcile(state: ExecutionState, instruction: Instruction,
@@ -99,17 +111,20 @@ def reconcile(state: ExecutionState, instruction: Instruction,
     verdict = assess(instruction, observation, now, kind="reconciliation")
     state.assessments.append(verdict.model_dump(mode="json"))
     if verdict.outcome != ExecutionStatus.uncertain:
-        state = advance_state(state, verdict.outcome)
+        state = _transition(state, verdict.outcome)
     return state
 
 
 def safe_to_reissue(state: ExecutionState) -> bool:
     """
-    May the same instruction be sent again? Only once Rail has established
-    it failed. While uncertain the first one may already have taken effect,
-    and sending again risks doing it twice.
+    May the same instruction be sent again? Only once an evidence verdict
+    has established it failed. While uncertain the first one may already
+    have taken effect, and sending again risks doing it twice. A failure
+    set by hand, with no assessment behind it, does not count.
     """
-    return state.status == ExecutionStatus.failed
+    return (state.status == ExecutionStatus.failed
+            and bool(state.assessments)
+            and state.assessments[-1]["outcome"] == ExecutionStatus.failed.value)
 
 
 def simulate_full_execution(request_id: str, route_id: str) -> ExecutionState:
