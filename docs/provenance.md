@@ -10,7 +10,7 @@ This file exists because in July 2026 the essay published a set of basis-point
 figures that had been invented to make a chart look convincing, and presented
 them as observed. The manifest is the control that stops that recurring.
 
-Last audited: **2026-08-03**
+Last audited: **2026-10-16**
 
 ---
 
@@ -31,14 +31,17 @@ Last audited: **2026-08-03**
 | Figure | Status | Source | Notes |
 |---|---|---|---|
 | AUD/SGD mid-market rate | **measured** | `src/data/fx_feed.py`, 4 public sources | Timestamped per fetch |
-| Cross-source dispersion (bps) | **measured** | `scripts/spread_log.py`, hourly | First obs 2026-08-03: **4.32 bps** across 3 reachable sources |
-| Source staleness spread | **measured** | `spread_log.jsonl` | First obs: source dates spanned 2026-07-31 → 08-03 |
+| Cross-source dispersion (bps) | **measured**, narrow claim | `scripts/spread_log.py`, hourly | Disagreement between **published values** collected in one run. **Not** rates struck at the same instant: sources give a date, not a fixing time. First obs 2026-08-03: 4.32 bps. As of 2026-10-16: 695 obs, mean 17.88, median 14.34, max 101.10 bps |
+| Source staleness spread | **measured** | `spread_log.jsonl` | First obs: source dates spanned 2026-07-31 → 08-03. Date granularity only; same-date values can still differ in fixing time |
 | Backtest FX series | **measured** | Frankfurter/ECB historical, 83 trading days | Rates are real; the routing applied to them is modelled |
 | Watcher z-score / percentile | **measured** | `scripts/watcher.py`, 60-day window | Derived from measured rates |
 | Test pass rate | **measured** | CI, `test-results/` | 10/10 deterministic |
 
-**Not yet citable.** `spread_summary.json` refuses to mark the dataset citable
-below 30 observations. At hourly cadence that is roughly two days.
+**Citable as a range of published-value disagreement.** `spread_summary.json`
+refuses to mark the dataset citable below 30 observations; it passed that in
+August. What it may be cited *as* is narrower than first described — see the
+2026-10-16 row in section 4. It may not be quoted as the market disagreeing
+with itself at a moment in time, or as a pricing opportunity.
 
 ---
 
@@ -121,6 +124,7 @@ Genuinely sourced. These are reproduced as primary text in
 | "42 bps hidden · A$2,100" | measured | **fabricated** — derived from the above | 2026-08-03 |
 | EC2 | "general availability, 2006" | Public **beta** 2006; GA 2008 | 2026-08-03 |
 | Containerisation $5.86 → $0.16/ton | cited | Quoted from recall; widely attributed to Levinson, *The Box* — **not checked against a copy** | flagged 2026-08-03 |
+| Cross-source dispersion | "disagreement between sources, **same instant**" (`spread_log.py`, every log row before 2026-10-16, essay ch. II) | Values were collected in one run, but each source reports only a **date**, not the time its rate was struck. Sources publish on different schedules (Frankfurter = ECB daily reference rate). The max, 101.10 bps on 2026-10-15, is three same-date values whose fixing times are unknown. Dispersion may be publication timing, not price disagreement. **Observations kept unchanged; the description was wrong.** | 2026-10-16 |
 
 ---
 
@@ -132,6 +136,7 @@ Genuinely sourced. These are reproduced as primary text in
 | Corridor latency | SWIFT gpi publishes aggregate credited-within-window statistics. |
 | Provider spreads | **Best option.** Log mid-market against each provider's published rate daily. After ~30 days this becomes our own measured dataset — the one number nobody else publishes. `scripts/spread_log.py` is the start; it needs provider rate ingestion to complete. |
 | Provider reliability | No public source exists. Either drop the dimension from external claims or label it modelled everywhere. |
+| Dispersion timing | Add at least one source that publishes an intraday reference timestamp, record it per row, and compare only values struck within a stated window. Until then the figure stays a published-value comparison. |
 | Containerisation figures | Check against Levinson, *The Box*, or Bernhofen et al. (2016). |
 
 ---

@@ -15,9 +15,19 @@ Nothing in this file may present a modelled number as a measured one.
 That distinction is the whole reason the file exists.
 
 WHAT IS ACTUALLY MEASURED HERE
-    The disagreement between four independent public mid-market sources
-    queried at the same instant. This is a genuine observable and, as far
-    as we know, nobody publishes it for AUD/SGD.
+    The disagreement between the values four independent public mid-market
+    sources publish, collected in one run. The values are real recorded
+    observations.
+
+    What this is NOT: a comparison of rates struck at the same moment. Each
+    source reports only a date, not the time its rate was fixed, and they
+    publish on different schedules (Frankfurter serves the ECB daily
+    reference rate; the others update on their own cadence). So a large
+    dispersion may be timing between publications rather than disagreement
+    about price. Until a source with intraday reference timestamps is
+    added, the figure must be described as disagreement between published
+    values, never as the market disagreeing at an instant.
+    Corrected 2026-10-16; see docs/provenance.md section 4.
 
 WHAT IS NOT MEASURED
     Provider effective rates. We hold no quote API for Wise, Airwallex,
@@ -61,7 +71,10 @@ def observe() -> dict:
 
     measured: dict = {
         "method": "measured",
-        "what": "disagreement between independent public mid-market sources, same instant",
+        "what": "disagreement between values published by independent public "
+                "mid-market sources, collected in one run",
+        "timing": "sources report a date, not the moment their rate was struck; "
+                  "values may be from different publication times",
         "n_sources_ok": len(live),
         "n_sources_tried": len(sources),
     }
@@ -155,6 +168,12 @@ def summarise(rows: list[dict]) -> dict:
 
     out: dict = {
         "method": "derived from measured values only",
+        "what": "disagreement between published values, collected in one run",
+        "caveat": "not aligned to a common instant: sources report a date, not a "
+                  "fixing time, and publish on different schedules. Dispersion "
+                  "may reflect publication timing rather than price. Rows before "
+                  "2026-10-16 carry the earlier 'same instant' wording; the "
+                  "observations are unchanged, the description was wrong.",
         "pair": f"{FROM_CCY}/{TO_CCY}",
         "observations": len(rows),
         "observations_with_dispersion": len(disp),
