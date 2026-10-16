@@ -1,11 +1,120 @@
-# Lupine Systems — V0
+<p align="center">
+  <img src="website/assets/brand/lupine-logo.png" alt="Lupine Systems" width="220">
+</p>
 
-> **Mission.** Lupine decides how value moves when the cost of getting it wrong
-> is high. Every decision is reasoned in public, scored against live market
-> data, and sealed in a tamper-evident audit chain — so the *why* behind every
-> recommendation is as durable as the recommendation itself.
+# Lupine
 
-V0 is the working loop: take a movement request, score 21 real-world rails
+**Learning and building toward an energy infrastructure technology company, starting in Tasmania.**
+
+Lupine is the project through which Chris Gogoi, an industrial and production engineer in
+Hobart, is developing the electrical, computing and software foundations to understand,
+design and troubleshoot energy infrastructure, and to find a problem worth building a
+company around.
+
+---
+
+## The ambition
+
+A long-term technical career and, eventually, an energy technology company connected to
+Tasmania's energy systems and AI infrastructure, potentially serving problems elsewhere.
+
+The repository supports three connected activities:
+
+1. **Understanding**: lessons in electrical fundamentals, measurement, control and
+   communications, recorded in the [handbook](docs/handbook/).
+2. **Experiments**: safe, low-voltage, reproducible, with raw data kept in
+   [`experiments/`](experiments/).
+3. **Product discovery**: reading and engineering conversations in [`research/`](research/).
+
+**The product is not chosen yet.** It has to come from evidence: what engineers actually
+need, what existing solutions miss, and what experiments show. Lupine's architecture alone
+does not establish a market.
+
+---
+
+## What the software implements today
+
+Lupine's three layers are **Aiva** (decides), **Rail** (executes and reconciles) and
+**Cloked** (preserves evidence). Their concepts carry forward. Their current code was
+written for payments and is being adapted where real engineering requirements justify it.
+
+The part that carries over directly is **Rail's outcome handling** (`src/rail_lite/`). After
+sending an instruction, Rail decides only what the evidence supports: completed, failed,
+mismatched or **uncertain**. It reconciles uncertainty with fresh evidence, and refuses to
+resend while it doesn't know whether the first attempt took effect. The rules are
+domain-neutral: the target can be a battery setpoint in kW as easily as a payment.
+
+Details, including every limitation, are in [docs/architecture.md](docs/architecture.md).
+
+---
+
+## Honest status
+
+Labels: **[SIMULATED]** = software only · **[MEASURED]** = observed with our own
+instrument · **proposed** = not built.
+
+| Capability | Status | Evidence |
+|---|---|---|
+| Rail: confirmed vs uncertain outcomes, reconciliation, safe-retry guard | **[SIMULATED]** | 30 deterministic tests; `scripts/rail_uncertainty_demo.py` (a pretend battery) |
+| Cloked evidence chain | **[SIMULATED]**, partial | Proves internal consistency only; storing the head hash externally is proposed |
+| Any physical measurement or real device | **None yet** | Hardware is postponed until the fundamentals are in place |
+| Rail controlling a real low-voltage device | Proposed (Jan–Mar 2027) | — |
+| Communication-loss and restart experiments on hardware | Proposed (Apr–Jun 2027) | — |
+| Aiva feasibility checks for engineering limits | Proposed | — |
+| Payments decision engine, FX feed, watcher | Earlier work, still running | **Not** evidence for an energy product |
+
+Nothing in this repository has yet been physically tested.
+
+---
+
+## Where to start
+
+If you're new to this, in this order:
+
+1. **The handbook:** [docs/handbook/](docs/handbook/). Open the latest PDF in `editions/`. It
+   covers the goals, the timeline, how lessons work and the safety rules.
+2. **What the code really does:** [docs/architecture.md](docs/architecture.md).
+3. **Run it:**
+   ```bash
+   pip install -r requirements.txt
+   PYTHONPATH=. pytest tests/test_aiva.py tests/test_rail.py tests/test_cloked.py
+   PYTHONPATH=. python scripts/rail_uncertainty_demo.py
+   ```
+4. **How records are kept:** [experiments/README.md](experiments/README.md) and
+   [research/README.md](research/README.md).
+
+---
+
+## Repository map
+
+| Location | Purpose |
+|---|---|
+| `docs/handbook/` | Editable learning handbook and preserved PDF editions |
+| `docs/architecture.md` | The actual code: boundaries and limitations |
+| `experiments/` | Experiment records and raw measurements (the one authoritative copy) |
+| `research/` | Sourced reading notes, problem observations, conversation summaries |
+| `src/`, `tests/` | Software and its tests |
+| `scripts/` | Demo, handbook builder, and earlier payments automation |
+| `website/` | Public site (GitHub Pages); brand assets in `website/assets/brand/` |
+| `docs/provenance.md` | Where every payments-era figure came from, and the corrections |
+
+---
+
+## Earlier work: payments decision engine (April–October 2026)
+
+> **Historical.** Lupine began as a deterministic decision engine for cross-border payments
+> (AUD → SGD). That code still runs at its original paths, and its automations still run on
+> schedules. It is preserved as earlier work. **Its outputs are not evidence that an energy
+> product works.**
+
+The original mission, as written then:
+
+> Lupine decides how value moves when the cost of getting it wrong is high. Every decision
+> is reasoned in public, scored against live market data, and sealed in a tamper-evident
+> audit chain — so the *why* behind every recommendation is as durable as the
+> recommendation itself.
+
+V0 is the working loop: take a movement request, score 21 modelled payment rails
 against the live AUD/SGD rate, pick the best one for the urgency profile,
 and produce a SHA-256 evidence chain proving what was decided and why.
 A second autonomous agent watches the market hourly and surfaces favourable
@@ -16,7 +125,7 @@ transfer windows on its own.
 
 ---
 
-## What's running today
+### What's running today
 
 | Surface | Status | Refresh cadence | Source |
 |---|---|---|---|
@@ -30,7 +139,7 @@ transfer windows on its own.
 
 ---
 
-## Mission, in one diagram
+### Mission, in one diagram
 
 ```mermaid
 flowchart LR
@@ -71,10 +180,12 @@ flowchart LR
 
 ---
 
-## Why 21 rails
+### Why 21 rails
 
-The original V0 had 3 simulated routes. The current system models real
-provider economics for every rail a A$500K AUD→SGD payer can practically use:
+The original V0 had 3 simulated routes. The current system models provider
+economics, with hardcoded constants, for every rail a A$500K AUD→SGD payer can practically use:
+
+Fee and settlement figures below are **[ASSUMED]** constants, unverified (`docs/provenance.md`).
 
 | Tier | Rails | Typical fee (bps) | Settlement |
 |---|---|---|---|
@@ -85,12 +196,13 @@ provider economics for every rail a A$500K AUD→SGD payer can practically use:
 | Major banks (SG side) | OCBC, UOB | 200 – 205 | 1 day |
 | Generic SWIFT | Bank SWIFT (worst-case baseline) | 250+ | 1.5 days |
 
-At normal urgency on A$500K, Wise (45 bps) saves ~A$10,270 vs a generic
-bank SWIFT transfer — every single trading day.
+**[ASSUMED]** The site's "Wise saves ~A$10,270 vs a generic bank SWIFT transfer"
+figure is the difference between two unverified constants (45 vs 250.4 bps).
+It is a modelled number, not a measured saving. See `docs/provenance.md`.
 
 ---
 
-## Decision engine — urgency-weighted scoring
+### Decision engine — urgency-weighted scoring
 
 Composite utility: **U = w·speed + w·cost + w·reliability**
 
@@ -106,7 +218,7 @@ weights have a comparable dynamic range.
 
 ---
 
-## Multi-source FX feed (`src/data/fx_feed.py`)
+### Multi-source FX feed (`src/data/fx_feed.py`)
 
 Designed so a single source outage never breaks the system:
 
@@ -126,7 +238,7 @@ on every signal, so the dashboard can show provenance.
 
 ---
 
-## CLOKED evidence chain
+### CLOKED evidence chain
 
 ```mermaid
 flowchart LR
@@ -146,7 +258,7 @@ recommendation on the live site has a verifiable evidence trail.
 
 ---
 
-## Watcher agent (`scripts/watcher.py`)
+### Watcher agent (`scripts/watcher.py`)
 
 Runs every hour at `:30` via `.github/workflows/watcher.yml`. Perceives,
 reasons, decides, acts:
@@ -164,7 +276,7 @@ in the signal file for independent verification.
 
 ---
 
-## Automation map
+### Automation map
 
 ```mermaid
 flowchart TD
@@ -189,7 +301,7 @@ brick the pipeline.
 
 ---
 
-## Recent fixes (May 2026)
+### Recent fixes (May 2026)
 
 - **Backtest daily refresh** — `_backtest_is_stale()` threshold lowered from
   7 days to 1, so the "Last 14 trading days" table moves with the calendar.
@@ -209,7 +321,7 @@ brick the pipeline.
 
 ---
 
-## Quick start
+### Quick start
 
 ```bash
 pip install -r requirements.txt
@@ -229,39 +341,7 @@ PYTHONPATH=. python scripts/backtest.py
 
 ---
 
-## Project structure
-
-```
-lupine-systems-core/
-├── src/
-│   ├── data/             # multi-source FX feed
-│   ├── models/           # Pydantic schemas
-│   ├── aiva_lite/        # router · scorer · selector
-│   ├── rail_lite/        # execution state machine + uncertain-outcome rules
-│   ├── cloked_lite/      # SHA-256 evidence chain
-│   └── api/              # FastAPI (5 endpoints)
-├── scripts/
-│   ├── watcher.py                 # hourly market agent
-│   ├── backtest.py                # 90-day decision replay
-│   ├── generate_live_decisions.py # daily JSON for site
-│   ├── generate_site_data.py      # news + health + backtest dispatch
-│   └── fetch_daily_news.py        # daily RBA / MAS / FX scan
-├── tests/                # 10 deterministic + live FX tests
-├── website/              # static site deployed to Pages
-│   └── data/             # generated JSON consumed by the dashboard
-├── .github/workflows/
-│   ├── ci.yml            # tests on every push
-│   ├── daily.yml         # 24-slot self-healing daily pipeline
-│   ├── watcher.yml       # hourly market watcher
-│   └── pages.yml         # deploy site to GitHub Pages
-├── daily-news/           # one markdown file per trading day
-├── test-results/         # one markdown file per CI run
-└── docs/
-```
-
----
-
-## Status
+### Payments system status
 
 | Component | State |
 |---|---|
@@ -272,11 +352,12 @@ lupine-systems-core/
 | 90-day backtest (daily refresh) | ✅ |
 | CLOKED evidence chain | ✅ |
 | Public dashboard (Pages) | ✅ |
-| FastAPI (5 endpoints) | ✅ |
+| FastAPI (9 endpoints; `/chat` inactive without a paid key) | ✅ |
 | Deterministic test suite (30 tests) | ✅ |
 | CI (every push) | ✅ |
 
 ---
 
 ## License
-Internal experimental research prototype. © Chirantan Gogoi.
+
+See [LICENSE](LICENSE). © Chirantan Gogoi.
