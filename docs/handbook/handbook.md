@@ -22,9 +22,14 @@ This handbook is the written memory of the work. It should let you return after 
 - **Part I — Direction.** Your goals, the timeline, how we work, and what Lupine actually is today.
 - **Part II — Weekly plans and reviews.** One page per week: the plan, then what actually happened.
 - **Part III — Lessons**, organised by topic. Each lesson is recorded only after it is complete, including your answers and mistakes.
-- **Part IV — Experiments.** Each practical experiment, from question to conclusion.
+- **Part IV — Experiments.** A one-page summary of each practical experiment. The full record and the raw
+  measurements live in `experiments/`, the only authoritative copy.
 - **Part V — Quick reference.** Formulas, terms, safety rules and troubleshooting, for looking things up fast.
 - **Appendices.** Personal planning framework, sources, correction history, edition history, and how to maintain this file.
+
+Three other places hold material this handbook draws on: `experiments/` (records and raw data),
+`research/` (reading notes, problem observations, conversation summaries) and `docs/architecture.md`
+(what the code really does).
 
 ## Two voices, kept apart
 
@@ -119,6 +124,8 @@ Status as of 16 October 2026, tested at repository commit `e5582dd`. Lupine was 
 
 The simulated device for Rail's rules is `scripts/rail_uncertainty_demo.py`. It is a pretend battery controller and is [SIMULATED]. It models no real device.
 
+Full module-by-module detail, the dependency map and the automation inventory are in `docs/architecture.md`.
+
 \pagebreak
 
 # Part II — Weekly plans and reviews
@@ -163,20 +170,22 @@ In progress, started 16 October 2026. Recorded here once the exercise has been a
 
 No experiments yet. Hardware is postponed until the fundamentals are in place.
 
-## Record template
+## Where experiment records live
 
-Every experiment is recorded under these headings:
+Each experiment has its own folder, `experiments/E00N-short-name/`. The folder holds the full record and the **only authoritative copy of the raw measurements**. This Part gives each experiment a one-page summary and links to its folder by ID. It never copies raw data.
 
-1. **Question.** What exactly are we trying to find out?
-2. **Equipment and setup.** Every item, with model numbers, and a diagram.
-3. **Prediction.** Written down *before* measuring, with the reasoning.
-4. **Procedure.** Steps detailed enough that someone else could repeat them.
-5. **Measurements.** Raw values, units, instrument, date and time.
-6. **Calculations and uncertainty.** Working shown, and how sure we are.
-7. **Failures and limitations.** What went wrong, and what the setup can't show.
-8. **What this establishes.** Labelled, with the scope of any verification.
-9. **What remains unknown.**
-10. **Code and commit.** The files involved and the exact repository commit tested.
+The record template is `experiments/TEMPLATE.md`. It covers:
+
+1. **Question**, and **equipment and setup**, with model numbers.
+2. **Prediction**, written *before* measuring and never revised.
+3. **Procedure**, and **measurements** with units, instrument, date and time.
+4. **Calculations and uncertainty.**
+5. **Failures and limitations.**
+6. **What this establishes**, labelled, with the scope of any verification, and **what remains unknown.**
+7. **Code files and the exact repository commit tested.**
+8. **Your own explanation.**
+
+The rules, including "raw data is never edited", are in `experiments/README.md`.
 
 \pagebreak
 
@@ -263,4 +272,5 @@ Corrections to Lupine's published figures before this handbook began are in `doc
 - **Master:** `docs/handbook/handbook.md`. Edit this file; never edit a PDF.
 - **Build:** `python scripts/build_handbook.py`. It reads `version` and `edition_date` from the top of the master. It needs one library, installed once with `pip install -r docs/handbook/requirements.txt`.
 - **Editions:** written to `docs/handbook/editions/`. The script refuses to overwrite an existing edition, so earlier PDFs are always preserved. Raise the version number for each new edition.
+- **Logo:** the cover uses `website/assets/brand/lupine-logo.png`, derived from the approved original in the same folder.
 - **Syntax:** `#` for a part, `##` and `###` for sections, `-` for bullets, `|` for tables, triple backticks for equations. A `::: yours` box holds your own words, `::: note` a side note, `::: pending` work in progress, and `\pagebreak` forces a new page. Labels in square brackets, such as `[MEASURED]`, become coloured tags.

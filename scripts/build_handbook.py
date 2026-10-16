@@ -28,20 +28,23 @@ from reportlab.lib.fonts import addMapping
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (
     BaseDocTemplate, Frame, ListFlowable, ListItem, NextPageTemplate, PageBreak,
-    PageTemplate, Paragraph, Preformatted, Spacer, Table, TableStyle,
+    Image, PageTemplate, Paragraph, Preformatted, Spacer, Table, TableStyle,
 )
 from reportlab.platypus.tableofcontents import TableOfContents
 
 ROOT = Path(__file__).resolve().parent.parent
 MASTER = ROOT / "docs" / "handbook" / "handbook.md"
 EDITIONS = ROOT / "docs" / "handbook" / "editions"
+LOGO = ROOT / "website" / "assets" / "brand" / "lupine-logo.png"   # derived from the approved original
 
 # ── look ──────────────────────────────────────────────────────────────
 NAVY, SLATE, MUTED = colors.HexColor("#0F172A"), colors.HexColor("#475569"), colors.HexColor("#64748B")
+FOREST = colors.HexColor("#1B422E")   # sampled from the logo
 RULE, PANEL, HEAD = colors.HexColor("#E2E8F0"), colors.HexColor("#F8FAFC"), colors.HexColor("#F1F5F9")
 BADGES = {  # label: (text colour, background)
     "ASSUMED":   ("#92400E", "#FEF3C7"),
@@ -312,7 +315,7 @@ class HandbookDoc(BaseDocTemplate):
 
     def _cover_page(self, canv, doc):
         canv.saveState()
-        canv.setFillColor(NAVY)
+        canv.setFillColor(FOREST)
         canv.rect(0, PAGE_H - 9 * mm, PAGE_W, 9 * mm, stroke=0, fill=1)
         canv.restoreState()
 
@@ -354,13 +357,21 @@ def build(out: Path) -> None:
     ]
     toc.dotsMinLevel = 0
 
-    story = [
-        Spacer(1, 52 * mm),
+    cover_logo = []
+    if LOGO.exists():
+        iw, ih = ImageReader(str(LOGO)).getSize()
+        logo = Image(str(LOGO), width=52 * mm, height=52 * mm * ih / iw, hAlign="LEFT")
+        cover_logo = [Spacer(1, 18 * mm), logo, Spacer(1, 14 * mm)]
+    else:
+        print(f"WARNING: logo not found at {LOGO}; cover built without it.")
+        cover_logo = [Spacer(1, 52 * mm)]
+
+    story = cover_logo + [
         Paragraph(_esc(meta["title"]), S["cover1"]),
         Paragraph(_esc(meta.get("subtitle", "")), S["cover2"]),
         Paragraph(_esc(meta.get("owner", "")), S["cover3"]),
         Paragraph(f"Edition {_esc(meta['version'])} · {pretty}", S["cover3"]),
-        Spacer(1, 70 * mm),
+        Spacer(1, 22 * mm),
         Paragraph("Editable master: <font name=\"%s\">docs/handbook/handbook.md</font>. "
                   "Earlier editions are kept in <font name=\"%s\">docs/handbook/editions/</font>."
                   % (MONO, MONO), style("coverfoot", fontSize=8.5, textColor=MUTED)),
