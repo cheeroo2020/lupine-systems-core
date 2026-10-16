@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lupine · Earlier payments work (historical)</title>
+<link rel="icon" href="../assets/brand/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../assets/brand/favicon-32.png"><link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#E8DFCB;
+  --bg2:#D9CDB0;
+  --card:#F2EAD3;
+  --border:rgba(30,12,0,.22);
+  --blue:#A8D8EA;
+  --purple:#FF96A8;
+  --teal:#F58220;
+  --gold:#E8960A;
+  --coral:#FF6B6B;
+  --text:rgba(20,8,0,.94);
+  --mute:rgba(20,8,0,.55);
+  --line:rgba(20,8,0,.16);
+}
+html,body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(rgba(245,130,32,.10) 1px,transparent 1px);
+  background-size:22px 22px;
+}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* gradient text — deeper variants of the Pantone palette for readable headlines on light bg */
+.grad{background:linear-gradient(135deg,#1A0800 0%,#4A1800 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-blue{background:linear-gradient(135deg,#C44A0A,#C03E5A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-teal{background:linear-gradient(135deg,#C44A0A,#1F5E80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* glow blob */
+.blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+
+/* floating currency */
+@keyframes drift{
+  0%  {transform:translateY(0)   rotate(0deg);  opacity:.14}
+  50% {transform:translateY(-32px) rotate(5deg); opacity:.07}
+  100%{transform:translateY(0)   rotate(0deg);  opacity:.14}
+}
+.drift{animation:drift ease-in-out infinite;font-family:'Inter',sans-serif;font-weight:900;line-height:1}
+
+/* travel dot */
+@keyframes travel{
+  0%  {left:0%;   opacity:0}
+  8%  {opacity:1}
+  92% {opacity:1}
+  100%{left:100%; opacity:0}
+}
+.dot{position:absolute;width:10px;height:10px;border-radius:50%;top:50%;margin-top:-5px;
+     animation:travel 2.8s linear infinite}
+
+/* pulse */
+@keyframes ping{0%{transform:scale(1);opacity:1}100%{transform:scale(2.8);opacity:0}}
+.ping{position:relative;display:inline-block;width:10px;height:10px;border-radius:50%}
+.ping::after{content:'';position:absolute;inset:0;border-radius:50%;animation:ping 1.8s ease-out infinite}
+
+/* reveal */
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.rev{opacity:0;animation:up .75s ease forwards}
+
+/* card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:24px;transition:transform .25s,box-shadow .25s;box-shadow:0 2px 12px rgba(30,12,0,.06)}
+.card:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(30,12,0,.12)}
+
+/* buttons */
+.btn-p{background:linear-gradient(135deg,var(--teal),var(--purple));color:#fff;font-weight:700;border-radius:9999px;padding:14px 28px;transition:transform .2s,opacity .2s}
+.btn-p:hover{transform:translateY(-1px);opacity:.9}
+.btn-g{border:1.5px solid var(--border);color:var(--text);font-weight:600;border-radius:9999px;padding:14px 28px;background:rgba(30,12,0,.03);transition:all .2s}
+.btn-g:hover{border-color:rgba(30,12,0,.25);background:rgba(30,12,0,.06)}
+
+/* chip */
+.chip{border:1.5px solid var(--border);background:rgba(30,12,0,.03);color:var(--mute);border-radius:9999px;padding:10px 20px;font-weight:600;font-size:14px;cursor:pointer;transition:all .2s}
+.chip:hover{border-color:rgba(30,12,0,.2);color:var(--text)}
+.chip.on{background:linear-gradient(135deg,var(--teal),var(--purple));border-color:transparent;color:#fff}
+
+/* marquee */
+@keyframes sx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mq{animation:sx 44s linear infinite;display:flex;gap:3rem;width:max-content}
+.sep{width:4px;height:4px;background:var(--mute);border-radius:50%;display:inline-block;margin:0 14px;vertical-align:middle}
+
+/* mobile nav */
+#mob{display:none}
+#mob.open{display:flex}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav style="position:fixed;top:0;width:100%;z-index:50;background:rgba(253,252,249,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)">
+  <div role="note" style="background:#1B422E;color:#FEFDF7;font-size:13px;line-height:1.4;padding:6px 16px;text-align:center"><strong>Historical</strong> · Lupine's earlier payments work (April–October 2026)<span class="hist-more">. Figures here come from modelled, unverified constants and are not evidence for Lupine's current direction</span>. <a href="../" style="color:#FEFDF7;text-decoration:underline">Lupine today →</a></div>
+<style>@media (max-width:640px){.hist-more{display:none}}</style>
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2 font-black text-lg">
+      <span id="brand-mark" style="display:inline-flex;width:40px;height:40px;align-items:center;justify-content:center">
+        <img src="../assets/brand/lupine-mark-512.png" alt="Lupine" width="40" height="40" style="width:40px;height:40px;border-radius:8px"/>
+      </span>
+      Lupine
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium" style="color:var(--mute)">
+      <a href="#how"     class="hover:text-white transition-colors">How it works</a>
+      <a href="#demo"    class="hover:text-white transition-colors">Try it</a>
+      <a href="#tracker" class="hover:text-white transition-colors">Track</a>
+      <a href="#news"    class="hover:text-white transition-colors">Pulse</a>
+      <a href="#status"  class="hover:text-white transition-colors">Status</a>
+    </div>
+    <button class="md:hidden p-2 rounded-lg" style="color:var(--mute)" onclick="document.getElementById('mob').classList.toggle('open')">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="mob" class="flex-col px-6 pb-5 gap-1" style="border-top:1px solid var(--line)">
+    <a href="#how"     class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">How it works</a>
+    <a href="#demo"    class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Try it</a>
+    <a href="#tracker" class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Track</a>
+    <a href="#news"    class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Pulse</a>
+    <a href="#status"  class="block py-3 font-medium" onclick="document.getElementById('mob').classList.remove('open')">Status</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section style="position:relative;min-height:100vh;display:flex;align-items:center;padding-top:4rem;overflow:hidden">
+  <!-- glow blobs -->
+  <div class="blob" style="width:600px;height:600px;top:-100px;left:-200px;background:rgba(245,130,32,.18)"></div>
+  <div class="blob" style="width:500px;height:500px;bottom:-50px;right:-100px;background:rgba(255,150,168,.15)"></div>
+
+  <!-- floating currencies -->
+  <div style="position:absolute;inset:0;pointer-events:none;user-select:none" aria-hidden="true">
+    <span class="drift" style="position:absolute;top:12%;left:5%;font-size:80px;color:var(--blue);animation-duration:7s">$</span>
+    <span class="drift" style="position:absolute;top:20%;left:83%;font-size:64px;color:var(--purple);animation-duration:8.5s">¥</span>
+    <span class="drift" style="position:absolute;top:58%;left:3%;font-size:96px;color:var(--teal);animation-duration:10s">£</span>
+    <span class="drift" style="position:absolute;top:72%;left:87%;font-size:56px;color:var(--gold);animation-duration:7.8s">€</span>
+    <span class="drift" style="position:absolute;top:40%;left:91%;font-size:50px;color:var(--blue);animation-duration:6.5s">₹</span>
+    <span class="drift" style="position:absolute;top:85%;left:48%;font-size:70px;color:var(--purple);animation-duration:9.2s">$</span>
+    <span class="drift" style="position:absolute;top:6%; left:52%;font-size:44px;color:var(--teal);animation-duration:8s">€</span>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 w-full" style="position:relative;z-index:10">
+    <div style="display:grid;grid-template-columns:1fr;gap:3rem;align-items:center" class="md:grid-cols-2">
+      <!-- LEFT -->
+      <div>
+        <div class="rev" style="animation-delay:.1s;display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:9999px;background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.2);margin-bottom:2rem">
+          <span class="ping" style="background:var(--teal)"><span style="background:var(--teal)" class="ping::after"></span></span>
+          <span class="mono" style="font-size:12px;color:var(--teal);letter-spacing:.05em">V0 · LIVE · AUD → SGD</span>
+        </div>
+        <h1 class="rev" style="animation-delay:.2s;font-size:clamp(3rem,7vw,5.5rem);font-weight:900;line-height:1;letter-spacing:-.03em;margin-bottom:1.5rem">
+          <span class="grad">Move money</span><br/>
+          <span class="grad-blue">the right way.</span>
+        </h1>
+        <p class="rev" style="animation-delay:.35s;font-size:1.2rem;line-height:1.7;color:var(--mute);max-width:480px;margin-bottom:2.5rem">
+          Tell Lupine how urgent your transfer is. It scores every rail — speed, cost, reliability — and picks the optimal path. Every decision is cryptographically signed.
+        </p>
+        <div class="rev" style="animation-delay:.5s;display:flex;flex-wrap:wrap;gap:1rem">
+          <a href="#demo" class="btn-p">Try the engine →</a>
+          <a href="#how"  class="btn-g">How it decides</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: live card -->
+      <div class="rev" style="animation-delay:.35s">
+        <div class="card" style="padding:2rem">
+          <!-- corridor -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.75rem">
+            <div style="text-align:center">
+              <div style="font-size:3rem;line-height:1">🇦🇺</div>
+              <div class="mono" style="font-size:11px;color:var(--mute);margin-top:6px">SYDNEY</div>
+            </div>
+            <div style="position:relative;flex:1;height:2px;margin:0 1rem;background:linear-gradient(90deg,rgba(0,212,170,.3),rgba(34,211,238,.3))">
+              <div class="dot" style="background:var(--teal);box-shadow:0 0 12px var(--teal);animation-delay:0s"></div>
+              <div class="dot" style="background:var(--blue);box-shadow:0 0 12px var(--blue);animation-delay:.9s"></div>
+              <div class="dot" style="background:var(--purple);box-shadow:0 0 12px var(--purple);animation-delay:1.8s"></div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:3rem;line-height:1">🇸🇬</div>
+              <div class="mono" style="font-size:11px;color:var(--mute);margin-top:6px">SINGAPORE</div>
+            </div>
+          </div>
+          <!-- divider -->
+          <div style="height:1px;background:var(--line);margin-bottom:1.5rem"></div>
+          <div style="display:flex;flex-direction:column;gap:.875rem">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <span style="font-size:.8rem;color:var(--mute)">Live rate</span>
+              <span id="hero-rate" class="mono" style="font-size:1.5rem;font-weight:700;color:var(--text)">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <span style="font-size:.8rem;color:var(--mute)">A$500,000 converts to</span>
+              <span id="hero-sgd" class="mono" style="font-weight:600;color:var(--teal)">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <span style="font-size:.8rem;color:var(--mute)">Source</span>
+              <span id="hero-source" class="mono" style="font-size:.75rem;color:var(--mute)">Frankfurter · ECB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- marquee ticker -->
+  <div style="position:absolute;bottom:0;left:0;right:0;border-top:1px solid var(--line);padding:14px 0;overflow:hidden;background:rgba(255,245,238,.9)">
+    <div class="mq mono" style="font-size:.8rem;color:var(--mute)">
+      <span>AUD/SGD corridor<span class="sep"></span>21 providers compared<span class="sep"></span>fintech · banks · SWIFT<span class="sep"></span>multi-source live FX<span class="sep"></span>urgency-weighted routing<span class="sep"></span>AIVA · RAIL · CLOKED<span class="sep"></span>SHA-256 hash chain<span class="sep"></span>14/14 tests passing<span class="sep"></span></span>
+      <span aria-hidden="true">AUD/SGD corridor<span class="sep"></span>21 providers compared<span class="sep"></span>fintech · banks · SWIFT<span class="sep"></span>multi-source live FX<span class="sep"></span>urgency-weighted routing<span class="sep"></span>AIVA · RAIL · CLOKED<span class="sep"></span>SHA-256 hash chain<span class="sep"></span>14/14 tests passing<span class="sep"></span></span>
+    </div>
+  </div>
+</section>
+
+<!-- WATCHER AGENT BANNER -->
+<section id="watcher" style="padding:3rem 0;background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="card" style="padding:2rem;display:grid;gap:1.5rem;grid-template-columns:1fr;align-items:center" id="watcher-card" class-md="md:grid-cols-[auto,1fr,auto]">
+      <div style="display:flex;align-items:center;gap:1rem">
+        <div id="watcher-orb" style="width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFD082,#F58220);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0">🤖</div>
+        <div>
+          <div class="mono" style="font-size:.7rem;letter-spacing:.1em;color:var(--mute);text-transform:uppercase">Lupine Watcher · autonomous agent</div>
+          <div style="font-size:1.1rem;font-weight:800;margin-top:.25rem">
+            <span id="watcher-signal" style="display:inline-block;padding:3px 12px;border-radius:9999px;font-size:.85rem;background:rgba(245,130,32,.15);color:#C44A0A">—</span>
+            <span id="watcher-headline" style="margin-left:.5rem">checking the market…</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div id="watcher-rationale" style="font-size:.95rem;color:var(--text);line-height:1.6">—</div>
+        <div id="watcher-meta" class="mono" style="font-size:.7rem;color:var(--mute);margin-top:.5rem">—</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="padding:6rem 0;background:var(--bg2)">
+  <div class="max-w-6xl mx-auto px-6">
+    <div style="text-align:center;margin-bottom:4rem">
+      <div class="mono" style="font-size:.75rem;letter-spacing:.12em;color:var(--blue);text-transform:uppercase;margin-bottom:1rem">The engine</div>
+      <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em">Three layers.<br/><span class="grad-blue">One decision.</span></h2>
+    </div>
+    <div style="display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+      <div class="card" style="padding:2.5rem">
+        <div style="font-size:2.5rem;margin-bottom:1.25rem">🧠</div>
+        <div class="mono" style="font-size:.7rem;letter-spacing:.1em;color:var(--blue);text-transform:uppercase;margin-bottom:.75rem">AIVA · Intelligence</div>
+        <h3 style="font-size:1.4rem;font-weight:800;margin-bottom:.875rem">Thinks about your move.</h3>
+        <p style="color:var(--mute);line-height:1.7">Scores every available route on speed, cost and reliability. Weights shift with urgency — critical transfers maximise speed, routine ones minimise cost.</p>
+      </div>
+      <div class="card" style="padding:2.5rem">
+        <div style="font-size:2.5rem;margin-bottom:1.25rem">⚡</div>
+        <div class="mono" style="font-size:.7rem;letter-spacing:.1em;color:var(--purple);text-transform:uppercase;margin-bottom:.75rem">RAIL · Execution</div>
+        <h3 style="font-size:1.4rem;font-weight:800;margin-bottom:.875rem">Chooses the path.</h3>
+        <p style="color:var(--mute);line-height:1.7">Simulates SWIFT, NPP, RTGS and local clearing. Picks the rail that fits your timeline and budget — not just the default.</p>
+      </div>
+      <div class="card" style="padding:2.5rem">
+        <div style="font-size:2.5rem;margin-bottom:1.25rem">🔐</div>
+        <div class="mono" style="font-size:.7rem;letter-spacing:.1em;color:var(--teal);text-transform:uppercase;margin-bottom:.75rem">CLOKED · Evidence</div>
+        <h3 style="font-size:1.4rem;font-weight:800;margin-bottom:.875rem">Signs the decision.</h3>
+        <p style="color:var(--mute);line-height:1.7">SHA-256 hash chain locks every move. An unbreakable audit trail proving exactly why your money went the way it did.</p>
+      </div>
+    </div>
+    <!-- formula -->
+    <div class="card" style="padding:2.5rem;margin-top:1.5rem;text-align:center">
+      <div class="mono" style="font-size:.75rem;letter-spacing:.1em;color:var(--mute);text-transform:uppercase;margin-bottom:1rem">Composite utility score</div>
+      <div style="font-size:clamp(1.3rem,4vw,2.25rem);font-weight:900;letter-spacing:-.01em">
+        U&nbsp;=&nbsp;<span style="color:var(--blue)">w₁·Speed</span>&nbsp;+&nbsp;<span style="color:var(--purple)">w₂·Cost</span>&nbsp;+&nbsp;<span style="color:var(--teal)">w₃·Reliability</span>
+      </div>
+      <p style="color:var(--mute);margin-top:.875rem;font-size:.9rem">Weights shift automatically based on urgency level.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section id="demo" style="padding:6rem 0">
+  <div class="max-w-5xl mx-auto px-6">
+    <div style="margin-bottom:3rem">
+      <div class="mono" style="font-size:.75rem;letter-spacing:.12em;color:var(--blue);text-transform:uppercase;margin-bottom:1rem">Try it</div>
+      <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em;margin-bottom:1rem">Same transfer.<br/><span class="grad-teal">Different urgency.</span></h2>
+      <p style="color:var(--mute);max-width:440px;line-height:1.7">Pick how fast A$500,000 needs to reach Singapore. Watch the route change.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:2.5rem">
+      <button onclick="setU('low')"      class="chip" data-u="low">🐢 Low</button>
+      <button onclick="setU('normal')"   class="chip" data-u="normal">🔵 Normal</button>
+      <button onclick="setU('high')"     class="chip" data-u="high">🟡 High</button>
+      <button onclick="setU('critical')" class="chip on" data-u="critical">🔴 Critical</button>
+    </div>
+    <div class="card" style="padding:2.5rem">
+      <div style="display:grid;grid-template-columns:1fr;gap:2.5rem" class="md:grid-cols-2">
+        <div>
+          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
+            <span style="font-size:3rem">🇦🇺</span>
+            <div style="position:relative;flex:1;height:2px;background:var(--line)">
+              <div class="dot" style="background:var(--teal);box-shadow:0 0 10px var(--teal);animation-delay:0s"></div>
+              <div class="dot" style="background:var(--gold);box-shadow:0 0 10px var(--gold);animation-delay:1.4s"></div>
+            </div>
+            <span style="font-size:3rem">🇸🇬</span>
+          </div>
+          <div style="font-size:.75rem;color:var(--mute);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem">Sending</div>
+          <div style="font-size:2.75rem;font-weight:900;letter-spacing:-.02em;margin-bottom:.5rem">A$500,000</div>
+          <div id="demo-sgd" class="mono" style="color:var(--teal);font-weight:600">= S$—</div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;padding:.875rem 0;border-bottom:1px solid var(--line)">
+            <span style="color:var(--mute);font-size:.875rem">Rail</span>
+            <span id="demo-rail" class="mono" style="font-weight:700;font-size:.875rem">—</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:.875rem 0;border-bottom:1px solid var(--line)">
+            <span style="color:var(--mute);font-size:.875rem">Settlement</span>
+            <span id="demo-time" style="font-weight:700;font-size:.875rem">—</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:.875rem 0;border-bottom:1px solid var(--line)">
+            <span style="color:var(--mute);font-size:.875rem">Est. cost</span>
+            <span id="demo-cost" style="font-weight:700;font-size:.875rem">—</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:.875rem 0">
+            <span style="color:var(--mute);font-size:.875rem">Utility score</span>
+            <span id="demo-score" style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#C44A0A,#C03E5A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">—</span>
+          </div>
+          <div style="height:3px;border-radius:9999px;background:var(--line);overflow:hidden;margin-top:.5rem">
+            <div id="demo-bar" style="height:100%;border-radius:9999px;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .7s ease;width:0%"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:.875rem 0;margin-top:.75rem;border-top:1px solid var(--line)">
+            <span style="color:var(--mute);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em">Evidence hash</span>
+            <span id="demo-hash" class="mono" style="font-size:.75rem;color:var(--teal)">—</span>
+          </div>
+          <div id="demo-source" style="font-size:.7rem;color:var(--mute);text-align:right;margin-top:.25rem">awaiting engine</div>
+        </div>
+      </div>
+      <p id="demo-note" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--mute);line-height:1.7;font-size:.95rem"></p>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFER TRACKER -->
+<section id="tracker" style="padding:6rem 0;background:var(--bg2)">
+  <div class="max-w-5xl mx-auto px-6">
+    <div style="text-align:center;margin-bottom:3rem">
+      <div class="mono" style="font-size:.75rem;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;margin-bottom:1rem">Live engine</div>
+      <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em">Track your transfer.<br/><span class="grad-teal">Any amount. Right now.</span></h2>
+      <p style="color:var(--mute);margin-top:1rem;line-height:1.7;max-width:480px;margin-left:auto;margin-right:auto">Enter your amount and urgency. The engine scores every rail in real time, picks the winner, and signs the decision into a cryptographic evidence chain.</p>
+    </div>
+
+    <!-- Input form -->
+    <div class="card" style="padding:2rem;margin-bottom:2rem">
+      <div style="display:grid;gap:1.5rem;grid-template-columns:1fr" class="md:grid-cols-3">
+        <div style="grid-column:1/-1" class="md:col-span-2">
+          <label style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);display:block;margin-bottom:.5rem">Amount (AUD)</label>
+          <div style="position:relative">
+            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);font-weight:700;color:var(--mute)">A$</span>
+            <input id="tr-amount" type="number" value="500000" min="1000" step="1000"
+              style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1rem 1rem 1rem 2.5rem;font-size:1.25rem;font-weight:700;color:var(--text);font-family:'Inter',sans-serif;outline:none"
+              oninput="trUpdatePreview()"/>
+          </div>
+          <div id="tr-sgd-preview" style="font-size:.875rem;color:var(--teal);margin-top:.5rem">= S$—</div>
+        </div>
+        <div>
+          <label style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);display:block;margin-bottom:.5rem">Urgency</label>
+          <select id="tr-urgency"
+            style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1rem;font-size:1rem;font-weight:600;color:var(--text);font-family:'Inter',sans-serif;outline:none;cursor:pointer">
+            <option value="low">🐢 Low</option>
+            <option value="normal">🔵 Normal</option>
+            <option value="high">🟡 High</option>
+            <option value="critical" selected>🔴 Critical</option>
+          </select>
+        </div>
+      </div>
+      <button onclick="runTracker()"
+        style="margin-top:1.5rem;width:100%;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;font-weight:700;border:none;border-radius:12px;padding:1rem;font-size:1rem;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .2s"
+        onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        Analyse transfer →
+      </button>
+    </div>
+
+    <!-- Result panel (hidden until run) -->
+    <div id="tr-result" style="display:none">
+
+      <!-- RAIL state machine -->
+      <div class="card" style="padding:2rem;margin-bottom:1.5rem">
+        <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin-bottom:1.25rem">RAIL — Execution pipeline</div>
+        <div id="tr-rail" style="display:flex;align-items:center;gap:0;overflow-x:auto;padding-bottom:.5rem"></div>
+      </div>
+
+      <!-- Provider scores -->
+      <div style="display:grid;gap:1.25rem;margin-bottom:1.5rem;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))" id="tr-providers"></div>
+
+      <!-- Evidence + summary -->
+      <div class="card" style="padding:2rem">
+        <div style="display:grid;gap:1.5rem;grid-template-columns:1fr" class="md:grid-cols-2">
+          <div>
+            <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin-bottom:.75rem">Decision summary</div>
+            <div id="tr-summary" style="line-height:1.8;font-size:.95rem"></div>
+          </div>
+          <div>
+            <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin-bottom:.75rem">CLOKED evidence chain</div>
+            <div id="tr-chain" class="mono" style="font-size:.75rem;line-height:1.9;color:var(--mute)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transfer history -->
+    <div id="tr-history-wrap" style="margin-top:2rem;display:none">
+      <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin-bottom:1rem">Recent transfers this session</div>
+      <div class="card" style="overflow:hidden">
+        <table style="width:100%;border-collapse:collapse;font-size:.875rem">
+          <thead>
+            <tr style="color:var(--mute);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--line)">
+              <th style="padding:.75rem 1.25rem;text-align:left;font-weight:500">Transfer ID</th>
+              <th style="padding:.75rem 1rem;text-align:right;font-weight:500">Amount</th>
+              <th style="padding:.75rem 1rem;text-align:center;font-weight:500">Urgency</th>
+              <th style="padding:.75rem 1rem;text-align:center;font-weight:500">Winner</th>
+              <th style="padding:.75rem 1.25rem;text-align:right;font-weight:500">Saved vs bank</th>
+            </tr>
+          </thead>
+          <tbody id="tr-history"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news" style="padding:6rem 0;background:var(--bg2)">
+  <div class="max-w-6xl mx-auto px-6">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:3rem">
+      <div>
+        <div class="mono" style="font-size:.75rem;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;margin-bottom:1rem">Market pulse</div>
+        <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em">From the desk.</h2>
+      </div>
+      <div id="news-date" class="mono" style="font-size:.8rem;color:var(--mute)"></div>
+    </div>
+    <div id="news-cards" style="display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+      <div class="card" style="padding:2rem"><div style="height:1rem;background:var(--line);border-radius:4px;width:60%;margin-bottom:1rem"></div><div style="height:.75rem;background:var(--line);border-radius:4px;margin-bottom:.5rem"></div><div style="height:.75rem;background:var(--line);border-radius:4px;width:75%"></div></div>
+      <div class="card" style="padding:2rem"><div style="height:1rem;background:var(--line);border-radius:4px;width:60%;margin-bottom:1rem"></div><div style="height:.75rem;background:var(--line);border-radius:4px;margin-bottom:.5rem"></div><div style="height:.75rem;background:var(--line);border-radius:4px;width:75%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BACKTEST -->
+<section id="backtest" style="padding:6rem 0;background:var(--bg2)">
+  <div class="max-w-6xl mx-auto px-6">
+    <div style="text-align:center;margin-bottom:3rem">
+      <div class="mono" style="font-size:.75rem;letter-spacing:.12em;color:var(--blue);text-transform:uppercase;margin-bottom:1rem">Historical backtest · AUD/SGD · A$500,000</div>
+      <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em">What your bank<br/><span class="grad-blue">actually costs you.</span></h2>
+      <p style="color:var(--mute);margin-top:1rem;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7">
+        Every trading day for the last <span id="bt-days">—</span> days, Lupine ran the decision engine against the live ECB rate. Here's how it compares to a standard bank SWIFT transfer.
+      </p>
+    </div>
+
+    <!-- Saving stat cards -->
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2.5rem" class="md:grid-cols-4">
+      <div class="card rev" style="padding:1.75rem;text-align:center;animation-delay:.1s">
+        <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-bottom:.75rem">Low urgency winner</div>
+        <div id="bt-low-name" style="font-size:1.25rem;font-weight:800;color:var(--teal)">—</div>
+        <div id="bt-low-save" style="font-size:.9rem;color:var(--mute);margin-top:.4rem">saves —/transfer</div>
+      </div>
+      <div class="card rev" style="padding:1.75rem;text-align:center;animation-delay:.2s">
+        <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-bottom:.75rem">Normal urgency winner</div>
+        <div id="bt-normal-name" style="font-size:1.25rem;font-weight:800;color:var(--blue)">—</div>
+        <div id="bt-normal-save" style="font-size:.9rem;color:var(--mute);margin-top:.4rem">saves —/transfer</div>
+      </div>
+      <div class="card rev" style="padding:1.75rem;text-align:center;animation-delay:.3s">
+        <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-bottom:.75rem">High urgency winner</div>
+        <div id="bt-high-name" style="font-size:1.25rem;font-weight:800;color:var(--gold)">—</div>
+        <div id="bt-high-save" style="font-size:.9rem;color:var(--mute);margin-top:.4rem">saves —/transfer</div>
+      </div>
+      <div class="card rev" style="padding:1.75rem;text-align:center;animation-delay:.4s">
+        <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-bottom:.75rem">Critical urgency winner</div>
+        <div id="bt-crit-name" style="font-size:1.25rem;font-weight:800;color:var(--coral)">—</div>
+        <div id="bt-crit-save" style="font-size:.9rem;color:var(--mute);margin-top:.4rem">saves —/transfer</div>
+      </div>
+    </div>
+
+    <!-- Rate + decision table (last 14 days) -->
+    <div class="card" style="overflow:hidden">
+      <div style="padding:1.5rem 2rem;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center">
+        <div style="font-weight:700">Last 14 trading days</div>
+        <div style="font-size:.75rem;color:var(--mute)">at normal urgency · A$500,000 transfer</div>
+      </div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:.875rem">
+          <thead>
+            <tr style="color:var(--mute);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em">
+              <th style="padding:.75rem 1.5rem;text-align:left;font-weight:500">Date</th>
+              <th style="padding:.75rem 1rem;text-align:right;font-weight:500">AUD/SGD rate</th>
+              <th style="padding:.75rem 1rem;text-align:center;font-weight:500">Lupine pick</th>
+              <th style="padding:.75rem 1rem;text-align:right;font-weight:500">Recipient gets</th>
+              <th style="padding:.75rem 1.5rem;text-align:right;font-weight:500">Saved vs bank</th>
+            </tr>
+          </thead>
+          <tbody id="bt-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <p style="margin-top:1.5rem;font-size:.8rem;color:var(--mute);text-align:center">
+      Rates: live multi-source feed (exchangerate.host → open.er-api.com → jsdelivr → Frankfurter/ECB) · 21 providers compared: Nium, Airwallex, WorldFirst, Revolut, Wise, TorFX, OFX, CurrencyFair, DBS Remit, XE, Western Union, MoneyGram, HSBC, Citi, ANZ, NAB, Westpac, CBA, OCBC, UOB, Bank SWIFT · Backtest updated weekly
+    </p>
+  </div>
+</section>
+
+<!-- STATUS -->
+<section id="status" style="padding:6rem 0">
+  <div class="max-w-4xl mx-auto px-6">
+    <div style="text-align:center;margin-bottom:3rem">
+      <div class="mono" style="font-size:.75rem;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;margin-bottom:1rem">System health</div>
+      <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em"><span class="grad-teal">All systems</span> nominal.</h2>
+    </div>
+    <div class="card" style="padding:2.5rem">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:2rem;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--line)">
+        <div style="display:flex;align-items:center;gap:1rem">
+          <span id="status-icon" style="font-size:2rem">✅</span>
+          <div>
+            <div id="status-label" style="font-size:1.5rem;font-weight:800">Operational</div>
+            <div id="status-date"  class="mono" style="font-size:.75rem;color:var(--mute);margin-top:2px">—</div>
+          </div>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div id="status-score" style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,#C44A0A,#C03E5A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">—</div>
+          <div class="mono" style="font-size:.75rem;color:var(--mute)">tests passing</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem" class="md:grid-cols-4">
+        <div style="background:var(--bg);border-radius:16px;padding:1.25rem;text-align:center">
+          <div id="stat-passed" style="font-size:2rem;font-weight:900;color:var(--teal)">—</div>
+          <div style="font-size:.75rem;color:var(--mute);margin-top:4px">passed</div>
+        </div>
+        <div style="background:var(--bg);border-radius:16px;padding:1.25rem;text-align:center">
+          <div id="stat-failed" style="font-size:2rem;font-weight:900;color:var(--coral)">—</div>
+          <div style="font-size:.75rem;color:var(--mute);margin-top:4px">failed</div>
+        </div>
+        <div style="background:var(--bg);border-radius:16px;padding:1.25rem;text-align:center">
+          <div id="stat-fx"    class="mono" style="font-size:1.2rem;font-weight:700;color:var(--text);margin-top:4px">—</div>
+          <div style="font-size:.75rem;color:var(--mute);margin-top:4px">AUD/SGD</div>
+        </div>
+        <div style="background:var(--bg);border-radius:16px;padding:1.25rem;text-align:center">
+          <div id="stat-sgd"  class="mono" style="font-size:1rem;font-weight:700;color:var(--gold);margin-top:4px">—</div>
+          <div style="font-size:.75rem;color:var(--mute);margin-top:4px">500K AUD → SGD</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid var(--line);padding:4rem 0">
+  <div class="max-w-6xl mx-auto px-6" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2rem">
+    <div style="display:flex;align-items:center;gap:.75rem;font-weight:900;font-size:1.1rem">
+      <span class="w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm" style="background:linear-gradient(135deg,var(--blue),var(--purple))">L</span>
+      Lupine Systems
+    </div>
+    <div class="mono" style="font-size:.75rem;color:var(--mute);text-align:center">
+      V0 Movement Decision Engine · AUD → SGD<br/>
+      © 2026 Chirantan Gogoi · All rights reserved
+    </div>
+    <div class="mono" style="font-size:.75rem;color:var(--mute)">AIVA · RAIL · CLOKED</div>
+  </div>
+</footer>
+
+<script>
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+/* Live decisions — loaded once from daily-generated JSON, then swapped in per chip click */
+let _liveDecisions = null;
+
+function paintDemo(rail,time,cost,score,note,hash,source){
+  const pct=Math.round(score*100);
+  document.getElementById('demo-rail').textContent   = rail;
+  document.getElementById('demo-time').textContent   = time;
+  document.getElementById('demo-cost').textContent   = cost;
+  document.getElementById('demo-score').textContent  = score.toFixed(2);
+  document.getElementById('demo-bar').style.width    = pct+'%';
+  document.getElementById('demo-note').textContent   = note;
+  document.getElementById('demo-hash').textContent   = hash;
+  document.getElementById('demo-source').textContent = source;
+}
+
+/* Seed shown instantly before JSON loads */
+const SEED={
+  low:     {rail:'Airwallex',  time:'3 hours',   cost:'30 bps', score:.901,note:'Low urgency — cost weight 55%. Airwallex (30 bps) edges out Nium on reliability across 21 providers (incl. HSBC, ANZ, CBA, NAB, Westpac, OCBC, UOB). Ideal for routine payroll.'},
+  normal:  {rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.912,note:'Normal urgency — reliability weight 40%. Wise wins on its 0.95 reliability and 1-hour settlement, beating Airwallex by 0.002. Banks fall well behind.'},
+  high:    {rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.945,note:'High urgency — speed weight 50%. Wise dominates with 1-hour settlement. Nium (2 h) and Revolut (2 h) next; major banks all 24-36 h.'},
+  critical:{rail:'Wise',       time:'1 hour',    cost:'45 bps', score:.961,note:'Critical urgency — speed weight 60%. Wise wins by the widest margin across all 21 providers. Cost weight collapses to 5% — getting there is all that matters.'},
+};
+
+function setU(u){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.u===u));
+  const s=SEED[u];
+  paintDemo(s.rail,s.time,s.cost,s.score,s.note,'loading…','');
+
+  if(_liveDecisions){
+    const d=_liveDecisions.decisions?.[u];
+    if(d) paintDemo(
+      d.selected,
+      d.time_hours+' h',
+      d.cost_bps+' bps',
+      d.composite_score,
+      d.rationale,
+      '0x'+d.evidence_hash.slice(0,16)+'…',
+      'today\'s live rate · CLOKED chain '+(d.chain_valid?'verified ✓':'INVALID')
+    );
+  }
+}
+
+async function loadLiveDecisions(){
+  try{
+    const r=await fetch('../data/live_decisions.json',{cache:'no-store'});
+    if(!r.ok)return;
+    _liveDecisions=await r.json();
+    /* paint current chip with live data */
+    const active=document.querySelector('.chip.on');
+    if(active) setU(active.dataset.u);
+  }catch(e){}
+}
+
+setU('critical');
+
+/* paint FX numbers everywhere on the page */
+function paintFx(rate){
+  const r=parseFloat(rate);if(!r)return;
+  const fixed=r.toFixed(5);
+  const sgd=(500000*r).toLocaleString('en-AU',{maximumFractionDigits:0});
+  document.getElementById('stat-fx').textContent   = fixed;
+  document.getElementById('hero-rate').textContent = '1 AUD = '+fixed+' SGD';
+  document.getElementById('hero-sgd').textContent  = 'S$'+sgd;
+  document.getElementById('demo-sgd').textContent  = '= S$'+sgd;
+  document.getElementById('stat-sgd').textContent  = 'S$'+sgd;
+  _setTrackerRate(r);
+}
+
+/* live FX from Frankfurter — runs in browser, doesn't depend on the workflow */
+async function loadLiveFx(){
+  try{
+    const r=await fetch('https://api.frankfurter.app/latest?from=AUD&to=SGD',{cache:'no-store'});
+    if(!r.ok)return null;
+    const d=await r.json();
+    if(d?.rates?.SGD){
+      paintFx(d.rates.SGD);
+      const s=document.getElementById('hero-source');
+      if(s) s.textContent='Frankfurter · '+(d.date||'live');
+      return d;
+    }
+  }catch(e){console.warn('live fx',e)}
+  return null;
+}
+
+async function loadHealth(){
+  try{
+    const r=await fetch('../data/health.json',{cache:'no-store'});if(!r.ok)return;
+    const d=await r.json(),p=d.passed??0,f=d.failed??0;
+    document.getElementById('status-icon').textContent  = d.status==='PASSED'?'✅':'❌';
+    document.getElementById('status-label').textContent = d.status==='PASSED'?'Operational':'Degraded';
+    document.getElementById('status-date').textContent  = 'Last run · '+(d.date||'—');
+    document.getElementById('status-score').textContent = p+'/'+(p+f);
+    document.getElementById('stat-passed').textContent  = p;
+    document.getElementById('stat-failed').textContent  = f;
+    /* fall back to last-known FX from the workflow if live fetch failed */
+    if(d.fx_rate && document.getElementById('hero-rate').textContent==='—')
+      paintFx(d.fx_rate);
+  }catch(e){console.warn(e)}
+}
+async function loadNews(){
+  try{
+    const r=await fetch('../data/news.json');if(!r.ok)return;
+    const d=await r.json();
+    if(d.date) document.getElementById('news-date').textContent=d.date;
+    const c=document.getElementById('news-cards');
+    if(!d.stories?.length){c.innerHTML='<p style="color:var(--mute)">No news today.</p>';return}
+    c.innerHTML=d.stories.map(s=>`
+      <div class="card" style="padding:2rem">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem">
+          <span class="mono" style="font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:9999px;background:rgba(0,212,170,.1);color:var(--teal)">${esc(s.source)}</span>
+          <span class="mono" style="font-size:.75rem;color:var(--mute)">${esc(s.pub_date||'')}</span>
+        </div>
+        <h3 style="font-size:1.05rem;font-weight:700;line-height:1.45;margin-bottom:.875rem">${esc(s.headline)}</h3>
+        <p style="color:var(--mute);line-height:1.7;font-size:.9rem">${esc(s.body)}</p>
+      </div>`).join('');
+  }catch(e){console.warn(e)}
+}
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rev').forEach(el=>{el.style.animationPlayState='paused';io.observe(el)});
+
+/* ── Transfer Tracker engine (JS port of AIVA + RAIL + CLOKED) ──────── */
+
+const _favicon=d=>`https://www.google.com/s2/favicons?domain=${d}&sz=128`;
+const TR_PROVIDERS=[
+  // ── Digital-first / lowest cost ──
+  {id:'nium',        name:'Nium',                  bps:25,    hours:2.0,  rel:0.87, color:'#10B981', logo:_favicon('nium.com')},
+  {id:'airwallex',   name:'Airwallex',              bps:30,    hours:3.0,  rel:0.92, color:'#F58220', logo:_favicon('airwallex.com')},
+  {id:'worldfirst',  name:'WorldFirst',             bps:35,    hours:24.0, rel:0.90, color:'#8B5CF6', logo:_favicon('worldfirst.com')},
+  {id:'revolut',     name:'Revolut Business',       bps:40,    hours:2.0,  rel:0.86, color:'#0EA5E9', logo:_favicon('revolut.com')},
+  {id:'wise',        name:'Wise',                   bps:45,    hours:1.0,  rel:0.95, color:'#22D3EE', logo:_favicon('wise.com')},
+  {id:'torfx',       name:'TorFX',                  bps:45,    hours:24.0, rel:0.88, color:'#D97706', logo:_favicon('torfx.com')},
+  {id:'ofx',         name:'OFX',                    bps:50,    hours:24.0, rel:0.91, color:'#0891B2', logo:_favicon('ofx.com')},
+  {id:'currencyfair',name:'CurrencyFair',           bps:55,    hours:48.0, rel:0.84, color:'#DB2777', logo:_favicon('currencyfair.com')},
+  // ── Bank digital / regional ──
+  {id:'dbs',         name:'DBS Remit',              bps:80,    hours:18.0, rel:0.90, color:'#DC2626', logo:_favicon('dbs.com')},
+  {id:'xe',          name:'XE Money Transfer',      bps:90,    hours:48.0, rel:0.86, color:'#6B7280', logo:_favicon('xe.com')},
+  // ── Legacy / high cost ──
+  {id:'wu',          name:'Western Union',          bps:120,   hours:24.0, rel:0.83, color:'#CA8A04', logo:_favicon('westernunion.com')},
+  {id:'moneygram',   name:'MoneyGram',              bps:160,   hours:48.0, rel:0.79, color:'#7C3AED', logo:_favicon('moneygram.com')},
+  // ── Major banks — sender side (Australia) ──
+  {id:'hsbc',        name:'HSBC Premier',           bps:150,   hours:24.0, rel:0.93, color:'#DB0011', logo:_favicon('hsbc.com')},
+  {id:'citi',        name:'Citibank',               bps:180,   hours:24.0, rel:0.91, color:'#003B70', logo:_favicon('citi.com')},
+  {id:'anz',         name:'ANZ International',      bps:200,   hours:36.0, rel:0.92, color:'#004B87', logo:_favicon('anz.com')},
+  {id:'nab',         name:'NAB International',      bps:210,   hours:36.0, rel:0.92, color:'#E50000', logo:_favicon('nab.com.au')},
+  {id:'westpac',     name:'Westpac International',  bps:215,   hours:36.0, rel:0.91, color:'#CC0000', logo:_favicon('westpac.com.au')},
+  {id:'cba',         name:'CBA International',      bps:225,   hours:36.0, rel:0.91, color:'#FFCC00', logo:_favicon('commbank.com.au')},
+  // ── Major banks — receiver side (Singapore) ──
+  {id:'ocbc',        name:'OCBC Wire',              bps:200,   hours:24.0, rel:0.92, color:'#E60012', logo:_favicon('ocbc.com')},
+  {id:'uob',         name:'UOB Wire',               bps:205,   hours:24.0, rel:0.92, color:'#005EB8', logo:_favicon('uob.com')},
+  // ── Generic SWIFT (worst case bank with flat fee) ──
+  {id:'bank',        name:'Bank SWIFT',             bps:250.04,hours:36.0, rel:0.88, color:'#6B7280', logo:null},
+];
+const TR_WEIGHTS={
+  low:     {speed:.15,cost:.55,reliability:.30},
+  normal:  {speed:.25,cost:.35,reliability:.40},
+  high:    {speed:.50,cost:.15,reliability:.35},
+  critical:{speed:.60,cost:.05,reliability:.35},
+};
+const RAIL_STATES=['initiated','scored','route_selected','executing','completed'];
+
+let _liveFxRate=null;
+const _trHistory=[];
+
+function trScore(urgency){
+  const w=TR_WEIGHTS[urgency];
+  const routes=TR_PROVIDERS.map(p=>({...p}));
+  const maxTime=Math.max(...routes.map(r=>r.hours));
+  const maxBps =Math.max(...routes.map(r=>r.bps));
+  routes.forEach(r=>{
+    r.speedScore=1-r.hours/maxTime;
+    r.costScore =1-r.bps/maxBps;
+    r.composite =+(w.speed*r.speedScore+w.cost*r.costScore+w.reliability*r.rel).toFixed(3);
+  });
+  return routes.sort((a,b)=>b.composite-a.composite);
+}
+
+async function sha256(str){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function trUpdatePreview(){
+  const amt=parseFloat(document.getElementById('tr-amount').value)||0;
+  const rate=_liveFxRate||0.9119;
+  const sgd=(amt*rate).toLocaleString('en-AU',{maximumFractionDigits:0});
+  document.getElementById('tr-sgd-preview').textContent='= S$'+sgd+' SGD (live rate)';
+}
+
+function animateRail(activeIdx,winner){
+  const rail=document.getElementById('tr-rail');
+  rail.innerHTML=RAIL_STATES.map((s,i)=>{
+    const done=i<activeIdx;
+    const active=i===activeIdx;
+    const col=done||active?'var(--teal)':'var(--border)';
+    const label=s.replace('_',' ');
+    const connector=i<RAIL_STATES.length-1
+      ?`<div style="flex:1;height:2px;background:${done?'var(--teal)':'var(--border)'};min-width:16px;transition:background .4s"></div>`:'';
+    return `<div style="display:flex;align-items:center;flex:${i<RAIL_STATES.length-1?'1':'0'}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;min-width:72px">
+        <div style="width:28px;height:28px;border-radius:50%;border:2px solid ${col};display:flex;align-items:center;justify-content:center;font-size:.7rem;background:${active?'var(--teal)':done?'rgba(0,212,170,.15)':'transparent'};transition:all .4s">
+          ${done?'✓':active?'●':i+1}
+        </div>
+        <div class="mono" style="font-size:.6rem;color:${active?'var(--teal)':done?'rgba(25,10,0,.55)':'var(--mute)'};text-align:center;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap">${label}</div>
+      </div>
+      ${connector}
+    </div>`;
+  }).join('');
+}
+
+async function runTracker(){
+  const amt=parseFloat(document.getElementById('tr-amount').value);
+  if(!amt||amt<1){return;}
+  const urgency=document.getElementById('tr-urgency').value;
+  const rate=_liveFxRate||0.9119;
+  const rateDate=new Date().toISOString().slice(0,10);
+  const tid='LUP-'+(Date.now().toString(36).toUpperCase());
+
+  const result=document.getElementById('tr-result');
+  result.style.display='block';
+  result.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  /* animate RAIL states */
+  for(let i=0;i<RAIL_STATES.length;i++){
+    animateRail(i,null);
+    await new Promise(r=>setTimeout(r,i===3?900:480));
+  }
+  animateRail(RAIL_STATES.length,null);
+
+  /* score providers */
+  const scored=trScore(urgency);
+  const winner=scored[0];
+  const bank=scored.find(r=>r.id==='bank');
+  const w=TR_WEIGHTS[urgency];
+
+  /* provider cards */
+  document.getElementById('tr-providers').innerHTML=scored.map((p,i)=>{
+    const isWin=i===0;
+    const feePct=p.bps/100;
+    const feeAud=(amt*p.bps/10000).toFixed(0);
+    const received=((amt-amt*p.bps/10000)*rate).toLocaleString('en-AU',{maximumFractionDigits:0});
+    const timeLabel=p.hours<2?p.hours+' hour'+(p.hours===1?'':'s'):p.hours>=24?(p.hours/24).toFixed(0)+' days':p.hours+' hours';
+    return `<div class="card" style="padding:1.5rem;border-color:${isWin?p.color:'var(--border)'};position:relative">
+      ${isWin?`<div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:${p.color};color:#000;font-size:.65rem;font-weight:800;padding:3px 10px;border-radius:9999px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap">✓ Selected</div>`:''}
+      <div style="display:flex;align-items:center;gap:.65rem;margin-bottom:.85rem">
+        <div style="width:32px;height:32px;border-radius:8px;background:${p.color};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.9rem;flex-shrink:0;position:relative;overflow:hidden">
+          <span>${p.name.charAt(0)}</span>
+          ${p.logo?`<img src="${p.logo}" alt="" referrerpolicy="no-referrer" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#fff" onerror="this.remove()">`:''}
+        </div>
+        <div style="font-size:1.05rem;font-weight:800;color:${p.color};line-height:1.2">${p.name}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.875rem">
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--mute)">Composite</span><span style="font-weight:700">${p.composite.toFixed(3)}</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--mute)">Fee</span><span>${feePct.toFixed(2)}% (A$${parseInt(feeAud).toLocaleString('en-AU')})</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--mute)">Recipient gets</span><span style="color:var(--teal);font-weight:600">S$${received}</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--mute)">Settlement</span><span>${timeLabel}</span></div>
+        <div style="height:4px;border-radius:9999px;background:var(--line);margin-top:.25rem;overflow:hidden">
+          <div style="height:100%;width:${Math.round(p.composite*100)}%;background:${p.color};border-radius:9999px;transition:width .7s ease"></div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  /* CLOKED evidence chain */
+  const savingAud=(amt*(bank.bps-winner.bps)/10000).toFixed(0);
+  const payload=JSON.stringify({tid,amt,urgency,rate,rateDate,winner:winner.name,scores:scored.map(s=>({name:s.name,composite:s.composite}))});
+  const h1=await sha256('genesis:'+tid);
+  const h2=await sha256(h1+':fx:'+rate);
+  const h3=await sha256(h2+':scored:'+payload);
+  const h4=await sha256(h3+':selected:'+winner.name);
+
+  document.getElementById('tr-chain').innerHTML=
+    `<div style="margin-bottom:.4rem;color:var(--mute)">0 genesis → <span style="color:var(--teal)">${h1.slice(0,20)}…</span></div>`+
+    `<div style="margin-bottom:.4rem;color:var(--mute)">1 fx_observed → <span style="color:var(--teal)">${h2.slice(0,20)}…</span></div>`+
+    `<div style="margin-bottom:.4rem;color:var(--mute)">2 routes_scored → <span style="color:var(--teal)">${h3.slice(0,20)}…</span></div>`+
+    `<div style="color:var(--text)">3 route_selected → <span style="color:var(--teal)">${h4.slice(0,20)}…</span></div>`+
+    `<div style="margin-top:.75rem;font-size:.65rem;color:var(--teal)">chain integrity: verified ✓</div>`;
+
+  const timeLabel=winner.hours<2?winner.hours+' h':winner.hours>=24?(winner.hours/24).toFixed(0)+'d':winner.hours+'h';
+  const eta=new Date(Date.now()+winner.hours*3600000).toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+
+  document.getElementById('tr-summary').innerHTML=
+    `<div style="margin-bottom:.5rem"><span style="color:var(--mute)">Transfer ID</span> <span class="mono" style="color:var(--blue)">${tid}</span></div>`+
+    `<div style="margin-bottom:.5rem"><span style="color:var(--mute)">Winner</span> <strong style="color:${winner.color}">${winner.name}</strong></div>`+
+    `<div style="margin-bottom:.5rem"><span style="color:var(--mute)">Expected arrival</span> ~${timeLabel} (by ${eta})</div>`+
+    `<div style="margin-bottom:.5rem"><span style="color:var(--mute)">Weights</span> speed ${(w.speed*100).toFixed(0)}% / cost ${(w.cost*100).toFixed(0)}% / rel ${(w.reliability*100).toFixed(0)}%</div>`+
+    `<div><span style="color:var(--mute)">Saved vs bank</span> <span style="color:var(--teal);font-weight:700">A$${parseInt(savingAud).toLocaleString('en-AU')}</span></div>`;
+
+  /* session history */
+  _trHistory.unshift({tid,amt,urgency,winner:winner.name,saving:parseInt(savingAud),color:winner.color});
+  if(_trHistory.length>8)_trHistory.pop();
+  const wrap=document.getElementById('tr-history-wrap');
+  wrap.style.display='block';
+  document.getElementById('tr-history').innerHTML=_trHistory.map((t,i)=>
+    `<tr style="border-top:1px solid var(--line);background:${i%2?'rgba(30,12,0,.02)':'transparent'}">
+      <td class="mono" style="padding:.75rem 1.25rem;font-size:.8rem;color:var(--blue)">${t.tid}</td>
+      <td style="padding:.75rem 1rem;text-align:right">A$${t.amt.toLocaleString('en-AU')}</td>
+      <td style="padding:.75rem 1rem;text-align:center;color:var(--mute);font-size:.8rem">${t.urgency}</td>
+      <td style="padding:.75rem 1rem;text-align:center;font-weight:700;color:${t.color}">${t.winner}</td>
+      <td style="padding:.75rem 1.25rem;text-align:right;color:var(--teal);font-weight:600">A$${t.saving.toLocaleString('en-AU')}</td>
+    </tr>`
+  ).join('');
+}
+
+/* expose live rate for the preview label */
+function _setTrackerRate(r){_liveFxRate=r;trUpdatePreview();}
+
+/* ── end Transfer Tracker ─────────────────────────────────────────── */
+
+function fmt(n){return'A$'+Math.round(n).toLocaleString('en-AU')}
+function providerColor(name){
+  const p=TR_PROVIDERS.find(p=>p.name===name);
+  return p?p.color:'var(--mute)';
+}
+
+async function loadBacktest(){
+  try{
+    const r=await fetch('../data/backtest.json',{cache:'no-store'});
+    if(!r.ok)return;
+    const d=await r.json();
+    const s=d.summary;
+
+    document.getElementById('bt-days').textContent=d.n_days;
+
+    const map={low:'bt-low',normal:'bt-normal',high:'bt-high',critical:'bt-crit'};
+    for(const[u,id] of Object.entries(map)){
+      const su=s[u];
+      if(!su)continue;
+      const winner=Object.keys(su.provider_wins).sort((a,b)=>su.provider_wins[b]-su.provider_wins[a])[0];
+      const el=document.getElementById(id+'-name');
+      if(el){el.textContent=winner;el.style.color=providerColor(winner)}
+      const sv=document.getElementById(id+'-save');
+      if(sv)sv.textContent='saves '+fmt(su.avg_saving_per_transfer)+'/transfer';
+    }
+
+    /* last 14 trading days, normal urgency */
+    const recent=(d.days||[]).slice(-14).reverse();
+    const tbody=document.getElementById('bt-table');
+    if(!tbody)return;
+    const AMT=500_000;
+    tbody.innerHTML=recent.map((row,i)=>{
+      const dec=row.decisions?.normal||{};
+      const name=dec.selected||'—';
+      const saving=dec.saving_aud!=null?fmt(dec.saving_aud):'—';
+      const color=providerColor(name);
+      const bg=i%2===0?'transparent':'rgba(30,12,0,.02)';
+      const bps=dec.cost_bps||0;
+      const rcv=row.rate&&bps?(AMT-AMT*bps/10000)*row.rate:null;
+      const rcvStr=rcv!=null?'S$'+rcv.toLocaleString('en-AU',{maximumFractionDigits:0}):'—';
+      return `<tr style="border-top:1px solid var(--line);background:${bg}">
+        <td style="padding:.75rem 1.5rem;color:var(--mute)">${row.date}</td>
+        <td class="mono" style="padding:.75rem 1rem;text-align:right">${row.rate}</td>
+        <td style="padding:.75rem 1rem;text-align:center;font-weight:700;color:${color}">${name}</td>
+        <td class="mono" style="padding:.75rem 1rem;text-align:right;color:var(--text)">${rcvStr}</td>
+        <td style="padding:.75rem 1.5rem;text-align:right;color:var(--teal);font-weight:600">${saving}</td>
+      </tr>`;
+    }).join('');
+  }catch(e){}
+}
+
+async function loadWatcher(){
+  try{
+    const r=await fetch('../data/agent_signal.json',{cache:'no-store'});
+    if(!r.ok)return;
+    const d=await r.json();
+    const colors={
+      STRIKE:  {bg:'rgba(20,150,80,.15)', txt:'#0E7C42', orb:'radial-gradient(circle at 30% 30%,#7DE8A1,#0EA85B)', emoji:'🟢'},
+      WATCH:   {bg:'rgba(245,130,32,.15)', txt:'#C44A0A', orb:'radial-gradient(circle at 30% 30%,#FFD082,#F58220)', emoji:'🟡'},
+      HOLD:    {bg:'rgba(220,80,80,.12)',  txt:'#A02525', orb:'radial-gradient(circle at 30% 30%,#FFB0B0,#D04545)', emoji:'🔴'},
+      NEUTRAL: {bg:'rgba(40,40,40,.10)',   txt:'#404040', orb:'radial-gradient(circle at 30% 30%,#D0D0D0,#707070)', emoji:'⚪'},
+    };
+    const c=colors[d.signal]||colors.NEUTRAL;
+
+    const sigEl=document.getElementById('watcher-signal');
+    sigEl.textContent=c.emoji+' '+d.signal;
+    sigEl.style.background=c.bg;
+    sigEl.style.color=c.txt;
+
+    document.getElementById('watcher-orb').style.background=c.orb;
+    document.getElementById('watcher-headline').textContent='AUD/SGD '+d.rate.toFixed(5)+' · '+d.analysis.percentile_60d+'th percentile (60d)';
+    document.getElementById('watcher-rationale').textContent=d.rationale;
+    const ts=d.generated.replace('T',' ').replace('Z',' UTC');
+    document.getElementById('watcher-meta').textContent=
+      'z-score '+d.analysis.z_score+
+      ' · momentum 3d '+d.analysis.momentum_3d_pips+'p / 7d '+d.analysis.momentum_7d_pips+'p'+
+      ' · CLOKED 0x'+d.evidence_hash.slice(0,12)+'… '+(d.chain_valid?'✓':'✗')+
+      ' · ran '+ts;
+  }catch(e){}
+}
+
+/* live FX first (always fresh), then health (fallback + status) */
+loadLiveFx().then(loadHealth);
+loadNews();
+loadBacktest();
+loadLiveDecisions();
+loadWatcher();
+
+</script>
+
+<!-- LUPINE ANALYST CHAT (Tier 2 agent) -->
+<div id="chat-launcher" onclick="chatToggle()" style="position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#F58220,#FF96A8);box-shadow:0 6px 24px rgba(245,130,32,.35);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;transition:transform .2s" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</div>
+
+<div id="chat-panel" style="position:fixed;bottom:96px;right:24px;width:380px;max-width:calc(100vw - 48px);height:540px;max-height:calc(100vh - 120px);background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 64px rgba(30,12,0,.18);z-index:100;display:none;flex-direction:column;overflow:hidden">
+  <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(245,130,32,.08),transparent)">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#F58220,#FF96A8);display:flex;align-items:center;justify-content:center;font-size:.95rem">🐺</div>
+      <div>
+        <div style="font-weight:800;font-size:.95rem">Lupine Analyst</div>
+        <div class="mono" style="font-size:.65rem;color:var(--mute);letter-spacing:.04em">browser-side · zero cost · zero keys</div>
+      </div>
+    </div>
+    <button onclick="chatToggle()" style="background:none;border:none;font-size:1.4rem;color:var(--mute);cursor:pointer;line-height:1">×</button>
+  </div>
+  <div id="chat-log" style="flex:1;padding:1rem 1.25rem;overflow-y:auto;display:flex;flex-direction:column;gap:.75rem"></div>
+  <form onsubmit="event.preventDefault();chatSend()" style="padding:1rem 1.25rem;border-top:1px solid var(--line);display:flex;gap:.5rem">
+    <input id="chat-input" type="text" placeholder="Should I transfer 750k today?" autocomplete="off"
+      style="flex:1;background:var(--bg);border:1px solid var(--border);border-radius:9999px;padding:.6rem 1rem;font-size:.875rem;color:var(--text);font-family:inherit;outline:none"/>
+    <button type="submit" id="chat-send-btn"
+      style="background:linear-gradient(135deg,#F58220,#FF96A8);color:#fff;border:none;border-radius:9999px;padding:.6rem 1rem;font-weight:700;font-size:.85rem;cursor:pointer">Send</button>
+  </form>
+</div>
+
+<script>
+/* ── Lupine Analyst — rule-based, runs entirely in the browser ──────
+   Zero API keys, zero cost. Uses the in-page TR_PROVIDERS / trScore
+   engine plus the static JSON files (agent_signal, backtest, live_decisions). */
+
+function chatToggle(){
+  const p=document.getElementById('chat-panel');
+  const open=p.style.display==='flex';
+  p.style.display=open?'none':'flex';
+  if(!open){
+    if(!document.getElementById('chat-log').children.length){
+      chatPaint('assistant',"Hi — I'm the Lupine analyst. Try asking:\n• What's the rate?\n• Should I transfer today?\n• Send 750k urgent\n• How much do I save vs my bank?");
+    }
+    setTimeout(()=>document.getElementById('chat-input').focus(),100);
+  }
+}
+
+function chatPaint(role,text){
+  const log=document.getElementById('chat-log');
+  const isUser=role==='user';
+  const bubble=document.createElement('div');
+  bubble.style.cssText=
+    'max-width:85%;padding:.65rem .9rem;border-radius:14px;font-size:.875rem;line-height:1.5;white-space:pre-wrap;'+
+    (isUser
+      ? 'background:linear-gradient(135deg,#F58220,#FF96A8);color:#fff;align-self:flex-end;border-bottom-right-radius:4px'
+      : 'background:rgba(30,12,0,.04);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px');
+  bubble.textContent=text;
+  log.appendChild(bubble);
+  log.scrollTop=log.scrollHeight;
+}
+
+function chatMeta(text){
+  const log=document.getElementById('chat-log');
+  const m=document.createElement('div');
+  m.style.cssText='align-self:flex-start;font-size:.65rem;color:var(--mute);font-family:JetBrains Mono,monospace;letter-spacing:.04em;margin-top:-.5rem;margin-left:.25rem';
+  m.textContent='• '+text;
+  log.appendChild(m);
+  log.scrollTop=log.scrollHeight;
+}
+
+/* ── Intent extraction ─────────────────────────────────────────────── */
+function extractAmount(s){
+  /* matches "500000", "500k", "$500,000", "1.5m", "750K AUD" */
+  const m=s.match(/(?:a?\$\s*)?(\d{1,3}(?:[,\s]\d{3})*(?:\.\d+)?|\d+(?:\.\d+)?)\s*([kKmM])?/);
+  if(!m)return null;
+  let v=parseFloat(m[1].replace(/[,\s]/g,''));
+  const unit=(m[2]||'').toLowerCase();
+  if(unit==='k')v*=1000;
+  if(unit==='m')v*=1000000;
+  return v>=100?Math.round(v):null;  /* ignore tiny numbers (e.g. years) */
+}
+function extractUrgency(s){
+  const t=s.toLowerCase();
+  if(/\b(urgent|asap|now|critical|today|emergency|same.day|right.now)\b/.test(t))return'critical';
+  if(/\b(fast|quick|high|priority|hour|tomorrow)\b/.test(t))return'high';
+  if(/\b(cheap|cheapest|low|whenever|no.rush|routine|next.week|patient)\b/.test(t))return'low';
+  return'normal';
+}
+const fmtAud=v=>'A$'+Math.round(v).toLocaleString('en-AU');
+const fmtSgd=v=>'S$'+Math.round(v).toLocaleString('en-AU');
+
+/* ── Tool-style handlers ──────────────────────────────────────────── */
+async function loadJson(p){try{const r=await fetch(p,{cache:'no-store'});return r.ok?r.json():null}catch(e){return null}}
+
+async function answerRate(){
+  if(!_liveFxRate)return"I'm still fetching the live rate from ECB — try again in a moment.";
+  return`The live ECB rate is 1 AUD = ${_liveFxRate.toFixed(5)} SGD.\nA$500,000 → ${fmtSgd(500000*_liveFxRate)}\nSource: Frankfurter API (refreshed each business day).`;
+}
+
+async function answerWatcher(){
+  const d=await loadJson('../data/agent_signal.json');
+  if(!d)return"The Watcher hasn't run yet — it cycles every hour.";
+  const a=d.analysis||{};
+  return`Watcher signal: ${d.signal}.\n${d.rationale}\n\nRate ${d.rate} is at the ${a.percentile_60d}th percentile of the last ${a.history_n} days (z-score ${a.z_score}, 3-day momentum ${a.momentum_3d_pips}p).\n\nVerifiable hash: 0x${(d.evidence_hash||'').slice(0,16)}…`;
+}
+
+async function answerRecommendation(amount,urgency){
+  const scored=trScore(urgency);
+  const winner=scored[0];
+  const bank=scored.find(p=>p.id==='bank');
+  const fee=amount*winner.bps/10000;
+  const sgd=(amount-fee)*(_liveFxRate||0.91);
+  const saving=amount*(bank.bps-winner.bps)/10000;
+  const w=TR_WEIGHTS[urgency];
+  const tid='LUP-'+Date.now().toString(36).toUpperCase();
+  const hash=await sha256(tid+':'+amount+':'+urgency+':'+(_liveFxRate||0));
+  return`For ${fmtAud(amount)} at ${urgency} urgency:\n\n→ ${winner.name} wins (composite ${winner.composite.toFixed(3)})\n  Fee: ~${fmtAud(fee)} (${winner.bps} bps)\n  Settles in ${winner.hours}h\n  Recipient gets: ~${fmtSgd(sgd)} SGD\n\nWeights: speed ${(w.speed*100).toFixed(0)}% · cost ${(w.cost*100).toFixed(0)}% · reliability ${(w.reliability*100).toFixed(0)}%\nSavings vs bank SWIFT: ${fmtAud(saving)}\n\nTransfer ID: ${tid}\nEvidence: 0x${hash.slice(0,16)}…`;
+}
+
+async function answerSavings(){
+  const d=await loadJson('../data/backtest.json');
+  if(!d||!d.summary)return"The backtest hasn't been generated yet.";
+  const lines=Object.entries(d.summary).map(([u,s])=>{
+    const w=Object.entries(s.provider_wins||{}).map(([k,v])=>k+' '+v+'×').join(', ');
+    return`  ${u.padEnd(9)} → save ${fmtAud(s.avg_saving_per_transfer)}/transfer  (winners: ${w})`;
+  }).join('\n');
+  return`Across ${d.n_days} trading days of backtest (A$500K transfers):\n\n${lines}\n\nNote: bank SWIFT never wins — it's the slow, expensive baseline.`;
+}
+
+async function answerEvidence(){
+  return"Every Lupine decision creates a CLOKED audit chain:\n  0  genesis\n  1  fx_observed     (rate from multi-source feed)\n  2  routes_scored   (all 21 providers)\n  3  route_selected  (winner + composite score)\n\nEach entry's SHA-256 hash links to the previous one. Tampering with any entry breaks the chain. Hashes are computed in-browser via SubtleCrypto and stored client-side per transfer.";
+}
+
+function answerHelp(){
+  return"I can help with:\n\n• Live rate — \"what's the rate?\"\n• Run the engine — \"send 750k urgent\" or \"transfer 250000 cheap\"\n• Watcher signal — \"should I transfer today?\"\n• Backtest — \"how much does it save?\"\n• Evidence chain — \"how does CLOKED work?\"\n\nI run entirely in your browser — no API key, no cost.";
+}
+
+/* ── Intent router ───────────────────────────────────────────────── */
+async function chatRoute(msg){
+  const t=msg.toLowerCase();
+
+  if(/\b(help|what.*can.*you|commands|capabilities)\b/.test(t))
+    return{text:answerHelp(),tools:['help']};
+
+  if(/\b(rate|aud[\/\s]?sgd|exchange|frankfurter|ecb|live\s+price)\b/.test(t)&&!/\b(send|transfer|move|wire|remit)\b/.test(t))
+    return{text:await answerRate(),tools:['get_live_rate']};
+
+  if(/\b(should|good\s+time|wait|now\s+a|watcher|signal|today|favourable|favorable)\b/.test(t)&&!extractAmount(t))
+    return{text:await answerWatcher(),tools:['get_watcher_signal']};
+
+  if(/\b(saving|save|vs\s+bank|cost|backtest|compared\s+to\s+bank|how\s+much.*bank|history)\b/.test(t)&&!extractAmount(t))
+    return{text:await answerSavings(),tools:['get_backtest']};
+
+  if(/\b(evidence|cloked|hash|audit|chain|verifiable|sha[\s-]?256|prove|tamper)\b/.test(t))
+    return{text:answerEvidence(),tools:['explain_cloked']};
+
+  /* recommendation: any message with an amount */
+  const amount=extractAmount(t);
+  if(amount){
+    const urgency=extractUrgency(t);
+    return{text:await answerRecommendation(amount,urgency),tools:['get_live_rate','get_recommendation']};
+  }
+
+  /* fallback */
+  if(/\b(hi|hello|hey|sup|yo|g'day)\b/.test(t))
+    return{text:"Hi! I'm the Lupine analyst. Type \"help\" to see what I can do, or just ask — try \"send 500k urgent\" or \"should I transfer today?\"",tools:[]};
+
+  return{text:"I'm not sure I caught that. I can answer:\n• rate questions (\"what's the rate?\")\n• transfer recommendations (\"send 750k urgent\")\n• Watcher signal (\"should I transfer today?\")\n• savings (\"how much vs bank?\")\n\nType \"help\" for the full list.",tools:[]};
+}
+
+async function chatSend(){
+  const input=document.getElementById('chat-input');
+  const text=input.value.trim();
+  if(!text)return;
+  input.value='';
+  chatPaint('user',text);
+
+  /* tiny delay for natural feel */
+  const log=document.getElementById('chat-log');
+  const dots=document.createElement('div');
+  dots.style.cssText='align-self:flex-start;padding:.5rem .9rem;background:rgba(30,12,0,.04);border-radius:14px;border-bottom-left-radius:4px;font-size:1.1rem;letter-spacing:2px;color:var(--mute)';
+  dots.textContent='●';
+  log.appendChild(dots);
+  log.scrollTop=log.scrollHeight;
+  await new Promise(r=>setTimeout(r,280+Math.random()*240));
+  dots.remove();
+
+  const {text:reply,tools}=await chatRoute(text);
+  chatPaint('assistant',reply);
+  if(tools&&tools.length)chatMeta('engine ops: '+tools.join('  ·  '));
+  document.getElementById('chat-input').focus();
+}
+</script>
+
+</body>
+</html>

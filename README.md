@@ -120,7 +120,7 @@ and produce a SHA-256 evidence chain proving what was decided and why.
 A second autonomous agent watches the market hourly and surfaces favourable
 transfer windows on its own.
 
-**Live system:** <https://cheeroo2020.github.io/lupine-systems-core>
+**Live system:** <https://cheeroo2020.github.io/lupine-systems-core/payments/>
 **Quick read:** [Plain English Guide](./docs/guide.md)
 
 ---
