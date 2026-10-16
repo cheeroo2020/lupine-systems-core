@@ -71,16 +71,18 @@ Nothing in this repository has yet been physically tested.
 
 If you're new to this, in this order:
 
-1. **The handbook:** [docs/handbook/](docs/handbook/). Open the latest PDF in `editions/`. It
-   covers the goals, the timeline, how lessons work and the safety rules.
-2. **What the code really does:** [docs/architecture.md](docs/architecture.md).
-3. **Run it:**
+1. **The textbook:** [docs/textbook/](docs/textbook/). It's the single course text, in eight
+   parts. Start with Part 01, *Electricity You Can Measure*.
+2. **The handbook:** [docs/handbook/](docs/handbook/). Open the latest PDF in `editions/`. It
+   covers the goals, the timeline (mapped to the textbook), the study record and the safety rules.
+3. **What the code really does:** [docs/architecture.md](docs/architecture.md).
+4. **Run it:**
    ```bash
    pip install -r requirements.txt
    PYTHONPATH=. pytest tests/test_aiva.py tests/test_rail.py tests/test_cloked.py
    PYTHONPATH=. python scripts/rail_uncertainty_demo.py
    ```
-4. **How records are kept:** [experiments/README.md](experiments/README.md) and
+5. **How records are kept:** [experiments/README.md](experiments/README.md) and
    [research/README.md](research/README.md).
 
 ---
@@ -89,6 +91,7 @@ If you're new to this, in this order:
 
 | Location | Purpose |
 |---|---|
+| `docs/textbook/` | The course text: eight-part energy-infrastructure textbook |
 | `docs/handbook/` | Editable learning handbook and preserved PDF editions |
 | `docs/architecture.md` | The actual code: boundaries and limitations |
 | `experiments/` | Experiment records and raw measurements (the one authoritative copy) |

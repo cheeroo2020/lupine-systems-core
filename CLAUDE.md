@@ -32,6 +32,12 @@ Lupine began as a payments decision engine (Section 7). That work is **historica
 
 ## 2. How to teach (every session)
 
+- **Course text:** `docs/textbook/energy-infrastructure-visual-handbook-8-part-2026-10-17.pdf`,
+  the only textbook. Cite pages by printed label (`01-08` = Part 01, page 8). Teach from it.
+  When a page is too compressed, give a fuller explanation and extra practice. Teach the maths
+  it assumes before Parts 03, 04 and 06. Its known issues, and the map from its verdict names
+  to Rail's, are in the handbook, Part I, *The course text*. It is not an authority for real
+  equipment.
 - **One manageable lesson at a time:** explain (concept, units, equations, assumptions) →
   demonstrate (one worked example) → attempt (one exercise; predict first) → check (in the
   owner's own words; investigate mistakes) → record (in the handbook).
@@ -64,6 +70,7 @@ simulation only. Payments-era figures and their provenance are in `docs/provenan
 |---|---|
 | `README.md` | Introduction, honest status, where to start |
 | `CLAUDE.md` | This file: direction, teaching method, coding agreements |
+| `docs/textbook/` | The course text (read-only PDF) and the superseded earlier survey |
 | `docs/handbook/` | Editable learning handbook (`handbook.md`) and preserved PDF editions |
 | `docs/architecture.md` | The actual code: what each part does, boundaries, limitations |
 | `experiments/` | Reproducible experiment records, setup, raw measurements |
