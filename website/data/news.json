@@ -1,23 +1,23 @@
 {
-  "date": "2026-10-15",
+  "date": "2026-10-16",
   "stories": [
     {
-      "headline": "Invesco QQQ Doesn't Own a Single Bank, and That's Not the Only Thing the Nasdaq-100 Leaves Out",
-      "body": "Key PointsThe Nasdaq-100 only accepts companies listed on Nasdaq, and it bans financial firms altogether.",
+      "headline": "The Fed Is Fighting Inflation Again. History Says Trouble, but This Time Might Be Different.",
+      "body": "Key PointsHigh interest rates and fading economic momentum tend to be a nasty combination for stocks.",
       "source": "Nasdaq",
-      "pub_date": "14 Oct 2026"
+      "pub_date": "15 Oct 2026"
     },
     {
-      "headline": "Law Firm Freshfields Weighs Billion-Dollar Spinoff for AI Unit",
-      "body": "Senior partners at global law firm Freshfields have discussed making its in-house legal technology unit, Freshfields Lab, a separate company that could be opened to external investors, the Financial Times reported Wednesday (Oct. 14). The senior partners believe the unit, which develops artificial intelligence tools for the firm’s lawyers and clients, could be worth billions,",
-      "source": "PYMNTS",
-      "pub_date": "14 Oct 2026"
-    },
-    {
-      "headline": "Why Scotiabank is investing in working capital and liquidity",
-      "body": "Widespread geopolitical and macroeconomic uncertainty is shaping the Toronto-based bank's commercial payment strategy as it looks to deepen client relationships in transaction banking and capitalize on its footprint in Mexico.",
+      "headline": "Amid pessimistic economic and policy sentiments, advisors see the potential in their firms",
+      "body": "Financial Advisor Confidence Outlook data revealed what advisors think about current issues around the economy, policy and practice management.",
       "source": "American Banker",
-      "pub_date": "14 Oct 2026"
+      "pub_date": "15 Oct 2026"
+    },
+    {
+      "headline": "China indicates rare earths will keep flowing to EU, regardless of U.S. trade deal expiration",
+      "body": "European trade commissioner Maroš Sefčovič met with Chinese Commerce Minister Wang Wentao in Beijing last week.",
+      "source": "CNBC Finance",
+      "pub_date": "15 Oct 2026"
     }
   ]
 }
