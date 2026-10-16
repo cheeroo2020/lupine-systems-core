@@ -25,7 +25,7 @@ independently, with the scope stated.
  Earlier payments     src/aiva_lite/{router,scorer,selector}.py    src/data/fx_feed.py
  work (historical)    src/api/main.py    scripts/{watcher,backtest,spread_log,
                       generate_live_decisions,generate_site_data,fetch_daily_news}.py
-                      .github/workflows/{watcher,daily}.yml     website/index.html dashboard
+                      .github/workflows/{watcher,daily}.yml     website/payments/ dashboard
 ```
 
 Nothing in the repository connects to real equipment. **Nothing has been physically tested.**
@@ -155,7 +155,7 @@ Workflows → scripts:  daily.yml   → tests/*, fetch_daily_news.py, generate_l
                                     generate_site_data.py (→ backtest.py)
                       watcher.yml → watcher.py, spread_log.py
                       render.yaml → src.api.main:app
-Website → data:       only website/index.html reads website/data/ (agent_signal, backtest,
+Website → data:       only website/payments/index.html reads website/data/ (agent_signal, backtest,
                       health, live_decisions, news). No page links into source files.
 ```
 
@@ -211,12 +211,12 @@ of it does. Each step is its own commit, with tests and CI green before the next
 
 | Step | Change | Must update at the same time |
 |---|---|---|
-| M1 | Website labels payments material historical (see section 8) | Website pages only |
+| M1 | Website labels payments material historical (see section 8). **Done 16 Oct 2026:** energy front page; dashboard moved to `website/payments/` with a historical banner. Per-page banners on the essays, lessons, Cairn and slide remain | Website pages; README and `watcher.yml` dashboard links |
 | M2 | `watcher.yml` and `daily.yml` → `workflow_dispatch` only | The automation map in the README |
 | M3 | Move `src/data/fx_feed.py`, `src/aiva_lite/router.py`, `scorer.py`, `selector.py` and `src/api/main.py` under `src/payments/` | All imports in section 7's map; `tests/test_aiva.py`, `test_live.py`; `render.yaml` start command; README and CLAUDE.md paths |
 | M4 | Split `schemas.py` into domain-neutral execution/evidence models and `src/payments/models.py` | Every `from src.models.schemas import`; tests |
 | M5 | Move the payments scripts to `scripts/payments/` | `daily.yml`, `watcher.yml` and `generate_site_data.py` (it calls `backtest.py` by path); README quick start |
-| — | **Do not move** `website/data/` | `website/index.html` reads it by relative path |
+| — | **Do not move** `website/data/` | `website/payments/index.html` reads it by relative path (`../data/`) |
 
 What becomes of `src/aiva_lite/` after M3 is an open design question. It should be decided
 when an energy requirement shows what Aiva must actually decide.
