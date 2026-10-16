@@ -98,9 +98,14 @@ initiated → scored → route_selected → executing → completed | failed | m
 ```
 Invalid transitions raise `ValueError`. `assess()` is a pure function of instruction,
 observation and `now`.
+- **Identity first:** evidence counts only if the receipt names this instruction, the reading
+  measures `Instruction.resource`, and both come from `Instruction.session` (the device boot
+  it was sent to). Otherwise **uncertain**.
 - **completed** needs both a counterparty `accepted` receipt and a usable reading within tolerance.
-- **failed** needs `rejected` or `not_found`, with no usable reading showing the effect
-  anyway. Contradictory evidence stays **uncertain**.
+- **failed** needs `rejected` or `fenced_no_execution` (the device guarantees the instruction
+  did not and can never run), with no usable reading showing the effect anyway. Contradictory
+  evidence stays **uncertain**. `not_found` alone is **uncertain**: the instruction may be
+  delayed, queued elsewhere, or forgotten after a restart (textbook 06-19).
 - **mismatched**: accepted, but a usable reading is outside tolerance. Not success.
 - **uncertain**: everything else. Missing readings are `None`, never zero; stale, pre-settle
   or future-dated readings don't count. No receipt with a matching reading is still uncertain,
@@ -119,7 +124,7 @@ also passes, so tamper-evidence needs the head hash kept elsewhere (not built). 
 proves that a reading was accurate or that an instruction caused an effect.
 
 ### Tests and CI
-30 deterministic tests in `tests/test_aiva.py`, `test_rail.py` and `test_cloked.py`. CI
+35 deterministic tests in `tests/test_aiva.py`, `test_rail.py` and `test_cloked.py`. CI
 (`ci.yml`) **lists test files explicitly**, so a new test file must be added there.
 `tests/test_live.py` calls live FX APIs and is advisory, run only by `daily.yml`.
 

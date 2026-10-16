@@ -55,7 +55,7 @@ instrument · **proposed** = not built.
 
 | Capability | Status | Evidence |
 |---|---|---|
-| Rail: confirmed vs uncertain outcomes, reconciliation, safe-retry guard | **[SIMULATED]** | 30 deterministic tests; `scripts/rail_uncertainty_demo.py` (a pretend battery) |
+| Rail: confirmed vs uncertain outcomes, reconciliation, safe-retry guard | **[SIMULATED]** | 35 deterministic tests; `scripts/rail_uncertainty_demo.py` (a pretend battery) |
 | Cloked evidence chain | **[SIMULATED]**, partial | Proves internal consistency only; storing the head hash externally is proposed |
 | Any physical measurement or real device | **None yet** | Hardware is postponed until the fundamentals are in place |
 | Rail controlling a real low-voltage device | Proposed (Jan–Mar 2027) | — |
@@ -353,7 +353,7 @@ PYTHONPATH=. python scripts/backtest.py
 | CLOKED evidence chain | ✅ |
 | Public dashboard (Pages) | ✅ |
 | FastAPI (9 endpoints; `/chat` inactive without a paid key) | ✅ |
-| Deterministic test suite (30 tests) | ✅ |
+| Deterministic test suite (35 tests) | ✅ |
 | CI (every push) | ✅ |
 
 ---

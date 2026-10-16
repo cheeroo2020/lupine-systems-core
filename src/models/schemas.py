@@ -25,7 +25,7 @@ class ExecutionStatus(str, Enum):
     route_selected = "route_selected"
     executing = "executing"
     completed = "completed"      # accepted AND a usable reading shows the effect
-    failed = "failed"            # rejected, or established never to have arrived
+    failed = "failed"            # refused, or guaranteed (fenced) never to run
     mismatched = "mismatched"    # accepted, but a usable reading contradicts it
     uncertain = "uncertain"      # outcome not established — must reconcile
 
@@ -35,7 +35,9 @@ class Receipt(str, Enum):
     No answer at all is None — never one of these values."""
     accepted = "accepted"        # it holds the instruction
     rejected = "rejected"        # it refused the instruction
-    not_found = "not_found"      # it has no record of the instruction
+    not_found = "not_found"      # no record of it: weak, may be delayed or forgotten
+    fenced_no_execution = "fenced_no_execution"   # it guarantees the instruction
+                                                  # did not and can never run
 
 
 # ── Movement Request ──
@@ -96,6 +98,8 @@ class ExecutionState(BaseModel):
 class Instruction(BaseModel):
     """What Rail asked the counterparty to do, and how success will be judged."""
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    resource: str                      # what is being controlled, e.g. "battery-1"
+    session: str                       # device session (boot) the instruction was sent to
     target: float                      # the value asked for, e.g. 0.0 kW or 500000 SGD credited
     tolerance: float                   # |reading − target| ≤ tolerance counts as met
     issued_at: datetime
@@ -104,10 +108,15 @@ class Instruction(BaseModel):
 
 
 class Observation(BaseModel):
-    """Evidence about an instruction. Missing is None, never zero."""
+    """Evidence about an instruction. Missing is None, never zero.
+    In V0 the receipt and reading arrive through one device adapter,
+    so they share one session."""
     receipt: Optional[Receipt] = None  # None = no answer (e.g. connection lost)
+    instruction_id: Optional[str] = None   # which instruction the receipt answers
     reading: Optional[float] = None    # None = unavailable
     read_at: Optional[datetime] = None
+    resource: Optional[str] = None     # which resource the reading measures
+    session: Optional[str] = None      # device session the evidence came from
 
 
 class Assessment(BaseModel):

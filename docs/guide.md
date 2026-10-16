@@ -101,13 +101,13 @@ RAIL is not allowed to guess. It uses four words, and each one needs specific ev
 | Word | What RAIL needs to say it |
 |---|---|
 | **completed** | The other side said "accepted" **and** a fresh reading shows it happened |
-| **failed** | The other side said "refused", or "I never got it" (and nothing contradicts that) |
+| **failed** | The other side said "refused", or guaranteed the instruction can never run (and nothing contradicts that). A plain "I have no record of it" is not enough: it may still be on its way, or the device may have forgotten it after a restart. |
 | **mismatched** | The other side said "accepted", but the reading shows it didn't happen. Not a success. |
 | **uncertain** | Anything else. No reading is not the same as a zero reading. Old readings don't count. |
 
-While a movement is **uncertain**, RAIL won't send it again, because the first one may already have gone through and sending twice could pay twice. It first **reconciles**: it asks the other side "do you have my instruction?" and takes a fresh reading. Only then does it decide. Nothing else can take it out of uncertain — not even code that calls the state machine directly.
+While a movement is **uncertain**, RAIL won't send it again, because the first one may already have gone through and sending twice could pay twice. It first **reconciles**: it asks the other side "do you have my instruction?" and takes a fresh reading. Only then does it decide. Nothing else can take it out of uncertain — not even code that calls the state machine directly. Evidence also has to be about the right thing: the reply must name this instruction, the reading must come from the right device, and both must come from the same power-on session the instruction was sent to.
 
-Try it: `PYTHONPATH=. python scripts/rail_uncertainty_demo.py` runs six cases against a pretend battery controller (simulated, not a real device).
+Try it: `PYTHONPATH=. python scripts/rail_uncertainty_demo.py` runs nine cases against a pretend battery controller (simulated, not a real device).
 
 ### CLOKED — The evidence layer
 
