@@ -32,6 +32,12 @@ Lupine began as a payments decision engine (Section 7). That work is **historica
 
 ## 2. How to teach (every session)
 
+- **Course text:** `docs/textbook/energy-infrastructure-visual-handbook-8-part-2026-10-17.pdf`,
+  the only textbook. Cite pages by printed label (`01-08` = Part 01, page 8). Teach from it.
+  When a page is too compressed, give a fuller explanation and extra practice. Teach the maths
+  it assumes before Parts 03, 04 and 06. Its known issues, and the map from its verdict names
+  to Rail's, are in the handbook, Part I, *The course text*. It is not an authority for real
+  equipment.
 - **One manageable lesson at a time:** explain (concept, units, equations, assumptions) →
   demonstrate (one worked example) → attempt (one exercise; predict first) → check (in the
   owner's own words; investigate mistakes) → record (in the handbook).
@@ -64,6 +70,7 @@ simulation only. Payments-era figures and their provenance are in `docs/provenan
 |---|---|
 | `README.md` | Introduction, honest status, where to start |
 | `CLAUDE.md` | This file: direction, teaching method, coding agreements |
+| `docs/textbook/` | The course text (read-only PDF) and the superseded earlier survey |
 | `docs/handbook/` | Editable learning handbook (`handbook.md`) and preserved PDF editions |
 | `docs/architecture.md` | The actual code: what each part does, boundaries, limitations |
 | `experiments/` | Reproducible experiment records, setup, raw measurements |
@@ -98,9 +105,14 @@ initiated → scored → route_selected → executing → completed | failed | m
 ```
 Invalid transitions raise `ValueError`. `assess()` is a pure function of instruction,
 observation and `now`.
+- **Identity first:** evidence counts only if the receipt names this instruction, the reading
+  measures `Instruction.resource`, and both come from `Instruction.session` (the device boot
+  it was sent to). Otherwise **uncertain**.
 - **completed** needs both a counterparty `accepted` receipt and a usable reading within tolerance.
-- **failed** needs `rejected` or `not_found`, with no usable reading showing the effect
-  anyway. Contradictory evidence stays **uncertain**.
+- **failed** needs `rejected` or `fenced_no_execution` (the device guarantees the instruction
+  did not and can never run), with no usable reading showing the effect anyway. Contradictory
+  evidence stays **uncertain**. `not_found` alone is **uncertain**: the instruction may be
+  delayed, queued elsewhere, or forgotten after a restart (textbook 06-19).
 - **mismatched**: accepted, but a usable reading is outside tolerance. Not success.
 - **uncertain**: everything else. Missing readings are `None`, never zero; stale, pre-settle
   or future-dated readings don't count. No receipt with a matching reading is still uncertain,
@@ -119,7 +131,7 @@ also passes, so tamper-evidence needs the head hash kept elsewhere (not built). 
 proves that a reading was accurate or that an instruction caused an effect.
 
 ### Tests and CI
-30 deterministic tests in `tests/test_aiva.py`, `test_rail.py` and `test_cloked.py`. CI
+35 deterministic tests in `tests/test_aiva.py`, `test_rail.py` and `test_cloked.py`. CI
 (`ci.yml`) **lists test files explicitly**, so a new test file must be added there.
 `tests/test_live.py` calls live FX APIs and is advisory, run only by `daily.yml`.
 

@@ -176,7 +176,7 @@
         <tbody>
           <tr><td data-label="Capability"><strong>Rail:</strong> telling a confirmed outcome from an uncertain one, reconciling, refusing unsafe retries</td>
               <td data-label="Status"><span class="tag sim">SIMULATED</span></td>
-              <td data-label="Evidence">30 automated tests, and a demo against a pretend battery controller</td></tr>
+              <td data-label="Evidence">35 automated tests, and a demo against a pretend battery controller</td></tr>
           <tr><td data-label="Capability"><strong>Cloked:</strong> evidence chain</td>
               <td data-label="Status"><span class="tag sim">SIMULATED</span> partial</td>
               <td data-label="Evidence">Proves records are consistent with each other; external anchoring not built</td></tr>
@@ -212,7 +212,7 @@
         <thead><tr><th>Verdict</th><th>What Rail needs to say it</th></tr></thead>
         <tbody>
           <tr><td data-label="Verdict"><strong>completed</strong></td><td data-label="Needs">The other side accepted it <em>and</em> a fresh reading shows the effect, within tolerance</td></tr>
-          <tr><td data-label="Verdict"><strong>failed</strong></td><td data-label="Needs">The other side refused it, or has no record of it, and no reading shows the effect anyway</td></tr>
+          <tr><td data-label="Verdict"><strong>failed</strong></td><td data-label="Needs">The other side refused it, or guarantees it can never run, and no reading shows the effect anyway. “No record of it” alone is not enough</td></tr>
           <tr><td data-label="Verdict"><strong>mismatched</strong></td><td data-label="Needs">Accepted, but a fresh reading disagrees. Not a success.</td></tr>
           <tr><td data-label="Verdict"><strong>uncertain</strong></td><td data-label="Needs">Anything else. A missing reading is never zero, and old readings don't count.</td></tr>
         </tbody>

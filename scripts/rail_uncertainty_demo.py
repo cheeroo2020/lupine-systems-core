@@ -33,14 +33,20 @@ T0 = datetime(2026, 10, 16, 9, 0, tzinfo=timezone.utc)   # fixed clock: same run
 class SimulatedBattery:
     """A pretend controller. Each switch breaks one thing."""
 
+    resource = "battery-1"
+
     def __init__(self, *, loses_instruction=False, rejects=False, ignores=False,
-                 reply_lost=False, sensor_down=False, initial_kw=0.0):
+                 reply_lost=False, sensor_down=False, initial_kw=0.0,
+                 fences=False, restarts=False):
         self.loses_instruction = loses_instruction
         self.rejects = rejects
         self.ignores = ignores
-        self.reply_lost = reply_lost
+        self.reply_lost = reply_lost or restarts
         self.sensor_down = sensor_down
+        self.fences = fences          # can guarantee an unknown instruction never runs
+        self.restarts = restarts      # reboots right after acting; its records are lost
         self.output_kw = initial_kw
+        self.session = "boot-1"
         self.records: dict[str, Receipt] = {}
 
     def send(self, instr: Instruction) -> Optional[Receipt]:
@@ -50,13 +56,21 @@ class SimulatedBattery:
         self.records[instr.id] = receipt
         if receipt is Receipt.accepted and not self.ignores:
             self.output_kw = instr.target
+        if self.restarts:
+            self.session, self.records = "boot-2", {}    # volatile history is gone
         return None if self.reply_lost else receipt
 
     def status(self, instr_id: str) -> Receipt:
-        return self.records.get(instr_id, Receipt.not_found)
+        if instr_id in self.records:
+            return self.records[instr_id]
+        return Receipt.fenced_no_execution if self.fences else Receipt.not_found
 
-    def read(self, at: datetime) -> tuple[Optional[float], Optional[datetime]]:
-        return (None, None) if self.sensor_down else (self.output_kw, at)
+    def observe(self, instr_id: str, receipt: Optional[Receipt], at: datetime) -> Observation:
+        """Evidence as the device reports it, labelled with what it is about."""
+        value, read_at = (None, None) if self.sensor_down else (self.output_kw, at)
+        return Observation(receipt=receipt, instruction_id=instr_id if receipt else None,
+                           reading=value, read_at=read_at,
+                           resource=self.resource, session=self.session)
 
 
 SCENARIOS = [
@@ -64,7 +78,9 @@ SCENARIOS = [
     ("Accepts, but output never moves",  50.0, {"ignores": True}),
     ("Reply lost — it actually worked",  50.0, {"reply_lost": True}),
     ("Reply lost — it was refused",      50.0, {"reply_lost": True, "rejects": True}),
-    ("Instruction lost in transit",      50.0, {"loses_instruction": True}),
+    ("Lost; device can only say not found", 50.0, {"loses_instruction": True}),
+    ("Lost; device guarantees it never ran", 50.0, {"loses_instruction": True, "fences": True}),
+    ("Accepted, then the device restarted", 50.0, {"restarts": True}),
     ("Stop discharging, sensor down",     0.0, {"sensor_down": True}),
     ("Refuses, yet output already there", 50.0, {"rejects": True, "initial_kw": 50.0}),
 ]
@@ -72,7 +88,8 @@ SCENARIOS = [
 
 def run_one(title: str, target: float, faults: dict) -> tuple[ExecutionStatus, bool]:
     battery = SimulatedBattery(**faults)
-    instr = Instruction(id="cmd-1", target=target, tolerance=2.0, issued_at=T0,
+    instr = Instruction(id="cmd-1", resource=battery.resource, session=battery.session,
+                        target=target, tolerance=2.0, issued_at=T0,
                         settle_seconds=10, max_reading_age_seconds=60)
     state = create_execution("demo", "battery-1")
     for s in (ExecutionStatus.scored, ExecutionStatus.route_selected, ExecutionStatus.executing):
@@ -81,15 +98,15 @@ def run_one(title: str, target: float, faults: dict) -> tuple[ExecutionStatus, b
     log = append_evidence(log, "instruction_issued", instr.model_dump(mode="json"))
 
     receipt = battery.send(instr)
-    value, at = battery.read(T0 + timedelta(seconds=15))
-    state = record_outcome(state, instr, Observation(receipt=receipt, reading=value, read_at=at),
+    state = record_outcome(state, instr,
+                           battery.observe(instr.id, receipt, T0 + timedelta(seconds=15)),
                            now=T0 + timedelta(seconds=20))
     log = append_evidence(log, "outcome_assessed", state.assessments[-1])
 
     if state.status == ExecutionStatus.uncertain:
-        value, at = battery.read(T0 + timedelta(seconds=55))
         state = reconcile(state, instr,
-                          Observation(receipt=battery.status(instr.id), reading=value, read_at=at),
+                          battery.observe(instr.id, battery.status(instr.id),
+                                          T0 + timedelta(seconds=55)),
                           now=T0 + timedelta(seconds=60))
         log = append_evidence(log, "reconciliation_attempted", state.assessments[-1])
 

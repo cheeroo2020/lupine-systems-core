@@ -40,8 +40,14 @@ nothing more.
 - `outcome.py` holds `assess(instruction, observation, now)`. It is a pure function: the same
   evidence always gives the same verdict, and the verdict records its reason.
 - The evidence is a **receipt** (what the other side says: `accepted`, `rejected`,
-  `not_found`, or `None` when nothing came back) plus a **reading** (a value and the time it
-  was taken, or `None`).
+  `not_found`, `fenced_no_execution`, or `None` when nothing came back) plus a **reading** (a
+  value and the time it was taken, or `None`).
+- **Identity comes first.** The receipt must name the instruction, the reading must measure
+  the instruction's `resource`, and both must come from the device `session` the instruction
+  was sent to. If not, the verdict is uncertain.
+- `not_found` is weak: it stays uncertain, because the instruction may be delayed, queued
+  elsewhere or forgotten after a restart. Only `rejected` or `fenced_no_execution` (the device
+  guarantees it did not and can never run) can support `failed`.
 - A reading only counts if it is present, a number, not from the future, taken after the
   instruction's settle time, and no older than its maximum age.
 - `executor.py` holds the state machine:
@@ -54,9 +60,11 @@ nothing more.
   `safe_to_reissue()` is true only when the latest evidence verdict is `failed`.
 - Every verdict is kept in `ExecutionState.assessments`.
 
-**Status.** **[VERIFIED] by 21 tests in `tests/test_rail.py`, in simulation only.** The tests
-include three regressions for paths that once allowed a retry without evidence.
-`scripts/rail_uncertainty_demo.py` runs seven cases against a pretend battery controller
+**Status.** **[VERIFIED] by 26 tests in `tests/test_rail.py`, in simulation only.** The tests
+include regressions for paths that once allowed a retry without evidence: three found in
+review on 16 Oct 2026, and five found against the textbook on 17 Oct 2026 ("not found" treated
+as proof; evidence identity not checked). `scripts/rail_uncertainty_demo.py` runs nine cases
+against a pretend battery controller
 **[SIMULATED]**; it models no real device or protocol.
 
 **Limitations.**
@@ -118,7 +126,7 @@ Both kinds live in one file today. Splitting them is migration step M4 (section 
 
 | File | Purpose | Notes |
 |---|---|---|
-| `scripts/rail_uncertainty_demo.py` | Seven Rail cases against a pretend battery | **[SIMULATED]**. Run: `PYTHONPATH=. python scripts/rail_uncertainty_demo.py` |
+| `scripts/rail_uncertainty_demo.py` | Nine Rail cases against a pretend battery | **[SIMULATED]**. Run: `PYTHONPATH=. python scripts/rail_uncertainty_demo.py` |
 | `scripts/build_handbook.py` | Handbook master → paginated PDF edition | Free (`reportlab`). Never overwrites an edition |
 
 ---
@@ -193,7 +201,7 @@ direction.
 
 1. The watcher's issue step fails silently (missing labels).
 2. `daily.yml` writes a hardcoded `/14` test total into `test-results/README.md`; the suite
-   now has 30 deterministic tests.
+   now has 35 deterministic tests.
 3. A comment in `watcher.yml` repeated the corrected "same instant" claim. It was fixed on
    16 Oct 2026; comment only, no change to behaviour.
 
