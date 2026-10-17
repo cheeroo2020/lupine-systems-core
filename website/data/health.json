@@ -1,8 +1,8 @@
 {
-  "date": "2026-10-16",
+  "date": "2026-10-17",
   "status": "PASSED",
-  "passed": 10,
+  "passed": 30,
   "failed": 0,
-  "fx_rate": "0.887038",
-  "sgd_converted": "443,519 SGD"
+  "fx_rate": "0.889235",
+  "sgd_converted": "444,618 SGD"
 }
