@@ -211,3 +211,13 @@ def test_evidence_from_a_new_device_session_is_uncertain():
     # Accepted before a restart; the device now reports from a new boot.
     verdict = assess(_instr(), _seen(Receipt.accepted, 50.0, session="boot-2"), NOW)
     assert verdict.outcome == S.uncertain and "restarted" in verdict.reason
+
+
+# ── Website ──
+
+def test_website_rules_file_matches_code():
+    # website/assets/rail-rules.json must be regenerated whenever the rules change:
+    #   PYTHONPATH=. python scripts/build_rail_rules.py
+    import json
+    from scripts.build_rail_rules import OUT, build
+    assert json.loads(OUT.read_text(encoding="utf-8")) == build()

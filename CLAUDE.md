@@ -131,9 +131,13 @@ also passes, so tamper-evidence needs the head hash kept elsewhere (not built). 
 proves that a reading was accurate or that an instruction caused an effect.
 
 ### Tests and CI
-35 deterministic tests in `tests/test_aiva.py`, `test_rail.py` and `test_cloked.py`. CI
+36 deterministic tests in `tests/test_aiva.py`, `test_rail.py` and `test_cloked.py`. CI
 (`ci.yml`) **lists test files explicitly**, so a new test file must be added there.
 `tests/test_live.py` calls live FX APIs and is advisory, run only by `daily.yml`.
+
+**Website rules panel:** `website/assets/rail-rules.json` is generated from Rail's real code by
+`scripts/build_rail_rules.py`. If Rail's rules change, rerun it; a test fails until you do. The
+website's "Honest numbers" cards are hand-maintained: update the test count there too.
 
 ---
 
