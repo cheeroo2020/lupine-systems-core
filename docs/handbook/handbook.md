@@ -166,7 +166,7 @@ Status as of 17 October 2026, tested at repository commit `7893062`. Lupine was 
 
 | Piece | What it really does | Label | Use for energy |
 |---|---|---|---|
-| Rail outcome rules (`src/rail_lite/outcome.py`, `executor.py`) | Turns evidence (a receipt and a reading) into one of four verdicts, after checking the evidence is about the right instruction, resource and device session; blocks unsafe retries | [VERIFIED] by 35 automated tests, **in simulation only** | Yes, directly. Missing: units on targets, real communication, timeouts, saving state to disk, a real clock |
+| Rail outcome rules (`src/rail_lite/outcome.py`, `executor.py`) | Turns evidence (a receipt and a reading) into one of four verdicts, after checking the evidence is about the right instruction, resource and device session; blocks unsafe retries | [VERIFIED] by 36 automated tests, **in simulation only** | Yes, directly. Missing: units on targets, real communication, timeouts, saving state to disk, a real clock |
 | Cloked (`src/cloked_lite/logger.py`) | A SHA-256 hash chain, held in memory | [VERIFIED] 16 Oct 2026 by test: a forger who recomputes every later hash still passes `verify_chain()` | Partly. Needs its final hash stored where a forger can't reach it, then signatures |
 | Aiva (`src/aiva_lite/`) | A weighted sum of three scores | Runs; its inputs are [ASSUMED] (unchecked provider figures, invented reliability values) | The pattern only. Engineering limits must be pass/fail checks *before* any scoring |
 | FX feed, watcher, website, API | Payment-specific | FX values [MEASURED]; provider costs [ASSUMED] | No. They keep running without attention |

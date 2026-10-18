@@ -60,7 +60,7 @@ nothing more.
   `safe_to_reissue()` is true only when the latest evidence verdict is `failed`.
 - Every verdict is kept in `ExecutionState.assessments`.
 
-**Status.** **[VERIFIED] by 26 tests in `tests/test_rail.py`, in simulation only.** The tests
+**Status.** **[VERIFIED] by 27 tests in `tests/test_rail.py`, in simulation only.** The tests
 include regressions for paths that once allowed a retry without evidence: three found in
 review on 16 Oct 2026, and five found against the textbook on 17 Oct 2026 ("not found" treated
 as proof; evidence identity not checked). `scripts/rail_uncertainty_demo.py` runs nine cases
@@ -127,6 +127,7 @@ Both kinds live in one file today. Splitting them is migration step M4 (section 
 | File | Purpose | Notes |
 |---|---|---|
 | `scripts/rail_uncertainty_demo.py` | Nine Rail cases against a pretend battery | **[SIMULATED]**. Run: `PYTHONPATH=. python scripts/rail_uncertainty_demo.py` |
+| `scripts/build_rail_rules.py` | Runs Rail's real code over the 60 situations in the website's "Try the rules" panel and writes `website/assets/rail-rules.json` | A test fails if the file and the code disagree |
 | `scripts/build_handbook.py` | Handbook master → paginated PDF edition | Free (`reportlab`). Never overwrites an edition |
 
 ---
@@ -201,7 +202,7 @@ direction.
 
 1. The watcher's issue step fails silently (missing labels).
 2. `daily.yml` writes a hardcoded `/14` test total into `test-results/README.md`; the suite
-   now has 35 deterministic tests.
+   now has 36 deterministic tests.
 3. A comment in `watcher.yml` repeated the corrected "same instant" claim. It was fixed on
    16 Oct 2026; comment only, no change to behaviour.
 

@@ -35,7 +35,7 @@ Last audited: **2026-10-16**
 | Source staleness spread | **measured** | `spread_log.jsonl` | First obs: source dates spanned 2026-07-31 → 08-03. Date granularity only; same-date values can still differ in fixing time |
 | Backtest FX series | **measured** | Frankfurter/ECB historical, 83 trading days | Rates are real; the routing applied to them is modelled |
 | Watcher z-score / percentile | **measured** | `scripts/watcher.py`, 60-day window | Derived from measured rates |
-| Test pass rate | **measured** | CI, `test-results/` | 35/35 deterministic (2026-10-17) |
+| Test pass rate | **measured** | CI, `test-results/` | 36/36 deterministic (2026-10-18) |
 
 **Citable as a range of published-value disagreement.** `spread_summary.json`
 refuses to mark the dataset citable below 30 observations; it passed that in

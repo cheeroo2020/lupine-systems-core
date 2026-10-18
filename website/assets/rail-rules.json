@@ -1,0 +1,306 @@
+{
+ "generated_from": "src/rail_lite/outcome.py and executor.py",
+ "example": "Rail asked a battery for 50 kW (±2 kW); readings older than 60 s are stale",
+ "results": {
+  "none|none|this": {
+   "verdict": "uncertain",
+   "reason": "no receipt; no reading available",
+   "safe_to_resend": false
+  },
+  "none|none|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "no receipt; no reading available",
+   "safe_to_resend": false
+  },
+  "none|none|restarted": {
+   "verdict": "uncertain",
+   "reason": "no receipt; no reading available",
+   "safe_to_resend": false
+  },
+  "none|at_target|this": {
+   "verdict": "uncertain",
+   "reason": "no receipt; reading 50.0 within ±2.0 of target 50.0, but the effect cannot be attributed to this instruction",
+   "safe_to_resend": false
+  },
+  "none|at_target|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "no receipt; reading 50.0 within ±2.0 of target 50.0, but the effect cannot be attributed to this instruction",
+   "safe_to_resend": false
+  },
+  "none|at_target|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "none|off_target|this": {
+   "verdict": "uncertain",
+   "reason": "no receipt; reading 0.0 outside ±2.0 of target 50.0",
+   "safe_to_resend": false
+  },
+  "none|off_target|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "no receipt; reading 0.0 outside ±2.0 of target 50.0",
+   "safe_to_resend": false
+  },
+  "none|off_target|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "none|old|this": {
+   "verdict": "uncertain",
+   "reason": "no receipt; reading is stale (80s old, limit 60s)",
+   "safe_to_resend": false
+  },
+  "none|old|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "no receipt; reading is stale (80s old, limit 60s)",
+   "safe_to_resend": false
+  },
+  "none|old|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "accepted|none|this": {
+   "verdict": "uncertain",
+   "reason": "accepted, but no reading available",
+   "safe_to_resend": false
+  },
+  "accepted|none|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "accepted|none|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "accepted|at_target|this": {
+   "verdict": "completed",
+   "reason": "accepted and reading 50.0 within ±2.0 of target 50.0",
+   "safe_to_resend": false
+  },
+  "accepted|at_target|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "accepted|at_target|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "accepted|off_target|this": {
+   "verdict": "mismatched",
+   "reason": "accepted, but reading 0.0 outside ±2.0 of target 50.0",
+   "safe_to_resend": false
+  },
+  "accepted|off_target|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "accepted|off_target|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "accepted|old|this": {
+   "verdict": "uncertain",
+   "reason": "accepted, but reading is stale (80s old, limit 60s)",
+   "safe_to_resend": false
+  },
+  "accepted|old|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "accepted|old|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "rejected|none|this": {
+   "verdict": "failed",
+   "reason": "counterparty rejected the instruction",
+   "safe_to_resend": true
+  },
+  "rejected|none|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "rejected|none|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "rejected|at_target|this": {
+   "verdict": "uncertain",
+   "reason": "counterparty rejected the instruction, yet reading 50.0 within ±2.0 of target 50.0 — contradictory evidence",
+   "safe_to_resend": false
+  },
+  "rejected|at_target|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "rejected|at_target|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "rejected|off_target|this": {
+   "verdict": "failed",
+   "reason": "counterparty rejected the instruction",
+   "safe_to_resend": true
+  },
+  "rejected|off_target|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "rejected|off_target|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "rejected|old|this": {
+   "verdict": "failed",
+   "reason": "counterparty rejected the instruction",
+   "safe_to_resend": true
+  },
+  "rejected|old|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "rejected|old|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "not_found|none|this": {
+   "verdict": "uncertain",
+   "reason": "counterparty has no record of the instruction — not proof it never ran: it may be delayed, queued elsewhere, or forgotten after a restart",
+   "safe_to_resend": false
+  },
+  "not_found|none|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "not_found|none|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "not_found|at_target|this": {
+   "verdict": "uncertain",
+   "reason": "counterparty has no record of the instruction — not proof it never ran: it may be delayed, queued elsewhere, or forgotten after a restart",
+   "safe_to_resend": false
+  },
+  "not_found|at_target|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "not_found|at_target|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "not_found|off_target|this": {
+   "verdict": "uncertain",
+   "reason": "counterparty has no record of the instruction — not proof it never ran: it may be delayed, queued elsewhere, or forgotten after a restart",
+   "safe_to_resend": false
+  },
+  "not_found|off_target|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "not_found|off_target|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "not_found|old|this": {
+   "verdict": "uncertain",
+   "reason": "counterparty has no record of the instruction — not proof it never ran: it may be delayed, queued elsewhere, or forgotten after a restart",
+   "safe_to_resend": false
+  },
+  "not_found|old|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "not_found|old|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "fenced|none|this": {
+   "verdict": "failed",
+   "reason": "counterparty guarantees the instruction did not and can never run",
+   "safe_to_resend": true
+  },
+  "fenced|none|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "fenced|none|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "fenced|at_target|this": {
+   "verdict": "uncertain",
+   "reason": "counterparty guarantees the instruction did not and can never run, yet reading 50.0 within ±2.0 of target 50.0 — contradictory evidence",
+   "safe_to_resend": false
+  },
+  "fenced|at_target|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "fenced|at_target|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "fenced|off_target|this": {
+   "verdict": "failed",
+   "reason": "counterparty guarantees the instruction did not and can never run",
+   "safe_to_resend": true
+  },
+  "fenced|off_target|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "fenced|off_target|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  },
+  "fenced|old|this": {
+   "verdict": "failed",
+   "reason": "counterparty guarantees the instruction did not and can never run",
+   "safe_to_resend": true
+  },
+  "fenced|old|other_instruction": {
+   "verdict": "uncertain",
+   "reason": "receipt answers instruction 'cmd-old', not 'cmd-1'",
+   "safe_to_resend": false
+  },
+  "fenced|old|restarted": {
+   "verdict": "uncertain",
+   "reason": "evidence comes from device session 'boot-2', not 'boot-1' — the device may have restarted",
+   "safe_to_resend": false
+  }
+ }
+}
