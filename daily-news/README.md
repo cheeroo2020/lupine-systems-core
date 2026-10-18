@@ -196,3 +196,4 @@ No manual input needed. Fully automated.
 | [2026-10-15](./2026-10-15.md) | Invesco QQQ Doesn't Own a Single Bank, and That's Not the Only Thin… |
 | [2026-10-16](./2026-10-16.md) | The Fed Is Fighting Inflation Again. History Says Trouble, but This… |
 | [2026-10-17](./2026-10-17.md) | Interactive Brokers (IBKR) Q3 2026 Earnings Call Transcript |
+| [2026-10-18](./2026-10-18.md) | 4 Turnaround Stocks to Buy Before 2026 Is Over and Hold for a Decade |
