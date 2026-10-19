@@ -131,13 +131,32 @@ also passes, so tamper-evidence needs the head hash kept elsewhere (not built). 
 proves that a reading was accurate or that an instruction caused an effect.
 
 ### Tests and CI
-36 deterministic tests in `tests/test_aiva.py`, `test_rail.py` and `test_cloked.py`. CI
-(`ci.yml`) **lists test files explicitly**, so a new test file must be added there.
+36 deterministic tests in `tests/test_aiva.py`, `test_rail.py` and `test_cloked.py` (the
+figure the website quotes). The lab adds `tests/test_lab.py` and `tests/test_lab_core.mjs`
+(Node). CI (`ci.yml`) **lists test files explicitly**, so a new test file must be added there.
 `tests/test_live.py` calls live FX APIs and is advisory, run only by `daily.yml`.
 
 **Website rules panel:** `website/assets/rail-rules.json` is generated from Rail's real code by
 `scripts/build_rail_rules.py`. If Rail's rules change, rerun it; a test fails until you do. The
 website's "Honest numbers" cards are hand-maintained: update the test count there too.
+
+### The lab (`website/lab/`, public at `/lab/`)
+The daily workbench for the six-week programme that began 19 Oct 2026. Static: no logins.
+- `programme.json`: sessions. Week 1 is written in full; later weeks are outlines, written into
+  sessions at each Sunday review. Study references must be labels in `textbook-pages.json`
+  (rebuild with `scripts/build_textbook_index.py`).
+- `progress.json`: **Chris's real progress only.** Add an entry only after Chris says
+  "OK to publish" and its evidence is committed; the test fails if the evidence is missing.
+  Progress comes from completed work, never from dates.
+- Checklist ticks, notes and readings typed on the page are drafts in that browser. The page
+  never uploads. Chris downloads the draft and sends it; photos and personal notes are
+  published only if Chris picks them.
+- `demo-data.json` is synthetic, labelled, separately stored and never counted.
+- `lab-core.js` keeps the measurement rules: missing is never zero, raw text is kept, real data
+  is never compared with synthetic, temperatures are compared as kelvin differences.
+- Real readings go to `experiments/E001-mac-energy-baseline/data/`, not into `website/`. The
+  Mac's battery voltage and current are **[MEASURED]** by its own gauge, uncertainty unknown;
+  charger ratings are **[ASSUMED]**.
 
 ---
 

@@ -1,0 +1,47 @@
+{
+ "synthetic": true,
+ "label": "SYNTHETIC DEMO DATA: invented readings for exploring the workflow. Not measurements and not Chris's work.",
+ "session": {
+  "id": "DEMO-1",
+  "title": "Idle versus light load (synthetic walkthrough)",
+  "study": [
+   "01-13",
+   "01-14",
+   "01-18"
+  ],
+  "concept": "Power is a rate and energy is a total: a run that draws more power for the same time transfers more energy.",
+  "task": "Walk through one complete lab session with invented readings: choose the task, load two runs, save, reload, compare them, link the evidence to a claim and complete it.",
+  "checklist": [
+   "Session chosen",
+   "Run A loaded",
+   "Run B loaded",
+   "Saved in this browser",
+   "Page reloaded and the work was still there",
+   "Runs compared and the warnings read",
+   "Evidence linked to a one-line claim",
+   "Session completed"
+  ]
+ },
+ "runs": [
+  {
+   "id": "A",
+   "label": "Run A: idle, screen on",
+   "synthetic": true,
+   "device": "MacBook (synthetic example)",
+   "method": "ioreg battery gauge, 1-minute samples",
+   "workload": "idle, screen on",
+   "ambient_C": 19.0,
+   "text": "2026-10-01T09:00:00Z\n      \"Voltage\" = 12610\n      \"Amperage\" = 18446744073709551134\n      \"Temperature\" = 2950\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 82\n2026-10-01T09:01:00Z\n      \"Voltage\" = 12607\n      \"Amperage\" = 18446744073709551146\n      \"Temperature\" = 2957\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 82\n2026-10-01T09:02:00Z\n      \"Voltage\" = 12604\n      \"Amperage\" = 18446744073709551121\n      \"Temperature\" = 2964\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 82\n2026-10-01T09:03:00Z\n      \"Voltage\" = 12601\n      \"Amperage\" = 18446744073709551140\n      \"Temperature\" = 2971\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 82\n2026-10-01T09:04:00Z\n      \"Voltage\" = 12598\n      \"Amperage\" = 18446744073709551128\n      \"Temperature\" = 2978\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 82\n2026-10-01T09:05:00Z\n      \"Voltage\" = 12595\n      \"Amperage\" = 18446744073709551137\n      \"Temperature\" = 2985\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 82\n2026-10-01T09:06:00Z\n      \"Voltage\" = 12592\n      \"Temperature\" = 2992\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 81\n2026-10-01T09:07:00Z\n      \"Voltage\" = 12589\n      \"Amperage\" = 18446744073709551125\n      \"Temperature\" = 2999\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 81\n2026-10-01T09:08:00Z\n      \"Voltage\" = 12586\n      \"Amperage\" = 18446744073709551142\n      \"Temperature\" = 3006\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 81\n2026-10-01T09:09:00Z\n      \"Voltage\" = 12583\n      \"Amperage\" = 18446744073709551130\n      \"Temperature\" = 3013\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 81\n"
+  },
+  {
+   "id": "B",
+   "label": "Run B: light load, one video playing",
+   "synthetic": true,
+   "device": "MacBook (synthetic example)",
+   "method": "ioreg battery gauge, 1-minute samples",
+   "workload": "one video playing",
+   "ambient_C": 20.5,
+   "text": "2026-10-01T09:20:00Z\n      \"Voltage\" = 12480\n      \"Amperage\" = 18446744073709550274\n      \"Temperature\" = 3050\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 80\n2026-10-01T09:21:00Z\n      \"Voltage\" = 12471\n      \"Amperage\" = 18446744073709550245\n      \"Temperature\" = 3082\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 80\n2026-10-01T09:22:00Z\n      \"Voltage\" = 12462\n      \"Amperage\" = 18446744073709550261\n      \"Temperature\" = 3114\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 80\n2026-10-01T09:23:00Z\n      \"Voltage\" = 12453\n      \"Amperage\" = 18446744073709550227\n      \"Temperature\" = 3146\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 79\n2026-10-01T09:25:00Z\n      \"Voltage\" = 12435\n      \"Amperage\" = 18446744073709550256\n      \"Temperature\" = 3210\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 79\n2026-10-01T09:26:00Z\n      \"Voltage\" = 12426\n      \"Amperage\" = 18446744073709550239\n      \"Temperature\" = 3242\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 78\n2026-10-01T09:27:00Z\n      \"Voltage\" = 12417\n      \"Amperage\" = 18446744073709550267\n      \"Temperature\" = 3274\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 78\n2026-10-01T09:28:00Z\n      \"Voltage\" = 12408\n      \"Amperage\" = 18446744073709550250\n      \"Temperature\" = 3306\n      \"ExternalConnected\" = No\n      \"CurrentCapacity\" = 78\n2026-10-01T09:29:00Z\n      \"Voltage\" = 12399\n      \"Amperage\" = 0\n      \"Temperature\" = 3338\n      \"ExternalConnected\" = Yes\n      \"CurrentCapacity\" = 77\n"
+  }
+ ]
+}

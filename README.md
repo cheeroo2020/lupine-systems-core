@@ -71,18 +71,22 @@ Nothing in this repository has yet been physically tested.
 
 If you're new to this, in this order:
 
-1. **The textbook:** [docs/textbook/](docs/textbook/). It's the single course text, in eight
+1. **The lab:** [cheeroo2020.github.io/lupine-systems-core/lab/](https://cheeroo2020.github.io/lupine-systems-core/lab/).
+   It opens the next unfinished session: what to study, what to do, and what evidence to save.
+   Its demo walks through one session with labelled synthetic data.
+2. **The textbook:** [docs/textbook/](docs/textbook/). It's the single course text, in eight
    parts. Start with Part 01, *Electricity You Can Measure*.
-2. **The handbook:** [docs/handbook/](docs/handbook/). Open the latest PDF in `editions/`. It
+3. **The handbook:** [docs/handbook/](docs/handbook/). Open the latest PDF in `editions/`. It
    covers the goals, the timeline (mapped to the textbook), the study record and the safety rules.
-3. **What the code really does:** [docs/architecture.md](docs/architecture.md).
-4. **Run it:**
+4. **What the code really does:** [docs/architecture.md](docs/architecture.md).
+5. **Run it:**
    ```bash
    pip install -r requirements.txt
-   PYTHONPATH=. pytest tests/test_aiva.py tests/test_rail.py tests/test_cloked.py
+   PYTHONPATH=. pytest tests/test_aiva.py tests/test_rail.py tests/test_cloked.py tests/test_lab.py
+   node --test tests/test_lab_core.mjs
    PYTHONPATH=. python scripts/rail_uncertainty_demo.py
    ```
-5. **How records are kept:** [experiments/README.md](experiments/README.md) and
+6. **How records are kept:** [experiments/README.md](experiments/README.md) and
    [research/README.md](research/README.md).
 
 ---
@@ -99,6 +103,7 @@ If you're new to this, in this order:
 | `src/`, `tests/` | Software and its tests |
 | `scripts/` | Demo, handbook builder, and earlier payments automation |
 | `website/` | Public site (GitHub Pages); brand assets in `website/assets/brand/` |
+| `website/lab/` | The daily lab: programme, real progress, measurement tools, synthetic demo |
 | `docs/provenance.md` | Where every payments-era figure came from, and the corrections |
 
 ---

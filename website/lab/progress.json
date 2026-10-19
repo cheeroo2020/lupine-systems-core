@@ -1,0 +1,11 @@
+{
+ "note": "Chris's real progress. An entry goes here only when its evidence is in the repository, published with Chris's OK. tests/test_lab.py fails if an entry's evidence is missing. Demo records never appear here.",
+ "sessions": [
+  {"id": "W1-1", "completed": "2026-10-19",
+   "evidence": [{"path": "docs/handbook/handbook.md", "contains": "### Sitting 1 — pages 01-03 to 01-10", "label": "Handbook, Part III: Sitting 1"}]}
+ ],
+ "writeups": [],
+ "observations": {"firsthand": [], "study_questions": [], "hypotheses": [], "simulated_failures": []},
+ "problem_brief": null,
+ "industry_feedback": []
+}
