@@ -128,10 +128,10 @@
 
 <main class="wrap">
   <div id="load-error" class="err" hidden></div>
-  <section id="today" aria-labelledby="today-h"></section>
-  <section id="programme" hidden></section>
-  <section id="outputs" hidden></section>
-  <section id="demo" hidden></section>
+  <section id="view-today" aria-labelledby="today-h"></section>
+  <section id="view-programme" hidden></section>
+  <section id="view-outputs" hidden></section>
+  <section id="view-demo" hidden></section>
 </main>
 
 <script src="lab-core.js"></script>
@@ -188,14 +188,15 @@
   function route() {
     const [view, arg] = (location.hash.slice(1) || "today").split("/");
     const v = ["today", "programme", "outputs", "demo"].includes(view) ? view : "today";
-    $$("main > section").forEach(s => { s.hidden = s.id !== v; });
+    $$("main > section").forEach(s => { s.hidden = s.id !== "view-" + v; });
     $$("nav.tabs a").forEach(a => { if (a.getAttribute("href") === "#" + v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
     ({ today: () => renderToday(arg), programme: renderProgramme, outputs: renderOutputs, demo: renderDemo })[v]();
+    scrollTo(0, 0);
   }
 
   /* ── TODAY ── */
   function renderToday(id) {
-    const el = $("#today"), all = sessions(), upNext = next(), s = all.find(x => x.id === id) || upNext;
+    const el = $("#view-today"), all = sessions(), upNext = next(), s = all.find(x => x.id === id) || upNext;
     const wk = P.weeks.find(w => !w.sessions.every(x => done(x.id))) || P.weeks[P.weeks.length - 1];
     if (!s) {
       el.innerHTML = `<p class="eyebrow">Today</p><h1 id="today-h">Week ${wk.week}: ${esc(wk.title)}</h1>
@@ -287,7 +288,8 @@
       const runs = o.getRuns().map(LabCore.makeRun);
       el.innerHTML = `<h3>Readings ${o.synthetic ? '<span class="tag sim">SYNTHETIC</span>' : '<span class="tag real">REAL · YOUR MAC</span>'}</h3>
         ${o.command ? `<p class="small">Paste this into Terminal, press Return and leave the Mac for about 10 minutes:</p>
-          <pre class="cmd" id="cmd">${esc(o.command)}</pre><div class="row" style="margin:8px 0 14px"><button id="copy">Copy command</button><span class="small muted" id="copied" aria-live="polite"></span></div>` : ""}
+          <pre class="cmd" id="cmd">${esc(o.command)}</pre><div class="row" style="margin:8px 0 6px"><button id="copy">Copy command</button><span class="small muted" id="copied" aria-live="polite"></span></div>
+          <p class="small muted" style="margin:0 0 14px"><span class="tag warn">ASSUMED</span> The lab reads Voltage in millivolts, Amperage in milliamps (negative while the battery is discharging) and Temperature in hundredths of a degree Celsius, Apple's usual format. Not yet checked on your Mac: the plugged-in sample in step 4 tests the current's sign.</p>` : ""}
         ${o.presets ? `<p class="small">Load the two invented runs. Each is saved in this browser as soon as it loads.</p>
           <div class="row" style="margin-bottom:12px">${o.presets.map(p => `<button data-preset="${p.id}">Load ${esc(p.label)}</button>`).join("")}</div>` : `
         <label class="field">Output to read<textarea id="paste" spellcheck="false" placeholder="Paste everything the command printed.">${preview ? esc(preview.text) : ""}</textarea></label>
@@ -390,7 +392,7 @@
   /* ── PROGRAMME ── */
   function renderProgramme() {
     const set = store.get(KEY.settings, {}).minutes || {}, m = Object.assign({}, P.default_minutes, set);
-    $("#programme").innerHTML = `<p class="eyebrow">Six weeks, started ${fmtDay(P.started)}</p><h1>The programme</h1>
+    $("#view-programme").innerHTML = `<p class="eyebrow">Six weeks, started ${fmtDay(P.started)}</p><h1>The programme</h1>
       <p style="max-width:46rem">${esc(P.note)}</p>
       <div class="card" style="margin:18px 0"><h3>Your default weekday session (this browser)</h3>
         <div class="time">${["study", "practical", "recording", "reflection"].map(k => `<div><input type="number" min="0" max="240" step="5" id="m-${k}" value="${m[k]}" aria-label="${k} minutes"><span>${k} (min)</span></div>`).join("")}</div>
@@ -410,7 +412,7 @@
   /* ── OUTPUTS ── */
   function renderOutputs() {
     const T = P.targets, o = PR.observations, wDone = id => PR.writeups.find(w => w.id === id);
-    $("#outputs").innerHTML = `<p class="eyebrow">From completed work only</p><h1>Outputs</h1>
+    $("#view-outputs").innerHTML = `<p class="eyebrow">From completed work only</p><h1>Outputs</h1>
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:18px">
         <div class="card"><h3>Write-ups</h3><div class="counter">${PR.writeups.length}<span class="muted" style="font-size:1rem"> / ${T.writeups.length}</span></div>
           <ul class="plainlist small" style="margin-top:10px">${T.writeups.map(id => `<li>${id}: ${wDone(id) ? `<a href="${GH + esc(wDone(id).path)}">published</a>` : '<span class="muted">not yet</span>'}</li>`).join("")}</ul>
@@ -432,7 +434,7 @@
     const st = get();
     if (st.reloadPending) { delete st.reloadPending; if (st.runs.length) st.steps.reloaded = true; put(st); }
     const keys = ["chosen", "runA", "runB", "saved", "reloaded", "compared", "linked", "completed"];
-    const el = $("#demo");
+    const el = $("#view-demo");
     const paint = () => {
       const s = get(), on = k => !!s.steps[k];
       el.innerHTML = `<p class="eyebrow">Demo walkthrough</p><h1>${esc(S.title)}</h1>
@@ -477,7 +479,7 @@
     };
     const markRuns = v => { v.steps.runA = v.runs.some(r => r.preset === "A"); v.steps.runB = v.runs.some(r => r.preset === "B");
       v.steps.saved = v.steps.runA && v.steps.runB; };
-    const paintSteps = () => { const s = get(); $$("#demo .stepper li").forEach((li, i) => li.classList.toggle("on", !!s.steps[keys[i]]));
+    const paintSteps = () => { const s = get(); $$("#view-demo .stepper li").forEach((li, i) => li.classList.toggle("on", !!s.steps[keys[i]]));
       const b = $("#d-done"); if (b) b.disabled = !keys.slice(0, 7).every(k => s.steps[k]); };
     paint();
   }
