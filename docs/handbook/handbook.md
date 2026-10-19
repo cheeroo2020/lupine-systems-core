@@ -209,10 +209,54 @@ One section per textbook part, one entry per sitting. The textbook holds the exp
 
 ## Textbook Part 01 — Electricity You Can Measure
 
-### Sittings 1–4 (pages 01-03 to 01-24)
+### Sitting 1 — pages 01-03 to 01-10 (19 October 2026)
+
+**Covered.** The model circuit: a steady 5 V source across an ideal 100 Ω resistor (01-03). The wire is already full of charge, and the resistor doesn't use it up; what it receives is energy (01-04). Voltage is energy per coulomb between two named points (01-05), measured with the probes across the component (01-06). Current is charge per second passing one point (01-07). Then resistor construction and tolerance (01-08), Ohm's law (01-09) and the voltage–current graph (01-10).
+
+**Added beyond the textbook.** A hydro comparison: head is energy per kilogram of water and flow is kilograms per second, just as voltage is energy per coulomb and current is coulombs per second. It breaks down because the water leaves the station while charge goes round a loop. Also a rough estimate: in this circuit, with 0.5 mm² copper wire, the electrons drift about 3 cm per hour (Claude's calculation, not in the textbook).
+
+**Worked example (Claude).** 5 V across an ideal 1 kΩ resistor: I = 5 V ÷ 1000 Ω = 0.005 A = 5 mA. In 60 s, Q = 0.005 C/s × 60 s = 0.30 C. E = 5 J/C × 0.30 C = 1.5 J.
+
+**Exercise.** 5.00 V across an ideal 250 Ω resistor for 2 minutes.
+
+| Part | First answer | Check | After correction |
+|---|---|---|---|
+| (a) More or less than 0.050 A? | Less (see box) | Right | — |
+| (b) Current | 0.02 A; 0.00002 mA | Amps right; milliamps wrong, conversion reversed | 20 mA |
+| (c) Charge and energy | 1 C; energy not given | Charge wrong | Q = 2.4 C; energy given as "V is 12", corrected to E = 12 J |
+| (d) Is charge used up? | No (see box) | Right, with one refinement | — |
+
+The full working: I = 5 V ÷ 250 Ω = 0.020 A = 20 mA. Q = 0.020 C/s × 120 s = 2.4 C. E = 5 J/C × 2.4 C = 12 J.
+
+**Mistakes and what fixed them.**
+
+1. **Amps to milliamps reversed** (÷ 1000 instead of × 1000). Claude's refresher had said "m (milli) = ÷ 1000" without saying which direction, which probably contributed. The rule now: 1 A = 1000 mA, so the milliamp number is always the bigger one.
+2. **Charge first given as 1 C.** The cause wasn't identified. The working needs time in seconds: 2 minutes = 120 s.
+3. **Energy labelled as voltage** ("V is 12"). The number was right but the label wasn't: the energy is E = 12 J, and the voltage stays 5 V. This is the distinction 01-05 is about. Voltage is energy *per coulomb*; energy is the total, and it grows with time.
+4. **Wording.** "5 J/C per coulomb" says "per coulomb" twice, since J/C already means joules per coulomb.
+
+Your explanations, as written:
+
+::: yours
+Current will be less, because current is inversely proportional.
+
+The resistor hasn't used up any charge, the charge goes in goes out, what it does is that it produces heat in form of energy.
+
+5 V means, 5 J/C per coulomb.
+
+Across the resistor, red at highest end and black at lowest end.
+:::
+
+**Corrections beside your words.** The resistor doesn't produce energy. It receives electrical energy and converts it into heat. "Highest end" is the higher-potential end (01-06); swapping the probes gives the same number with a minus sign.
+
+**Not yet checked.** Ohm's law (01-09) was used correctly. Still to check: current (01-07) explained in your own words, resistor tolerance (01-08) and reading the graph (01-10). These open sitting 2.
+
+**New terms.** Coulomb (C); joule (J); volt (1 V = 1 J/C); ampere (1 A = 1 C/s); ohm (1 Ω = 1 V/A); conventional current (the direction positive charge would move, opposite to electron drift); reference node (the point called 0 V); resistor tolerance (100 Ω ±5% allows 95–105 Ω).
+
+### Sittings 2–4 (pages 01-11 to 01-24)
 
 ::: pending
-Starts Monday 19 October 2026. Each sitting is recorded once you have explained it back and the practice answers (01-22) are checked: your answers, mistakes and corrections, your own-words explanation, anything the textbook didn't make clear, and new glossary terms. The earlier chat lesson of 16 October (the kettle: voltage, current, power and energy) covered the same ground and is superseded by these sittings.
+Sitting 2 starts with the checks left from sitting 1, then pages 01-11 to 01-15. Each sitting is recorded once you have explained it back and the practice answers (01-22) are checked: your answers, mistakes and corrections, your own-words explanation, anything the textbook didn't make clear, and new terms. The earlier chat lesson of 16 October (the kettle: voltage, current, power and energy) covered the same ground and is superseded by these sittings.
 :::
 
 \pagebreak
