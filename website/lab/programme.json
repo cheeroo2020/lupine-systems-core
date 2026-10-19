@@ -58,7 +58,7 @@
      ],
      "equipment": ["Your Mac, unplugged, at 40% charge or more", "Terminal (built in)", "The textbook PDF or printed pages"],
      "stop": ["If the battery falls below 20%, stop and plug in.", "If the Mac is hot to touch or the fan runs loudly while idle, stop and write that down as an observation.", "If the output has no Voltage or Amperage lines, stop: record 'not available on this Mac' and bring the output to Claude. Don't guess values.", "Don't run commands that start with sudo unless Claude has explained them."],
-     "checklist": ["Read 01-16 to 01-21", "Seen the matching rule in src/rail_lite/outcome.py", "Unplugged; battery % and brightness written down", "Baseline command ran for about 10 minutes, Mac untouched", "Output pasted and parsed: 10 samples, or the missing ones counted", "Labels written: voltage and current [MEASURED] by the Mac's own battery gauge, uncertainty unknown; charger figures [ASSUMED]", "Plugged-in sample taken and the current's sign noted", "Explained why a missing reading is not zero, in the circuit and in the code"],
+     "checklist": ["Read 01-16 to 01-21", "Seen the matching rule in src/rail_lite/outcome.py", "Unplugged; battery % and brightness written down", "Baseline command ran for about 10 minutes, Mac untouched", "Output pasted and parsed: 10 samples, or the missing ones counted", "Labels written: voltage and current [MEASURED] by the Mac's own battery gauge, uncertainty unknown; charger figures [ASSUMED]", "Plugged-in sample taken and the current's sign noted", "Boundary written: this is power leaving the battery, as the Mac's gauge reports it, not wall power, charger efficiency, chip power or cooling", "Explained why a missing reading is not zero, in the circuit and in the code"],
      "next": "W1-4: the eight practice problems.",
      "links": {"experiment": "experiments/E001-mac-energy-baseline/README.md", "readings": "experiments/E001-mac-energy-baseline/data/", "notes": "docs/handbook/handbook.md"}
     },
@@ -116,15 +116,16 @@
      "title": "Weekly review, and Write-up 1",
      "study": ["01-24", "08-09"],
      "concept": "A baseline is the reference every later comparison needs.",
-     "task": "Review the week: what you can explain and what is shaky. Write Write-up 1 (one page): your Mac's energy path and its idle baseline. Link the raw readings, label every number, and state the limits (one Mac, one run, a gauge nobody has checked). Claude builds handbook edition 0.2. Week 2's sessions are written from what this week produced.",
+     "task": "Review the week: what you can explain and what is shaky. Write Write-up 1 (one page): your Mac's energy path and its idle baseline. Link the raw readings, label every number, and state the boundary: the readings show power leaving the battery, as the Mac's own gauge reports it. They don't show wall consumption, charger efficiency, chip power or cooling performance. State the other limits too (one Mac, one run, a gauge nobody has checked). Claude builds handbook edition 0.2 and writes Week 2's sessions into the lab from what this week produced.",
      "outputs": [
       {"what": "Write-up 1: energy path and idle baseline, with linked raw readings", "saved_to": "docs/handbook/handbook.md (Part IV, E001 summary)"},
-      {"what": "Handbook edition 0.2", "saved_to": "docs/handbook/editions/"}
+      {"what": "Handbook edition 0.2", "saved_to": "docs/handbook/editions/"},
+      {"what": "Week 2's sessions, written from this week's results", "saved_to": "website/lab/programme.json"}
     ],
      "equipment": ["Your notes from the week"],
      "minutes": {"study": 10, "practical": 50, "recording": 20, "reflection": 10},
      "stop": ["If a number in the write-up has no source or label, leave it out."],
-     "checklist": ["What you can explain, listed", "What is shaky, listed", "Write-up 1 finished, every number labelled", "Raw readings linked, not copied", "Edition 0.2 built"],
+     "checklist": ["What you can explain, listed", "What is shaky, listed", "Write-up 1 finished, every number labelled", "The write-up says what was measured and what remains unknown", "Raw readings linked, not copied", "Edition 0.2 built", "Week 2's sessions are in the lab, ready for Monday"],
      "next": "Week 2: sensors and logging.",
      "links": {"experiment": "experiments/E001-mac-energy-baseline/README.md", "notes": "docs/handbook/handbook.md"}
     }

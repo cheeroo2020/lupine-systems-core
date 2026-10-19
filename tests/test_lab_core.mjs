@@ -70,6 +70,20 @@ test("energy is the area under the power curve, in watt-hours", () => {
   assert.equal(run.energy.coverage, 1);
 });
 
+test("a gap is not covered time: energy across it is a separate, labelled estimate", () => {
+  // Regression: samples at minutes 0, 1 and 3 used to report 100% coverage.
+  const run = Lab.makeRun({ text: [unplugged("2026-10-21T00:00:00Z", 12000, -1000), unplugged("2026-10-21T00:01:00Z", 12000, -1000),
+    unplugged("2026-10-21T00:03:00Z", 12000, -1000)].join("\n") });
+  assert.equal(run.energy.span_s, 180);
+  assert.equal(run.energy.covered_s, 60);
+  assert.equal(run.energy.gap_s, 120);
+  assert.equal(run.energy.coverage, 0.333);
+  assert.equal(run.energy.energy_Wh, 0.2);              // 12 W for the one covered minute
+  assert.equal(run.energy.interpolated_Wh, 0.4);        // 12 W across the 2-minute gap, an estimate
+  const other = Lab.makeRun({ text: [unplugged("2026-10-21T00:00:00Z", 12000, -1000), unplugged("2026-10-21T00:01:00Z", 12000, -1000)].join("\n") });
+  assert.ok(Lab.compareRuns(run, other).warnings.some(w => /interpolated/.test(w)));
+});
+
 test("the raw text is kept, and CSV leaves missing cells empty", () => {
   const text = [unplugged("2026-10-21T00:00:00Z", 12000, -1000), sample("2026-10-21T00:01:00Z", [`"Voltage" = 12000`, `"ExternalConnected" = No`])].join("\n");
   const run = Lab.makeRun({ text });
