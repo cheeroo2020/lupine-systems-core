@@ -129,6 +129,8 @@ Both kinds live in one file today. Splitting them is migration step M4 (section 
 | `scripts/rail_uncertainty_demo.py` | Nine Rail cases against a pretend battery | **[SIMULATED]**. Run: `PYTHONPATH=. python scripts/rail_uncertainty_demo.py` |
 | `scripts/build_rail_rules.py` | Runs Rail's real code over the 60 situations in the website's "Try the rules" panel and writes `website/assets/rail-rules.json` | A test fails if the file and the code disagree |
 | `scripts/build_handbook.py` | Handbook master → paginated PDF edition | Free (`reportlab`). Never overwrites an edition |
+| `scripts/build_textbook_index.py` | Course text PDF → `website/lab/textbook-pages.json` (every printed page label and title) | Free (`pypdfium2`). `tests/test_lab.py` fails if the lab cites a page that isn't in it |
+| `website/lab/` | The daily lab (public at `/lab/`). `programme.json` holds the sessions; `progress.json` holds Chris's real progress, each entry linked to evidence in the repo; `lab-core.js` reads the Mac's battery readings and compares runs; `demo-data.json` is synthetic | Static: drafts and the demo stay in the visitor's browser and nothing is uploaded. Real records change only through the repository. Tests: `tests/test_lab.py`, `tests/test_lab_core.mjs` (Node) |
 
 ---
 

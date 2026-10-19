@@ -188,14 +188,14 @@ Full module-by-module detail, the dependency map and the automation inventory ar
 | # | Suggested day | Time | Session | Done when |
 |---|---|---|---|---|
 | 1 | Mon 19 | 1.5 h | **Part 01, sitting 1:** pages 01-03 to 01-10. The physical picture; voltage, current and resistance. | You can explain 01-04 to 01-07 aloud without looking |
-| 2 | Tue 20 | 1.5 h | **Part 01, sitting 2:** pages 01-11 to 01-15. Series and parallel; power; energy. | You can redo the 01-14 example from a blank page |
-| 3 | Wed 21 | 1.5 h | **Part 01, sitting 3:** pages 01-16 to 01-21. Measuring current; bounds; zero, missing and stale. Then Claude shows the matching rule in `src/rail_lite/outcome.py`. | You can say why a missing reading is not zero, in the circuit and in the code |
+| 2 | Tue 20 | 2 h | **Part 01, sitting 2:** pages 01-11 to 01-15. Series and parallel; power; energy. **Lab:** map your Mac's energy path and read its charger's rating. | You can redo the 01-14 example from a blank page; the energy path is drawn |
+| 3 | Wed 21 | 2 h | **Part 01, sitting 3:** pages 01-16 to 01-21. Measuring current; bounds; zero, missing and stale. Then Claude shows the matching rule in `src/rail_lite/outcome.py`. **Lab:** a 10-minute idle baseline from your Mac's own battery readings. | You can say why a missing reading is not zero, in the circuit and in the code; the baseline readings are saved |
 | 4 | Thu 22 | 1.5 h | **Part 01, sitting 4:** the 8 practice problems (01-22). Send your answers; then compare with 01-23. | Answers checked; mistakes and corrections recorded in Part III |
 | 5 | Fri 23 | 1.5 h | **Tasmania, part 1:** textbook 07-03 to 07-08. Orientation, organisations, hydro, Basslink and Marinus. | Four facts recorded, each with source, date and label |
-| 6 | Sat 24 | 1.5 h + 1 h | **Programming 1:** set up Python and reproduce practice problems 1 and 3 in a few lines. **Industry list:** five people or organisations from 07-04 and 07-26; draft a four-sentence introduction (not sent). | Script matches 01-23; list and draft added here |
-| 7 | Sun 25 | 1 h | **Weekly review:** what you can explain, what is shaky; update this handbook; produce edition 0.2 | Edition 0.2 exists |
+| 6 | Sat 24 | 2 h | **Programming 1:** set up Python and reproduce practice problems 1 and 3 in a few lines. **Industry list:** five people or organisations from 07-04 and 07-26; draft a four-sentence introduction (not sent). | Script matches 01-23; list and draft added here |
+| 7 | Sun 25 | 1.5 h | **Weekly review:** what you can explain, what is shaky; update this handbook; **Write-up 1** (your Mac's energy path and idle baseline); produce edition 0.2 | Write-up 1 is written; edition 0.2 exists |
 
-Total ≈ 11 hours. The panel-heater exercise from the 16 October chat lesson is optional extra practice; Part 01 covers the same ground.
+Total ≈ 12 hours. Each session's full detail (pages, task, the evidence to save, equipment, stop conditions and checklist) is on the site's **Lab** page (`website/lab/`), which opens the next unfinished session. The panel-heater exercise from the 16 October chat lesson is optional extra practice; Part 01 covers the same ground.
 
 ### Review — Week 1
 
