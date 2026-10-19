@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hobart AI Factory Lab — Lupine</title>
+<meta name="description" content="Chris Gogoi's daily lab: what to study, what to do and what evidence to save, session by session. Includes a demo with synthetic data.">
+<link rel="icon" href="../assets/brand/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../assets/brand/favicon-32.png">
+<style>
+  /* Geist and Geist Mono, SIL Open Font License (../assets/fonts/OFL-Geist.txt). */
+  @font-face { font-family: "Geist"; src: url("../assets/fonts/geist-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: "Geist Mono"; src: url("../assets/fonts/geist-mono-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+  :root {
+    --paper: #FEFDF7; --paper-2: #F4F3EA; --panel: #FFFFFF; --ink: #11201A; --body: #3A4840; --muted: #69756E;
+    --line: #E2E0D3; --line-2: #D3D1C2; --forest: #1B422E; --forest-3: #0F2A1D; --teal: #498182; --teal-wash: #E3EEEA;
+    --signal: #D3EE6A; --signal-2: #E9F7B5; --warn-fg: #8A4B08; --warn-bg: #FDF0D2; --stop-fg: #8E2A1A; --stop-bg: #FBE7E2;
+    --sim-fg: #5B21B6; --sim-bg: #EEE8FD;
+    --sans: "Geist", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--body); font: 400 16px/1.55 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  a { color: var(--forest); text-underline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 6px; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 760px) { .wrap { padding: 0 28px; } }
+  h1, h2, h3 { color: var(--ink); font-weight: 500; letter-spacing: -.025em; margin: 0; }
+  h1 { font-size: clamp(1.7rem, 1.2rem + 2vw, 2.6rem); line-height: 1.08; }
+  h2 { font-size: 1.35rem; line-height: 1.2; }
+  h3 { font: 500 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  code, pre, .mono { font-family: var(--mono); }
+  .tag { display: inline-block; font: 500 10.5px var(--mono); letter-spacing: .08em; padding: 2px 7px; border-radius: 5px; vertical-align: 1px; white-space: nowrap; }
+  .tag.sim { color: var(--sim-fg); background: var(--sim-bg); } .tag.real { color: var(--forest); background: var(--teal-wash); }
+  .tag.warn { color: var(--warn-fg); background: var(--warn-bg); } .tag.plain { color: var(--muted); background: var(--paper-2); }
+
+  header.top { border-bottom: 1px solid var(--line); background: rgba(254,253,247,.92); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
+  header.top .wrap { display: flex; align-items: center; gap: 14px; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 9px; color: var(--ink); text-decoration: none; font-weight: 600; }
+  .brand img { width: 28px; height: 28px; border-radius: 7px; }
+  .brand span { color: var(--muted); font-weight: 400; }
+  nav.tabs { margin-left: auto; display: flex; gap: 4px; overflow-x: auto; }
+  nav.tabs a { padding: 7px 12px; border-radius: 999px; text-decoration: none; color: var(--body); font-size: 14px; white-space: nowrap; }
+  nav.tabs a[aria-current="page"] { background: var(--forest); color: var(--paper); }
+  @media (max-width: 560px) { .brand span { display: none; } nav.tabs a { padding: 7px 9px; font-size: 13px; } }
+  @media (max-width: 420px) { .brand .name { display: none; } }
+  .brand .name { font-weight: 600; }
+
+  .notice { background: var(--paper-2); border-bottom: 1px solid var(--line); font-size: 14px; }
+  .notice .wrap { padding-top: 10px; padding-bottom: 10px; }
+  main.wrap { padding-top: 28px; padding-bottom: 80px; }
+  section[hidden] { display: none; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(16px, 2.4vw, 26px); }
+  .stack > * + * { margin-top: 16px; }
+  .grid { display: grid; gap: 16px; }
+  @media (min-width: 960px) { .grid.today { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); align-items: start; } }
+  /* small screens: one column, safety and checklist before the task */
+  @media (max-width: 959px) {
+    .grid.today { display: flex; flex-direction: column; }
+    .grid.today > .stack, .grid.today > .side { display: contents; }
+    .grid.today > .stack > *, .grid.today > .side > * { margin-top: 0; order: var(--o, 50); }
+  }
+  .eyebrow { font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--teal); margin: 0 0 10px; }
+  .status { display: inline-flex; align-items: center; gap: 8px; font: 500 12px var(--mono); padding: 5px 10px; border-radius: 999px; background: var(--paper-2); color: var(--body); }
+  .status.done { background: var(--forest); color: var(--paper); } .status.draft { background: var(--signal-2); color: var(--forest-3); }
+  .concept { background: var(--signal-2); border: 1px solid var(--signal); border-radius: 14px; padding: 14px 16px; color: var(--forest-3); font-size: 1.05rem; }
+  .stopbox { background: var(--stop-bg); border-radius: 14px; padding: 14px 16px; color: var(--stop-fg); }
+  .stopbox ul, .plainlist { margin: 0; padding-left: 18px; }
+  .study li { margin: 4px 0; } .study .lbl { font: 500 13px var(--mono); color: var(--forest); margin-right: 6px; }
+  .study .pg { color: var(--muted); font-size: 13px; }
+  .outputs li { margin: 6px 0; } .outputs .where { display: block; font: 12.5px var(--mono); color: var(--muted); word-break: break-word; }
+  ol.steps { padding-left: 20px; margin: 10px 0 0; } ol.steps li { margin: 6px 0; }
+  .checks label { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+  .checks input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--forest); flex: 0 0 auto; }
+  .time { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; }
+  .time div { background: var(--paper-2); border-radius: 10px; padding: 8px 4px; }
+  .time b { display: block; font: 500 1.2rem var(--sans); color: var(--ink); } .time span { font-size: 11.5px; color: var(--muted); }
+  .time input { width: 100%; font: 500 1rem var(--sans); text-align: center; border: 1px solid var(--line-2); border-radius: 8px; padding: 4px; background: var(--panel); }
+  button, .btn { font: 500 14px/1 var(--sans); border-radius: 999px; padding: 10px 16px; border: 1px solid var(--forest); background: var(--panel); color: var(--forest); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  button.primary, .btn.primary { background: var(--forest); color: var(--paper); }
+  button:hover { background: var(--signal-2); } button.primary:hover { background: var(--forest-3); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  textarea, input[type="text"], input[type="number"], select { font: 14px var(--sans); color: var(--ink); background: var(--panel); border: 1px solid var(--line-2); border-radius: 10px; padding: 9px 11px; width: 100%; }
+  textarea { font-family: var(--mono); font-size: 12.5px; min-height: 120px; resize: vertical; }
+  textarea.notes { font-family: var(--sans); font-size: 14px; }
+  label.field { display: block; font-size: 13px; color: var(--muted); } label.field > * { margin-top: 4px; }
+  .fields { display: grid; gap: 10px; } @media (min-width: 640px) { .fields { grid-template-columns: 1fr 1fr; } }
+  pre.cmd { background: var(--forest-3); color: #E7F2D0; border-radius: 12px; padding: 12px 14px; font-size: 12.5px; white-space: pre-wrap; word-break: break-all; margin: 0; }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th { font: 500 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--paper-2); }
+  td.num { font-variant-numeric: tabular-nums; text-align: right; }
+  table.wrapcells td { white-space: normal; min-width: 90px; }
+  .miss { color: var(--warn-fg); font-style: italic; }
+  .warnings { list-style: none; padding: 0; margin: 0; } .warnings li { background: var(--warn-bg); color: var(--warn-fg); border-radius: 10px; padding: 8px 12px; margin: 6px 0; font-size: 14px; }
+  .sev-ok { color: var(--forest); } .sev-warn { color: var(--warn-fg); font-weight: 500; } .sev-block { color: var(--stop-fg); font-weight: 600; } .sev-info { color: var(--muted); }
+  .runs .run { border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-top: 10px; }
+  .figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+  .figures div { background: var(--paper-2); border-radius: 10px; padding: 10px; } .figures b { display: block; font-size: 1.25rem; color: var(--ink); font-weight: 500; }
+  .figures span { font-size: 12px; color: var(--muted); }
+  .weeks .week { border-top: 1px solid var(--line); padding: 18px 0; }
+  .sess { display: flex; gap: 10px; align-items: baseline; padding: 6px 0; } .sess .id { font: 500 12px var(--mono); color: var(--teal); min-width: 44px; }
+  .counter { font: 500 2.4rem/1 var(--sans); color: var(--ink); letter-spacing: -.04em; }
+  .demo-banner { background: var(--sim-bg); color: var(--sim-fg); border-radius: 14px; padding: 12px 16px; font-weight: 500; }
+  .stepper { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+  .stepper li { display: flex; gap: 10px; align-items: center; font-size: 14px; }
+  .stepper li::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--line-2); flex: 0 0 auto; }
+  .stepper li.on::before { background: var(--forest); border-color: var(--forest); }
+  details summary { cursor: pointer; color: var(--forest); font-size: 14px; }
+  .muted { color: var(--muted); } .small { font-size: 13px; }
+  .err { background: var(--stop-bg); color: var(--stop-fg); border-radius: 12px; padding: 14px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../"><img src="../assets/brand/lupine-mark-512.png" alt="Lupine" width="28" height="28"><b class="name">Lupine</b> <span>· Hobart AI Factory Lab</span></a>
+    <nav class="tabs" aria-label="Lab sections">
+      <a href="#today">Today</a><a href="#programme">Programme</a><a href="#outputs">Outputs</a><a href="#demo">Demo</a>
+    </nav>
+  </div>
+</header>
+<div class="notice"><div class="wrap">
+  <b>Chris's working lab.</b> Progress here is read from the public repository and changes only when Chris publishes evidence there.
+  Anything you type stays in your own browser. To explore with invented data, open the <a href="#demo">demo</a>.
+</div></div>
+
+<main class="wrap">
+  <div id="load-error" class="err" hidden></div>
+  <section id="today" aria-labelledby="today-h"></section>
+  <section id="programme" hidden></section>
+  <section id="outputs" hidden></section>
+  <section id="demo" hidden></section>
+</main>
+
+<script src="lab-core.js"></script>
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  const GH = "https://github.com/cheeroo2020/lupine-systems-core/blob/main/";
+
+  /* ── browser storage: drafts and the demo only; never Chris's real records ── */
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } },
+    del(k) { try { localStorage.removeItem(k); } catch {} },
+  };
+  const KEY = { settings: "lupine-lab:settings", draft: id => `lupine-lab:draft:${id}`, demo: "lupine-lab:demo:v1" };
+
+  let P, PR, PAGES, DEMO;
+  Promise.all(["programme.json", "progress.json", "textbook-pages.json", "demo-data.json"].map(f =>
+    fetch(f, { cache: "no-cache" }).then(r => { if (!r.ok) throw new Error(f); return r.json(); })))
+    .then(([p, pr, pages, demo]) => { P = p; PR = pr; PAGES = pages.pages; DEMO = demo; route(); addEventListener("hashchange", route); })
+    .catch(() => { const e = $("#load-error"); e.hidden = false;
+      e.textContent = "The lab's files couldn't be loaded. Open it from its web address (or a local web server), not as a file."; });
+
+  /* ── programme helpers ── */
+  const sessions = () => P.weeks.flatMap(w => w.sessions.map(s => ({ ...s, week: w.week })));
+  const done = id => PR.sessions.find(s => s.id === id);
+  const next = () => sessions().find(s => !done(s.id));
+  const expand = ref => { if (!ref.includes("..")) return [ref]; const [a, b] = ref.split("..");
+    return Array.from({ length: +b.slice(3) - +a.slice(3) + 1 }, (_, i) => `${a.slice(0, 2)}-${String(+a.slice(3) + i).padStart(2, "0")}`); };
+  const studyHTML = refs => `<ul class="study plainlist">${refs.flatMap(expand).map(l => PAGES[l]
+    ? `<li><span class="lbl">${l}</span>${esc(PAGES[l].title)} <span class="pg">· PDF p. ${PAGES[l].pdf_page}</span></li>`
+    : `<li><span class="lbl">${l}</span><span class="miss">not found in the course text</span></li>`).join("")}</ul>`;
+  const draftOf = id => store.get(KEY.draft(id), { checks: [], notes: "", runs: [] });
+  function draftState(s) {
+    if (done(s.id)) return { cls: "done", text: "Complete · evidence in the repository" };
+    const d = draftOf(s.id), ticked = s.checklist.filter((_, i) => d.checks[i]).length;
+    if (ticked === s.checklist.length) return { cls: "draft", text: "Checklist done · waiting to be published" };
+    if (ticked || d.notes || d.runs.length) return { cls: "draft", text: `Draft in this browser · ${ticked}/${s.checklist.length} ticked` };
+    return { cls: "", text: "Not started" };
+  }
+  const minutes = s => Object.assign({}, P.default_minutes, store.get(KEY.settings, {}).minutes || {}, s.minutes || {});
+  const fmtDay = d => new Date(d + "T00:00:00").toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short" });
+
+  function taskHTML(text) {
+    const parts = text.split(/\s*\((\d)\)\s+/);
+    if (parts.length < 3) return `<p>${esc(text)}</p>`;
+    const steps = []; for (let i = 2; i < parts.length; i += 2) steps.push(parts[i]);
+    return `<p>${esc(parts[0])}</p><ol class="steps">${steps.map(t => `<li>${esc(t)}</li>`).join("")}</ol>`;
+  }
+
+  /* ── router ── */
+  function route() {
+    const [view, arg] = (location.hash.slice(1) || "today").split("/");
+    const v = ["today", "programme", "outputs", "demo"].includes(view) ? view : "today";
+    $$("main > section").forEach(s => { s.hidden = s.id !== v; });
+    $$("nav.tabs a").forEach(a => { if (a.getAttribute("href") === "#" + v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+    ({ today: () => renderToday(arg), programme: renderProgramme, outputs: renderOutputs, demo: renderDemo })[v]();
+  }
+
+  /* ── TODAY ── */
+  function renderToday(id) {
+    const el = $("#today"), all = sessions(), upNext = next(), s = all.find(x => x.id === id) || upNext;
+    const wk = P.weeks.find(w => !w.sessions.every(x => done(x.id))) || P.weeks[P.weeks.length - 1];
+    if (!s) {
+      el.innerHTML = `<p class="eyebrow">Today</p><h1 id="today-h">Week ${wk.week}: ${esc(wk.title)}</h1>
+        <div class="card stack" style="margin-top:18px"><p>All written sessions are complete. Week ${wk.week}'s sessions are written at the Sunday review, from what the previous week produced.</p>
+        <h3>This week's outline</h3><p>${esc(wk.goal)}</p>${wk.study ? studyHTML(wk.study) : ""}</div>`;
+      return;
+    }
+    const st = draftState(s), d = draftOf(s.id), m = minutes(s), week = P.weeks.find(w => w.week === s.week);
+    const total = m.study + m.practical + m.recording + m.reflection, own = !!s.minutes;
+    const wkDone = week.sessions.filter(x => done(x.id)).length;
+    const link = (label, path) => path ? `<li>${label}: ${done(s.id) || !path.startsWith("experiments/") ? `<a href="${GH + esc(path)}">${esc(path)}</a>` : `<code>${esc(path)}</code> <span class="muted small">(created when you publish)</span>`}</li>` : "";
+    el.innerHTML = `
+      <p class="eyebrow">${s.id === (upNext && upNext.id) ? "Today · next unfinished session" : `Viewing ${esc(s.id)} · today's session is <a href="#today">${upNext ? esc(upNext.id) : "—"}</a>`}</p>
+      <h1 id="today-h">${esc(s.title)}</h1>
+      <div class="row" style="margin:14px 0 22px"><span class="status ${st.cls}">${esc(st.text)}</span>
+        <span class="muted small">${esc(s.id)} · Week ${s.week}: ${wkDone} of ${week.sessions.length} sessions complete (from the repository) · suggested for ${fmtDay(s.day)}</span></div>
+      <div class="grid today">
+        <div class="stack">
+          <div class="card" style="--o:1"><h3>1 · Study</h3>${studyHTML(s.study)}</div>
+          <div class="concept" style="--o:2"><h3 style="color:var(--forest)">Explain in your own words</h3>${esc(s.concept)}</div>
+          <div class="card" style="--o:6"><h3>2 · Do</h3>${taskHTML(s.task)}</div>
+          ${s.tool === "baseline" ? `<div class="card" id="tool" style="--o:7"></div>` : ""}
+          <div class="card" style="--o:8"><h3>3 · Save this evidence before the session counts</h3>
+            <ul class="outputs plainlist">${s.outputs.map(o => `<li>${esc(o.what)}<span class="where">→ ${esc(o.saved_to)}</span></li>`).join("")}</ul></div>
+          <div class="card" style="--o:10"><h3>4 · Notes (draft, this browser only)</h3>
+            <textarea class="notes" id="notes" aria-label="Session notes" placeholder="What you did, what you saw, what surprised you.">${esc(d.notes)}</textarea>
+            <p class="small muted" id="saved-note" aria-live="polite"></p></div>
+          <div class="card stack" style="--o:11"><h3>5 · Finish and publish</h3>
+            <p>Nothing here is published automatically. When the checklist is done, download your draft and send it to Claude with <b>"OK to publish"</b>.
+               You choose what goes public; photos and personal notes stay out unless you pick them. The session is marked complete only once its evidence is in the repository.</p>
+            <div class="row"><button class="primary" id="export">Download my draft (.md)</button>${s.tool ? `<button id="export-csv">Download readings (.csv)</button>` : ""}</div>
+            <p><b>Next:</b> ${esc(s.next)}</p></div>
+        </div>
+        <aside class="side stack">
+          <div class="card" style="--o:3"><h3>Time · ${total} min</h3>
+            <div class="time">${["study", "practical", "recording", "reflection"].map(k => `<div><b>${m[k]}</b><span>${k}</span></div>`).join("")}</div>
+            <p class="small muted" style="margin:10px 0 0">${own ? "Set for this session in the programme." : "Your default weekday session."}
+              <a href="#programme">Adjust the default</a></p></div>
+          <div class="card" style="--o:4"><h3>Equipment</h3><ul class="plainlist">${s.equipment.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+          <div class="stopbox" style="--o:5"><h3 style="color:var(--stop-fg)">Stop if</h3><ul>${s.stop.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+          <div class="card" style="--o:9"><h3>Checklist</h3><div class="checks">${s.checklist.map((c, i) =>
+            `<label><input type="checkbox" data-i="${i}" ${d.checks[i] || done(s.id) ? "checked" : ""} ${done(s.id) ? "disabled" : ""}><span>${esc(c)}</span></label>`).join("")}</div></div>
+          <div class="card" style="--o:12"><h3>Links</h3><ul class="plainlist small">${link("Experiment", s.links?.experiment)}${link("Readings", s.links?.readings)}${link("Notes", s.links?.notes)}
+            ${done(s.id) ? done(s.id).evidence.map(e => `<li>Evidence: <a href="${GH + esc(e.path)}">${esc(e.label || e.path)}</a></li>`).join("") : ""}</ul></div>
+          <div class="card" style="--o:13"><h3>Other sessions</h3><div class="row">${all.map(x => `<a class="btn" style="padding:7px 11px;font-size:13px" href="#today/${x.id}" ${x.id === s.id ? 'aria-current="page"' : ""}>${done(x.id) ? "✓ " : ""}${x.id}</a>`).join("")}</div></div>
+        </aside>
+      </div>`;
+
+    const save = patch => { const cur = draftOf(s.id); const ok = store.set(KEY.draft(s.id), { ...cur, ...patch, updated: new Date().toISOString() });
+      $("#saved-note").textContent = ok ? "Saved in this browser." : "This browser won't store drafts (private mode?). Download your draft before leaving.";
+      const st2 = draftState(s), pill = $(".status", el); pill.className = "status " + st2.cls; pill.textContent = st2.text; };
+    $$(".checks input", el).forEach(cb => cb.addEventListener("change", () => {
+      const checks = draftOf(s.id).checks.slice(); checks[+cb.dataset.i] = cb.checked; save({ checks }); }));
+    let t; $("#notes").addEventListener("input", e => { clearTimeout(t); t = setTimeout(() => save({ notes: e.target.value }), 300); });
+    $("#export").addEventListener("click", () => download(`${s.id}-draft.md`, draftMarkdown(s), "text/markdown"));
+    if (s.tool) {
+      $("#export-csv").addEventListener("click", () => { const runs = draftOf(s.id).runs.map(LabCore.makeRun);
+        if (!runs.length) return alert("No saved runs yet.");
+        runs.forEach(r => download(`${s.id}-${slug(r.label || r.id)}.csv`, LabCore.toCSV(r), "text/csv")); });
+      readingsPanel($("#tool"), {
+        synthetic: false, command: P.baseline_command,
+        getRuns: () => draftOf(s.id).runs, setRuns: runs => save({ runs }),
+        lastDevice: () => (draftOf(s.id).runs.slice(-1)[0] || {}).device || "",
+        defaults: { method: "ioreg battery gauge, 1-minute samples", workload: "idle, screen on" },
+      });
+    }
+  }
+
+  function draftMarkdown(s) {
+    const d = draftOf(s.id), runs = d.runs.map(LabCore.makeRun);
+    const lines = [`# Draft: ${s.id} · ${s.title}`, "", `Exported ${new Date().toISOString()} from the Lupine lab (this browser). **Not yet published.**`, "",
+      "## Checklist", ...s.checklist.map((c, i) => `- [${d.checks[i] ? "x" : " "}] ${c}`), "", "## Notes", d.notes || "_No notes._", ""];
+    if (runs.length) {
+      lines.push("## Readings");
+      runs.forEach(r => lines.push("", `### ${r.label || r.id}`, `- Data: ${r.synthetic ? "SYNTHETIC" : "real"}`, `- Device: ${r.device || "not recorded"}`,
+        `- Method: ${r.method}`, `- Workload: ${r.workload || "not recorded"}`, `- Ambient: ${r.ambient_C === null ? "not measured" : r.ambient_C + " °C"}`,
+        `- Samples: ${r.power.n_total}; usable power: ${r.power.n_valid}; missing: ${r.power.n_missing}`,
+        `- Mean power: ${r.power.mean ?? "missing"} W [MEASURED] by the Mac's own battery gauge; uncertainty unknown`,
+        `- Energy over usable intervals: ${r.energy.energy_Wh ?? "missing"} Wh (${r.energy.coverage === null ? "no" : Math.round(r.energy.coverage * 100) + "%"} of the run covered)`,
+        ...r.warnings.map(w => `- Warning: ${w}`), "", "Raw output, exactly as pasted:", "```text", r.raw.trimEnd(), "```"));
+    }
+    return lines.join("\n") + "\n";
+  }
+
+  /* ── readings panel, shared by Today and the demo ── */
+  function readingsPanel(el, o) {
+    let preview = null;
+    const render = () => {
+      const runs = o.getRuns().map(LabCore.makeRun);
+      el.innerHTML = `<h3>Readings ${o.synthetic ? '<span class="tag sim">SYNTHETIC</span>' : '<span class="tag real">REAL · YOUR MAC</span>'}</h3>
+        ${o.command ? `<p class="small">Paste this into Terminal, press Return and leave the Mac for about 10 minutes:</p>
+          <pre class="cmd" id="cmd">${esc(o.command)}</pre><div class="row" style="margin:8px 0 14px"><button id="copy">Copy command</button><span class="small muted" id="copied" aria-live="polite"></span></div>` : ""}
+        ${o.presets ? `<p class="small">Load the two invented runs. Each is saved in this browser as soon as it loads.</p>
+          <div class="row" style="margin-bottom:12px">${o.presets.map(p => `<button data-preset="${p.id}">Load ${esc(p.label)}</button>`).join("")}</div>` : `
+        <label class="field">Output to read<textarea id="paste" spellcheck="false" placeholder="Paste everything the command printed.">${preview ? esc(preview.text) : ""}</textarea></label>
+        <div class="fields" style="margin-top:10px">
+          <label class="field">Run name<input type="text" id="r-label" value="${esc(preview?.label || "")}" placeholder="e.g. Idle baseline 1"></label>
+          <label class="field">Workload<input type="text" id="r-work" value="${esc(preview?.workload ?? o.defaults.workload)}"></label>
+          <label class="field">Device (model and chip, no serial number)<input type="text" id="r-dev" value="${esc(preview?.device ?? (o.lastDevice ? o.lastDevice() : ""))}"></label>
+          <label class="field">Ambient °C (leave empty if not measured)<input type="number" step="0.1" id="r-amb" value="${preview && preview.ambient_C !== null && preview.ambient_C !== undefined ? preview.ambient_C : ""}"></label>
+        </div>
+        <div class="row" style="margin-top:12px"><button id="read">Read the output</button><button class="primary" id="saverun" ${preview ? "" : "disabled"}>Save as a run</button></div>
+        <div id="preview"></div>`}
+        <div class="runs">${runs.map((r, i) => runHTML(r, i)).join("") || '<p class="small muted">No saved runs yet.</p>'}</div>
+        ${runs.length >= 2 ? `<div class="card" style="margin-top:14px;background:var(--paper)"><h3>Compare two runs</h3>
+          <div class="fields"><label class="field">Run A<select id="ca">${runs.map((r, i) => `<option value="${i}">${esc(r.label || "Run " + (i + 1))}</option>`).join("")}</select></label>
+          <label class="field">Run B<select id="cb">${runs.map((r, i) => `<option value="${i}" ${i === 1 ? "selected" : ""}>${esc(r.label || "Run " + (i + 1))}</option>`).join("")}</select></label></div>
+          <div class="row" style="margin-top:10px"><button class="primary" id="compare">Compare</button></div><div id="cmp"></div></div>` : ""}`;
+      if (preview && !o.presets) $("#preview", el).innerHTML = previewHTML(LabCore.makeRun(preview));
+      wire(runs);
+    };
+    const meta = () => ({ text: $("#paste", el).value, label: $("#r-label", el).value.trim() || `Run ${o.getRuns().length + 1}`,
+      workload: $("#r-work", el).value.trim(), device: $("#r-dev", el).value.trim(), method: o.defaults.method,
+      ambient_C: $("#r-amb", el).value === "" ? null : parseFloat($("#r-amb", el).value), synthetic: o.synthetic, id: "R" + Date.now() });
+    function wire(runs) {
+      $("#copy", el)?.addEventListener("click", () => {
+        const done = ok => { $("#copied", el).textContent = ok ? "Copied." : "Select the command and copy it by hand."; };
+        navigator.clipboard ? navigator.clipboard.writeText(o.command).then(() => done(true), () => done(false)) : done(false); });
+      $$("[data-preset]", el).forEach(b => b.addEventListener("click", () => { const p = o.presets.find(x => x.id === b.dataset.preset);
+        o.onPreset ? o.onPreset(p) : null; }));
+      $("#read", el)?.addEventListener("click", () => {
+        preview = meta(); const r = LabCore.makeRun(preview);
+        if (!r.samples.length) { preview = null; render(); $("#preview", el).innerHTML = `<ul class="warnings"><li>No readings found. Paste the whole output, including the timestamp lines.</li></ul>`; return; }
+        render(); $("#saverun", el).focus(); });
+      $("#saverun", el)?.addEventListener("click", () => { if (!preview) return; preview = { ...meta(), id: preview.id };
+        o.setRuns([...o.getRuns(), preview]); preview = null; render(); o.onChange && o.onChange("saved"); });
+      $$("[data-remove]", el).forEach(b => b.addEventListener("click", () => {
+        if (!confirm("Remove this run from this browser?")) return;
+        o.setRuns(o.getRuns().filter((_, i) => i !== +b.dataset.remove)); render(); o.onChange && o.onChange("removed"); }));
+      $$("[data-csv]", el).forEach(b => b.addEventListener("click", () => { const r = runs[+b.dataset.csv];
+        download(`${slug(r.label || r.id)}.csv`, LabCore.toCSV(r), "text/csv"); }));
+      $("#compare", el)?.addEventListener("click", () => {
+        const a = runs[+$("#ca", el).value], b = runs[+$("#cb", el).value];
+        $("#cmp", el).innerHTML = a === b ? `<ul class="warnings"><li>Pick two different runs.</li></ul>` : compareHTML(LabCore.compareRuns(a, b), a, b);
+        o.onChange && o.onChange("compared"); });
+    }
+    o.render = render; render();
+    return o;
+  }
+
+  const fmt = (v, d) => v === null || v === undefined ? '<span class="miss">missing</span>' : Number(v).toFixed(d);
+  function samplesTable(r) {
+    return `<div class="tablewrap"><table><thead><tr><th>#</th><th>Time (UTC)</th><th>Voltage V</th><th>Current A</th><th>Battery °C</th><th>Charger</th><th>Power W</th><th>Note</th></tr></thead><tbody>
+      ${r.samples.map((s, i) => `<tr><td>${i + 1}</td><td>${s.t ? esc(s.t.slice(11, 19)) : '<span class="miss">no time</span>'}</td><td class="num">${fmt(s.voltage_V, 3)}</td>
+        <td class="num">${fmt(s.current_A, 3)}</td><td class="num">${fmt(s.battery_C, 2)}</td><td>${s.on_charger === null ? '<span class="miss">unknown</span>' : s.on_charger ? "yes" : "no"}</td>
+        <td class="num">${fmt(s.power_W, 2)}</td><td class="small">${esc(s.note)}</td></tr>`).join("")}</tbody></table></div>`;
+  }
+  function summaryFigs(r) {
+    return `<div class="figures">
+      <div><b>${r.power.n_valid}/${r.power.n_total}</b><span>samples with usable power</span></div>
+      <div><b>${r.power.mean === null ? "missing" : r.power.mean.toFixed(2) + " W"}</b><span>mean power (rate)</span></div>
+      <div><b>${r.energy.energy_Wh === null ? "missing" : r.energy.energy_Wh.toFixed(3) + " Wh"}</b><span>energy, ${r.energy.coverage === null ? "no" : Math.round(r.energy.coverage * 100) + "%"} of time covered</span></div>
+      <div><b>${r.battery.rise_K === null ? "missing" : (r.battery.rise_K >= 0 ? "+" : "") + r.battery.rise_K.toFixed(2) + " K"}</b><span>battery temperature change</span></div></div>`;
+  }
+  function previewHTML(r) {
+    return `<div style="margin-top:14px" class="stack"><h3>Read from the output (not saved yet)</h3>${summaryFigs(r)}
+      ${r.warnings.length ? `<ul class="warnings">${r.warnings.map(w => `<li>${esc(w)}</li>`).join("")}</ul>` : ""}${samplesTable(r)}</div>`;
+  }
+  function runHTML(r, i) {
+    return `<div class="run stack"><div class="row" style="justify-content:space-between"><b>${esc(r.label || "Run " + (i + 1))}</b>
+        <span>${r.synthetic ? '<span class="tag sim">SYNTHETIC</span>' : '<span class="tag real">REAL</span>'}</span></div>
+      <p class="small muted" style="margin:0">${esc(r.device || "device not recorded")} · ${esc(r.method)} · ${esc(r.workload || "workload not recorded")} · ambient ${r.ambient_C === null ? "not measured" : r.ambient_C + " °C"}</p>
+      ${summaryFigs(r)}
+      <details><summary>Readings and raw output</summary><div class="stack" style="margin-top:10px">${samplesTable(r)}<pre class="cmd" style="background:var(--paper-2);color:var(--ink)">${esc(r.raw)}</pre></div></details>
+      <div class="row"><button data-csv="${i}">Download CSV</button><button data-remove="${i}">Remove</button></div></div>`;
+  }
+  function compareHTML(c, a, b) {
+    const sev = { ok: "same", warn: "differs", block: "blocked", info: "differs (the thing compared)" };
+    const checks = `<div class="tablewrap"><table class="wrapcells"><thead><tr><th>Condition</th><th>Run A</th><th>Run B</th><th>Check</th></tr></thead><tbody>
+      ${c.checks.map(x => `<tr><td>${esc(x.name)}</td><td>${x.a === null || x.a === "" ? '<span class="miss">not recorded</span>' : esc(x.a)}</td><td>${x.b === null || x.b === "" ? '<span class="miss">not recorded</span>' : esc(x.b)}</td>
+        <td class="sev-${x.severity}">${x.same ? "same" : sev[x.severity]}</td></tr>`).join("")}</tbody></table></div>`;
+    const warn = c.warnings.length ? `<ul class="warnings">${c.warnings.map(w => `<li>${esc(w)}</li>`).join("")}</ul>` : "";
+    if (!c.comparable) return `<div class="stack" style="margin-top:14px">${checks}${warn}</div>`;
+    const k = v => v === null ? "missing" : (v >= 0 ? "+" : "") + v.toFixed(2) + " K";
+    const ka = v => v === null ? "no ambient" : k(v);
+    return `<div class="stack" style="margin-top:14px">
+      ${c.synthetic ? '<p class="demo-banner">SYNTHETIC: this comparison uses invented readings.</p>' : ""}
+      <h3>Conditions</h3>${checks}
+      <h3>Power and energy</h3><div class="figures">
+        <div><b>${c.power.a === null ? "missing" : c.power.a.toFixed(2) + " W"}</b><span>A: mean power</span></div>
+        <div><b>${c.power.b === null ? "missing" : c.power.b.toFixed(2) + " W"}</b><span>B: mean power</span></div>
+        <div><b>${c.power.difference_W === null ? "missing" : (c.power.difference_W >= 0 ? "+" : "") + c.power.difference_W.toFixed(2) + " W"}</b><span>B − A${c.power.ratio === null ? "" : ` (${c.power.ratio}× as much)`}</span></div>
+        <div><b>${c.energy_Wh.a === null ? "missing" : c.energy_Wh.a.toFixed(3)} / ${c.energy_Wh.b === null ? "missing" : c.energy_Wh.b.toFixed(3)} Wh</b><span>energy A / B, usable intervals</span></div></div>
+      <h3>Battery temperature</h3><div class="figures">
+        <div><b>${k(c.temperature.rise_K.a)} / ${k(c.temperature.rise_K.b)}</b><span>change during A / B</span></div>
+        <div><b>${ka(c.temperature.above_ambient_K.a)} / ${ka(c.temperature.above_ambient_K.b)}</b><span>above ambient at the end, A / B</span></div>
+        <div><b>${k(c.temperature.end_difference_K)}</b><span>B − A at the end</span></div></div>
+      <p class="small muted" style="margin:0">Temperatures are compared as differences in kelvin. A percentage of a Celsius value means nothing, because 0 °C is not zero heat.</p>
+      ${warn}</div>`;
+  }
+
+  /* ── PROGRAMME ── */
+  function renderProgramme() {
+    const set = store.get(KEY.settings, {}).minutes || {}, m = Object.assign({}, P.default_minutes, set);
+    $("#programme").innerHTML = `<p class="eyebrow">Six weeks, started ${fmtDay(P.started)}</p><h1>The programme</h1>
+      <p style="max-width:46rem">${esc(P.note)}</p>
+      <div class="card" style="margin:18px 0"><h3>Your default weekday session (this browser)</h3>
+        <div class="time">${["study", "practical", "recording", "reflection"].map(k => `<div><input type="number" min="0" max="240" step="5" id="m-${k}" value="${m[k]}" aria-label="${k} minutes"><span>${k} (min)</span></div>`).join("")}</div>
+        <div class="row" style="margin-top:10px"><button id="m-save">Save</button><button id="m-reset">Back to 25 · 65 · 20 · 10</button><span class="small muted" id="m-note" aria-live="polite"></span></div>
+        <p class="small muted" style="margin:8px 0 0">Sessions with their own times in the programme keep them. The Sunday review stays as it is.</p></div>
+      <div class="weeks">${P.weeks.map(w => `<div class="week"><p class="eyebrow">Week ${w.week}</p><h2>${esc(w.title)}</h2><p>${esc(w.goal)}</p>
+        ${w.sessions.length ? w.sessions.map(s => { const st = draftState(s); return `<div class="sess"><span class="id">${s.id}</span>
+          <span><a href="#today/${s.id}">${esc(s.title)}</a> <span class="status ${st.cls}" style="margin-left:6px">${esc(st.text)}</span></span></div>`; }).join("")
+          : `<p class="small muted">Sessions are written at the Sunday review before this week, from what the previous week produced.</p><h3>Pages</h3>${studyHTML(w.study)}
+             <h3 style="margin-top:12px">Outputs</h3><ul class="plainlist">${w.outputs.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`}
+        ${w.writeups.length ? `<p class="small">Write-ups: ${w.writeups.join(", ")}</p>` : ""}</div>`).join("")}</div>`;
+    const saveM = vals => { const ok = store.set(KEY.settings, { minutes: vals }); $("#m-note").textContent = ok ? "Saved." : "This browser won't store settings."; };
+    $("#m-save").addEventListener("click", () => saveM(Object.fromEntries(["study", "practical", "recording", "reflection"].map(k => [k, Math.max(0, parseInt($("#m-" + k).value, 10) || 0)]))));
+    $("#m-reset").addEventListener("click", () => { store.del(KEY.settings); renderProgramme(); $("#m-note").textContent = "Back to the default."; });
+  }
+
+  /* ── OUTPUTS ── */
+  function renderOutputs() {
+    const T = P.targets, o = PR.observations, wDone = id => PR.writeups.find(w => w.id === id);
+    $("#outputs").innerHTML = `<p class="eyebrow">From completed work only</p><h1>Outputs</h1>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:18px">
+        <div class="card"><h3>Write-ups</h3><div class="counter">${PR.writeups.length}<span class="muted" style="font-size:1rem"> / ${T.writeups.length}</span></div>
+          <ul class="plainlist small" style="margin-top:10px">${T.writeups.map(id => `<li>${id}: ${wDone(id) ? `<a href="${GH + esc(wDone(id).path)}">published</a>` : '<span class="muted">not yet</span>'}</li>`).join("")}</ul>
+          <p class="small muted">Week 6 reviews all seven.</p></div>
+        <div class="card"><h3>Firsthand physical observations</h3><div class="counter">${o.firsthand.length}<span class="muted" style="font-size:1rem"> / ${T.firsthand_observations}</span></div>
+          <p class="small">${esc(T.firsthand_rule)}</p>
+          <p class="small muted">Counted separately: ${o.study_questions.length} study questions · ${o.hypotheses.length} hypotheses · ${o.simulated_failures.length} simulated failures.</p></div>
+        <div class="card"><h3>Problem brief</h3><p>${PR.problem_brief ? `<a href="${GH + esc(PR.problem_brief.path)}">Published</a>` : "Not started (week 6)."}</p>
+          <p class="small">Two pages: linked evidence, limitations, existing alternatives and a falsifiable next test.</p></div>
+        <div class="card"><h3>Industry validation</h3><p><b>${PR.industry_feedback.length ? PR.industry_feedback.length + " pieces of recorded feedback" : "Pending"}</b></p>
+          <p class="small">Pending until real feedback is recorded. Questions you plan to ask don't count.</p></div>
+      </div>`;
+  }
+
+  /* ── DEMO: the same workflow with synthetic data, kept apart from Chris's work ── */
+  function renderDemo() {
+    const S = DEMO.session, blank = () => ({ steps: {}, runs: [], claim: "", linked: [] });
+    const get = () => store.get(KEY.demo, blank()), put = v => store.set(KEY.demo, v);
+    const st = get();
+    if (st.reloadPending) { delete st.reloadPending; if (st.runs.length) st.steps.reloaded = true; put(st); }
+    const keys = ["chosen", "runA", "runB", "saved", "reloaded", "compared", "linked", "completed"];
+    const el = $("#demo");
+    const paint = () => {
+      const s = get(), on = k => !!s.steps[k];
+      el.innerHTML = `<p class="eyebrow">Demo walkthrough</p><h1>${esc(S.title)}</h1>
+        <p class="demo-banner" style="margin:16px 0">${esc(DEMO.label)} Your demo progress stays in this browser and never counts as Chris's progress.</p>
+        <div class="grid today"><div class="stack">
+          <div class="card"><h3>1 · Study</h3>${studyHTML(S.study)}</div>
+          <div class="concept"><h3 style="color:var(--forest)">Explain in your own words</h3>${esc(S.concept)}</div>
+          <div class="card"><h3>2 · Do</h3><p>${esc(S.task)}</p>
+            <div class="row"><button class="primary" id="d-start" ${on("chosen") ? "disabled" : ""}>${on("chosen") ? "Task chosen" : "Choose this task"}</button>
+              <button id="d-reload" ${s.runs.length ? "" : "disabled"}>Reload the page</button></div></div>
+          ${on("chosen") ? `<div class="card" id="d-tool"></div>
+          <div class="card stack"><h3>3 · Link the evidence to a claim</h3>
+            <label class="field">One-line claim<input type="text" id="d-claim" value="${esc(s.claim)}" placeholder="e.g. In this synthetic example, light load drew about three times the idle power."></label>
+            <div class="checks">${s.runs.map(r => `<label><input type="checkbox" data-link="${esc(r.id)}" ${s.linked.includes(r.id) ? "checked" : ""}><span>${esc(r.label)}</span></label>`).join("") || '<p class="small muted">Save the runs first.</p>'}</div>
+            <div class="row"><button id="d-link" ${s.runs.length ? "" : "disabled"}>Link evidence</button></div></div>
+          <div class="card stack"><h3>4 · Complete</h3>
+            ${on("completed") ? `<p class="demo-banner">Demo session complete. SYNTHETIC: not Chris's work and not counted anywhere.</p>` :
+              `<button class="primary" id="d-done" ${keys.slice(0, 7).every(on) ? "" : "disabled"}>Complete the demo session</button>
+               <p class="small muted">Available once steps 1 to 7 are done.</p>`}</div>` : ""}
+        </div>
+        <aside class="side stack"><div class="card" style="--o:0"><h3>Walkthrough</h3><ol class="stepper">${S.checklist.map((c, i) => `<li class="${on(keys[i]) ? "on" : ""}">${esc(c)}</li>`).join("")}</ol></div>
+          <div class="card"><h3>Chris's real progress</h3><p class="small">${PR.sessions.length} sessions complete, from the repository. The demo can't change this.</p></div>
+          <div class="card"><button id="d-reset">Reset the demo</button></div></aside></div>`;
+      $("#d-start")?.addEventListener("click", () => { const v = get(); v.steps.chosen = true; put(v); paint(); });
+      $("#d-reload")?.addEventListener("click", () => { const v = get(); v.reloadPending = true; put(v); location.reload(); });
+      $("#d-reset").addEventListener("click", () => { store.del(KEY.demo); paint(); });
+      if (on("chosen")) {
+        readingsPanel($("#d-tool"), {
+          synthetic: true, presets: DEMO.runs,
+          getRuns: () => get().runs, defaults: { method: DEMO.runs[0].method, workload: "" },
+          setRuns: runs => { const v = get(); v.runs = runs; markRuns(v); put(v); },
+          onPreset: p => { const v = get();
+            if (!v.runs.some(r => r.preset === p.id)) v.runs = [...v.runs, { ...p, preset: p.id, id: "DEMO-" + p.id }];
+            markRuns(v); if (!put(v)) alert("This browser won't store the demo (private mode?)."); paint(); },
+          onChange: what => { if (what === "compared") { const v = get(); v.steps.compared = true; put(v); paintSteps(); } else paint(); },
+        });
+        $("#d-link")?.addEventListener("click", () => { const v = get(); v.claim = $("#d-claim").value.trim();
+          v.linked = $$("[data-link]:checked").map(x => x.dataset.link); v.steps.linked = !!(v.claim && v.linked.length); put(v); paint();
+          if (!v.steps.linked) alert("Write a claim and tick at least one run."); });
+        $("#d-done")?.addEventListener("click", () => { const v = get(); v.steps.completed = true; v.completed_at = new Date().toISOString(); put(v); paint(); });
+      }
+    };
+    const markRuns = v => { v.steps.runA = v.runs.some(r => r.preset === "A"); v.steps.runB = v.runs.some(r => r.preset === "B");
+      v.steps.saved = v.steps.runA && v.steps.runB; };
+    const paintSteps = () => { const s = get(); $$("#demo .stepper li").forEach((li, i) => li.classList.toggle("on", !!s.steps[keys[i]]));
+      const b = $("#d-done"); if (b) b.disabled = !keys.slice(0, 7).every(k => s.steps[k]); };
+    paint();
+  }
+
+  /* ── small utilities ── */
+  function download(name, text, type) {
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name;
+    document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+  }
+  const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "run";
+})();
+</script>
+</body>
+</html>
