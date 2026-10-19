@@ -3,32 +3,32 @@
   "what": "disagreement between published values, collected in one run",
   "caveat": "not aligned to a common instant: sources report a date, not a fixing time, and publish on different schedules. Dispersion may reflect publication timing rather than price. Rows before 2026-10-16 carry the earlier 'same instant' wording; the observations are unchanged, the description was wrong.",
   "pair": "AUD/SGD",
-  "observations": 714,
-  "observations_with_dispersion": 714,
+  "observations": 715,
+  "observations_with_dispersion": 715,
   "first": "2026-08-03T02:48:39+00:00",
-  "last": "2026-10-19T05:05:04+00:00",
+  "last": "2026-10-19T11:04:08+00:00",
   "source_extremes": {
     "open.er-api.com": {
       "highest": 182,
       "lowest": 250
     },
     "jsdelivr currency-api": {
-      "highest": 290,
+      "highest": 291,
       "lowest": 259
     },
     "Frankfurter (ECB)": {
       "highest": 242,
-      "lowest": 205
+      "lowest": 206
     }
   },
-  "generated": "2026-10-19T05:05:05+00:00",
+  "generated": "2026-10-19T11:04:09+00:00",
   "dispersion_bps": {
-    "mean": 17.93,
+    "mean": 17.939,
     "median": 14.45,
     "min": 0.13,
     "max": 101.1,
-    "stdev": 13.226
+    "stdev": 13.219
   },
   "citable": true,
-  "citation_note": "714 observations. Sufficient to quote a range."
+  "citation_note": "715 observations. Sufficient to quote a range."
 }
