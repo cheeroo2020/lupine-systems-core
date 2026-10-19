@@ -1,0 +1,1173 @@
+{
+ "source": "docs/textbook/energy-infrastructure-visual-handbook-8-part-2026-10-17.pdf",
+ "pages": {
+  "01-01": {
+   "pdf_page": 4,
+   "title": "ELECTRICITY YOU CAN MEASURE"
+  },
+  "01-02": {
+   "pdf_page": 5,
+   "title": "One subject at a time"
+  },
+  "01-03": {
+   "pdf_page": 6,
+   "title": "Meet the circuit you will understand"
+  },
+  "01-04": {
+   "pdf_page": 7,
+   "title": "Charge is already in the wire"
+  },
+  "01-05": {
+   "pdf_page": 8,
+   "title": "Voltage means energy per charge"
+  },
+  "01-06": {
+   "pdf_page": 9,
+   "title": "Measure voltage across two points"
+  },
+  "01-07": {
+   "pdf_page": 10,
+   "title": "Current counts charge per second"
+  },
+  "01-08": {
+   "pdf_page": 11,
+   "title": "Look inside a film resistor"
+  },
+  "01-09": {
+   "pdf_page": 12,
+   "title": "Use Ohm’s law in three directions"
+  },
+  "01-10": {
+   "pdf_page": 13,
+   "title": "See the relationship on a graph"
+  },
+  "01-11": {
+   "pdf_page": 14,
+   "title": "Series: one current, shared voltage"
+  },
+  "01-12": {
+   "pdf_page": 15,
+   "title": "Parallel: one voltage, divided current"
+  },
+  "01-13": {
+   "pdf_page": 16,
+   "title": "Power tells you how fast energy moves"
+  },
+  "01-14": {
+   "pdf_page": 17,
+   "title": "Energy is power accumulated over time"
+  },
+  "01-15": {
+   "pdf_page": 18,
+   "title": "Changing power needs several areas"
+  },
+  "01-16": {
+   "pdf_page": 19,
+   "title": "Measure current through the branch"
+  },
+  "01-17": {
+   "pdf_page": 20,
+   "title": "Put a bound around the reading"
+  },
+  "01-18": {
+   "pdf_page": 21,
+   "title": "Zero, missing and stale are different"
+  },
+  "01-19": {
+   "pdf_page": 22,
+   "title": "Compare a model with a constructed record"
+  },
+  "01-20": {
+   "pdf_page": 23,
+   "title": "Your first physical measurement"
+  },
+  "01-21": {
+   "pdf_page": 24,
+   "title": "Troubleshoot without guessing"
+  },
+  "01-22": {
+   "pdf_page": 25,
+   "title": "Practise without looking back"
+  },
+  "01-23": {
+   "pdf_page": 26,
+   "title": "Worked answers and reasoning"
+  },
+  "01-24": {
+   "pdf_page": 27,
+   "title": "Keep this beside your first test"
+  },
+  "02-01": {
+   "pdf_page": 28,
+   "title": "COMPONENTS, SENSORS & CONTROL"
+  },
+  "02-02": {
+   "pdf_page": 29,
+   "title": "Follow one system, learn each interface"
+  },
+  "02-03": {
+   "pdf_page": 30,
+   "title": "A board is more than a processor"
+  },
+  "02-04": {
+   "pdf_page": 31,
+   "title": "A 5 V input does not mean 5 V logic"
+  },
+  "02-05": {
+   "pdf_page": 32,
+   "title": "Digital inputs classify voltage"
+  },
+  "02-06": {
+   "pdf_page": 33,
+   "title": "An LED needs current control"
+  },
+  "02-07": {
+   "pdf_page": 34,
+   "title": "A capacitor manages changing energy"
+  },
+  "02-08": {
+   "pdf_page": 35,
+   "title": "A coil needs a path when switched off"
+  },
+  "02-09": {
+   "pdf_page": 36,
+   "title": "A MOSFET separates signal from load current"
+  },
+  "02-10": {
+   "pdf_page": 37,
+   "title": "Threshold is not “fully on”"
+  },
+  "02-11": {
+   "pdf_page": 38,
+   "title": "Trace a complete low-side load path"
+  },
+  "02-12": {
+   "pdf_page": 39,
+   "title": "A sensor is the start of a measurement"
+  },
+  "02-13": {
+   "pdf_page": 40,
+   "title": "Meet the temperature sensor for the logger"
+  },
+  "02-14": {
+   "pdf_page": 41,
+   "title": "An ADC reports a code, not certainty"
+  },
+  "02-15": {
+   "pdf_page": 42,
+   "title": "Scale a voltage before interpreting it"
+  },
+  "02-16": {
+   "pdf_page": 43,
+   "title": "A shunt makes current observable"
+  },
+  "02-17": {
+   "pdf_page": 44,
+   "title": "Power readings need the right time scale"
+  },
+  "02-18": {
+   "pdf_page": 45,
+   "title": "A brushless fan is a small controlled machine"
+  },
+  "02-19": {
+   "pdf_page": 46,
+   "title": "PWM changes the on-time fraction"
+  },
+  "02-20": {
+   "pdf_page": 47,
+   "title": "Count rotation with a tachometer signal"
+  },
+  "02-21": {
+   "pdf_page": 48,
+   "title": "Choose the bus the sensor actually uses"
+  },
+  "02-22": {
+   "pdf_page": 49,
+   "title": "A sample has a lifecycle too"
+  },
+  "02-23": {
+   "pdf_page": 50,
+   "title": "Read one sensor, preserve failed readings"
+  },
+  "02-24": {
+   "pdf_page": 51,
+   "title": "Understand what each line can claim"
+  },
+  "02-25": {
+   "pdf_page": 52,
+   "title": "Build the ambient logger first"
+  },
+  "02-26": {
+   "pdf_page": 53,
+   "title": "Bring up one layer at a time"
+  },
+  "02-27": {
+   "pdf_page": 54,
+   "title": "Ten checks before the next part"
+  },
+  "02-28": {
+   "pdf_page": 55,
+   "title": "Worked answers: 1-5"
+  },
+  "02-29": {
+   "pdf_page": 56,
+   "title": "Worked answers: 6-10"
+  },
+  "02-30": {
+   "pdf_page": 57,
+   "title": "Reference: quantities and interfaces"
+  },
+  "02-31": {
+   "pdf_page": 58,
+   "title": "Words and parts you should recognise"
+  },
+  "02-32": {
+   "pdf_page": 59,
+   "title": "Sources and the next boundary"
+  },
+  "03-01": {
+   "pdf_page": 60,
+   "title": "AC POWER, MACHINES & NETWORKS"
+  },
+  "03-02": {
+   "pdf_page": 61,
+   "title": "A route through the electrical system"
+  },
+  "03-03": {
+   "pdf_page": 62,
+   "title": "AC reverses polarity through time"
+  },
+  "03-04": {
+   "pdf_page": 63,
+   "title": "RMS connects a waveform to heating"
+  },
+  "03-05": {
+   "pdf_page": 64,
+   "title": "Phase describes relative timing"
+  },
+  "03-06": {
+   "pdf_page": 65,
+   "title": "Inductors and capacitors shift the response"
+  },
+  "03-07": {
+   "pdf_page": 66,
+   "title": "Impedance combines magnitude and phase"
+  },
+  "03-08": {
+   "pdf_page": 67,
+   "title": "Three power quantities answer different questions"
+  },
+  "03-09": {
+   "pdf_page": 68,
+   "title": "Power factor changes the required current"
+  },
+  "03-10": {
+   "pdf_page": 69,
+   "title": "Distortion breaks the simple cosine shortcut"
+  },
+  "03-11": {
+   "pdf_page": 70,
+   "title": "Three phases share one electrical cycle"
+  },
+  "03-12": {
+   "pdf_page": 71,
+   "title": "Line values are not always winding values"
+  },
+  "03-13": {
+   "pdf_page": 72,
+   "title": "Estimate three-phase loading correctly"
+  },
+  "03-14": {
+   "pdf_page": 73,
+   "title": "A transformer couples windings through flux"
+  },
+  "03-15": {
+   "pdf_page": 74,
+   "title": "Higher voltage can reduce transfer losses"
+  },
+  "03-16": {
+   "pdf_page": 75,
+   "title": "A generator converts torque into electrical power"
+  },
+  "03-17": {
+   "pdf_page": 76,
+   "title": "Hydro connects water, torque and the grid"
+  },
+  "03-18": {
+   "pdf_page": 77,
+   "title": "A motor turns electrical input into shaft power"
+  },
+  "03-19": {
+   "pdf_page": 78,
+   "title": "Frequency reveals a dynamic power imbalance"
+  },
+  "03-20": {
+   "pdf_page": 79,
+   "title": "Inertia slows change; it does not refill itself"
+  },
+  "03-21": {
+   "pdf_page": 80,
+   "title": "Read a single-line diagram as a network"
+  },
+  "03-22": {
+   "pdf_page": 81,
+   "title": "A fault changes the circuit, not just the load"
+  },
+  "03-23": {
+   "pdf_page": 82,
+   "title": "Protection must detect and interrupt the right fault"
+  },
+  "03-24": {
+   "pdf_page": 83,
+   "title": "Earth, neutral and OFF mean different things"
+  },
+  "03-25": {
+   "pdf_page": 84,
+   "title": "Choose measurements for the question"
+  },
+  "03-26": {
+   "pdf_page": 85,
+   "title": "Follow the data-centre power path"
+  },
+  "03-27": {
+   "pdf_page": 86,
+   "title": "Experiment: build synthetic AC measurements"
+  },
+  "03-28": {
+   "pdf_page": 87,
+   "title": "Predict the output before running it"
+  },
+  "03-29": {
+   "pdf_page": 88,
+   "title": "Make a reference sheet from one real document"
+  },
+  "03-30": {
+   "pdf_page": 89,
+   "title": "Ten checks before moving on"
+  },
+  "03-31": {
+   "pdf_page": 90,
+   "title": "Worked answers: 1-5"
+  },
+  "03-32": {
+   "pdf_page": 91,
+   "title": "Worked answers: 6-10"
+  },
+  "03-33": {
+   "pdf_page": 92,
+   "title": "Reference: formulas with conditions"
+  },
+  "03-34": {
+   "pdf_page": 93,
+   "title": "Words to recognise in technical documents"
+  },
+  "03-35": {
+   "pdf_page": 94,
+   "title": "Primary references behind this volume"
+  },
+  "03-36": {
+   "pdf_page": 95,
+   "title": "Eight parts: from foundations to field evidence"
+  },
+  "04-01": {
+   "pdf_page": 96,
+   "title": "HEAT, FLUID FLOW & COOLING"
+  },
+  "04-02": {
+   "pdf_page": 97,
+   "title": "The route from heat to evidence"
+  },
+  "04-03": {
+   "pdf_page": 98,
+   "title": "Temperature is not an amount of heat"
+  },
+  "04-04": {
+   "pdf_page": 99,
+   "title": "Start every system with an energy balance"
+  },
+  "04-05": {
+   "pdf_page": 100,
+   "title": "Heat capacity sets the energy to warm a mass"
+  },
+  "04-06": {
+   "pdf_page": 101,
+   "title": "Conduction moves heat through material"
+  },
+  "04-07": {
+   "pdf_page": 102,
+   "title": "Interfaces can dominate a thermal path"
+  },
+  "04-08": {
+   "pdf_page": 103,
+   "title": "Convection connects a surface to moving fluid"
+  },
+  "04-09": {
+   "pdf_page": 104,
+   "title": "Radiation exchanges heat without moving air"
+  },
+  "04-10": {
+   "pdf_page": 105,
+   "title": "Add thermal resistances along a defined path"
+  },
+  "04-11": {
+   "pdf_page": 106,
+   "title": "Thermal mass makes the response take time"
+  },
+  "04-12": {
+   "pdf_page": 107,
+   "title": "Fluid properties shape the cooling problem"
+  },
+  "04-13": {
+   "pdf_page": 108,
+   "title": "Continuity connects flow, area and velocity"
+  },
+  "04-14": {
+   "pdf_page": 109,
+   "title": "Pressure and pump head are related, not identical"
+  },
+  "04-15": {
+   "pdf_page": 110,
+   "title": "Flow resistance consumes pressure difference"
+  },
+  "04-16": {
+   "pdf_page": 111,
+   "title": "The operating point is where two curves meet"
+  },
+  "04-17": {
+   "pdf_page": 112,
+   "title": "Speed changes pressure and power unequally"
+  },
+  "04-18": {
+   "pdf_page": 113,
+   "title": "Air carries heat through a temperature rise"
+  },
+  "04-19": {
+   "pdf_page": 114,
+   "title": "Water moves the same heat at a smaller volume flow"
+  },
+  "04-20": {
+   "pdf_page": 115,
+   "title": "A heat exchanger transfers heat between streams"
+  },
+  "04-21": {
+   "pdf_page": 116,
+   "title": "Refrigeration uses work to move heat uphill"
+  },
+  "04-22": {
+   "pdf_page": 117,
+   "title": "The last heat sink sets the cooling opportunity"
+  },
+  "04-23": {
+   "pdf_page": 118,
+   "title": "Condensation depends on dew point at the surface"
+  },
+  "04-24": {
+   "pdf_page": 119,
+   "title": "Rack airflow must reach the equipment inlet"
+  },
+  "04-25": {
+   "pdf_page": 120,
+   "title": "Liquid cooling uses linked, separate circuits"
+  },
+  "04-26": {
+   "pdf_page": 121,
+   "title": "Coolant choice is also a materials problem"
+  },
+  "04-27": {
+   "pdf_page": 122,
+   "title": "Heat removed needs more than one temperature"
+  },
+  "04-28": {
+   "pdf_page": 123,
+   "title": "Failure diagnosis requires competing explanations"
+  },
+  "04-29": {
+   "pdf_page": 124,
+   "title": "Home experiment: observe a dry sensor recovering"
+  },
+  "04-30": {
+   "pdf_page": 125,
+   "title": "Turn the experiment into a useful record"
+  },
+  "04-31": {
+   "pdf_page": 126,
+   "title": "Model a known thermal system for free"
+  },
+  "04-32": {
+   "pdf_page": 127,
+   "title": "Read the model before fitting anything real"
+  },
+  "04-33": {
+   "pdf_page": 128,
+   "title": "Ten checks before the next part"
+  },
+  "04-34": {
+   "pdf_page": 129,
+   "title": "Worked answers: 1-5"
+  },
+  "04-35": {
+   "pdf_page": 130,
+   "title": "Worked answers: 6-10"
+  },
+  "04-36": {
+   "pdf_page": 131,
+   "title": "Reference: heat, flow and cooling formulas"
+  },
+  "04-37": {
+   "pdf_page": 132,
+   "title": "Words to recognise in cooling documents"
+  },
+  "04-38": {
+   "pdf_page": 133,
+   "title": "References: heat and fluid foundations"
+  },
+  "04-39": {
+   "pdf_page": 134,
+   "title": "References: data-centre cooling systems"
+  },
+  "04-40": {
+   "pdf_page": 135,
+   "title": "Bring the thermal evidence back to Lupine"
+  },
+  "05-01": {
+   "pdf_page": 136,
+   "title": "BATTERIES, INVERTERS & CONVERSION"
+  },
+  "05-02": {
+   "pdf_page": 137,
+   "title": "Read from the cell to the system boundary"
+  },
+  "05-03": {
+   "pdf_page": 138,
+   "title": "A cell stores energy through chemical state"
+  },
+  "05-04": {
+   "pdf_page": 139,
+   "title": "Amp-hours and watt-hours answer different questions"
+  },
+  "05-05": {
+   "pdf_page": 140,
+   "title": "Series adds voltage; parallel adds charge capacity"
+  },
+  "05-06": {
+   "pdf_page": 141,
+   "title": "Terminal voltage falls under discharge load"
+  },
+  "05-07": {
+   "pdf_page": 142,
+   "title": "State of charge is an estimate with a reference"
+  },
+  "05-08": {
+   "pdf_page": 143,
+   "title": "State of health needs a defined metric"
+  },
+  "05-09": {
+   "pdf_page": 144,
+   "title": "C-rate expresses current relative to capacity"
+  },
+  "05-10": {
+   "pdf_page": 145,
+   "title": "Charging follows a chemistry-specific profile"
+  },
+  "05-11": {
+   "pdf_page": 146,
+   "title": "A BMS monitors and constrains the battery"
+  },
+  "05-12": {
+   "pdf_page": 147,
+   "title": "A disconnect command is not a de-energised system"
+  },
+  "05-13": {
+   "pdf_page": 148,
+   "title": "Available energy is not available power"
+  },
+  "05-14": {
+   "pdf_page": 149,
+   "title": "A DC-link capacitor buffers a short mismatch"
+  },
+  "05-15": {
+   "pdf_page": 150,
+   "title": "A buck converter lowers a DC voltage"
+  },
+  "05-16": {
+   "pdf_page": 151,
+   "title": "A boost converter raises a DC voltage"
+  },
+  "05-17": {
+   "pdf_page": 152,
+   "title": "Switching efficiency is a balance of losses"
+  },
+  "05-18": {
+   "pdf_page": 153,
+   "title": "An inverter bridge reverses the load voltage"
+  },
+  "05-19": {
+   "pdf_page": 154,
+   "title": "PWM shapes an average; filtering shapes the waveform"
+  },
+  "05-20": {
+   "pdf_page": 155,
+   "title": "Rectification and PFC shape the input side"
+  },
+  "05-21": {
+   "pdf_page": 156,
+   "title": "Bidirectional conversion needs a defined sign"
+  },
+  "05-22": {
+   "pdf_page": 157,
+   "title": "Grid-following and grid-forming describe control"
+  },
+  "05-23": {
+   "pdf_page": 158,
+   "title": "Reactive power shares the converter’s capability"
+  },
+  "05-24": {
+   "pdf_page": 159,
+   "title": "Intentional backup needs an engineered boundary"
+  },
+  "05-25": {
+   "pdf_page": 160,
+   "title": "A UPS keeps a load supplied through specific paths"
+  },
+  "05-26": {
+   "pdf_page": 161,
+   "title": "Buffers can separate load changes across time scales"
+  },
+  "05-27": {
+   "pdf_page": 162,
+   "title": "Runtime and round-trip efficiency need boundaries"
+  },
+  "05-28": {
+   "pdf_page": 163,
+   "title": "Thermal limits can constrain repeated power"
+  },
+  "05-29": {
+   "pdf_page": 164,
+   "title": "Measure the outcome at the correct boundary"
+  },
+  "05-30": {
+   "pdf_page": 165,
+   "title": "Document study: decode one finished product"
+  },
+  "05-31": {
+   "pdf_page": 166,
+   "title": "A bounded storage model makes limits explicit"
+  },
+  "05-32": {
+   "pdf_page": 167,
+   "title": "Run the energy-accounting model"
+  },
+  "05-33": {
+   "pdf_page": 168,
+   "title": "Check the ledger against known results"
+  },
+  "05-34": {
+   "pdf_page": 169,
+   "title": "Ten checks before the next part"
+  },
+  "05-35": {
+   "pdf_page": 170,
+   "title": "Worked answers: 1-5"
+  },
+  "05-36": {
+   "pdf_page": 171,
+   "title": "Worked answers: 6-10"
+  },
+  "05-37": {
+   "pdf_page": 172,
+   "title": "Reference: storage and conversion formulas"
+  },
+  "05-38": {
+   "pdf_page": 173,
+   "title": "Words to recognise in storage documents"
+  },
+  "05-39": {
+   "pdf_page": 174,
+   "title": "Primary references and review status"
+  },
+  "05-40": {
+   "pdf_page": 175,
+   "title": "Bring the storage limits back to Lupine"
+  },
+  "06-01": {
+   "pdf_page": 176,
+   "title": "CONTROL, COMMUNICATIONS & EVIDENCE"
+  },
+  "06-02": {
+   "pdf_page": 177,
+   "title": "From feedback physics to reliable execution"
+  },
+  "06-03": {
+   "pdf_page": 178,
+   "title": "Keep protection, local control and supervision distinct"
+  },
+  "06-04": {
+   "pdf_page": 179,
+   "title": "A feedback loop compares a reference with evidence"
+  },
+  "06-05": {
+   "pdf_page": 180,
+   "title": "Proportional control responds to current error"
+  },
+  "06-06": {
+   "pdf_page": 181,
+   "title": "Integral action remembers persistent error"
+  },
+  "06-07": {
+   "pdf_page": 182,
+   "title": "Delay, hysteresis and settling time are different"
+  },
+  "06-08": {
+   "pdf_page": 183,
+   "title": "A sample is useful only for a defined decision"
+  },
+  "06-09": {
+   "pdf_page": 184,
+   "title": "Keep event time and receive time separate"
+  },
+  "06-10": {
+   "pdf_page": 185,
+   "title": "Define a record before collecting thousands of them"
+  },
+  "06-11": {
+   "pdf_page": 186,
+   "title": "A working network does not prove a working process"
+  },
+  "06-12": {
+   "pdf_page": 187,
+   "title": "Modbus moves typed-by-contract register values"
+  },
+  "06-13": {
+   "pdf_page": 188,
+   "title": "Decode signs, scale and missing-value sentinels"
+  },
+  "06-14": {
+   "pdf_page": 189,
+   "title": "MQTT delivery and physical execution are different"
+  },
+  "06-15": {
+   "pdf_page": 190,
+   "title": "An adapter translates a device contract into evidence"
+  },
+  "06-16": {
+   "pdf_page": 191,
+   "title": "Sent, accepted and observed are different events"
+  },
+  "06-17": {
+   "pdf_page": 192,
+   "title": "State should represent what evidence justifies"
+  },
+  "06-18": {
+   "pdf_page": 193,
+   "title": "A lost reply leaves two physically different worlds"
+  },
+  "06-19": {
+   "pdf_page": 194,
+   "title": "Reconciliation asks what happened to this instruction"
+  },
+  "06-20": {
+   "pdf_page": 195,
+   "title": "Idempotency concerns repeated effects, not repeated text"
+  },
+  "06-21": {
+   "pdf_page": 196,
+   "title": "Two controllers need an ownership rule"
+  },
+  "06-22": {
+   "pdf_page": 197,
+   "title": "Check constraints again at the point of action"
+  },
+  "06-23": {
+   "pdf_page": 198,
+   "title": "Persist intent before a send can become ambiguous"
+  },
+  "06-24": {
+   "pdf_page": 199,
+   "title": "Restart recovery is a state-reconstruction problem"
+  },
+  "06-25": {
+   "pdf_page": 200,
+   "title": "Evidence integrity is not physical validity"
+  },
+  "06-26": {
+   "pdf_page": 201,
+   "title": "Security must protect the action path and availability"
+  },
+  "06-27": {
+   "pdf_page": 202,
+   "title": "Watchdogs detect a symptom, not every failure"
+  },
+  "06-28": {
+   "pdf_page": 203,
+   "title": "Build a fault matrix before a happy-path demo"
+  },
+  "06-29": {
+   "pdf_page": 204,
+   "title": "Write a one-page interface specification first"
+  },
+  "06-30": {
+   "pdf_page": 205,
+   "title": "The classifier has a deliberately small contract"
+  },
+  "06-31": {
+   "pdf_page": 206,
+   "title": "Classify evidence without sending anything"
+  },
+  "06-32": {
+   "pdf_page": 207,
+   "title": "Inject receipts, readings and identity failures"
+  },
+  "06-33": {
+   "pdf_page": 208,
+   "title": "Expected outcomes and their limits"
+  },
+  "06-34": {
+   "pdf_page": 209,
+   "title": "Ten checks before the next part"
+  },
+  "06-35": {
+   "pdf_page": 210,
+   "title": "Worked answers: 1-5"
+  },
+  "06-36": {
+   "pdf_page": 211,
+   "title": "Worked answers: 6-10"
+  },
+  "06-37": {
+   "pdf_page": 212,
+   "title": "Reference: rules to carry into an interface review"
+  },
+  "06-38": {
+   "pdf_page": 213,
+   "title": "Words to recognise in control and evidence work"
+  },
+  "06-39": {
+   "pdf_page": 214,
+   "title": "Primary references and review status"
+  },
+  "06-40": {
+   "pdf_page": 215,
+   "title": "Bring a reviewable contract back to Lupine"
+  },
+  "07-01": {
+   "pdf_page": 216,
+   "title": "TASMANIA’S GRID & AI DATA CENTRES"
+  },
+  "07-02": {
+   "pdf_page": 217,
+   "title": "From local context to a testable question"
+  },
+  "07-03": {
+   "pdf_page": 218,
+   "title": "Orient yourself without inventing a network map"
+  },
+  "07-04": {
+   "pdf_page": 219,
+   "title": "Separate the organisations by their engineering role"
+  },
+  "07-05": {
+   "pdf_page": 220,
+   "title": "The network has location-specific transfer limits"
+  },
+  "07-06": {
+   "pdf_page": 221,
+   "title": "Hydro links stored water to time-varying power"
+  },
+  "07-07": {
+   "pdf_page": 222,
+   "title": "Pumped storage shifts energy; it does not create it"
+  },
+  "07-08": {
+   "pdf_page": 223,
+   "title": "Basslink exists; Marinus adds future interconnection"
+  },
+  "07-09": {
+   "pdf_page": 224,
+   "title": "A regional power balance needs a sign convention"
+  },
+  "07-10": {
+   "pdf_page": 225,
+   "title": "Security is more than annual energy adequacy"
+  },
+  "07-11": {
+   "pdf_page": 226,
+   "title": "An AI factory couples computing to physical services"
+  },
+  "07-12": {
+   "pdf_page": 227,
+   "title": "Trace the facility electrical path to its meters"
+  },
+  "07-13": {
+   "pdf_page": 228,
+   "title": "Trace the thermal path to the final heat sink"
+  },
+  "07-14": {
+   "pdf_page": 229,
+   "title": "Do not merge different public capacity numbers"
+  },
+  "07-15": {
+   "pdf_page": 230,
+   "title": "Flexible connection is a physical contract"
+  },
+  "07-16": {
+   "pdf_page": 231,
+   "title": "Study the existing controls before proposing another"
+  },
+  "07-17": {
+   "pdf_page": 232,
+   "title": "A flexible load needs a power-and-time specification"
+  },
+  "07-18": {
+   "pdf_page": 233,
+   "title": "Thermal storage gives time, not unlimited flexibility"
+  },
+  "07-19": {
+   "pdf_page": 234,
+   "title": "Weather helps size cooling; averages can mislead"
+  },
+  "07-20": {
+   "pdf_page": 235,
+   "title": "Data movement is part of the energy problem"
+  },
+  "07-21": {
+   "pdf_page": 236,
+   "title": "Start with free primary information"
+  },
+  "07-22": {
+   "pdf_page": 237,
+   "title": "Demand is a definition, not one universal number"
+  },
+  "07-23": {
+   "pdf_page": 238,
+   "title": "Use two clocks without confusing them"
+  },
+  "07-24": {
+   "pdf_page": 239,
+   "title": "Make a small acquisition manifest"
+  },
+  "07-25": {
+   "pdf_page": 240,
+   "title": "Write the claim your evidence can support"
+  },
+  "07-26": {
+   "pdf_page": 241,
+   "title": "Use local expertise to sharpen your questions"
+  },
+  "07-27": {
+   "pdf_page": 242,
+   "title": "Keep a problem log grounded in evidence"
+  },
+  "07-28": {
+   "pdf_page": 243,
+   "title": "Choose one gap you can actually investigate"
+  },
+  "07-29": {
+   "pdf_page": 244,
+   "title": "Turn one question into a two-page problem brief"
+  },
+  "07-30": {
+   "pdf_page": 245,
+   "title": "Exercise: audit interval coverage before energy"
+  },
+  "07-31": {
+   "pdf_page": 246,
+   "title": "Code 1 / validate and preserve unknowns"
+  },
+  "07-32": {
+   "pdf_page": 247,
+   "title": "Code 2 / run the synthetic fixture"
+  },
+  "07-33": {
+   "pdf_page": 248,
+   "title": "Expected results and deliberate failure tests"
+  },
+  "07-34": {
+   "pdf_page": 249,
+   "title": "Ten questions before moving to the prototype"
+  },
+  "07-35": {
+   "pdf_page": 250,
+   "title": "Answers 1-5 / physical boundaries"
+  },
+  "07-36": {
+   "pdf_page": 251,
+   "title": "Answers 6-10 / evidence boundaries"
+  },
+  "07-37": {
+   "pdf_page": 252,
+   "title": "Keep the quantities and boundaries straight"
+  },
+  "07-38": {
+   "pdf_page": 253,
+   "title": "Primary sources / infrastructure"
+  },
+  "07-39": {
+   "pdf_page": 254,
+   "title": "Primary sources / data and learning"
+  },
+  "07-40": {
+   "pdf_page": 255,
+   "title": "Bring Tasmania into your Lupine engineering notebook"
+  },
+  "08-01": {
+   "pdf_page": 256,
+   "title": "LUPINE / BUILD, TEST, EXPLAIN"
+  },
+  "08-02": {
+   "pdf_page": 257,
+   "title": "The route through the final volume"
+  },
+  "08-03": {
+   "pdf_page": 258,
+   "title": "One claim, one fixture, explicit limits"
+  },
+  "08-04": {
+   "pdf_page": 259,
+   "title": "Keep three layers and the device boundary clear"
+  },
+  "08-05": {
+   "pdf_page": 260,
+   "title": "Progress by demonstrated gates"
+  },
+  "08-06": {
+   "pdf_page": 261,
+   "title": "Buy only what the next gate needs"
+  },
+  "08-07": {
+   "pdf_page": 262,
+   "title": "Draw the power budget before wiring"
+  },
+  "08-08": {
+   "pdf_page": 263,
+   "title": "Measure the quantity you intend to verify"
+  },
+  "08-09": {
+   "pdf_page": 264,
+   "title": "Establish a baseline before injecting failures"
+  },
+  "08-10": {
+   "pdf_page": 265,
+   "title": "Use a time budget with an uncertainty budget"
+  },
+  "08-11": {
+   "pdf_page": 266,
+   "title": "Write requirements that can fail a test"
+  },
+  "08-12": {
+   "pdf_page": 267,
+   "title": "Define the command and observation contract"
+  },
+  "08-13": {
+   "pdf_page": 268,
+   "title": "Represent knowledge separately from physical state"
+  },
+  "08-14": {
+   "pdf_page": 269,
+   "title": "Reconcile with reads before deciding to act again"
+  },
+  "08-15": {
+   "pdf_page": 270,
+   "title": "Idempotency reduces duplicate effects, not all risk"
+  },
+  "08-16": {
+   "pdf_page": 271,
+   "title": "Restart must not erase uncertainty"
+  },
+  "08-17": {
+   "pdf_page": 272,
+   "title": "Store enough evidence to reconstruct a decision"
+  },
+  "08-18": {
+   "pdf_page": 273,
+   "title": "Cloked: integrity needs an external reference"
+  },
+  "08-19": {
+   "pdf_page": 274,
+   "title": "Aiva: reject invalid requests before ranking"
+  },
+  "08-20": {
+   "pdf_page": 275,
+   "title": "Build a fault matrix before writing the demo"
+  },
+  "08-21": {
+   "pdf_page": 276,
+   "title": "Choose semantics before choosing a protocol"
+  },
+  "08-22": {
+   "pdf_page": 277,
+   "title": "Read a Modbus map as an engineering document"
+  },
+  "08-23": {
+   "pdf_page": 278,
+   "title": "Separate bench access from plant authority"
+  },
+  "08-24": {
+   "pdf_page": 279,
+   "title": "Link control to energy and heat with real units"
+  },
+  "08-25": {
+   "pdf_page": 280,
+   "title": "Run one experiment as a repeatable procedure"
+  },
+  "08-26": {
+   "pdf_page": 281,
+   "title": "A results sheet should expose the evidence"
+  },
+  "08-27": {
+   "pdf_page": 282,
+   "title": "Analyse failures without polishing them away"
+  },
+  "08-28": {
+   "pdf_page": 283,
+   "title": "Exercise 1 / define the normalized evidence"
+  },
+  "08-29": {
+   "pdf_page": 284,
+   "title": "Exercise 2 / implement the conservative rule"
+  },
+  "08-30": {
+   "pdf_page": 285,
+   "title": "Exercise 3 / predict, run and mutate"
+  },
+  "08-31": {
+   "pdf_page": 286,
+   "title": "Restructure by adding a bounded energy module"
+  },
+  "08-32": {
+   "pdf_page": 287,
+   "title": "Build your own reference as you learn"
+  },
+  "08-33": {
+   "pdf_page": 288,
+   "title": "Your first week starts with explanation, not shopping"
+  },
+  "08-34": {
+   "pdf_page": 289,
+   "title": "A multi-year direction, with nearer evidence gates"
+  },
+  "08-35": {
+   "pdf_page": 290,
+   "title": "Move from bench to field through bounded access"
+  },
+  "08-36": {
+   "pdf_page": 291,
+   "title": "Ask whether the capability deserves to be a product"
+  },
+  "08-37": {
+   "pdf_page": 292,
+   "title": "Ten questions to own the prototype"
+  },
+  "08-38": {
+   "pdf_page": 293,
+   "title": "Answers / explain the limits as well as the result"
+  },
+  "08-39": {
+   "pdf_page": 294,
+   "title": "Free primary references for this prototype"
+  },
+  "08-40": {
+   "pdf_page": 295,
+   "title": "Eight parts complete; your own evidence starts now"
+  }
+ }
+}

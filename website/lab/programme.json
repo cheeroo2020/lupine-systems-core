@@ -1,0 +1,184 @@
+{
+ "title": "Hobart AI Factory Lab: six-week programme",
+ "started": "2026-10-19",
+ "note": "The textbook supplies the learning; each session turns it into a calculation, test, measurement or explanation. Days are suggestions: progress comes only from completed work recorded in progress.json. Weeks 2-6 are outlines; their sessions are written at the Sunday review before each week, from what the previous week actually produced.",
+ "default_minutes": {"study": 25, "practical": 65, "recording": 20, "reflection": 10},
+ "baseline_command": "for i in {1..10}; do date -u +%Y-%m-%dT%H:%M:%SZ; ioreg -rn AppleSmartBattery | grep -E '\"(Voltage|Amperage|Temperature|ExternalConnected|CurrentCapacity)\" = '; sleep 60; done",
+ "weeks": [
+  {
+   "week": 1,
+   "title": "Electrical foundations and baseline",
+   "goal": "Part 01 sittings and practice problems; two answers reproduced in Python; your Mac's energy path mapped and an idle baseline recorded, with estimates kept apart from measurements.",
+   "writeups": ["W1"],
+   "sessions": [
+    {
+     "id": "W1-1",
+     "day": "2026-10-19",
+     "title": "Part 01, sitting 1: the circuit, voltage, current and resistance",
+     "study": ["01-03..01-10"],
+     "concept": "Charge goes round the loop and comes back; the resistor takes energy, not charge.",
+     "task": "Read 01-03 to 01-10, follow Claude's worked example (5 V across 1 kΩ), then do the exercise: 5.00 V across an ideal 250 Ω resistor for 2 minutes. Predict first, then calculate current, charge and energy.",
+     "outputs": [{"what": "Exercise answers, corrections and your own-words explanations", "saved_to": "docs/handbook/handbook.md (Part III, Sitting 1)"}],
+     "equipment": ["The textbook PDF", "Paper and pen"],
+     "minutes": {"study": 45, "practical": 25, "recording": 15, "reflection": 5},
+     "stop": ["If a page still makes no sense after two readings, write down the sentence where it stops making sense and bring it to Claude."],
+     "checklist": ["Read 01-03 to 01-10", "Predicted before calculating", "Answered (a) to (d) with units", "Explained charge versus energy in your own words", "Corrections recorded in the handbook"],
+     "next": "W1-2: sitting 2 and your Mac's energy path.",
+     "links": {"notes": "docs/handbook/handbook.md"}
+    },
+    {
+     "id": "W1-2",
+     "day": "2026-10-20",
+     "title": "Part 01, sitting 2, and your Mac's energy path",
+     "study": ["01-07", "01-08", "01-10", "01-11..01-15"],
+     "concept": "Power is how fast energy moves (watts, joules per second); energy is power accumulated over time (joules or watt-hours).",
+     "task": "First, the checks left from sitting 1: explain current in your own words (01-07), resistor tolerance (01-08) and reading the graph (01-10). Then read 01-11 to 01-15 and ask Claude for sitting 2's worked example and exercise. Practical: map your Mac's energy path. (1) Apple menu > About This Mac: note the model and chip, not the serial number. (2) Read the small print on the charger and copy its Input and Output lines exactly. (3) Draw six boxes: wall socket > charger > cable > battery > the Mac's electronics > heat into the room. For each, write the form the energy is in, what could measure it, and whether you can measure it safely now. (4) From the charger's highest output line, calculate its rated maximum power with P = V × I.",
+     "outputs": [
+      {"what": "Answers to sitting 2's exercise and the sitting 1 checks", "saved_to": "docs/handbook/handbook.md (Part III, Sitting 2)"},
+      {"what": "Energy-path table: six stages, energy form, what could measure it, can you measure it now, and the claim label", "saved_to": "experiments/E001-mac-energy-baseline/README.md (Setup)"}
+     ],
+     "equipment": ["The textbook PDF", "Your Mac and its charger (read the label only)", "Paper and pen"],
+     "stop": ["Read labels only: don't open the charger or the Mac, and don't put anything into a wall socket.", "If the charger or cable is damaged, very hot or smells of burning, switch off at the wall, unplug it and don't use it.", "If a page still makes no sense after two readings, write down where it stops making sense and bring it to Claude."],
+     "checklist": ["Sitting 1 checks answered (01-07, 01-08, 01-10)", "Read 01-11 to 01-15", "Sitting 2 exercise done, with units", "Energy path drawn with all six stages", "Charger Input and Output copied exactly, labelled [ASSUMED] (a maker's rating, not a measurement)", "Rated maximum power calculated with P = V × I", "Power versus energy explained in your own words"],
+     "next": "W1-3: sitting 3 and your first baseline readings.",
+     "links": {"experiment": "experiments/E001-mac-energy-baseline/README.md", "notes": "docs/handbook/handbook.md"}
+    },
+    {
+     "id": "W1-3",
+     "day": "2026-10-21",
+     "title": "Part 01, sitting 3, and your first baseline: the Mac at idle on battery",
+     "study": ["01-16..01-21"],
+     "concept": "Zero, missing and stale are different: a reading that never arrived is not 0 W.",
+     "tool": "baseline",
+     "task": "Read 01-16 to 01-21; Claude then shows the matching rule in Rail's code (src/rail_lite/outcome.py). Practical: record a 10-minute idle baseline. (1) Charge to at least 40%, then unplug the charger. Close other apps; note the screen brightness; put the Mac on a hard surface. (2) Open Terminal, paste the baseline command shown below, press Return, then leave the Mac untouched for about 10 minutes. (3) Copy everything the command printed and paste it into the readings box here. The lab works out power from the battery's own voltage and current: P = V × I. (4) Plug the charger back in and run the command once more for one sample: does the current change sign? Write down what you see.",
+     "outputs": [
+      {"what": "Raw command output, exactly as printed", "saved_to": "experiments/E001-mac-energy-baseline/data/ (raw .txt)"},
+      {"what": "Parsed readings (CSV) with missing values left empty, never 0", "saved_to": "experiments/E001-mac-energy-baseline/data/ (.csv)"},
+      {"what": "Conditions note: model, battery %, brightness, workload, start time, anything unexpected", "saved_to": "experiments/E001-mac-energy-baseline/README.md (Measurements)"}
+     ],
+     "equipment": ["Your Mac, unplugged, at 40% charge or more", "Terminal (built in)", "The textbook PDF or printed pages"],
+     "stop": ["If the battery falls below 20%, stop and plug in.", "If the Mac is hot to touch or the fan runs loudly while idle, stop and write that down as an observation.", "If the output has no Voltage or Amperage lines, stop: record 'not available on this Mac' and bring the output to Claude. Don't guess values.", "Don't run commands that start with sudo unless Claude has explained them."],
+     "checklist": ["Read 01-16 to 01-21", "Seen the matching rule in src/rail_lite/outcome.py", "Unplugged; battery % and brightness written down", "Baseline command ran for about 10 minutes, Mac untouched", "Output pasted and parsed: 10 samples, or the missing ones counted", "Labels written: voltage and current [MEASURED] by the Mac's own battery gauge, uncertainty unknown; charger figures [ASSUMED]", "Plugged-in sample taken and the current's sign noted", "Explained why a missing reading is not zero, in the circuit and in the code"],
+     "next": "W1-4: the eight practice problems.",
+     "links": {"experiment": "experiments/E001-mac-energy-baseline/README.md", "readings": "experiments/E001-mac-energy-baseline/data/", "notes": "docs/handbook/handbook.md"}
+    },
+    {
+     "id": "W1-4",
+     "day": "2026-10-22",
+     "title": "Part 01, sitting 4: the eight practice problems",
+     "study": ["01-22", "01-23", "01-24"],
+     "concept": "One mistake you made and why it happened, in your own words.",
+     "task": "Answer the eight problems on 01-22 without looking back, with units at every step. Send your answers to Claude before opening 01-23. Then compare with 01-23, investigate each difference and record the corrections.",
+     "outputs": [{"what": "Your answers, the comparison with 01-23, and corrections", "saved_to": "docs/handbook/handbook.md (Part III, Sitting 4)"}],
+     "equipment": ["The textbook PDF", "Paper and pen", "A calculator"],
+     "minutes": {"study": 0, "practical": 60, "recording": 20, "reflection": 10},
+     "stop": ["Don't open 01-23 until your answers are sent.", "If one problem takes more than 15 minutes, move on and mark it for Claude."],
+     "checklist": ["All eight answered with units", "Answers sent to Claude before opening 01-23", "Compared with 01-23", "Each mistake investigated, not just corrected", "Corrections recorded in the handbook"],
+     "next": "W1-5: Tasmania, part 1.",
+     "links": {"notes": "docs/handbook/handbook.md"}
+    },
+    {
+     "id": "W1-5",
+     "day": "2026-10-23",
+     "title": "Tasmania, part 1: organisations, hydro, Basslink and Marinus",
+     "study": ["07-03..07-08"],
+     "concept": "Pumped storage shifts energy in time; it does not create energy.",
+     "task": "Read 07-03 to 07-08. Record four facts, each with its source, the date you read it and its claim label. At least one should be a fact you checked on the organisation's own website.",
+     "outputs": [{"what": "Four facts with source, date and label", "saved_to": "docs/handbook/handbook.md (Week 1)"}],
+     "equipment": ["The textbook PDF", "A web browser"],
+     "minutes": {"study": 30, "practical": 40, "recording": 15, "reflection": 5},
+     "stop": ["If two sources disagree, record both and the date; don't pick one silently."],
+     "checklist": ["Read 07-03 to 07-08", "Four facts recorded", "Each has a source, date and label", "At least one checked against the organisation's own site", "Explained the pumped-storage concept in your own words"],
+     "next": "W1-6: Python, and your industry list.",
+     "links": {"notes": "docs/handbook/handbook.md"}
+    },
+    {
+     "id": "W1-6",
+     "day": "2026-10-24",
+     "title": "Programming 1 and the industry list",
+     "study": ["01-22", "01-23", "07-04", "07-26"],
+     "concept": "The computer doesn't know units: to Python, 50 and 0.05 are just numbers. Put the unit in the name, like current_A.",
+     "task": "Install Python from python.org (free). Write a short script that reproduces practice problems 1 and 3 and prints answers matching 01-23. Then, from 07-04 and 07-26, list five organisations or roles worth talking to, and draft a four-sentence introduction. Don't send it.",
+     "outputs": [
+      {"what": "Your script and its printed output", "saved_to": "experiments/ or the handbook, decided with Claude"},
+      {"what": "Industry list and four-sentence draft (not sent)", "saved_to": "docs/handbook/handbook.md (Week 1)"}
+     ],
+     "equipment": ["Your Mac", "Python from python.org (free)"],
+     "minutes": {"study": 10, "practical": 85, "recording": 15, "reflection": 10},
+     "stop": ["Install only from python.org or Apple.", "Don't run commands that use sudo unless Claude has explained them.", "Don't send the introduction yet."],
+     "checklist": ["Python installed", "Script prints answers matching 01-23 for problems 1 and 3", "Units in the variable names", "Five organisations or roles listed, from 07-04 and 07-26", "Four-sentence introduction drafted, not sent"],
+     "next": "W1-7: the weekly review and Write-up 1.",
+     "links": {"notes": "docs/handbook/handbook.md"}
+    },
+    {
+     "id": "W1-7",
+     "day": "2026-10-25",
+     "title": "Weekly review, and Write-up 1",
+     "study": ["01-24", "08-09"],
+     "concept": "A baseline is the reference every later comparison needs.",
+     "task": "Review the week: what you can explain and what is shaky. Write Write-up 1 (one page): your Mac's energy path and its idle baseline. Link the raw readings, label every number, and state the limits (one Mac, one run, a gauge nobody has checked). Claude builds handbook edition 0.2. Week 2's sessions are written from what this week produced.",
+     "outputs": [
+      {"what": "Write-up 1: energy path and idle baseline, with linked raw readings", "saved_to": "docs/handbook/handbook.md (Part IV, E001 summary)"},
+      {"what": "Handbook edition 0.2", "saved_to": "docs/handbook/editions/"}
+    ],
+     "equipment": ["Your notes from the week"],
+     "minutes": {"study": 10, "practical": 50, "recording": 20, "reflection": 10},
+     "stop": ["If a number in the write-up has no source or label, leave it out."],
+     "checklist": ["What you can explain, listed", "What is shaky, listed", "Write-up 1 finished, every number labelled", "Raw readings linked, not copied", "Edition 0.2 built"],
+     "next": "Week 2: sensors and logging.",
+     "links": {"experiment": "experiments/E001-mac-energy-baseline/README.md", "notes": "docs/handbook/handbook.md"}
+    }
+   ]
+  },
+  {
+   "week": 2,
+   "title": "Sensors and logging",
+   "goal": "Understand Part 02's temperature logger. You have no separate sensor hardware yet, so build and test the logging workflow: real readings from your Mac's own sensors, plus explicitly synthetic input for the failure cases. The ambient logger (02-25) stays pending until hardware exists.",
+   "study": ["02-12", "02-13", "02-14", "02-22", "02-23", "02-24", "02-25", "02-26"],
+   "outputs": ["A small logger that writes one row per sample and keeps failed readings as failures, never as zeros", "Synthetic test input, labelled synthetic", "Hardware logger recorded as pending"],
+   "writeups": ["W2"],
+   "sessions": []
+  },
+  {
+   "week": 3,
+   "title": "Power, energy and heat",
+   "goal": "Compare equal-duration idle and modest-workload runs on battery; record ambient where you can, and cooldown; explain power versus energy and the limits of the measurement. No mains probing and no battery construction.",
+   "study": ["01-13", "01-14", "01-15", "03-26", "04-03", "04-04", "04-11", "04-27", "05-04", "05-13", "05-29"],
+   "outputs": ["Two runs of equal duration with conditions recorded", "Cooldown readings", "A comparison with its warnings"],
+   "writeups": ["W3a", "W3b"],
+   "sessions": []
+  },
+  {
+   "week": 4,
+   "title": "Reliable evidence",
+   "goal": "Use Part 06 with Rail's existing tests and simulated device. Investigate missing and stale readings, lost replies and device restarts. Simulation results stay separate from physical observations.",
+   "study": ["01-18", "06-08", "06-09", "06-13", "06-16", "06-17", "06-18", "06-19", "06-20", "06-24", "06-25", "06-28"],
+   "outputs": ["Rail's existing tests run and explained", "A fault matrix linking your real logging problems to Rail's rules", "Simulated results labelled [SIMULATED]"],
+   "writeups": ["W4"],
+   "sessions": []
+  },
+  {
+   "week": 5,
+   "title": "Integrated investigation",
+   "goal": "Repeat one affordable experiment end to end: prediction, procedure, readings, comparison, conclusion. Connect it to the AI-factory context in Part 07 and the build guidance in Part 08. Industry questions and any real feedback are recorded separately.",
+   "study": ["07-11", "07-12", "07-13", "07-23", "07-24", "07-25", "07-27", "08-09", "08-25", "08-26", "08-27"],
+   "outputs": ["One complete experiment record", "Problem-log entries grounded in evidence (07-27)", "Industry questions, kept apart from feedback actually received"],
+   "writeups": ["W5a", "W5b"],
+   "sessions": []
+  },
+  {
+   "week": 6,
+   "title": "Reproduce and explain",
+   "goal": "Repeat the strongest finding, review the seven write-ups and finish the two-page problem brief: what is demonstrated, what remains uncertain, and the next inexpensive test. Industry validation stays pending unless real feedback is recorded; choosing the product problem still waits for gate G5 in the handbook timeline.",
+   "study": ["07-28", "07-29", "08-03", "08-36"],
+   "outputs": ["The strongest finding, repeated", "A review of the seven write-ups", "Two-page problem brief with linked evidence, limitations, existing alternatives and a falsifiable next test"],
+   "writeups": [],
+   "sessions": []
+  }
+ ],
+ "targets": {
+  "writeups": ["W1", "W2", "W3a", "W3b", "W4", "W5a", "W5b"],
+  "firsthand_observations": 40,
+  "firsthand_rule": "Only issues or observations you saw yourself on real equipment count. Study questions, hypotheses and simulated failures are useful but counted separately. Never add entries to reach the target."
+ }
+}
