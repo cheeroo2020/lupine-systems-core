@@ -1,23 +1,23 @@
 {
-  "date": "2026-10-20",
+  "date": "2026-10-21",
   "stories": [
     {
-      "headline": "Three big takeaways from the IMF-World Bank meetings",
-      "body": "Debt, AI and Ukraine dominated the conversation at the IMF-World Bank meetings in Bangkok, while China, the focus in 2018, slipped into the background.",
-      "source": "CNBC Finance",
+      "headline": "GAP (PAC) Q3 2026 Earnings Call Transcript",
+      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
+      "source": "Nasdaq",
+      "pub_date": "21 Oct 2026"
+    },
+    {
+      "headline": "Founders of $18.6B RIA exit JPMorgan to build client portfolios on their terms",
+      "body": "Phil Scott and Jim Atwood said when they joined JPMorgan from the failed First Republic bank they were assured they'd be immune from pressures to periodically rebalance client portfolios. But it didn't work out like that.",
+      "source": "American Banker",
       "pub_date": "20 Oct 2026"
     },
     {
-      "headline": "Bank of America Has Cut Its Share Count by Nearly a Third in 10 Years. $10,000 Invested Then Is Worth About $40,000 Now.",
-      "body": "Key PointsBank of America bought back more than $19 billion worth of stock so far in 2026.",
-      "source": "Nasdaq",
-      "pub_date": "19 Oct 2026"
-    },
-    {
-      "headline": "After Comerica integration, Fifth Third vows focus on growth",
-      "body": "Fifth Third closed its acquisition of Comerica in February 2026. Eight months later, the Cincinnati-based bank says it's poised to reap the rewards.",
-      "source": "American Banker",
-      "pub_date": "19 Oct 2026"
+      "headline": "The world’s finance chiefs see new risks — and less China angst",
+      "body": "Debt, AI and Ukraine dominated the conversation at the IMF-World Bank meetings in Bangkok, while China, the focus in 2018, slipped into the background.",
+      "source": "CNBC Finance",
+      "pub_date": "20 Oct 2026"
     }
   ]
 }
