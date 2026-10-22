@@ -1,23 +1,23 @@
 {
-  "date": "2026-10-21",
+  "date": "2026-10-22",
   "stories": [
     {
-      "headline": "GAP (PAC) Q3 2026 Earnings Call Transcript",
+      "headline": "QuantumScape (QS) Q3 2026 Earnings Call Transcript",
       "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
       "source": "Nasdaq",
+      "pub_date": "22 Oct 2026"
+    },
+    {
+      "headline": "'A team sport:' Responding to cyber threats in the age of AI",
+      "body": "At American Banker's Most Powerful Women in Banking Conference, risk experts emphasized industry collaboration for addressing cybersecurity and fraud risks.",
+      "source": "American Banker",
       "pub_date": "21 Oct 2026"
     },
     {
-      "headline": "Founders of $18.6B RIA exit JPMorgan to build client portfolios on their terms",
-      "body": "Phil Scott and Jim Atwood said when they joined JPMorgan from the failed First Republic bank they were assured they'd be immune from pressures to periodically rebalance client portfolios. But it didn't work out like that.",
-      "source": "American Banker",
-      "pub_date": "20 Oct 2026"
-    },
-    {
-      "headline": "The world’s finance chiefs see new risks — and less China angst",
-      "body": "Debt, AI and Ukraine dominated the conversation at the IMF-World Bank meetings in Bangkok, while China, the focus in 2018, slipped into the background.",
+      "headline": "Goldman Sachs, JPMorgan and Morgan Stanley are dominating the AI stock boom. Here's their edge",
+      "body": "Wall Street’s Big Three have generated $52 billion in equity trading revenue this year, capturing about 80% of the market on rising margin lending to hedge funds.",
       "source": "CNBC Finance",
-      "pub_date": "20 Oct 2026"
+      "pub_date": "21 Oct 2026"
     }
   ]
 }
