@@ -201,3 +201,4 @@ No manual input needed. Fully automated.
 | [2026-10-20](./2026-10-20.md) | Three big takeaways from the IMF-World Bank meetings |
 | [2026-10-21](./2026-10-21.md) | GAP (PAC) Q3 2026 Earnings Call Transcript |
 | [2026-10-22](./2026-10-22.md) | QuantumScape (QS) Q3 2026 Earnings Call Transcript |
+| [2026-10-23](./2026-10-23.md) | FTC Data Shows Investment Scams Fuel Fivefold Surge in Seniors’ Fra… |
