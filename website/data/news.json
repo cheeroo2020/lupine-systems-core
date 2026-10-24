@@ -1,23 +1,23 @@
 {
-  "date": "2026-10-23",
+  "date": "2026-10-24",
   "stories": [
     {
-      "headline": "FTC Data Shows Investment Scams Fuel Fivefold Surge in Seniors’ Fraud Losses",
-      "body": "Fraud losses reported by older adults increased fivefold between 2020 and 2025, leaping from $600 million to $3 billion, the Federal Trade Commission (FTC) said Monday (Oct. 19). The FTC shared this data in a press release outlining findings from its report to Congress, “Protecting Older Consumers 2025-2026: A Report of the Federal Trade Commission.”",
-      "source": "PYMNTS",
-      "pub_date": "23 Oct 2026"
-    },
-    {
-      "headline": "What Higher Interest Rates Mean for Dividend Stocks Like AbbVie and Pfizer",
-      "body": "Key PointsBoth companies pay relatively high-yield dividends.",
+      "headline": "Why AT&T Stock Plunged on Friday",
+      "body": "Key PointsElon Musk wants to build a new nationwide wireless carrier.",
       "source": "Nasdaq",
+      "pub_date": "24 Oct 2026"
+    },
+    {
+      "headline": "Why Affirm is incorporating transformer tech into its underwriting",
+      "body": "The technology that powers large language models like ChatGPT, Claude and Gemini is designed to predict what is going to come next. Affirm contends the same technology can be used for underwriting.",
+      "source": "American Banker",
       "pub_date": "23 Oct 2026"
     },
     {
-      "headline": "Looking ahead, Huntington sees growth, warnings signs",
-      "body": "While Robust C&I lending drove an earnings beat, Chairman and CEO Steve Steinour called market turbulence a cause for concern.",
-      "source": "American Banker",
-      "pub_date": "22 Oct 2026"
+      "headline": "Goldman Sachs, JPMorgan and Morgan Stanley are dominating the AI stock boom. Here's their edge",
+      "body": "Wall Street’s Big Three have generated $52 billion in equity trading revenue this year, capturing about 80% of the market on rising margin lending to hedge funds.",
+      "source": "CNBC Finance",
+      "pub_date": "21 Oct 2026"
     }
   ]
 }
