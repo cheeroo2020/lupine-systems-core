@@ -1,12 +1,6 @@
 {
-  "date": "2026-10-24",
+  "date": "2026-10-25",
   "stories": [
-    {
-      "headline": "Why AT&T Stock Plunged on Friday",
-      "body": "Key PointsElon Musk wants to build a new nationwide wireless carrier.",
-      "source": "Nasdaq",
-      "pub_date": "24 Oct 2026"
-    },
     {
       "headline": "Why Affirm is incorporating transformer tech into its underwriting",
       "body": "The technology that powers large language models like ChatGPT, Claude and Gemini is designed to predict what is going to come next. Affirm contends the same technology can be used for underwriting.",
@@ -18,6 +12,12 @@
       "body": "Wall Street’s Big Three have generated $52 billion in equity trading revenue this year, capturing about 80% of the market on rising margin lending to hedge funds.",
       "source": "CNBC Finance",
       "pub_date": "21 Oct 2026"
+    },
+    {
+      "headline": "Long Island's Dime plans to buy Staten Island bank",
+      "body": "Dime Commercial Bancshares agrees to acquire ES Bancshares, Mary Elizabeth Taylor joins Block as head of Americas public policy and government relations, Bank of America names Jim Fitterling and Bill Thomas to its board of directors, and more.",
+      "source": "American Banker",
+      "pub_date": "23 Oct 2026"
     }
   ]
 }
