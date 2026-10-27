@@ -205,3 +205,4 @@ No manual input needed. Fully automated.
 | [2026-10-24](./2026-10-24.md) | Why AT&T Stock Plunged on Friday |
 | [2026-10-25](./2026-10-25.md) | Why Affirm is incorporating transformer tech into its underwriting |
 | [2026-10-26](./2026-10-26.md) | Should You Buy Bristol Myers Squibb While It Trades Below 10 Times … |
+| [2026-10-27](./2026-10-27.md) | Alphabet Must Show This on Oct. 28 or the Stock Could Stall |
