@@ -1,23 +1,23 @@
 {
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "stories": [
     {
-      "headline": "Alphabet Must Show This on Oct. 28 or the Stock Could Stall",
-      "body": "Key PointsGoogle Cloud has already proven it can make money. What it hasn’t proven is that the money shows up as cash, and that’s the line to check on Oct. 28.",
-      "source": "Nasdaq",
-      "pub_date": "27 Oct 2026"
-    },
-    {
-      "headline": "Heartened by sponsor-bank success, a Connecticut bank eyes SBA",
-      "body": "DR Bank in Darien, Connecticut, is ready to branch out as a national digital lender after building a successful business in sponsor banking.",
+      "headline": "How the proposed merger of two Black banks ignited a fight",
+      "body": "After two Black banks in the Carolinas announced plans to combine, another lender made a purchase offer that it says is superior.",
       "source": "American Banker",
-      "pub_date": "26 Oct 2026"
+      "pub_date": "28 Oct 2026"
     },
     {
       "headline": "Goldman Sachs, JPMorgan and Morgan Stanley are dominating the AI stock boom. Here's their edge",
       "body": "Wall Street’s Big Three have generated $52 billion in equity trading revenue this year, capturing about 80% of the market on rising margin lending to hedge funds.",
       "source": "CNBC Finance",
       "pub_date": "21 Oct 2026"
+    },
+    {
+      "headline": "Visa says you can thank the labor market for strong spending",
+      "body": "CEO Ryan McInerney said during the company's fiscal fourth quarter earnings call that a strong labor market was driving the uptick in consumer spending, despite widespread uncertainty. His comments came as Visa posted its highest rate of annual revenue growth in more than 15 years.",
+      "source": "American Banker",
+      "pub_date": "27 Oct 2026"
     }
   ]
 }
