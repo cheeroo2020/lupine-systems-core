@@ -209,3 +209,4 @@ No manual input needed. Fully automated.
 | [2026-10-28](./2026-10-28.md) | How the proposed merger of two Black banks ignited a fight |
 | [2026-10-29](./2026-10-29.md) | Federal Reserve Holds Interest Rates Steady Ahead of Midterms. Here… |
 | [2026-10-30](./2026-10-30.md) | Indian Shares Seen Opening On Muted Note |
+| [2026-10-31](./2026-10-31.md) | Cavco (CVCO) Q2 2027 Earnings Call Transcript |
