@@ -211,3 +211,4 @@ No manual input needed. Fully automated.
 | [2026-10-30](./2026-10-30.md) | Indian Shares Seen Opening On Muted Note |
 | [2026-10-31](./2026-10-31.md) | Cavco (CVCO) Q2 2027 Earnings Call Transcript |
 | [2026-11-01](./2026-11-01.md) | 1 Big Winner and 1 Loser From the Upcoming Anthropic IPO |
+| [2026-11-02](./2026-11-02.md) | Japanese Market Slightly Lower |
