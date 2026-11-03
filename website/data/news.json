@@ -1,23 +1,23 @@
 {
-  "date": "2026-11-02",
+  "date": "2026-11-03",
   "stories": [
     {
-      "headline": "Japanese Market Slightly Lower",
-      "body": "(RTTNews) - The Japanese stock market is slightly lower on Monday, extending the losses in the previous session, following the broadly negative cues from Wall Street on Friday. The Nikkei 225 is falling below the 63,250 level, with weakness in automakers and financial stocks part",
+      "headline": "Credo vs. Sandisk: Which Stock Is the Better Buy for 2027?",
+      "body": "Key PointsCredo Technology and Sandisk both benefit from AI data-center spending, but they trade at very different valuations.",
       "source": "Nasdaq",
-      "pub_date": "02 Nov 2026"
+      "pub_date": "03 Nov 2026"
     },
     {
-      "headline": "Survey: Firms commit to marketing but aren't tracking the results",
-      "body": "In two reports, the PR firm Gregory finds prominent wealth managers sometimes never show up in AI search results and that few firms are doing enough to track whether all the money they spend on marketing is having the desired effect.",
+      "headline": "Anthropic Buys One-Person Biotech to Prove Claude Can Make Drugs",
+      "body": "Anthropic said Oct. 27 it acquired Mithril Medicine, a startup developing treatments for two rare forms of muscular dystrophy. Founder Cody Tranbarger, Mithril’s only full-time employee, used Claude to organize contracts, logistics and experiments across 11 external labs and delegated other parts of the business to the model. Mithril took one candidate from idea to",
+      "source": "PYMNTS",
+      "pub_date": "03 Nov 2026"
+    },
+    {
+      "headline": "Years-old lending pickle helped guide SBA policy shift",
+      "body": "The Small Business Administration's decision to double the relationship-wide lending limit to $10 million was part of a busy 2026 at the agency.",
       "source": "American Banker",
-      "pub_date": "30 Oct 2026"
-    },
-    {
-      "headline": "Goldman Sachs, JPMorgan and Morgan Stanley are dominating the AI stock boom. Here's their edge",
-      "body": "Wall Street’s Big Three have generated $52 billion in equity trading revenue this year, capturing about 80% of the market on rising margin lending to hedge funds.",
-      "source": "CNBC Finance",
-      "pub_date": "21 Oct 2026"
+      "pub_date": "02 Nov 2026"
     }
   ]
 }
