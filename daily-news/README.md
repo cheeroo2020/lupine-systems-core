@@ -213,3 +213,4 @@ No manual input needed. Fully automated.
 | [2026-11-01](./2026-11-01.md) | 1 Big Winner and 1 Loser From the Upcoming Anthropic IPO |
 | [2026-11-02](./2026-11-02.md) | Japanese Market Slightly Lower |
 | [2026-11-03](./2026-11-03.md) | Credo vs. Sandisk: Which Stock Is the Better Buy for 2027? |
+| [2026-11-04](./2026-11-04.md) | Asian Markets Trade Mostly Lower |
