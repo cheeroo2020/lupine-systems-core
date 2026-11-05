@@ -1,22 +1,22 @@
 {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "stories": [
     {
-      "headline": "Asian Markets Trade Mostly Lower",
-      "body": "(RTTNews) - Asian markets are mostly lower on Wednesday, following the mixed cues from Wall Street overnight, with markets in Japan on return after a holiday and South Korea tumbling amid anxiety over AI industry and unresolved geopolitical risks. Traders also remain cautious ahe",
+      "headline": "Palmer Square (PSBD) Q3 2026 Earnings Call Transcript",
+      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
       "source": "Nasdaq",
-      "pub_date": "04 Nov 2026"
+      "pub_date": "05 Nov 2026"
     },
     {
-      "headline": "Treasury yields fall as investors crowd into bonds for safety amid election stock sell-off",
-      "body": "Treasury yields fell on Tuesday night, as investors sought shelter from a sell-off in equity futures sparked by big victories from Democrats in the U.S. midterm elections.",
-      "source": "CNBC Finance",
-      "pub_date": "04 Nov 2026"
-    },
-    {
-      "headline": "Bank advocate Andy Barr clinches Kentucky Senate seat",
-      "body": "Andy Barr, the chairman of the subcommittee on financial services in the House, won his bid to replace retiring Sen. Mitch McConnell, R-Ky.",
+      "headline": "The 'advisor paradox' of clients who trust AI for financial advice",
+      "body": "Adults who have financial advisors are three times as likely to act on AI's money advice without checking, new research shows. Those results, which defy conventional wisdom, will outlast the company that uncovered them.",
       "source": "American Banker",
+      "pub_date": "04 Nov 2026"
+    },
+    {
+      "headline": "10-year Treasury yield slides as traders mull over Democrats' midterm victories, oil prices drop",
+      "body": "Treasury yields were last little changed Wednesday as investors weighed big wins from Democrats in the U.S. midterm elections.",
+      "source": "CNBC Finance",
       "pub_date": "04 Nov 2026"
     }
   ]
