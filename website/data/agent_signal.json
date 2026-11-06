@@ -1,6 +1,6 @@
 {
   "agent": "lupine-watcher-v1",
-  "generated": "2026-11-06T00:28:46Z",
+  "generated": "2026-11-06T07:15:58Z",
   "rate": 0.892529,
   "rate_date": "2026-11-06",
   "fx_source": "open.er-api.com",
@@ -17,8 +17,14 @@
     "momentum_7d_pips": -48.7,
     "history_n": 60
   },
-  "news_signals": [],
-  "evidence_hash": "35b51a985c7097b10661e1d3d01022974fdbe4c9ac82ef04e828919d970f1843",
+  "news_signals": [
+    {
+      "category": "bullish_aud",
+      "keyword": "rate hike",
+      "file": "2026-11-06"
+    }
+  ],
+  "evidence_hash": "caa226f7eb57756bfa573b3ad2cc9826f2fcd0a7ff2c57c0fdbed847f51bb934",
   "chain_valid": true,
-  "request_id": "watcher-2026-11-06-002846"
+  "request_id": "watcher-2026-11-06-071558"
 }
