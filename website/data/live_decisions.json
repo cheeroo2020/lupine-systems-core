@@ -1,7 +1,7 @@
 {
-  "generated": "2026-11-06T01:53:45Z",
-  "date": "2026-11-06",
-  "fx_rate": 0.892529,
+  "generated": "2026-11-07T01:25:50Z",
+  "date": "2026-11-07",
+  "fx_rate": 0.880824,
   "fx_source": "open.er-api.com",
   "amount": 500000,
   "corridor": "AUD/SGD",
@@ -210,9 +210,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "4e88a7a41363d03657ed99526006b6b15799b73ba6fe26dfce41390349cc4ef6",
+      "evidence_hash": "4e46b753281feca158cad4166c0e533b5cb2e06794d26987d9303b2cf8adc1c4",
       "chain_valid": true,
-      "request_id": "d51f03ca-ec52-4d5e-b899-1067bda29898"
+      "request_id": "45dcda96-0ae8-427f-8553-34d89fda6cc7"
     },
     "normal": {
       "selected": "Wise",
@@ -418,9 +418,9 @@
           "time_hours": 36.0
         }
       ],
-      "evidence_hash": "ab20986d0cc78f0e0674ade2c24f185cabed5a3fabe55ef610461eef2a0dc2bc",
+      "evidence_hash": "1594acbbc69f32155add8168ae99eb390b5276991843e71de8fa07fbb4c2e54c",
       "chain_valid": true,
-      "request_id": "413a14c0-8421-43c1-9d10-24d550d10d11"
+      "request_id": "235c5426-3df4-4cde-acb5-ea50217981f6"
     },
     "high": {
       "selected": "Wise",
@@ -626,9 +626,9 @@
           "time_hours": 48.0
         }
       ],
-      "evidence_hash": "a3d1dd901b070c498ec01c18dcf2356f08403011cd6d0c3b66ccd31b7957bd4f",
+      "evidence_hash": "4dc11b75f88ef6a438eaeb790ed506b2f70eeef88ad349068c7a9ac1d2980874",
       "chain_valid": true,
-      "request_id": "2e8b044e-3935-43fa-97c3-d296e91cd2d9"
+      "request_id": "a9298278-fadd-40e0-b971-5a0fff215205"
     },
     "critical": {
       "selected": "Wise",
@@ -834,9 +834,9 @@
           "time_hours": 48.0
         }
       ],
-      "evidence_hash": "d7d451198b02006b3bbf0c2baad5102b0dc9e447271512de6ac587d8b7850685",
+      "evidence_hash": "be52b1dcf1e09a9a8ef749f09f7e44104648858505df1d67b3f620e99ec61dc7",
       "chain_valid": true,
-      "request_id": "7373137d-5f84-4816-be98-9c6bfa16db1f"
+      "request_id": "a8b1aa58-b381-48fc-a489-40746367af94"
     }
   }
 }
