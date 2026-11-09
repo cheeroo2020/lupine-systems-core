@@ -260,7 +260,7 @@ engineering is strongest: failure modes, risk, condition data and maintenance st
 **Practise aloud.** For each question, give a 60 to 90 second answer and record it on your phone. Each question
 lists what a strong answer covers; your answer must be your own.
 
-1. **"Why the change into networks?"** The ten-year story in two sentences, then the evidence of what you've done since October.
+1. **"Why the change into networks?"** Your story since 2017 in two sentences, then the evidence of what you've done since October.
 2. **"What does TasNetworks do?"** Transmission and distribution; regulated by the AER; the system strength and inertia roles (APR p. 2).
 3. **"What's the biggest challenge in our planning report?"** Pick one (George Town, system strength, or AI-factory load) and explain the trade-off.
 4. **"Explain system strength."** Voltage holding steady through a fault; inverter-based generation; TasNetworks must procure all of it (APR p. 80).
