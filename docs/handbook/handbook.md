@@ -145,7 +145,7 @@ On 9 November 2026 you asked for the whole learning path to be built on AEMO's f
 
 **How it fits together.** The NEM is the spine: it sets the order of topics. The textbook supplies the engineering underneath each topic, because AEMO's foundation course is written for a general audience and does not teach the electrical physics. Employers such as TasNetworks need both: the market and its rules, and the power system underneath.
 
-**The course.** *National Electricity Market (NEM) Foundations eLearning*, by AEMO. Free, through a free AEMO Learning Academy account. [ASSUMED: AEMO's course listing, read through a web search on 9 November 2026; AEMO's site blocked Claude from opening the page itself. Check the price and length when you enrol.]
+**The course.** *National Electricity Market (NEM) Foundations eLearning*, by AEMO. Free, through a free AEMO Learning Academy account; about 4 hours, in ten modules. Study notes with page references: `research/2026-11-09-R-aemo-nem-foundations.md`.
 
 **Where your specialty sits.** The NEM is both a physical power system and a wholesale market. Learn all of it, but specialise on the power-system and network side. The settlements and financial-markets modules are for understanding how the whole thing works, not a career direction. That keeps to your goal of technical work, not finance.
 
@@ -156,15 +156,15 @@ One AEMO module at a time, each with the textbook pages beneath it and one small
 | AEMO module | Textbook underneath | Tasmania link | Your output |
 |---|---|---|---|
 | Introduction to the NEM | 07-03, 07-04, 07-09 | Tasmania is one NEM region; Basslink connects it to Victoria | A one-page map of who does what |
-| Regulatory regime and the National Electricity Rules | 07-04 | AEMO operates the system, the AER regulates network businesses such as TasNetworks, and the AEMC makes the rules | A glossary of the three bodies and their jobs |
+| NEM Rules and Regulations | 07-04 | AEMO operates the system, the AER regulates network businesses such as TasNetworks, and the AEMC makes the rules | A glossary of the three bodies and their jobs |
 | The network | 03-14, 03-15, 03-21, 07-05 | TasNetworks' Annual Planning Report | The planning-report one-pager (already in your two-week plan) |
-| The power system | 03-03 to 03-13, 03-16, 03-19, 03-20, 05-22, 07-10 | TasNetworks is Tasmania's system strength and inertia provider [ASSUMED: TasNetworks Annual Planning Report 2025, through a web search, 9 Nov 2026] | Explain frequency, inertia and system strength in your own words |
-| Market operation: dispatch and spot prices | 01-13 to 01-15, 07-22, 07-23 | Five-minute dispatch; hydro's role in Tasmania | Read one day of Tasmanian demand and Basslink flow |
+| The power system | 03-03 to 03-13, 03-16, 03-19, 03-20, 05-22, 07-10 | TasNetworks is Tasmania's system strength and inertia provider [ASSUMED: TasNetworks Annual Planning Report 2026, p. 2]. The course itself never covers inertia | Explain frequency, inertia and system strength in your own words |
+| NEM Spot Pricing and Dispatch | 01-13 to 01-15, 07-22, 07-23 | Five-minute dispatch; hydro's role in Tasmania | Read one day of Tasmanian demand and Basslink flow |
 | Ancillary services | 03-19, 03-20, 06-04 to 06-07 | Keeping frequency steady on an island grid | Explain frequency control as a feedback loop |
 | Metering | 01-16 to 01-21, 06-09 | Interval meters; the lab's rules on missing and stale readings | Link one metering rule to the lab |
-| Settlements | 01-14, 01-15 | — | Understand only |
+| NEM Settlements and Prudentials | 01-14, 01-15 | — | Understand only |
 | Financial markets | — | — | Understand only |
-| Where to find more information | 07-21, 07-38, 07-39 | The documents in Level 2 | Your source list |
+| How do I find out more? | 07-21, 07-38, 07-39 | The documents in Level 2 | Your source list |
 
 Part 01 comes first: every module assumes you know voltage, current, power and energy. The maths supplements (above) still come before Parts 03, 04 and 06.
 
@@ -260,6 +260,31 @@ Total ≈ 12 hours. Each session's full detail (pages, task, the evidence to sav
 ### Review — Week 1
 
 *To be completed on Sunday 25 October 2026.*
+
+## Job-ready week — 9 to 15 November 2026
+
+**Aim:** to be ready to apply for office-based technical roles at a network business by Monday 16 November. By then you'll have:
+- finished AEMO's NEM Foundations course;
+- read TasNetworks' Annual Planning Report 2026;
+- written two one-pagers, in your own words;
+- updated your CV;
+- put your portfolio online.
+
+Textbook Part 01 pauses this week and resumes on 16 November.
+
+**Study notes for this week:** `research/2026-11-09-R-aemo-nem-foundations.md` and `research/2026-11-09-R-tasnetworks-apr-2026.md` (prepared by Claude, with page references).
+
+| Day | NEM course (about 1 h) | Planning report (about 45 min) | Done when |
+|---|---|---|---|
+| Mon 9 | Modules 1, 2, 3 | Executive summary (pp. 2–8) | Three lines per module in your notebook |
+| Tue 10 | Modules 4, 5, 6 | Chapter 2, the Tasmanian power system (pp. 25–40) | Frequency, reserves and FCAS explained in your words |
+| Wed 11 | Modules 7 and 10 | Chapters 3 and 4: projects and constraints (pp. 41–76) | George Town explained in your words |
+| Thu 12 | Modules 8 and 9 (understand only) | Chapters 5 and 6: security and reliability (pp. 77–106) | Course complete |
+| Fri 13 | — | **Write the one-page brief of the report**; Claude checks every figure | Brief final |
+| Sat 14 | — | **Write the asset-risk one-pager**: how TasNetworks decides to replace a transformer | One-pager final |
+| Sun 15 | — | **CV and interview practice** on the ten discussion points; portfolio goes live | Ready to apply on Mon 16 |
+
+**If a day is too much,** do the NEM module only and move the report reading to the next day. The one-pagers on Friday and Saturday matter most.
 
 \pagebreak
 
