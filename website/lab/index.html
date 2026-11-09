@@ -225,7 +225,7 @@
             <textarea class="notes" id="notes" aria-label="Session notes" placeholder="What you did, what you saw, what surprised you.">${esc(d.notes)}</textarea>
             <p class="small muted" id="saved-note" aria-live="polite"></p></div>
           <div class="card stack" style="--o:11"><h3>5 · Finish and publish</h3>
-            <p>Nothing here is published automatically. When the checklist is done, download your draft and send it to Claude with <b>"OK to publish"</b>.
+            <p>Nothing here is published automatically, and Claude can't see anything saved only in this browser. When the checklist is done, download your draft and send it to Claude with <b>"OK to publish"</b>.
                You choose what goes public; photos and personal notes stay out unless you pick them. The session is marked complete only once its evidence is in the repository.</p>
             <div class="row"><button class="primary" id="export">Download my draft (.md)</button>${s.tool ? `<button id="export-csv">Download readings (.csv)</button>` : ""}</div>
             <p><b>Next:</b> ${esc(s.next)}</p></div>
@@ -276,6 +276,8 @@
         `- Samples: ${r.power.n_total}; usable power: ${r.power.n_valid}; missing: ${r.power.n_missing}`,
         `- Mean power: ${r.power.mean ?? "missing"} W [MEASURED] by the Mac's own battery gauge; uncertainty unknown`,
         `- Energy over usable intervals: ${r.energy.energy_Wh ?? "missing"} Wh (${r.energy.coverage === null ? "no" : Math.round(r.energy.coverage * 100) + "%"} of the run covered)`,
+        ...(r.energy.interpolated_Wh === null ? [] : [`- Across ${r.energy.gap_s} s of gaps: ${r.energy.interpolated_Wh} Wh, an interpolated estimate, not a measurement`]),
+        "- Boundary: power leaving the battery while unplugged, as the Mac's own gauge reports it. Not wall power, charger efficiency, chip power or cooling performance.",
         ...r.warnings.map(w => `- Warning: ${w}`), "", "Raw output, exactly as pasted:", "```text", r.raw.trimEnd(), "```"));
     }
     return lines.join("\n") + "\n";
@@ -349,7 +351,7 @@
     return `<div class="figures">
       <div><b>${r.power.n_valid}/${r.power.n_total}</b><span>samples with usable power</span></div>
       <div><b>${r.power.mean === null ? "missing" : r.power.mean.toFixed(2) + " W"}</b><span>mean power (rate)</span></div>
-      <div><b>${r.energy.energy_Wh === null ? "missing" : r.energy.energy_Wh.toFixed(3) + " Wh"}</b><span>energy, ${r.energy.coverage === null ? "no" : Math.round(r.energy.coverage * 100) + "%"} of time covered</span></div>
+      <div><b>${r.energy.energy_Wh === null ? "missing" : r.energy.energy_Wh.toFixed(3) + " Wh"}</b><span>energy, ${r.energy.coverage === null ? "no" : Math.round(r.energy.coverage * 100) + "%"} of time covered${r.energy.interpolated_Wh === null ? "" : `; gaps left out (${r.energy.interpolated_Wh.toFixed(3)} Wh across them is only an interpolated estimate)`}</span></div>
       <div><b>${r.battery.rise_K === null ? "missing" : (r.battery.rise_K >= 0 ? "+" : "") + r.battery.rise_K.toFixed(2) + " K"}</b><span>battery temperature change</span></div></div>`;
   }
   function previewHTML(r) {

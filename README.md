@@ -74,8 +74,10 @@ If you're new to this, in this order:
 1. **The lab:** [cheeroo2020.github.io/lupine-systems-core/lab/](https://cheeroo2020.github.io/lupine-systems-core/lab/).
    It opens the next unfinished session: what to study, what to do, and what evidence to save.
    Its demo walks through one session with labelled synthetic data.
-2. **The textbook:** [docs/textbook/](docs/textbook/). It's the single course text, in eight
-   parts. Start with Part 01, *Electricity You Can Measure*.
+2. **The textbook:** [docs/textbook/](docs/textbook/). It's the single textbook, in eight
+   parts. Start with Part 01, *Electricity You Can Measure*. Since 9 November 2026 the order
+   of topics follows AEMO's free *NEM Foundations* course; the handbook's *NEM pathway*
+   maps each module to the textbook pages beneath it.
 3. **The handbook:** [docs/handbook/](docs/handbook/). Open the latest PDF in `editions/`. It
    covers the goals, the timeline (mapped to the textbook), the study record and the safety rules.
 4. **What the code really does:** [docs/architecture.md](docs/architecture.md).

@@ -66,15 +66,21 @@
 
   function seconds(s) { return s.t ? Date.parse(s.t) / 1000 : null; }
 
-  function gapWarnings(samples) {
+  // The usual sampling interval (lower median). An interval longer than 1.5 times it is a gap:
+  // at least one reading in it never arrived.
+  function typicalStep(samples) {
     const t = samples.map(seconds), steps = [];
-    for (let i = 1; i < t.length; i++) if (t[i] !== null && t[i - 1] !== null) steps.push(t[i] - t[i - 1]);
-    if (!steps.length) return [];
-    const typical = [...steps].sort((a, b) => a - b)[Math.floor((steps.length - 1) / 2)], out = [];   // lower median
+    for (let i = 1; i < t.length; i++) if (t[i] !== null && t[i - 1] !== null && t[i] > t[i - 1]) steps.push(t[i] - t[i - 1]);
+    return steps.length ? [...steps].sort((a, b) => a - b)[Math.floor((steps.length - 1) / 2)] : null;
+  }
+  const isGap = (dt, typical) => typical !== null && dt > 1.5 * typical;
+
+  function gapWarnings(samples) {
+    const t = samples.map(seconds), typical = typicalStep(samples), out = [];
     for (let i = 1; i < t.length; i++) {
       if (t[i] === null || t[i - 1] === null) continue;
       if (t[i] - t[i - 1] <= 0) out.push(`Samples ${i} and ${i + 1} are out of time order.`);
-      else if (t[i] - t[i - 1] > 1.5 * typical)
+      else if (isGap(t[i] - t[i - 1], typical))
         out.push(`Gap of ${t[i] - t[i - 1]} s before sample ${i + 1}: readings in it are missing, not zero.`);
     }
     return out;
@@ -90,17 +96,21 @@
     };
   }
 
-  // Energy = area under the power curve (01-15), over intervals where both ends are usable.
+  // Energy = area under the power curve (01-15), over normal intervals where both ends are usable.
+  // A gap is not covered time. Energy across a gap is only an interpolated estimate, kept separate.
   function energy(samples) {
-    let wh = 0, covered = 0, span = 0;
+    const typical = typicalStep(samples);
+    let wh = 0, interp = 0, covered = 0, gaps = 0, span = 0;
     for (let i = 1; i < samples.length; i++) {
       const t0 = seconds(samples[i - 1]), t1 = seconds(samples[i]);
       if (t0 === null || t1 === null || t1 <= t0) continue;
-      span += t1 - t0;
-      const a = samples[i - 1].power_W, b = samples[i].power_W;
-      if (a !== null && b !== null) { wh += ((a + b) / 2) * (t1 - t0) / 3600; covered += t1 - t0; }
+      const dt = t1 - t0, a = samples[i - 1].power_W, b = samples[i].power_W, both = a !== null && b !== null;
+      span += dt;
+      if (isGap(dt, typical)) { gaps += dt; if (both) interp += ((a + b) / 2) * dt / 3600; }
+      else if (both) { wh += ((a + b) / 2) * dt / 3600; covered += dt; }
     }
-    return { energy_Wh: covered ? round(wh, 4) : null, covered_s: covered, span_s: span, coverage: span ? round(covered / span, 3) : null };
+    return { energy_Wh: covered ? round(wh, 4) : null, covered_s: covered, gap_s: gaps,
+             interpolated_Wh: interp ? round(interp, 4) : null, span_s: span, coverage: span ? round(covered / span, 3) : null };
   }
 
   function makeRun(meta) {
@@ -152,6 +162,7 @@
       if (r.ambient_C === null) warnings.push(`${r.label || r.id}: ambient not recorded, so a temperature rise can't be separated from a change in the room.`);
       if (r.power.n_missing) warnings.push(`${r.label || r.id}: ${r.power.n_missing} of ${r.power.n_total} samples have no usable power. They are left out of the average, not counted as zero.`);
       if (r.energy.coverage !== null && r.energy.coverage < 1) warnings.push(`${r.label || r.id}: energy covers only ${Math.round(r.energy.coverage * 100)}% of the run's time.`);
+      if (r.energy.interpolated_Wh !== null) warnings.push(`${r.label || r.id}: ${r.energy.gap_s} s of gaps are left out of its energy. Across them, ${r.energy.interpolated_Wh} Wh is only an interpolated estimate, not a measurement.`);
       r.warnings.forEach(w => warnings.push(`${r.label || r.id}: ${w}`));
     }
     if (a.ambient_C !== null && b.ambient_C !== null && Math.abs(a.ambient_C - b.ambient_C) >= 1)

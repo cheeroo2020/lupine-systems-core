@@ -4,8 +4,7 @@ Notes that feed product discovery: what has been read, what problems have been o
 and what engineers have said they need. The aim is to find a specific user with a recurring
 problem that current approaches handle poorly, before building anything for it.
 
-**No notes yet.** Industry conversations are planned to begin within the first three months
-(by January 2027).
+Industry conversations are planned to begin within the first three months (by January 2027).
 
 ---
 
@@ -37,4 +36,5 @@ File name: `research/YYYY-MM-DD-R-short-title.md` (or `-P-` / `-C-`). Copy `TEMP
 
 | File | Kind | Topic | Date |
 |---|---|---|---|
-| — | — | No notes yet | — |
+| [2026-11-09-R-tasnetworks-apr-2026.md](2026-11-09-R-tasnetworks-apr-2026.md) | Reading note | TasNetworks Annual Planning Report 2026 | 2026-11-09 |
+| [2026-11-09-R-aemo-nem-foundations.md](2026-11-09-R-aemo-nem-foundations.md) | Reading note | AEMO NEM Foundations eLearning | 2026-11-09 |

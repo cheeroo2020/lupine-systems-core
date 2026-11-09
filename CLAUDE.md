@@ -19,8 +19,9 @@ supports three connected activities:
 
 The product is **not yet chosen**. Lupine's architecture alone does not establish a market;
 commercial uncertainty stays explicit. Relevant organisations named by the owner: Firmus,
-Hydro Tasmania, TasNetworks, UTAS. **Do not steer toward finance, billing, reporting or
-general operations roles.**
+Hydro Tasmania, TasNetworks, UTAS, AEMO. **Do not steer toward finance, billing, reporting or
+general operations roles.** Near-term aim (Nov 2026): an office-based technical role, for
+example in a network business's asset management, connections or planning team.
 
 Owner's background: industrial and production engineering; a beginner in electrical
 engineering, computing and software; about 10–12 hours a week. The timeline and the evidence
@@ -38,6 +39,11 @@ Lupine began as a payments decision engine (Section 7). That work is **historica
   it assumes before Parts 03, 04 and 06. Its known issues, and the map from its verdict names
   to Rail's, are in the handbook, Part I, *The course text*. It is not an authority for real
   equipment.
+- **The NEM pathway (from 9 Nov 2026):** AEMO's free *NEM Foundations eLearning* sets the order
+  of topics; the textbook supplies the engineering underneath each one; advanced NEM study
+  follows (handbook Part I, *The NEM pathway*). Specialise on the power-system and network
+  side. Settlements and financial markets are learned for understanding, not as a direction.
+  AEMO data is published, not measured by us: label it [ASSUMED] with source and date.
 - **One manageable lesson at a time:** explain (concept, units, equations, assumptions) →
   demonstrate (one worked example) → attempt (one exercise; predict first) → check (in the
   owner's own words; investigate mistakes) → record (in the handbook).
