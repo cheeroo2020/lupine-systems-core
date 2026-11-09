@@ -99,7 +99,7 @@ Dates are planning targets. You move to the next period when you can show its ev
 
 **Three conditions of use:**
 
-1. It is the only course text. It replaces the earlier 96-lesson survey (now in `docs/textbook/superseded/`) and the chat-lesson plan in edition 0.1 of this handbook. This handbook stays the record of what you did, not a second textbook.
+1. It is the only textbook. It replaces the earlier 96-lesson survey (now in `docs/textbook/superseded/`) and the chat-lesson plan in edition 0.1 of this handbook. This handbook stays the record of what you did, not a second textbook. *Changed 9 November 2026:* AEMO's free NEM Foundations eLearning now sets the order of topics, and the textbook supplies the engineering underneath each one. See *The NEM pathway*, below.
 2. Learn the maths it uses but does not teach, before the parts that need it (below).
 3. It is never the authority for real equipment. Datasheets, standards and qualified engineers are. Part 07's project figures are a dated snapshot: recheck before quoting.
 
@@ -138,6 +138,66 @@ Each supplement is a short lesson from Claude, recorded in Part III like any oth
 | 08-31 | Proposes a different repository layout (`src/energy/`, `docs/energy/`) | Not adopted. The layout is in `CLAUDE.md` |
 | 08-33, 08-34 | Its own first week and month-by-month timeline | Not used. Part II and the timeline above are the plan |
 | Part 07 | Project figures are a 17 October 2026 snapshot. A web check did not confirm three of them: 84 MW critical IT, the "non-firm" Wesley Vale wording, and the 16 October Marinus update | Recheck the dated source before quoting |
+
+## The NEM pathway
+
+On 9 November 2026 you asked for the whole learning path to be built on AEMO's foundations of the National Electricity Market (NEM), and then taken on to more advanced NEM study. This section is that path.
+
+**How it fits together.** The NEM is the spine: it sets the order of topics. The textbook supplies the engineering underneath each topic, because AEMO's foundation course is written for a general audience and does not teach the electrical physics. Employers such as TasNetworks need both: the market and its rules, and the power system underneath.
+
+**The course.** *National Electricity Market (NEM) Foundations eLearning*, by AEMO. Free, through a free AEMO Learning Academy account. [ASSUMED: AEMO's course listing, read through a web search on 9 November 2026; AEMO's site blocked Claude from opening the page itself. Check the price and length when you enrol.]
+
+**Where your specialty sits.** The NEM is both a physical power system and a wholesale market. Learn all of it, but specialise on the power-system and network side. The settlements and financial-markets modules are for understanding how the whole thing works, not a career direction. That keeps to your goal of technical work, not finance.
+
+### Level 1: foundations (November 2026 to January 2027)
+
+One AEMO module at a time, each with the textbook pages beneath it and one small output.
+
+| AEMO module | Textbook underneath | Tasmania link | Your output |
+|---|---|---|---|
+| Introduction to the NEM | 07-03, 07-04, 07-09 | Tasmania is one NEM region; Basslink connects it to Victoria | A one-page map of who does what |
+| Regulatory regime and the National Electricity Rules | 07-04 | AEMO operates the system, the AER regulates network businesses such as TasNetworks, and the AEMC makes the rules | A glossary of the three bodies and their jobs |
+| The network | 03-14, 03-15, 03-21, 07-05 | TasNetworks' Annual Planning Report | The planning-report one-pager (already in your two-week plan) |
+| The power system | 03-03 to 03-13, 03-16, 03-19, 03-20, 05-22, 07-10 | TasNetworks is Tasmania's system strength and inertia provider [ASSUMED: TasNetworks Annual Planning Report 2025, through a web search, 9 Nov 2026] | Explain frequency, inertia and system strength in your own words |
+| Market operation: dispatch and spot prices | 01-13 to 01-15, 07-22, 07-23 | Five-minute dispatch; hydro's role in Tasmania | Read one day of Tasmanian demand and Basslink flow |
+| Ancillary services | 03-19, 03-20, 06-04 to 06-07 | Keeping frequency steady on an island grid | Explain frequency control as a feedback loop |
+| Metering | 01-16 to 01-21, 06-09 | Interval meters; the lab's rules on missing and stale readings | Link one metering rule to the lab |
+| Settlements | 01-14, 01-15 | — | Understand only |
+| Financial markets | — | — | Understand only |
+| Where to find more information | 07-21, 07-38, 07-39 | The documents in Level 2 | Your source list |
+
+Part 01 comes first: every module assumes you know voltage, current, power and energy. The maths supplements (above) still come before Parts 03, 04 and 06.
+
+### Level 2: the primary documents (February to June 2027)
+
+All free. Read each as a one-page brief: what it says, what it assumes, and what it means for Tasmania.
+
+- **AEMO:** the Integrated System Plan (every two years), the Electricity Statement of Opportunities (each year), and Quarterly Energy Dynamics (each quarter).
+- **AER:** *State of the energy market* (each year), and how it regulates network businesses.
+- **TasNetworks:** the Annual Planning Report, each year.
+- **AEMC:** the National Electricity Rules, chapter 5 (connections and network planning). Read its overview, not every clause.
+- **Data:** AEMO's public market data, and Open Electricity's free charts of it. Practise with Python on Tasmanian demand, Basslink flows and prices. Label every figure [ASSUMED] with AEMO as the source and the date: it is published data, not your measurement.
+
+### Level 3: advanced strategy (from July 2027)
+
+Choose one specialty, on the evidence of your job search and your conversations with engineers. Each one matches an office-based team at a network business.
+
+| Specialty | What it covers | Where it leads |
+|---|---|---|
+| Connections and large loads | How a large user such as a data centre connects: chapter 5, access standards, flexible connections (07-15, 07-17), effects on system strength | Connections teams |
+| Network planning | Planning reports, the Integrated System Plan, regulatory investment tests, demand forecasting (07-05, 07-22) | Network planning teams |
+| Asset management under regulation | Risk-based asset strategy, and how the AER assesses network spending | Asset management teams; the closest fit to your degree |
+| System security in Tasmania | Frequency, inertia, system strength; Basslink and Marinus Link | System strength and operations teams |
+
+**Two advanced habits:**
+- **Read the public submissions** on AEMC and AER consultations, including TasNetworks' own. They show how network engineers argue their case, and what is contested now.
+- **Keep a NEM data notebook** in Python, built from public AEMO data, each result labelled with its source and date.
+
+**Lupine's link:** AEMO sends generators dispatch targets and then checks their actual output. That is the same split Rail is built on: an instruction, then the evidence of what happened. Study how AEMO handles it (07-16) before proposing anything new.
+
+**Paid courses.** AEMO's other courses cost money. *NEM Basics* is $30 plus GST, and some instructor-led courses run to over $1,000. None of them is needed for this path. Consider them only if an employer pays.
+
+**The lab.** The lab's remaining weeks will be mapped to these modules at the next review, on 17 November 2026.
 
 ## How we work
 
@@ -350,6 +410,8 @@ Ingress dates are computed from the ephemeris, not looked up. Saturn is in Aries
 | Hydro Tasmania, Cethana pumped hydro project page | Checking Part 07's 750 MW / 20 h figure (confirmed) | 17 Oct 2026 |
 | Pulse Tasmania; W.Media; DatacenterDynamics (news on Firmus sites) | Checking Part 07's Firmus figures: 104 MW Aurora supply and the 26 MW Wesley Vale initial connection confirmed; 84 MW not found | 17 Oct 2026 |
 | Swiss Ephemeris via `pyswisseph` (Moshier mode) | Appendix A positions and dates | 16 Oct 2026 |
+| AEMO Learning Academy, *NEM Foundations eLearning* course listing (through a web search; the page itself blocked automated reading) | Part I, *The NEM pathway*: the free course and its modules | 9 Nov 2026 |
+| TasNetworks, *Annual Planning Report 2025* (through a web search) | TasNetworks as system strength and inertia provider; the planning one-pager | 9 Nov 2026 |
 | Your own statements, 16 Oct 2026 | Goals, timeline, working method | 16 Oct 2026 |
 
 ## Appendix C — Correction history
