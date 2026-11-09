@@ -272,7 +272,7 @@ Total ≈ 12 hours. Each session's full detail (pages, task, the evidence to sav
 
 Textbook Part 01 pauses this week and resumes on 16 November.
 
-**Study notes for this week:** `research/2026-11-09-R-aemo-nem-foundations.md` and `research/2026-11-09-R-tasnetworks-apr-2026.md` (prepared by Claude, with page references).
+**The day-by-day guide:** `docs/guides/job-ready-week-2026-11-09.md`: what to read, what to understand and three check questions each day, the two one-pager templates, CV and interview practice. Study notes: `research/2026-11-09-R-aemo-nem-foundations.md` and `research/2026-11-09-R-tasnetworks-apr-2026.md` (prepared by Claude, with page references).
 
 | Day | NEM course (about 1 h) | Planning report (about 45 min) | Done when |
 |---|---|---|---|
