@@ -1,30 +1,24 @@
 {
   "agent": "lupine-watcher-v1",
-  "generated": "2026-11-08T23:00:05Z",
-  "rate": 0.880706,
-  "rate_date": "2026-11-08",
+  "generated": "2026-11-09T02:53:10Z",
+  "rate": 0.880872,
+  "rate_date": "2026-11-09",
   "fx_source": "open.er-api.com",
   "signal": "HOLD",
   "rationale": "Bottom 10% rate over 60 days. Wait for recovery.",
   "analysis": {
-    "rate": 0.88071,
+    "rate": 0.88087,
     "mean_60d": 0.90138,
     "mean_30d": 0.89399,
     "stdev_60d": 0.00865,
-    "z_score": -2.39,
+    "z_score": -2.37,
     "percentile_60d": 1.7,
-    "momentum_3d_pips": -96.8,
-    "momentum_7d_pips": -136.7,
+    "momentum_3d_pips": -95.2,
+    "momentum_7d_pips": -135.1,
     "history_n": 60
   },
-  "news_signals": [
-    {
-      "category": "bullish_aud",
-      "keyword": "rate hike",
-      "file": "2026-11-06"
-    }
-  ],
-  "evidence_hash": "33a542f497c109b695552005b1406302127c05d2afe8270456f61a2c804f0097",
+  "news_signals": [],
+  "evidence_hash": "ddc144e7d6772c281923e2932c11074ea45f48104c20f757fd39c129b935dbaf",
   "chain_valid": true,
-  "request_id": "watcher-2026-11-08-230005"
+  "request_id": "watcher-2026-11-09-025310"
 }
