@@ -1,5 +1,9 @@
 # Lupine — architecture of the actual code
 
+> **Since the 10 November 2026 reset,** `website/` is the learning site (`index.html`, `site.css`,
+> `content/`). The lab, Grid Desk and portfolio described below were removed from the site; they are recoverable
+> from commit `e43c704`. The code in `src/` is unchanged.
+
 What the code in this repository really does, how the parts depend on each other, and
 where each one falls short. Written 16 October 2026 at commit `eff229b` and checked against
 the code, not the plans. When the code and this file disagree, the code is right and this
