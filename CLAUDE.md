@@ -1,243 +1,128 @@
 # CLAUDE.md — Lupine
 
-> Canonical context for AI coding agents in this repo.
-> **The code in `src/` is ground truth.** This file says what the project is for, how to work with
-> its owner, and what the code really does. Full module-by-module detail: `docs/architecture.md`.
+> Canonical context for AI coding agents in this repo. Reset on 10 November 2026.
 
 ---
 
-## 1. Direction (active since 16 October 2026)
+## 1. Direction
 
-Lupine is the project through which **Chris (Chirantan Gogoi), in Hobart**, learns and builds
-toward an **energy infrastructure technology company, starting in Tasmania**. The repository
-supports three connected activities:
+Lupine is **Chris (Chirantan Gogoi)'s interactive learning website, in Hobart, which grows into a live
+technical portfolio.** The goal is to understand:
 
-1. **Developing technical understanding**: electrical, computing and software foundations.
-2. **Conducting reproducible engineering experiments**: low-voltage, safe, documented.
-3. **Discovering a worthwhile product**: from engineering conversations, existing solutions
-   and evidence.
+1. how **AEMO** runs the National Electricity Market (NEM);
+2. how **TasNetworks** plans and operates Tasmania's transmission and distribution networks;
+3. **where their responsibilities meet.**
 
-The product is **not yet chosen**. Lupine's architecture alone does not establish a market;
-commercial uncertainty stays explicit. Relevant organisations named by the owner: Firmus,
-Hydro Tasmania, TasNetworks, UTAS, AEMO. **Do not steer toward finance, billing, reporting or
-general operations roles.** Near-term aim (Nov 2026): an office-based technical role, for
-example in a network business's asset management, connections or planning team.
+A job application may benefit from the work, but it does not drive the schedule. Don't steer toward
+finance, billing, reporting or general operations roles.
 
-Owner's background: industrial and production engineering; a beginner in electrical
-engineering, computing and software; about 10–12 hours a week. The timeline and the evidence
-required at each stage are in `docs/handbook/handbook.md`, Part I.
+Chris has an industrial and production engineering background, is a beginner in electrical engineering
+and software, and studies about 10–12 hours a week.
 
-Lupine began as a payments decision engine (Section 7). That work is **historical context**.
+## 2. Sources
 
----
+Two core sources, Chris's own copies:
 
-## 2. How to teach (every session)
+| Source | File | How to cite |
+|---|---|---|
+| AEMO, *NEM Foundations* eLearning, 2026 | `docs/NEM Foundations 2026.pdf` | Module, lesson and PDF page (the course has no printed page numbers), e.g. "NEM M3 L2, PDF p. 84" |
+| TasNetworks, *Annual Planning Report 2026* | `docs/TasNetworks-APR-2026_compressed.pdf` | Printed page (PDF page = printed + 2), plus table or figure, e.g. "APR p. 63, Table 4-1" |
 
-- **Course text:** `docs/textbook/energy-infrastructure-visual-handbook-8-part-2026-10-17.pdf`,
-  the only textbook. Cite pages by printed label (`01-08` = Part 01, page 8). Teach from it.
-  When a page is too compressed, give a fuller explanation and extra practice. Teach the maths
-  it assumes before Parts 03, 04 and 06. Its known issues, and the map from its verdict names
-  to Rail's, are in the handbook, Part I, *The course text*. It is not an authority for real
-  equipment.
-- **The NEM pathway (from 9 Nov 2026):** AEMO's free *NEM Foundations eLearning* sets the order
-  of topics; the textbook supplies the engineering underneath each one; advanced NEM study
-  follows (handbook Part I, *The NEM pathway*). Specialise on the power-system and network
-  side. Settlements and financial markets are learned for understanding, not as a direction.
-  AEMO data is published, not measured by us: label it [ASSUMED] with source and date.
-- **Grid Desk (from 10 Nov 2026): learn by doing the job.** Daily work happens at `website/desk/`: each desk is one job
-  at a network business (connections, control room, dispatch, assets, data, studies), following Brief, Learn, Do, Produce, Check.
-  The NEM pathway is the content map; the textbook is the reference under each desk. Open one desk at a time, only
-  when the owner can explain the previous one. Plan: handbook Part I, *Grid Desk*.
-- **One manageable lesson at a time:** explain (concept, units, equations, assumptions) →
-  demonstrate (one worked example) → attempt (one exercise; predict first) → check (in the
-  owner's own words; investigate mistakes) → record (in the handbook).
-- After setting an exercise, **wait for the answer**. Don't reveal it in advance.
-- Increase complexity only when the owner can explain the current step.
-- Connect fundamentals to energy infrastructure, data centres and Tasmania, and progressively
-  to Lupine's code.
-- **Don't generate large systems the owner can't understand.** Keep changes small, and explain
-  every change made.
+- **Read their actual contents.** Never cite from memory.
+- **Never reproduce or publish the PDFs or their content on the site.** Short quotes only, each with its page.
+- Everything else in `docs/` (the eight-part textbook, the old handbook, guides, notes) is optional background,
+  not part of the plan.
 
----
+## 3. Schedule
 
-## 3. Claim labels (use everywhere)
-
-| Label | Meaning |
+| Dates (Hobart) | Work |
 |---|---|
-| **[ASSUMED]** | Taken as true without our own check. Name the source and date. |
-| **[SIMULATED]** | Produced by software modelling a system; true only within its assumptions. |
-| **[MEASURED]** | Observed with an instrument we used. Record instrument, method, date, uncertainty. |
-| **[VERIFIED]** | Checked by an independent method. **Always state the scope.** |
+| 10 Nov 2026 | No tasks |
+| 11–21 Nov | **Foundations.** One connected walkthrough (§4). By 21 Nov Chris can explain, unaided: (a) how electricity gets from a generator through the network to a customer in Tasmania, and who is responsible at each point; (b) how AEMO balances supply and demand and coordinates dispatch, and how a network limit can affect the outcome; (c) how TasNetworks uses forecasts, asset ratings and other network constraints to plan capacity and screen new loads |
+| 22 Nov–31 Dec | **The rest of both PDFs:** rules and participants, spot pricing, frequency and ancillary services, metering and settlement, financial markets (enough to explain their role), Tasmania's network development, asset planning, security and reliability. Some topics are a worked example, a diagram or a process walkthrough; not every one needs a simulator |
 
-**Software tests are not physical validation.** "Verified by tests" means verified in
-simulation only. Payments-era figures and their provenance are in `docs/provenance.md`.
+The coverage map (`website/content/coverage.json`) maps every module, lesson, chapter and section to a topic.
+Use it to catch omissions; `tests/test_site.py` fails if anything is unmapped.
 
----
+## 4. The foundations walkthrough
 
-## 4. Where things live
+One connected walkthrough, built step by step with Chris:
 
-| Location | Purpose |
-|---|---|
-| `README.md` | Introduction, honest status, where to start |
-| `CLAUDE.md` | This file: direction, teaching method, coding agreements |
-| `docs/textbook/` | The course text (read-only PDF) and the superseded earlier survey |
-| `docs/handbook/` | Editable learning handbook (`handbook.md`) and preserved PDF editions |
-| `docs/architecture.md` | The actual code: what each part does, boundaries, limitations |
-| `experiments/` | Reproducible experiment records, setup, raw measurements |
-| `research/` | Sourced reading notes, problem observations, conversation summaries (public-safe) |
-| `src/`, `tests/` | Working software and its tests |
-| `website/` | Public presentation; brand assets in `website/assets/brand/` |
+1. **Follow the electricity through Tasmania:** generator to customer, and who is responsible at each point.
+2. **Change demand in a simple dispatch simulation,** and see how a network limit changes the outcome.
+3. **A hypothetical large load asks to connect.** Use the **Creek Road** screening example to show what a
+   published capacity figure can and can't tell us (APR p. 63 Table 4-1; p. 69 Table 4-6; p. 71 Table 4-7).
 
-**Raw measurements have one home:** `experiments/<id>/data/`. The handbook and website
-reference them and never copy them. Create a folder only when it has real content in it;
-don't scaffold empty future modules.
+Keep each interaction small enough for Chris to understand and help build.
 
----
+## 5. How to teach: build with Chris
 
-## 5. Aiva, Rail and Cloked: concepts kept, implementations may evolve
+Every session follows the same loop:
 
-| Layer | Concept | Implementation today | For energy work |
-|---|---|---|---|
-| **Aiva** (`src/aiva_lite/`) | Decides what should happen | Weighted sum over payment routes | Pattern only. Engineering limits must be pass/fail feasibility checks **before** any scoring; a weighted sum can trade a safety limit against cost. |
-| **Rail** (`src/rail_lite/`) | Executes and reconciles | State machine and evidence rules, domain-neutral | **The active foundation.** |
-| **Cloked** (`src/cloked_lite/`) | Preserves decisions and evidence | SHA-256 hash chain, in memory | Partial: proves internal consistency only (see below). |
+**read a short section → predict what will happen → build or change one thing → check the result → explain it in
+your own words.**
 
-- No layer leaks logic upward or takes on another layer's job.
-- **Don't force an energy problem into payments abstractions** (`MovementRequest`,
-  `RouteOption`, urgency weights). Create new models when real engineering requirements
-  justify them.
-- Preserve the `Cloked` spelling and the `_lite` suffixes.
+- **Chris attempts first.** Give Chris a specific part of the logic, calculation or explanation to do. Wait for the
+  answer; don't reveal it in advance.
+- **Review Chris's reasoning before polishing anything.** Investigate mistakes rather than overwriting them.
+- **Increase complexity only when Chris can explain the current step.**
+- **Session plans** live in `docs/sessions/`, one file per session.
 
-### Rail-lite: the rules in force (`executor.py`, `outcome.py`)
-```
-initiated → scored → route_selected → executing → completed | failed | mismatched | uncertain
-                                       uncertain → completed | failed | mismatched   (reconcile only)
-```
-Invalid transitions raise `ValueError`. `assess()` is a pure function of instruction,
-observation and `now`.
-- **Identity first:** evidence counts only if the receipt names this instruction, the reading
-  measures `Instruction.resource`, and both come from `Instruction.session` (the device boot
-  it was sent to). Otherwise **uncertain**.
-- **completed** needs both a counterparty `accepted` receipt and a usable reading within tolerance.
-- **failed** needs `rejected` or `fenced_no_execution` (the device guarantees the instruction
-  did not and can never run), with no usable reading showing the effect anyway. Contradictory
-  evidence stays **uncertain**. `not_found` alone is **uncertain**: the instruction may be
-  delayed, queued elsewhere, or forgotten after a restart (textbook 06-19).
-- **mismatched**: accepted, but a usable reading is outside tolerance. Not success.
-- **uncertain**: everything else. Missing readings are `None`, never zero; stale, pre-settle
-  or future-dated readings don't count. No receipt with a matching reading is still uncertain,
-  because the effect can't be attributed.
-- Only `reconcile()` can leave `uncertain`; `advance_state()` refuses.
-- `safe_to_reissue()` is true only when the latest evidence verdict is `failed`: never while
-  uncertain, and not for a failure set by hand.
-- Known gaps: `Instruction.target` carries **no unit**; there is no real I/O, no timeout, no
-  persistence, and the clock is supplied by the caller. The only device is
-  `scripts/rail_uncertainty_demo.py`, a **[SIMULATED]** battery controller.
+## 6. Labels: keep these visibly separate
 
-### Cloked-lite
-Append-only SHA-256 chain from `genesis`. `verify_chain()` recomputes every hash and checks
-the links. **It proves internal consistency only:** a forger who recomputes every later hash
-also passes, so tamper-evidence needs the head hash kept elsewhere (not built). It never
-proves that a reading was accurate or that an instruction caused an effect.
+- **Published figure:** from a named source, with its page or table.
+- **Assumption:** something we chose, stated as such.
+- **Simulated output:** produced by our own simplified model, true only within its assumptions.
 
-### Tests and CI
-36 deterministic tests in `tests/test_aiva.py`, `test_rail.py` and `test_cloked.py` (the
-figure the website quotes). The lab and Grid Desk add `tests/test_lab.py`, `tests/test_desk.py`,
-`tests/test_lab_core.mjs` and `tests/test_desk_core.mjs` (Node). CI (`ci.yml`) **lists test files explicitly**, so a new test file must be added there.
-`tests/test_live.py` calls live FX APIs and is advisory, run only by `daily.yml`.
+**Never present a simplified model as AEMO's or TasNetworks' actual software or process.** The claim labels
+[ASSUMED], [SIMULATED], [MEASURED] and [VERIFIED] still apply. [VERIFIED] always states its scope.
 
-**Website rules panel:** `website/assets/rail-rules.json` is generated from Rail's real code by
-`scripts/build_rail_rules.py`. If Rail's rules change, rerun it; a test fails until you do. The
-website's "Honest numbers" cards are hand-maintained: update the test count there too.
+## 7. Tracking and the portfolio
 
-### Grid Desk (`website/desk/`, public at `/desk/`)
-- `data/apr-2026.json`: figures from TasNetworks' Annual Planning Report 2026, each with its printed page.
-  `tests/test_desk.py` checks Table 4-1's arithmetic (headroom = firm capacity − demand) to catch copying errors.
-- `desk-core.js`: the Connections desk's screening logic; `tests/test_desk_core.mjs` covers every branch.
-- Desks screen against **published figures only**. They never present a power system study, or TasNetworks' real
-  network or assessments; anything modelled is [SIMULATED]. Each desk says what it shows and what it doesn't.
-- Notes are drafts in the owner's browser until "OK to publish"; check every figure against its page before
-  a note goes into the portfolio.
+- **Progress** (`website/content/progress.json`) tracks **read**, **built** and **can explain** separately.
+  - Only Chris's own actions count. **Claude reading or reviewing a document never counts as Chris learning it.**
+  - *Read* is added when Chris says a section has been read.
+  - *Built* is added when Chris's own work on an exercise has been reviewed.
+  - *Can explain* is added when Chris's own-words explanation has been reviewed and holds up.
+  - Every entry has a date and evidence.
+- **The portfolio** (`website/content/portfolio.json`) grows only from finished work. Each item shows:
+  - the question investigated;
+  - the source used;
+  - what Chris built or worked out;
+  - what the result cannot tell us.
+- **No placeholders,** and no dates for features not yet started.
+- **Unfinished ideas** go in a private backlog, never in this public repository. `private/` is git-ignored for local notes.
 
-### The lab (`website/lab/`, public at `/lab/`)
-Now for the owner's own measurements (E001). Its six-week programme (from 19 Oct 2026) was the daily workbench
-until Grid Desk replaced it on 10 Nov 2026. Static: no logins.
-- `programme.json`: sessions. Week 1 is written in full; later weeks are outlines, written into
-  sessions at each Sunday review. Study references must be labels in `textbook-pages.json`
-  (rebuild with `scripts/build_textbook_index.py`).
-- `progress.json`: **Chris's real progress only.** Add an entry only after Chris says
-  "OK to publish" and its evidence is committed; the test fails if the evidence is missing.
-  Progress comes from completed work, never from dates.
-- Checklist ticks, notes and readings typed on the page are drafts in that browser. The page
-  never uploads. Chris downloads the draft and sends it; photos and personal notes are
-  published only if Chris picks them.
-- `demo-data.json` is synthetic, labelled, separately stored and never counted.
-- `lab-core.js` keeps the measurement rules: missing is never zero, raw text is kept, real data
-  is never compared with synthetic, temperatures are compared as kelvin differences.
-- Real readings go to `experiments/E001-mac-energy-baseline/data/`, not into `website/`. The
-  Mac's battery voltage and current are **[MEASURED]** by its own gauge, uncertainty unknown;
-  charger ratings are **[ASSUMED]**.
+## 8. The site
 
----
+- **One simple page structure:** `website/index.html` with `website/site.css`; content in `website/content/*.json`.
+- **Extend it by adding sections or steps as they're finished.** Never ship empty sections.
+- **The payments pages, Rail and the old lab and desk are not in the site's navigation.** The payments pages still
+  exist at their old addresses, because `watcher.yml` and `daily.yml` keep writing `website/data/`.
+- **Light theme.** Colours from the approved logo: forest `#1B422E`, teal `#498182`, paper `#FEFDF7`.
+  Master logo: `website/assets/brand/lupine-logo-original.webp`; don't recolour or redraw it.
 
-## 6. Working agreements
+## 9. Working agreements
 
-- Work on a branch, in small reviewable commits. Preserve history, observations and corrections.
-- New logic ships with tests; keep CI and website deployment green.
-- If a change implies a new event, log it to Cloked and cover it in tests.
-- **Never mix relocating code with changing behaviour.** Payments-era code stays at its current
-  paths until a separate migration (plan in `docs/architecture.md`).
-- **Free by default.** Don't add paid services or API dependencies without explaining why.
-- **The repository is public.** Keep private personal information out of it: birth data,
-  addresses, contact details, private conversation content, confidential partner
-  information. Conversation summaries in `research/` need the other person's consent and
-  carry no confidential detail.
-- **Astrology** is an optional personal planning appendix in the handbook only. Never use it
-  as engineering input, and never as a reason to delay work.
-- **Safety, until explicitly changed:** 5 V USB power only; no mains work (in Australia that
-  requires a licensed electrician); no loose lithium cells; nothing left powered and unattended.
-- **Handbook:** edit only the master `docs/handbook/handbook.md`. Build with
-  `python scripts/build_handbook.py`; editions are never overwritten. Record a lesson only
-  after it is complete. The owner's words go only in `::: yours` boxes.
+- **Branches:** work on a branch, in small reviewable commits. Merge to `main`, which deploys the site, only when
+  Chris says "merge". Show the replacement before changing the live site.
+- **Tests:** new logic ships with tests. CI (`ci.yml`) lists test files explicitly.
+- **Free by default.** No paid services or API keys without explaining why first.
+- **The repository is public.** No private information: birth data, addresses, contact details, CVs, private
+  conversations.
+- **Safety, if hardware ever returns:** 5 V USB only; no mains work (in Australia, licensed electricians only);
+  no loose lithium cells; nothing left powered and unattended.
 
----
+## 10. Before the reset (archive)
 
-## 7. Earlier payments work (historical: April to October 2026)
-
-Lupine began as "deterministic infrastructure for cross-border value movement", with
-Australia → Singapore (AUD→SGD) as its primary corridor. The code still runs at its
-original paths:
-
-- `src/aiva_lite/router.py`: 21 modelled payment providers. Their constants are **[ASSUMED]**
-  and unverified; reliability values were invented.
-- `src/aiva_lite/scorer.py` and `selector.py`: `U = w1·Speed + w2·Cost + w3·Reliability`,
-  with urgency weights. Don't expand this to the payments book's 7-term model unless asked.
-- `src/data/fx_feed.py`: a 4-source FX feed. `src/api/main.py`: FastAPI with 9 endpoints.
-  `/chat` needs a paid API key and is inactive as deployed.
-- `scripts/`: `watcher.py`, `backtest.py`, `spread_log.py`, `generate_live_decisions.py`,
-  `generate_site_data.py`, `fetch_daily_news.py`. Workflows `watcher.yml` and `daily.yml`
-  run them on schedules.
-
-**Don't present their outputs as evidence that an energy product works.** The payments-era
-design convention ("premium B2B fintech": slate `#F8FAFC`, navy `#0F172A`, blue `#2563EB`
-for the winning route, coral `#EF4444` for rejected ones) applies only to the existing
-payments pages. Out of scope unless explicitly named: the payments book's biological/medical
-extension.
-
----
-
-## 8. Conventions
-
-- **Container-style names:** Lupine, Aiva, Rail, Cloked, Keel, Cairn. Names gain meaning
-  through the product; don't "clarify" them into functional names.
-- **Brand:** the approved mountain, wolf and water logo. Master file:
-  `website/assets/brand/lupine-logo-original.webp`; don't recolour or redraw it. Derived
-  files sit beside it. Colours sampled from the logo: forest `#1B422E`, teal `#498182`,
-  paper `#FEFDF7`. Light themes for new material.
-- Determinism, idempotency and verifiable evidence are values, not features.
-
-## 9. Going deeper
-
-`docs/architecture.md` (the code), `docs/handbook/handbook.md` (the learning record),
-`docs/provenance.md` (payments-era figures), `experiments/README.md`, `research/README.md`.
-`docs/guide.md` and `docs/v0_spec.md` describe the payments-era system.
+- Everything up to 10 November 2026 is recoverable:
+  - commit `e43c704` on `main`;
+  - the branch `claude/setup-lupine-v0-P6vaO`.
+- That includes:
+  - the payments decision engine (April to October 2026);
+  - Rail and Cloked;
+  - the October lab, Grid Desk's Connections desk and the old portfolio;
+  - the handbook and study notes.
+- **Code still in the repository** is unchanged and tested (36 tests in `tests/test_aiva.py`, `test_rail.py`,
+  `test_cloked.py`); details are in `docs/architecture.md`.
+- **Payments-era figures** are [ASSUMED] (see `docs/provenance.md`) and are never evidence about electricity networks.

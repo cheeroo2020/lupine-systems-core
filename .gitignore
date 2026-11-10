@@ -211,3 +211,6 @@ __marimo__/
 node_modules/
 package-lock.json
 package.json
+
+# Private notes and backlog (Lupine): never committed, the repository is public
+private/
