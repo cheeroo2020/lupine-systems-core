@@ -176,33 +176,18 @@
 
 ---
 
-## Friday 13: write the one-page brief of the planning report
+## Friday 13: the Connections desk
 
-**Rules:**
-- No more than 450 words.
-- Your own words.
-- Every number has its page.
-- One optional sketch.
-- Send the draft to Claude, who checks every figure against the report before it's published.
+Open **Grid Desk → Connections** on your website (`/desk/connections/`). It replaces the one-page brief: it uses the same
+reading, and it's closer to the job.
 
-**Template:**
-
-> **TasNetworks Annual Planning Report 2026: one-page brief** · *Chris Gogoi, November 2026*
->
-> **What the report is** (1–2 sentences): who publishes it, why, and over what period.
->
-> **The network today** (3 facts with pages): size, generation mix, demand.
->
-> **What's changing** (3 points): AI factories, new renewables, Marinus Link and Basslink.
->
-> **The hard problems** (3 points): George Town; system strength and inertia; one constraint.
->
-> **How TasNetworks is responding** (3 points): North West Transmission Developments; contracts for system
-> strength; risk-based asset replacement.
->
-> **Two questions I'd ask an engineer there.**
->
-> *Source: TasNetworks Annual Planning Report 2026, printed page numbers cited. Figures as stated by TasNetworks.*
+1. **Learn:** read the six idea cards, then answer the three questions in your notebook.
+2. **Do:** screen the 100 MW enquiry. Then try George Town at 300 MW, a Hobart substation at 10 MW, and St Leonards at 5 MW.
+   Write one line on what changed each time.
+3. **Produce:** go back to the 100 MW screen and write the four italic sections of the note, in your own words.
+4. **Check:** answer the three questions at the bottom.
+5. **Send to Claude:** your note (download it) and all six answers. Claude checks every figure against the report;
+   then, with your "OK to publish", it goes into your portfolio.
 
 ---
 

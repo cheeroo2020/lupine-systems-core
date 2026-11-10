@@ -44,6 +44,10 @@ Lupine began as a payments decision engine (Section 7). That work is **historica
   follows (handbook Part I, *The NEM pathway*). Specialise on the power-system and network
   side. Settlements and financial markets are learned for understanding, not as a direction.
   AEMO data is published, not measured by us: label it [ASSUMED] with source and date.
+- **Grid Desk (from 10 Nov 2026): learn by doing the job.** Daily work happens at `website/desk/`: each desk is one job
+  at a network business (connections, control room, dispatch, assets, data, studies), following Brief, Learn, Do, Produce, Check.
+  The NEM pathway is the content map; the textbook is the reference under each desk. Open one desk at a time, only
+  when the owner can explain the previous one. Plan: handbook Part I, *Grid Desk*.
 - **One manageable lesson at a time:** explain (concept, units, equations, assumptions) →
   demonstrate (one worked example) → attempt (one exercise; predict first) → check (in the
   owner's own words; investigate mistakes) → record (in the handbook).
@@ -138,16 +142,26 @@ proves that a reading was accurate or that an instruction caused an effect.
 
 ### Tests and CI
 36 deterministic tests in `tests/test_aiva.py`, `test_rail.py` and `test_cloked.py` (the
-figure the website quotes). The lab adds `tests/test_lab.py` and `tests/test_lab_core.mjs`
-(Node). CI (`ci.yml`) **lists test files explicitly**, so a new test file must be added there.
+figure the website quotes). The lab and Grid Desk add `tests/test_lab.py`, `tests/test_desk.py`,
+`tests/test_lab_core.mjs` and `tests/test_desk_core.mjs` (Node). CI (`ci.yml`) **lists test files explicitly**, so a new test file must be added there.
 `tests/test_live.py` calls live FX APIs and is advisory, run only by `daily.yml`.
 
 **Website rules panel:** `website/assets/rail-rules.json` is generated from Rail's real code by
 `scripts/build_rail_rules.py`. If Rail's rules change, rerun it; a test fails until you do. The
 website's "Honest numbers" cards are hand-maintained: update the test count there too.
 
+### Grid Desk (`website/desk/`, public at `/desk/`)
+- `data/apr-2026.json`: figures from TasNetworks' Annual Planning Report 2026, each with its printed page.
+  `tests/test_desk.py` checks Table 4-1's arithmetic (headroom = firm capacity − demand) to catch copying errors.
+- `desk-core.js`: the Connections desk's screening logic; `tests/test_desk_core.mjs` covers every branch.
+- Desks screen against **published figures only**. They never present a power system study, or TasNetworks' real
+  network or assessments; anything modelled is [SIMULATED]. Each desk says what it shows and what it doesn't.
+- Notes are drafts in the owner's browser until "OK to publish"; check every figure against its page before
+  a note goes into the portfolio.
+
 ### The lab (`website/lab/`, public at `/lab/`)
-The daily workbench for the six-week programme that began 19 Oct 2026. Static: no logins.
+Now for the owner's own measurements (E001). Its six-week programme (from 19 Oct 2026) was the daily workbench
+until Grid Desk replaced it on 10 Nov 2026. Static: no logins.
 - `programme.json`: sessions. Week 1 is written in full; later weeks are outlines, written into
   sessions at each Sunday review. Study references must be labels in `textbook-pages.json`
   (rebuild with `scripts/build_textbook_index.py`).

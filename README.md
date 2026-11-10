@@ -71,9 +71,9 @@ Nothing in this repository has yet been physically tested.
 
 If you're new to this, in this order:
 
-1. **The lab:** [cheeroo2020.github.io/lupine-systems-core/lab/](https://cheeroo2020.github.io/lupine-systems-core/lab/).
-   It opens the next unfinished session: what to study, what to do, and what evidence to save.
-   Its demo walks through one session with labelled synthetic data.
+1. **Grid Desk:** [cheeroo2020.github.io/lupine-systems-core/desk/](https://cheeroo2020.github.io/lupine-systems-core/desk/).
+   Learning by doing the job: each desk is one job at a network business, built on AEMO's NEM course and
+   TasNetworks' Annual Planning Report 2026. The [lab](https://cheeroo2020.github.io/lupine-systems-core/lab/) is for measurements.
 2. **The textbook:** [docs/textbook/](docs/textbook/). It's the single textbook, in eight
    parts. Start with Part 01, *Electricity You Can Measure*. Since 9 November 2026 the order
    of topics follows AEMO's free *NEM Foundations* course; the handbook's *NEM pathway*
@@ -84,8 +84,8 @@ If you're new to this, in this order:
 5. **Run it:**
    ```bash
    pip install -r requirements.txt
-   PYTHONPATH=. pytest tests/test_aiva.py tests/test_rail.py tests/test_cloked.py tests/test_lab.py
-   node --test tests/test_lab_core.mjs
+   PYTHONPATH=. pytest tests/test_aiva.py tests/test_rail.py tests/test_cloked.py tests/test_lab.py tests/test_desk.py
+   node --test tests/test_lab_core.mjs tests/test_desk_core.mjs
    PYTHONPATH=. python scripts/rail_uncertainty_demo.py
    ```
 6. **How records are kept:** [experiments/README.md](experiments/README.md) and
@@ -105,7 +105,8 @@ If you're new to this, in this order:
 | `src/`, `tests/` | Software and its tests |
 | `scripts/` | Demo, handbook builder, and earlier payments automation |
 | `website/` | Public site (GitHub Pages); brand assets in `website/assets/brand/` |
-| `website/lab/` | The daily lab: programme, real progress, measurement tools, synthetic demo |
+| `website/desk/` | Grid Desk: learning by doing the job, desk by desk |
+| `website/lab/` | The lab: measurement tools, real progress, synthetic demo |
 | `docs/provenance.md` | Where every payments-era figure came from, and the corrections |
 
 ---
