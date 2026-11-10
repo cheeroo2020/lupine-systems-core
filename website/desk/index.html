@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grid Desk — Lupine</title>
+<meta name="description" content="Learning Tasmania's electricity network by doing the job: desks modelled on the work of a network business, built on AEMO's NEM Foundations and TasNetworks' Annual Planning Report 2026.">
+<link rel="icon" href="../assets/brand/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../assets/brand/favicon-32.png">
+<link rel="stylesheet" href="desk.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../"><img src="../assets/brand/lupine-mark-512.png" alt="Lupine" width="28" height="28"><b>Lupine</b> <span>· Grid Desk</span></a>
+  <nav class="tabs" aria-label="Grid Desk"><a href="./" aria-current="page">Desks</a><a href="connections/">Connections</a><a href="../portfolio/">Portfolio</a></nav>
+</div></header>
+
+<main class="wrap">
+  <p class="eyebrow">Grid Desk</p>
+  <h1>Learn the network by doing the job.</h1>
+  <p class="lead">Each desk is one job at a network business: assessing a connection, watching frequency, ranking assets for
+    replacement. You learn what the job needs from AEMO's NEM Foundations course and TasNetworks' Annual Planning Report 2026,
+    use a tool modelled on the software engineers use, and finish with a note you write yourself.</p>
+
+  <ol class="method" aria-label="How every desk works">
+    <li><b>Brief</b><span>the job, as a work ticket</span></li>
+    <li><b>Learn</b><span>the ideas, with course and report pages</span></li>
+    <li><b>Do</b><span>the tool, on published figures</span></li>
+    <li><b>Produce</b><span>your note, in your own words</span></li>
+    <li><b>Check</b><span>questions answered with Claude</span></li>
+  </ol>
+
+  <h2>The desks</h2>
+  <p class="muted small">A desk opens once you can explain the ideas of the one before. Dates are targets, not deadlines.</p>
+  <div class="desks">
+    <a class="desk open" href="connections/">
+      <span class="status open">OPEN</span>
+      <h3>Connections desk</h3>
+      <p>Screen an AI factory's connection enquiry against TasNetworks' published spare capacity and planning rules, then write the screening note.</p>
+      <p class="meta">Like: the connection enquiry process under the National Electricity Rules · NEM modules 2–3 · report chapters 3–5</p>
+    </a>
+    <div class="desk"><span class="status">FROM 16 NOV</span><h3>Grid-to-rack map</h3>
+      <p>Trace power from a hydro station to an AI server, and on to your laptop: who owns each step, which document covers it, what you can observe.</p>
+      <p class="meta">Like: single-line diagrams · NEM modules 1, 3 · textbook 03-21, 03-26, 07-12</p></div>
+    <div class="desk"><span class="status">FROM 23 NOV</span><h3>Control room</h3>
+      <p>Trip a generator or Basslink and watch frequency fall at a rate set by Tasmania's inertia; then frequency control and load shedding respond.</p>
+      <p class="meta">Like: control-room displays (simplified, simulated) · NEM modules 4, 6 · report chapter 5</p></div>
+    <div class="desk"><span class="status">FROM 30 NOV</span><h3>Dispatch desk</h3>
+      <p>Stack offers every five minutes, reach Basslink's limit, and see why Tasmania's price can separate from Victoria's.</p>
+      <p class="meta">Like: AEMO's dispatch engine and market dashboards · NEM module 5</p></div>
+    <div class="desk"><span class="status">FROM 7 DEC</span><h3>Asset desk</h3>
+      <p>Score a transformer fleet on condition and criticality, rank replacements, and compare with TasNetworks' published replacement list.</p>
+      <p class="meta">Like: asset management systems such as IBM Maximo or SAP · report chapter 4, appendix A</p></div>
+    <div class="desk"><span class="status">FROM 14 DEC</span><h3>Data desk</h3>
+      <p>Read real AEMO data for Tasmania (demand, Basslink flow, prices), keeping missing data missing.</p>
+      <p class="meta">Like: AEMO's public data (NEMWeb) and Open Electricity · NEM module 10 · report chapter 2</p></div>
+    <div class="desk"><span class="status">2027</span><h3>Studies with pandapower</h3>
+      <p>Run load flow and fault-level studies yourself in pandapower, free open-source software, on an illustrative network.</p>
+      <p class="meta">Like: the studies planners run in tools such as PSS/E or PowerFactory</p></div>
+  </div>
+
+  <div class="note">
+    <b>The rules that keep this honest.</b> Published figures carry their source and page; simulations are labelled
+    <b>[SIMULATED]</b>. No desk pretends to be TasNetworks' real network or its real assessments: their network model isn't public.
+    Every desk says what it shows and what it doesn't. Your notes are yours: drafts stay in your browser until you choose to publish them.
+    Measurements happen in the <a href="../lab/">lab</a>.
+  </div>
+</main>
+<footer><div class="wrap">© Chirantan Gogoi · Hobart, Tasmania · <a href="https://github.com/cheeroo2020/lupine-systems-core">Source</a></div></footer>
+</body>
+</html>

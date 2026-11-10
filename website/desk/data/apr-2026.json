@@ -1,0 +1,933 @@
+{
+ "source": {
+  "title": "TasNetworks Annual Planning Report 2026",
+  "publisher": "Tasmanian Networks Pty Ltd",
+  "link": "https://www.tasnetworks.com.au/our-network",
+  "pages": "Printed page numbers (PDF page = printed page + 2)",
+  "read": "2026-11-09",
+  "label": "ASSUMED",
+  "note": "Figures as stated by TasNetworks; not checked by us against a second source."
+ },
+ "table_4_1": {
+  "title": "Table 4-1: Substation available headroom by planning area",
+  "pages": [
+   62,
+   63
+  ],
+  "columns": "Installed capacity total and firm (MVA); 2026 maximum demand (MVA); available firm headroom (MVA)",
+  "flag_meanings": {
+   "non_firm": "Non-firm transmission or sub-transmission network connection",
+   "subtransmission_constraint": "Headroom due to an applied sub-transmission network constraint",
+   "unavailable_until_2028": "Not available until 2028 due to interim load connection"
+  },
+  "rows": [
+   {
+    "area": "North West and West Coast",
+    "name": "Emu Bay",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 76,
+    "installed_firm_mva": 38,
+    "max_demand_2026_mva": 9,
+    "max_demand_note": null,
+    "firm_headroom_mva": 29,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Queenstown (22 kV)",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 50,
+    "installed_firm_mva": 25,
+    "max_demand_2026_mva": 5,
+    "max_demand_note": null,
+    "firm_headroom_mva": 20,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Rosebery (44 kV)",
+    "voltage_kv": "110/44",
+    "installed_total_mva": 102,
+    "installed_firm_mva": 66,
+    "max_demand_2026_mva": 47,
+    "max_demand_note": null,
+    "firm_headroom_mva": 19,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Wesley Vale",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 50,
+    "installed_firm_mva": 25,
+    "max_demand_2026_mva": 11,
+    "max_demand_note": null,
+    "firm_headroom_mva": 14,
+    "flags": [
+     "unavailable_until_2028"
+    ],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Ulverstone",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 90,
+    "installed_firm_mva": 45,
+    "max_demand_2026_mva": 31,
+    "max_demand_note": null,
+    "firm_headroom_mva": 14,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Smithton",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 70,
+    "installed_firm_mva": 35,
+    "max_demand_2026_mva": 22,
+    "max_demand_note": null,
+    "firm_headroom_mva": 13,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Queenstown (11 kV)",
+    "voltage_kv": "110/11",
+    "installed_total_mva": 50,
+    "installed_firm_mva": 25,
+    "max_demand_2026_mva": 15,
+    "max_demand_note": null,
+    "firm_headroom_mva": 10,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Trial Harbour Zone",
+    "voltage_kv": "44/22",
+    "installed_total_mva": 40,
+    "installed_firm_mva": 20,
+    "max_demand_2026_mva": 12,
+    "max_demand_note": null,
+    "firm_headroom_mva": 8,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Rosebery (22 kV)",
+    "voltage_kv": "44/22",
+    "installed_total_mva": 16,
+    "installed_firm_mva": 6,
+    "max_demand_2026_mva": 2,
+    "max_demand_note": null,
+    "firm_headroom_mva": 4,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Port Latta",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 50,
+    "installed_firm_mva": 25,
+    "max_demand_2026_mva": 22,
+    "max_demand_note": null,
+    "firm_headroom_mva": 3,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Devonport",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 110,
+    "installed_firm_mva": 60,
+    "max_demand_2026_mva": 58,
+    "max_demand_note": null,
+    "firm_headroom_mva": 2,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Burnie",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 120,
+    "installed_firm_mva": 60,
+    "max_demand_2026_mva": 62,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Railton",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 100,
+    "installed_firm_mva": 50,
+    "max_demand_2026_mva": 55,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Savage River",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 45,
+    "installed_firm_mva": 22.5,
+    "max_demand_2026_mva": 23,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Que",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 50,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": 5,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Sheffield",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 25,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": 6,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "North West and West Coast",
+    "name": "Newton",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 22.5,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": 4,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 62
+   },
+   {
+    "area": "Northern",
+    "name": "George Town",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 96,
+    "installed_firm_mva": 48,
+    "max_demand_2026_mva": 19,
+    "max_demand_note": null,
+    "firm_headroom_mva": 29,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "Northern",
+    "name": "St Leonards",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 120,
+    "installed_firm_mva": 60,
+    "max_demand_2026_mva": 32,
+    "max_demand_note": null,
+    "firm_headroom_mva": 28,
+    "flags": [
+     "unavailable_until_2028"
+    ],
+    "page": 62
+   },
+   {
+    "area": "Northern",
+    "name": "Trevallyn",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 150,
+    "installed_firm_mva": 100,
+    "max_demand_2026_mva": 74,
+    "max_demand_note": null,
+    "firm_headroom_mva": 26,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "Northern",
+    "name": "Norwood",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 100,
+    "installed_firm_mva": 50,
+    "max_demand_2026_mva": 31,
+    "max_demand_note": null,
+    "firm_headroom_mva": 19,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "Northern",
+    "name": "Scottsdale",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 63,
+    "installed_firm_mva": 31.5,
+    "max_demand_2026_mva": 13,
+    "max_demand_note": null,
+    "firm_headroom_mva": 19,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "Northern",
+    "name": "Mowbray",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 100,
+    "installed_firm_mva": 50,
+    "max_demand_2026_mva": 38,
+    "max_demand_note": null,
+    "firm_headroom_mva": 12,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "Northern",
+    "name": "Palmerston",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 50,
+    "installed_firm_mva": 25,
+    "max_demand_2026_mva": 14,
+    "max_demand_note": null,
+    "firm_headroom_mva": 11,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "Northern",
+    "name": "St Marys",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 50,
+    "installed_firm_mva": 25,
+    "max_demand_2026_mva": 16,
+    "max_demand_note": null,
+    "firm_headroom_mva": 9,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "Northern",
+    "name": "Hadspen",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 100,
+    "installed_firm_mva": 50,
+    "max_demand_2026_mva": 57,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "Northern",
+    "name": "Avoca",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 17,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": 10,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 62
+   },
+   {
+    "area": "Northern",
+    "name": "Derby",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 25,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": 6,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 62
+   },
+   {
+    "area": "Central",
+    "name": "New Norfolk",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 60,
+    "installed_firm_mva": 30,
+    "max_demand_2026_mva": 18,
+    "max_demand_note": null,
+    "firm_headroom_mva": 12,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "Central",
+    "name": "Arthurs Lake",
+    "voltage_kv": "110/6.6",
+    "installed_total_mva": 25,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": 6,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 62
+   },
+   {
+    "area": "Central",
+    "name": "Meadowbank",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 25,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": 8,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "Central",
+    "name": "Derwent Bridge",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 6,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": null,
+    "max_demand_note": "<1",
+    "firm_headroom_mva": 0,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 62
+   },
+   {
+    "area": "Central",
+    "name": "Tungatinah",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 13,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": null,
+    "max_demand_note": "<1",
+    "firm_headroom_mva": 0,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "Central",
+    "name": "Waddamana",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 4,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": null,
+    "max_demand_note": "<1",
+    "firm_headroom_mva": 0,
+    "flags": [],
+    "page": 62
+   },
+   {
+    "area": "Southern",
+    "name": "Kingston (33 kV)",
+    "voltage_kv": "110/33",
+    "installed_total_mva": 120,
+    "installed_firm_mva": 60,
+    "max_demand_2026_mva": 13,
+    "max_demand_note": null,
+    "firm_headroom_mva": 47,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Creek Road",
+    "voltage_kv": "110/33",
+    "installed_total_mva": 180,
+    "installed_firm_mva": 120,
+    "max_demand_2026_mva": 84,
+    "max_demand_note": null,
+    "firm_headroom_mva": 36,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Risdon",
+    "voltage_kv": "110/33",
+    "installed_total_mva": 150,
+    "installed_firm_mva": 100,
+    "max_demand_2026_mva": 67,
+    "max_demand_note": null,
+    "firm_headroom_mva": 33,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Lindisfarne",
+    "voltage_kv": "110/33",
+    "installed_total_mva": 120,
+    "installed_firm_mva": 60,
+    "max_demand_2026_mva": 33,
+    "max_demand_note": null,
+    "firm_headroom_mva": 27,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Sorell",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 120,
+    "installed_firm_mva": 60,
+    "max_demand_2026_mva": 35,
+    "max_demand_note": null,
+    "firm_headroom_mva": 25,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Chapel Street",
+    "voltage_kv": "110/11",
+    "installed_total_mva": 120,
+    "installed_firm_mva": 60,
+    "max_demand_2026_mva": 37,
+    "max_demand_note": null,
+    "firm_headroom_mva": 23,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Sandy Bay Zone",
+    "voltage_kv": "33/11",
+    "installed_total_mva": 90,
+    "installed_firm_mva": 60,
+    "max_demand_2026_mva": 29,
+    "max_demand_note": null,
+    "firm_headroom_mva": 21,
+    "flags": [
+     "subtransmission_constraint"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "West Hobart Zone",
+    "voltage_kv": "33/11",
+    "installed_total_mva": 90,
+    "installed_firm_mva": 60,
+    "max_demand_2026_mva": 33,
+    "max_demand_note": null,
+    "firm_headroom_mva": 17,
+    "flags": [
+     "subtransmission_constraint"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Triabunna",
+    "voltage_kv": "110/22",
+    "installed_total_mva": 50,
+    "installed_firm_mva": 25,
+    "max_demand_2026_mva": 7,
+    "max_demand_note": null,
+    "firm_headroom_mva": 18,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Mornington",
+    "voltage_kv": "110/33",
+    "installed_total_mva": 120,
+    "installed_firm_mva": 60,
+    "max_demand_2026_mva": 43,
+    "max_demand_note": null,
+    "firm_headroom_mva": 17,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Kermandie",
+    "voltage_kv": "110/11",
+    "installed_total_mva": 50,
+    "installed_firm_mva": 25,
+    "max_demand_2026_mva": 9,
+    "max_demand_note": null,
+    "firm_headroom_mva": 16,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "East Hobart Zone",
+    "voltage_kv": "33/11",
+    "installed_total_mva": 90,
+    "installed_firm_mva": 60,
+    "max_demand_2026_mva": 27,
+    "max_demand_note": null,
+    "firm_headroom_mva": 16,
+    "flags": [
+     "subtransmission_constraint"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Rokeby",
+    "voltage_kv": "110/11",
+    "installed_total_mva": 70,
+    "installed_firm_mva": 35,
+    "max_demand_2026_mva": 23,
+    "max_demand_note": null,
+    "firm_headroom_mva": 12,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Bellerive Zone",
+    "voltage_kv": "33/11",
+    "installed_total_mva": 45,
+    "installed_firm_mva": 22.5,
+    "max_demand_2026_mva": 10,
+    "max_demand_note": null,
+    "firm_headroom_mva": 10,
+    "flags": [
+     "subtransmission_constraint"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "North Hobart",
+    "voltage_kv": "110/11",
+    "installed_total_mva": 90,
+    "installed_firm_mva": 45,
+    "max_demand_2026_mva": 34,
+    "max_demand_note": null,
+    "firm_headroom_mva": 11,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Electrona",
+    "voltage_kv": "110/11",
+    "installed_total_mva": 50,
+    "installed_firm_mva": 25,
+    "max_demand_2026_mva": 15,
+    "max_demand_note": null,
+    "firm_headroom_mva": 10,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Kingston (11 kV)",
+    "voltage_kv": "110/11",
+    "installed_total_mva": 70,
+    "installed_firm_mva": 35,
+    "max_demand_2026_mva": 26,
+    "max_demand_note": null,
+    "firm_headroom_mva": 9,
+    "flags": [],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Howrah Zone",
+    "voltage_kv": "33/11",
+    "installed_total_mva": 50,
+    "installed_firm_mva": 25,
+    "max_demand_2026_mva": 17,
+    "max_demand_note": null,
+    "firm_headroom_mva": 8,
+    "flags": [
+     "subtransmission_constraint"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Geilston Bay Zone",
+    "voltage_kv": "33/11",
+    "installed_total_mva": 45,
+    "installed_firm_mva": 22.5,
+    "max_demand_2026_mva": 18,
+    "max_demand_note": null,
+    "firm_headroom_mva": 4,
+    "flags": [
+     "subtransmission_constraint"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Cambridge Zone",
+    "voltage_kv": "33/11",
+    "installed_total_mva": 40,
+    "installed_firm_mva": 20,
+    "max_demand_2026_mva": 16,
+    "max_demand_note": null,
+    "firm_headroom_mva": 2,
+    "flags": [
+     "subtransmission_constraint"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Claremont Zone",
+    "voltage_kv": "33/11",
+    "installed_total_mva": 50,
+    "installed_firm_mva": 25,
+    "max_demand_2026_mva": 21,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "subtransmission_constraint"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Knights Road",
+    "voltage_kv": "110/11",
+    "installed_total_mva": 40,
+    "installed_firm_mva": 20,
+    "max_demand_2026_mva": 20,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Bridgewater",
+    "voltage_kv": "110/11",
+    "installed_total_mva": 70,
+    "installed_firm_mva": 35,
+    "max_demand_2026_mva": 36,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Derwent Park Zone",
+    "voltage_kv": "33/11",
+    "installed_total_mva": 45,
+    "installed_firm_mva": 22.5,
+    "max_demand_2026_mva": 19,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "subtransmission_constraint"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "New Town Zone",
+    "voltage_kv": "33/11",
+    "installed_total_mva": 45,
+    "installed_firm_mva": 22.5,
+    "max_demand_2026_mva": 21,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "subtransmission_constraint"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Rosny Park Zone",
+    "voltage_kv": "33/11",
+    "installed_total_mva": 25,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": 16,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Huon River",
+    "voltage_kv": "110/11",
+    "installed_total_mva": 25,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": 1,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 63
+   },
+   {
+    "area": "Southern",
+    "name": "Summerleas Zone",
+    "voltage_kv": "33/11",
+    "installed_total_mva": 25,
+    "installed_firm_mva": 0,
+    "max_demand_2026_mva": 12,
+    "max_demand_note": null,
+    "firm_headroom_mva": 0,
+    "flags": [
+     "non_firm"
+    ],
+    "page": 63
+   }
+  ]
+ },
+ "definitions": {
+  "firm": {
+   "text": "Firm capacity can still supply the load after a single contingency (the loss of one element); non-firm supply may be interrupted.",
+   "pages": [
+    108,
+    109
+   ]
+  }
+ },
+ "rules": {
+  "single_asset_850": {
+   "quote": "no more than 850 MW of load is to be capable of being interrupted by a single asset failure",
+   "pages": [
+    56,
+    114
+   ]
+  },
+  "southern_forecast": {
+   "southern_max_demand_2034_mw": 830,
+   "scenario": "Step Change",
+   "boyer_boiler_mw": 60,
+   "quote": "If this project proceeds, southern area maximum demand will exceed 850 MW in 2030",
+   "pages": [
+    56
+   ]
+  },
+  "george_town_trigger": {
+   "new_load_mw": 300,
+   "share_of_state_load": 0.6,
+   "quote": "The addition of 300 MW or more of new load at George Town will at times equal or exceed 60% of the total State load.",
+   "consequence": "If 60% or more of the State demand is lost, this is classified as a system black condition.",
+   "response": "Demand reduction or network augmentation is likely to be required to allow new loads to connect.",
+   "pages": [
+    52
+   ]
+  },
+  "responsive_load": {
+   "quote": "the load can rapidly alter its demand following a network contingency or system disturbance to maintain power system security and reliability. This means there is less requirement for new transmission infrastructure",
+   "pages": [
+    52
+   ]
+  },
+  "access_standards_package_2": {
+   "quote": "Package 2 of the rule change ... focuses on the access standards for large, inverter-based loads",
+   "pages": [
+    5,
+    23
+   ]
+  }
+ },
+ "system_strength_nodes": {
+  "note": "Matching a planning area to its nearest node is our simplification, not TasNetworks' method.",
+  "area_to_node": {
+   "North West and West Coast": "Burnie 110 kV",
+   "Northern": "George Town 220 kV",
+   "Central": "Waddamana 220 kV",
+   "Southern": "Risdon 110 kV"
+  },
+  "outlook": {
+   "George Town 220 kV": {
+    "status": "low",
+    "text": "Available operating margin is already quite low, mainly due to in-service inverter-based resources, especially Basslink, and deteriorates significantly as projected developments connect. Called a vulnerable location.",
+    "pages": [
+     87
+    ]
+   },
+   "Waddamana 220 kV": {
+    "status": "ok_until",
+    "text": "Sufficient margin now; stays positive until about 901 MW of inverter-based resources connects nearby in 2028–2029.",
+    "pages": [
+     88
+    ]
+   },
+   "Burnie 110 kV": {
+    "status": "ok",
+    "text": "Positive margin through to 2036.",
+    "pages": [
+     89
+    ]
+   },
+   "Risdon 110 kV": {
+    "status": "ok_watch",
+    "text": "Margin stays relatively high, but keeping the 1,330 MVA minimum fault level is a challenge if southern hydro patterns change, for example with the Tarraleah redevelopment.",
+    "pages": [
+     90
+    ]
+   }
+  }
+ },
+ "context": {
+  "state_max_demand_2025_mw": {
+   "value": 1645,
+   "pages": [
+    26
+   ]
+  },
+  "firmus_stage_1": {
+   "text": "104 MW contracted at St Leonards, a further 288 MW at Bell Bay and 52 MW at Wesley Vale",
+   "pages": [
+    4
+   ]
+  },
+  "ai_enquiries": {
+   "quote": "TasNetworks has received multiple connection enquiries from developers actively progressing AI factory projects at various locations across the network.",
+   "pages": [
+    32
+   ]
+  }
+ }
+}

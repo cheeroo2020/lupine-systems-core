@@ -197,11 +197,41 @@ Choose one specialty, on the evidence of your job search and your conversations 
 
 **Paid courses.** AEMO's other courses cost money. *NEM Basics* is $30 plus GST, and some instructor-led courses run to over $1,000. None of them is needed for this path. Consider them only if an employer pays.
 
-**The lab.** The lab's remaining weeks will be mapped to these modules at the next review, on 17 November 2026.
+**How you learn it:** at Grid Desk, below.
+
+## Grid Desk: learning by doing the job
+
+On 10 November 2026 you chose to learn by doing the job. From then on, daily work happens at **Grid Desk** (`website/desk/`, on the website at `/desk/`). Each desk is one job at a network business. You learn what the job needs from the NEM course and the planning report, use a tool modelled on the software engineers use, and finish with a note you write yourself.
+
+**What stays:**
+- **The direction.** Tasmania's grid, the NEM and an office-based technical role.
+- **The NEM pathway, above.** It is the content map.
+- **The textbook.** It is the engineering reference under each desk.
+- **This handbook.** It is the record.
+- **The lab.** It is for your own measurements.
+
+**What it replaces:** the six-week lab programme and the plan of Part 01 sittings, as the daily structure. Their records stay in Parts II and III. Part 01's remaining pages (01-11 to 01-24) become the *Learn* step of the Grid-to-rack map desk.
+
+| Desk | The job | Opens (target) | Learn from | You produce |
+|---|---|---|---|---|
+| Connections | Screen a large load's connection enquiry against published capacity and planning rules | Open from 10 Nov 2026 | NEM modules 2–3; report chapters 3–5; textbook 03-08, 03-09 | A screening note |
+| Grid-to-rack map | Trace power from a hydro station to an AI server and your laptop | 16 Nov | NEM modules 1, 3; textbook 01-11 to 01-24, 03-21, 03-26, 07-12 | An annotated diagram |
+| Control room | Watch frequency after a trip, set by inertia; frequency control and load shedding respond | 23 Nov | NEM modules 4, 6; report chapter 5; textbook 03-19, 03-20 | An incident note |
+| Dispatch | Five-minute dispatch, Basslink's limit and price separation | 30 Nov | NEM module 5 | A market note |
+| Asset | Rank a transformer fleet by condition and criticality | 7 Dec | Report chapter 4, appendix A | An asset-risk note |
+| Data | Real AEMO data for Tasmania, missing kept missing | 14 Dec | NEM module 10; report chapter 2 | A weekly grid note |
+| Studies | Load flow and fault level in pandapower (free software) | 2027 | Textbook Part 03; planners' studies | A study note |
+
+**The gate:** a desk opens only when you can explain the ideas of the one before. Dates are targets.
+
+**The honesty rules:**
+- Every published figure carries its source and page; simulations are [SIMULATED].
+- No desk pretends to be TasNetworks' real network or its real assessments.
+- Your notes are drafts in your browser until you send them with "OK to publish". Claude checks every figure before a note goes into the portfolio.
 
 ## How we work
 
-Every study sitting follows the same five steps:
+Every desk task follows the same five steps. At Grid Desk they appear as Brief, Learn, Do, Produce and Check:
 
 1. **Explain.** Read the textbook pages for the sitting. When a page is too compressed, ask Claude for a fuller explanation and extra practice problems.
 2. **Demonstrate.** Follow the worked examples, every step shown.
@@ -272,7 +302,7 @@ Total ≈ 12 hours. Each session's full detail (pages, task, the evidence to sav
 
 Textbook Part 01 pauses this week and resumes on 16 November.
 
-**Study notes for this week:** `research/2026-11-09-R-aemo-nem-foundations.md` and `research/2026-11-09-R-tasnetworks-apr-2026.md` (prepared by Claude, with page references).
+**The day-by-day guide:** `docs/guides/job-ready-week-2026-11-09.md`: what to read, what to understand and three check questions each day, the two one-pager templates, CV and interview practice. Study notes: `research/2026-11-09-R-aemo-nem-foundations.md` and `research/2026-11-09-R-tasnetworks-apr-2026.md` (prepared by Claude, with page references).
 
 | Day | NEM course (about 1 h) | Planning report (about 45 min) | Done when |
 |---|---|---|---|
@@ -280,7 +310,7 @@ Textbook Part 01 pauses this week and resumes on 16 November.
 | Tue 10 | Modules 4, 5, 6 | Chapter 2, the Tasmanian power system (pp. 25–40) | Frequency, reserves and FCAS explained in your words |
 | Wed 11 | Modules 7 and 10 | Chapters 3 and 4: projects and constraints (pp. 41–76) | George Town explained in your words |
 | Thu 12 | Modules 8 and 9 (understand only) | Chapters 5 and 6: security and reliability (pp. 77–106) | Course complete |
-| Fri 13 | — | **Write the one-page brief of the report**; Claude checks every figure | Brief final |
+| Fri 13 | — | **Connections desk:** screen the enquiry and write the screening note. This replaces the planning-report brief. Claude checks every figure | Note final |
 | Sat 14 | — | **Write the asset-risk one-pager**: how TasNetworks decides to replace a transformer | One-pager final |
 | Sun 15 | — | **CV and interview practice** on the ten discussion points; portfolio goes live | Ready to apply on Mon 16 |
 
