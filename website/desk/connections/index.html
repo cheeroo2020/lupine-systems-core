@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connections desk — Grid Desk</title>
+<meta name="description" content="Screen an AI factory's connection enquiry against TasNetworks' published spare capacity and planning rules, then write the screening note. A learning desk, not a TasNetworks assessment.">
+<link rel="icon" href="../../assets/brand/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../../assets/brand/favicon-32.png">
+<link rel="stylesheet" href="../desk.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../../"><img src="../../assets/brand/lupine-mark-512.png" alt="Lupine" width="28" height="28"><b>Lupine</b> <span>· Grid Desk</span></a>
+  <nav class="tabs" aria-label="Grid Desk"><a href="../">Desks</a><a href="./" aria-current="page">Connections</a><a href="../../portfolio/">Portfolio</a></nav>
+</div></header>
+
+<main class="wrap">
+  <p class="eyebrow">Connections desk</p>
+  <h1>A 100 MW AI factory wants to connect. Can it?</h1>
+
+  <div class="ticket" aria-label="Work ticket">
+    <dl>
+      <div><dt>Ticket</dt><dd>CE-PRACTICE-01</dd></div>
+      <div><dt>Type</dt><dd>Connection enquiry</dd></div>
+      <div><dt>Your task</dt><dd>Preliminary screening note</dd></div>
+      <div><dt>For</dt><dd>The connections lead</dd></div>
+    </dl>
+    <p style="margin:0">A developer has asked about connecting a <b>100 MW AI factory</b> in northern Tasmania. Before anyone runs
+      detailed studies, screen the enquiry against what TasNetworks has published, and write a short note: can it connect as asked,
+      and what are the issues? This is practice: the enquiry is made up; the figures are TasNetworks' published ones.</p>
+  </div>
+
+  <section class="step" aria-labelledby="learn-h">
+    <h2 id="learn-h"><span class="n">1</span> Learn</h2>
+    <div class="ideas">
+      <div class="card"><h3>How a connection happens</h3>
+        <p>A customer makes an enquiry; the network business gives a preliminary response; then come an application, an offer and a
+          connection agreement. The commercial terms are negotiated, but the technical terms are prescribed in the National Electricity Rules.</p>
+        <span class="ref">NEM course p. 85 · stages: [ASSUMED] general description of the Rules, chapter 5</span></div>
+      <div class="card"><h3>MW and MVA</h3>
+        <p>MW is real power, what does the work. MVA is apparent power, what the equipment actually has to carry. MVA = MW ÷ power factor,
+          so a 100 MW load at power factor 0.95 needs about 105 MVA of capacity. Networks rate their transformers in MVA.</p>
+        <span class="ref">Textbook 03-08, 03-09</span></div>
+      <div class="card"><h3>Firm and non-firm</h3>
+        <p>Firm capacity can still supply the load after a single contingency, the loss of one element. A non-firm connection may be
+          interrupted when that happens. Table 4-1 publishes each zone substation's firm spare capacity ("headroom").</p>
+        <span class="ref">Report pp. 62–63, 108–109</span></div>
+      <div class="card"><h3>One failure must not take too much</h3>
+        <p>No more than 850 MW of load may be interrupted by a single asset failure. At George Town, 300 MW or more of new load could at
+          times be 60% of the State's load; losing that substation would then be a system black. Southern demand is forecast near the 850 MW limit.</p>
+        <span class="ref">Report pp. 52, 56, 114</span></div>
+      <div class="card"><h3>System strength and AI factories</h3>
+        <p>An AI factory draws power through electronics, so it's an "inverter-based" load. New access standards for large inverter-based
+          loads were finalised in 2026, and system strength margins differ around the island: low at George Town, positive at Burnie.</p>
+        <span class="ref">Report pp. 5, 23, 80–90</span></div>
+      <div class="card"><h3>Responsive loads</h3>
+        <p>A load that can rapidly reduce its demand after a fault helps keep the system secure, and the report says that means less need
+          for new transmission lines. It's one of the first questions to ask a developer.</p>
+        <span class="ref">Report p. 52</span></div>
+    </div>
+    <div class="card" style="margin-top:10px"><h3>Before you use the tool, answer in your notebook</h3>
+      <ol class="qs"><li>Why does a network care about MVA, not just MW?</li>
+        <li>Why would TasNetworks worry about one substation carrying 60% of the State's load?</li>
+        <li>What does "non-firm" mean for the customer, in one sentence?</li></ol>
+      <p class="small muted" style="margin:8px 0 0">Send your answers to Claude. They're not on this page on purpose.</p></div>
+  </section>
+
+  <section class="step" aria-labelledby="do-h">
+    <h2 id="do-h"><span class="n">2</span> Do: screen the enquiry</h2>
+    <div class="tool">
+      <form class="card form" id="form" novalidate>
+        <label>Load (MW)<input type="number" id="mw" min="0" step="1" value="100"></label>
+        <label>Power factor<input type="number" id="pf" min="0.5" max="1" step="0.01" value="0.95"></label>
+        <label>Planning area<select id="area"></select></label>
+        <label>Zone substation (distribution connection)<select id="sub"></select></label>
+        <label class="check"><input type="checkbox" id="ibr" checked><span>Inverter-based load (for example an AI factory)</span></label>
+        <label class="check"><input type="checkbox" id="resp"><span>Developer says it can reduce demand quickly after a fault</span></label>
+        <div class="row" style="margin-top:8px"><button class="primary" type="submit">Screen the enquiry</button></div>
+        <p class="small muted" style="margin:10px 0 0">Try George Town at 300 MW, a Hobart substation at 10 MW, and St Leonards at 5 MW.</p>
+      </form>
+      <div>
+        <div id="result" aria-live="polite"><p class="muted">Choose the inputs and press <b>Screen the enquiry</b>.</p></div>
+      </div>
+    </div>
+    <details style="margin-top:14px"><summary>Table 4-1: all 62 zone substations <span class="data-tag">PUBLISHED · REPORT PP. 62–63</span></summary>
+      <div class="tablewrap" style="margin-top:10px"><table id="t41"></table></div></details>
+  </section>
+
+  <section class="step" aria-labelledby="produce-h">
+    <h2 id="produce-h"><span class="n">3</span> Produce: your screening note</h2>
+    <p>The facts are filled in from your screen. The four sections in italics are yours: write them in your own words. Your draft is kept
+      in this browser only.</p>
+    <textarea id="memo" aria-label="Screening note" spellcheck="true" placeholder="Screen the enquiry first."></textarea>
+    <div class="row" style="margin-top:10px"><button id="download">Download note (.md)</button><button id="reset">Start a new note</button>
+      <span class="small muted" id="saved" aria-live="polite"></span></div>
+    <p class="small muted">When it's finished, send it to Claude with "OK to publish". Claude checks every figure against the report before it goes into your portfolio.</p>
+  </section>
+
+  <section class="step" aria-labelledby="check-h">
+    <h2 id="check-h"><span class="n">4</span> Check</h2>
+    <div class="card"><ol class="qs">
+      <li>Your screen for 100 MW said "Needs a study". Which study would you ask for first, and what would it tell you that this screen can't?</li>
+      <li>St Leonards shows 28 MVA of headroom, but not until 2028. What might "interim load connection" mean there? Check the report's page 4.</li>
+      <li>If the developer moved the same 100 MW to the south, which rule would matter most, and why?</li></ol>
+      <p class="small muted" style="margin:8px 0 0">Answers to Claude, as before.</p></div>
+  </section>
+
+  <div class="note">
+    <b>What this desk shows, and what it doesn't.</b> It shows how to read a connection enquiry against published planning figures and
+    rules, and how to write the note. It doesn't run any power system study: no load flow, fault level or stability analysis. Network
+    planners do those in specialist software such as PSS/E or PowerFactory [ASSUMED: general industry practice]. This is not an assessment by TasNetworks.
+    <span class="ref">Data: TasNetworks Annual Planning Report 2026, printed pages, read 9 Nov 2026. Figures [ASSUMED] as stated by TasNetworks.</span>
+  </div>
+</main>
+<footer><div class="wrap">© Chirantan Gogoi · Hobart, Tasmania · <a href="https://github.com/cheeroo2020/lupine-systems-core">Source</a></div></footer>
+
+<script src="../desk-core.js"></script>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  const KEY = "lupine-desk:connections:memo";
+  const store = { get: () => { try { return localStorage.getItem(KEY); } catch { return null; } },
+                  set: v => { try { localStorage.setItem(KEY, v); return true; } catch { return false; } },
+                  del: () => { try { localStorage.removeItem(KEY); } catch {} } };
+  const LABEL = { ok: "No issue", flag: "Flag", study: "Needs a study", info: "Context" };
+  let DATA = null;
+
+  fetch("../data/apr-2026.json").then(r => r.json()).then(d => { DATA = d; init(); })
+    .catch(() => { $("#result").innerHTML = '<p class="problems">The data couldn\'t be loaded. Open this page from its web address.</p>'; });
+
+  function init() {
+    const rows = DATA.table_4_1.rows, areas = [...new Set(rows.map(r => r.area))];
+    $("#area").innerHTML = areas.map(a => `<option ${a === "Northern" ? "selected" : ""}>${esc(a)}</option>`).join("");
+    const fillSubs = () => {
+      const a = $("#area").value;
+      $("#sub").innerHTML = '<option value="">None: transmission connection, or not sure</option>' +
+        rows.filter(r => r.area === a).map(r => `<option value="${esc(r.name)}">${esc(r.name)} · ${r.firm_headroom_mva} MVA headroom${r.flags.length ? " *" : ""}</option>`).join("");
+    };
+    $("#area").addEventListener("change", fillSubs); fillSubs();
+    const flagText = f => f.map(x => ({ non_firm: "non-firm", subtransmission_constraint: "sub-transmission constraint", unavailable_until_2028: "not available until 2028" })[x]).join("; ");
+    $("#t41").innerHTML = "<thead><tr><th>Planning area</th><th>Substation</th><th>kV</th><th>Firm capacity MVA</th><th>2026 max demand MVA</th><th>Firm headroom MVA</th><th>Note</th><th>Page</th></tr></thead><tbody>" +
+      rows.map(r => `<tr><td>${esc(r.area)}</td><td>${esc(r.name)}</td><td>${esc(r.voltage_kv)}</td><td class="num">${r.installed_firm_mva}</td>
+        <td class="num">${r.max_demand_2026_mva ?? esc(r.max_demand_note)}</td><td class="num">${r.firm_headroom_mva}</td><td class="small">${esc(flagText(r.flags))}</td><td class="num">${r.page}</td></tr>`).join("") + "</tbody>";
+    const saved = store.get(); if (saved) { $("#memo").value = saved; $("#saved").textContent = "Your saved draft was restored."; }
+  }
+
+  $("#form").addEventListener("submit", e => {
+    e.preventDefault(); if (!DATA) return;
+    const input = { mw: parseFloat($("#mw").value), pf: parseFloat($("#pf").value), area: $("#area").value,
+                    substation: $("#sub").value || null, inverterBased: $("#ibr").checked, responsive: $("#resp").checked };
+    const r = DeskCore.screen(input, DATA);
+    if (!r.ok) { $("#result").innerHTML = `<div class="problems">${r.problems.map(esc).join("<br>")}</div>`; return; }
+    const s = r.summary;
+    $("#result").innerHTML = `<div class="card">
+      <div class="chips"><span class="chip">${input.mw} MW ≈ ${r.mva} MVA</span><span class="chip b-flag">${s.flag} flag${s.flag === 1 ? "" : "s"}</span>
+        <span class="chip b-study">${s.study} need${s.study === 1 ? "s" : ""} a study</span><span class="chip b-ok">${s.ok} no issue</span></div>
+      <div class="tablewrap"><table><thead><tr><th>Check</th><th>Result</th><th>Why</th><th>Page</th></tr></thead><tbody>
+      ${r.checks.map(c => `<tr><td>${esc(c.title)}</td><td><span class="badge b-${c.status}">${LABEL[c.status]}</span></td><td>${esc(c.detail)}</td><td class="num">${c.pages.join(", ")}</td></tr>`).join("")}
+      </tbody></table></div>
+      <p class="small muted" style="margin:10px 0 0">A screen against published figures, not a study and not a TasNetworks assessment.</p></div>`;
+    const today = new Date().toLocaleDateString("en-AU", { day: "numeric", month: "long", year: "numeric" });
+    const hasDraft = $("#memo").value.trim() && /## My summary/.test($("#memo").value) && !/_In two or three sentences/.test($("#memo").value);
+    if (hasDraft && !confirm("Replace your note with a fresh one for this screen? Your written sections would be lost.")) return;
+    $("#memo").value = DeskCore.memo(r, DATA, today); save();
+  });
+
+  const save = () => { $("#saved").textContent = store.set($("#memo").value) ? "Saved in this browser." : "This browser won't store drafts: download your note before leaving."; };
+  let t; $("#memo").addEventListener("input", () => { clearTimeout(t); t = setTimeout(save, 400); });
+  $("#download").addEventListener("click", () => {
+    if (!$("#memo").value.trim()) return;
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([$("#memo").value], { type: "text/markdown" }));
+    a.download = "connection-screening-note.md"; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+  });
+  $("#reset").addEventListener("click", () => { if ($("#memo").value && !confirm("Clear your note?")) return; $("#memo").value = ""; store.del(); $("#saved").textContent = "Cleared."; });
+})();
+</script>
+</body>
+</html>
