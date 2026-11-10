@@ -1,23 +1,23 @@
 {
-  "date": "2026-11-09",
+  "date": "2026-11-10",
   "stories": [
     {
-      "headline": "Citi shooter was enraged over Best Buy credit-card debt suit",
-      "body": "After receiving a court summons over $2,500 in delinquent debt, an Orlando, Florida, man shot and killed a Citi employee at the bank's Tampa campus, according to police.",
-      "source": "American Banker",
-      "pub_date": "06 Nov 2026"
+      "headline": "RadNet (RDNT) Q3 2026 Earnings Call Transcript",
+      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
+      "source": "Nasdaq",
+      "pub_date": "10 Nov 2026"
     },
     {
-      "headline": "The AI ‘credit card’ is getting costlier as CoreWeave bond yield tops 16%",
-      "body": "Coreweave's steep yields reflect stress in the AI debt markets as investors worry about a data center slowdown. What comes next.",
+      "headline": "San Francisco poised to approve public-banking measure",
+      "body": "As the city continues to count ballots, the votes in favor of creating a governance framework for a public bank have gained a lead that appears to be insurmountable.",
+      "source": "American Banker",
+      "pub_date": "09 Nov 2026"
+    },
+    {
+      "headline": "Jensen Huang exit odds are low on prediction markets after Nvidia probe",
+      "body": "Prediction markets traders price relatively low odds that the Nvidia CEO will depart in the near term.",
       "source": "CNBC Finance",
-      "pub_date": "06 Nov 2026"
-    },
-    {
-      "headline": "Key turns to acquisitions amid middle-market M&A lull",
-      "body": "Acquiring the boutique investment bank Atlantic-Pacific Capital will give Cleveland-based KeyCorp a new revenue source that will help offset recent weakness in middle-market M&A.",
-      "source": "American Banker",
-      "pub_date": "06 Nov 2026"
+      "pub_date": "09 Nov 2026"
     }
   ]
 }
