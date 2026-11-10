@@ -1,0 +1,74 @@
+/* Lupine learning site. Geist and Geist Mono, SIL Open Font License (assets/fonts/OFL-Geist.txt). */
+@font-face { font-family: "Geist"; src: url("assets/fonts/geist-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("assets/fonts/geist-mono-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+:root {
+  --paper: #FEFDF7; --paper-2: #F4F3EA; --panel: #FFFFFF; --ink: #11201A; --body: #3A4840; --muted: #69756E;
+  --line: #E2E0D3; --forest: #1B422E; --teal: #498182; --teal-wash: #E3EEEA;
+  --pub-fg: #1B422E; --pub-bg: #E3EEEA; --asm-fg: #8A4B08; --asm-bg: #FDF0D2; --sim-fg: #5B21B6; --sim-bg: #EEE8FD;
+  --sans: "Geist", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "Geist Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--body); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+a { color: var(--forest); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 4px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 760px) { .wrap { padding: 0 28px; } }
+h1, h2, h3 { color: var(--ink); font-weight: 500; letter-spacing: -.02em; margin: 0; }
+h1 { font-size: clamp(1.9rem, 1.3rem + 2.4vw, 2.9rem); line-height: 1.08; }
+h2 { font-size: 1.45rem; margin-bottom: 8px; }
+h3 { font-size: 1.05rem; }
+.lead { font-size: 1.1rem; max-width: 44rem; }
+.muted { color: var(--muted); } .small { font-size: 13.5px; }
+.eyebrow { font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--teal); margin: 0 0 10px; }
+
+header.top { border-bottom: 1px solid var(--line); background: rgba(254,253,247,.95); position: sticky; top: 0; z-index: 10; }
+header.top .wrap { display: flex; align-items: center; gap: 12px; height: 58px; }
+.brand { display: flex; align-items: center; gap: 9px; color: var(--ink); text-decoration: none; font-weight: 600; }
+.brand img { width: 30px; height: 30px; border-radius: 7px; }
+nav.links { margin-left: auto; display: flex; gap: 18px; font-size: 14.5px; }
+nav.links a { color: var(--body); text-decoration: none; }
+nav.links a:hover { color: var(--forest); text-decoration: underline; }
+@media (max-width: 480px) { nav.links { gap: 12px; font-size: 13.5px; } }
+
+section { padding: 44px 0 8px; scroll-margin-top: 64px; }
+.hero { padding-top: 48px; }
+.questions { display: grid; gap: 10px; margin-top: 22px; }
+@media (min-width: 860px) { .questions { grid-template-columns: repeat(3, 1fr); } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+.card p { margin: 6px 0 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.chip { font: 500 11.5px var(--mono); padding: 3px 8px; border-radius: 999px; background: var(--paper-2); color: var(--muted); }
+.chip.done { background: var(--teal-wash); color: var(--forest); }
+
+.group-title { font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 26px 0 8px; }
+.topic { display: grid; gap: 8px 18px; padding: 16px 0; border-top: 1px solid var(--line); }
+.topic:last-child { border-bottom: 1px solid var(--line); }
+@media (min-width: 900px) { .topic { grid-template-columns: 1.3fr 1fr 1.2fr; } }
+.topic .id { font: 500 12px var(--mono); color: var(--teal); }
+.topic h3 { margin: 2px 0 4px; }
+.topic .q { font-size: 14.5px; margin: 0; }
+.label { display: block; font: 500 10.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.refs { font-size: 13.5px; margin: 0 0 8px; }
+.refs code { font: 12.5px var(--mono); }
+ul.keys { margin: 4px 0 0; padding-left: 16px; font-size: 13px; color: var(--muted); }
+.build b { color: var(--ink); font-weight: 500; }
+
+details.outline { margin-top: 18px; }
+details.outline summary { cursor: pointer; color: var(--forest); }
+.outline-grid { display: grid; gap: 10px; margin-top: 12px; }
+@media (min-width: 900px) { .outline-grid { grid-template-columns: 1fr 1fr; } }
+.outline-grid h3 { font-size: .95rem; margin-bottom: 4px; }
+.outline-grid ol { list-style: none; margin: 0; padding: 0; font-size: 13.5px; }
+.outline-grid li { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; border-bottom: 1px dotted var(--line); }
+.outline-grid .map { font: 11.5px var(--mono); color: var(--teal); white-space: nowrap; }
+
+.badge { display: inline-block; font: 500 10.5px var(--mono); letter-spacing: .06em; padding: 2px 7px; border-radius: 5px; vertical-align: 1px; white-space: nowrap; }
+.badge.pub { color: var(--pub-fg); background: var(--pub-bg); }
+.badge.asm { color: var(--asm-fg); background: var(--asm-bg); }
+.badge.sim { color: var(--sim-fg); background: var(--sim-bg); }
+.legend { display: grid; gap: 8px; margin-top: 12px; }
+@media (min-width: 760px) { .legend { grid-template-columns: repeat(3, 1fr); } }
+.sources { display: grid; gap: 10px; }
+@media (min-width: 760px) { .sources { grid-template-columns: 1fr 1fr; } }
+footer { border-top: 1px solid var(--line); margin-top: 56px; padding: 22px 0 40px; font: 12.5px var(--mono); color: var(--muted); }

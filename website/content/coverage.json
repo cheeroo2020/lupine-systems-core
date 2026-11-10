@@ -1,0 +1,1726 @@
+{
+ "note": "Coverage map for Lupine. Every module, lesson, chapter and section of the two sources is mapped to at least one topic; tests/test_site.py checks this. Citations only: the sources themselves are not reproduced.",
+ "sources": {
+  "NEM": {
+   "title": "National Electricity Market (NEM) Foundations eLearning",
+   "publisher": "Australian Energy Market Operator (AEMO)",
+   "year": 2026,
+   "cite": "Module, lesson and PDF page (the course has no printed page numbers)"
+  },
+  "APR": {
+   "title": "Annual Planning Report 2026",
+   "publisher": "TasNetworks (Tasmanian Networks Pty Ltd)",
+   "year": 2026,
+   "cite": "Printed page (PDF page = printed page + 2), plus table or figure"
+  }
+ },
+ "outline": {
+  "NEM": [
+   {
+    "id": "N1",
+    "title": "Module 1 – Introduction to the NEM",
+    "pdf": [
+     1,
+     40
+    ],
+    "lessons": [
+     {
+      "id": "N1.1",
+      "title": "Module introduction",
+      "pdf": 3
+     },
+     {
+      "id": "N1.2",
+      "title": "The electricity system",
+      "pdf": 4
+     },
+     {
+      "id": "N1.3",
+      "title": "Production and transportation",
+      "pdf": 6
+     },
+     {
+      "id": "N1.4",
+      "title": "Units of electrical measurement",
+      "pdf": 15
+     },
+     {
+      "id": "N1.5",
+      "title": "Electricity markets",
+      "pdf": 19
+     },
+     {
+      "id": "N1.6",
+      "title": "The Australian Energy Market Operator (AEMO)",
+      "pdf": 22
+     },
+     {
+      "id": "N1.7",
+      "title": "The NEM – a wholesale exchange",
+      "pdf": 26
+     },
+     {
+      "id": "N1.8",
+      "title": "The retail market",
+      "pdf": 29
+     },
+     {
+      "id": "N1.9",
+      "title": "The financial market",
+      "pdf": 33
+     },
+     {
+      "id": "N1.10",
+      "title": "The history of the electricity industry and the NEM",
+      "pdf": 35
+     },
+     {
+      "id": "N1.11",
+      "title": "Module summary",
+      "pdf": 40
+     }
+    ]
+   },
+   {
+    "id": "N2",
+    "title": "Module 2 – NEM Rules and Regulations",
+    "pdf": [
+     41,
+     72
+    ],
+    "lessons": [
+     {
+      "id": "N2.1",
+      "title": "Module introduction",
+      "pdf": 42
+     },
+     {
+      "id": "N2.2",
+      "title": "Regulatory overview",
+      "pdf": 43
+     },
+     {
+      "id": "N2.3",
+      "title": "Governing bodies",
+      "pdf": 46
+     },
+     {
+      "id": "N2.4",
+      "title": "Registered participant roles and responsibilities",
+      "pdf": 59
+     },
+     {
+      "id": "N2.5",
+      "title": "Rules enforcement",
+      "pdf": 64
+     },
+     {
+      "id": "N2.6",
+      "title": "Power of Choice reforms",
+      "pdf": 71
+     },
+     {
+      "id": "N2.7",
+      "title": "Module summary",
+      "pdf": 72
+     }
+    ]
+   },
+   {
+    "id": "N3",
+    "title": "Module 3 – The Network",
+    "pdf": [
+     73,
+     96
+    ],
+    "lessons": [
+     {
+      "id": "N3.1",
+      "title": "Module introduction",
+      "pdf": 74
+     },
+     {
+      "id": "N3.2",
+      "title": "The network",
+      "pdf": 76
+     },
+     {
+      "id": "N3.3",
+      "title": "Economic regulation and pricing",
+      "pdf": 86
+     },
+     {
+      "id": "N3.4",
+      "title": "Transmission loss factors",
+      "pdf": 88
+     },
+     {
+      "id": "N3.5",
+      "title": "Power system security",
+      "pdf": 91
+     },
+     {
+      "id": "N3.6",
+      "title": "Network planning",
+      "pdf": 93
+     },
+     {
+      "id": "N3.7",
+      "title": "Module summary",
+      "pdf": 96
+     }
+    ]
+   },
+   {
+    "id": "N4",
+    "title": "Module 4 – The Power System",
+    "pdf": [
+     97,
+     119
+    ],
+    "lessons": [
+     {
+      "id": "N4.1",
+      "title": "Module introduction",
+      "pdf": 98
+     },
+     {
+      "id": "N4.2",
+      "title": "Managing the power system",
+      "pdf": 99
+     },
+     {
+      "id": "N4.3",
+      "title": "Maintaining a reliable and secure power system",
+      "pdf": 102
+     },
+     {
+      "id": "N4.4",
+      "title": "Credible contingencies",
+      "pdf": 106
+     },
+     {
+      "id": "N4.5",
+      "title": "Maintaining adequate reserves",
+      "pdf": 110
+     },
+     {
+      "id": "N4.6",
+      "title": "Ancillary services",
+      "pdf": 114
+     },
+     {
+      "id": "N4.7",
+      "title": "Demand forecasting",
+      "pdf": 116
+     },
+     {
+      "id": "N4.8",
+      "title": "Module summary",
+      "pdf": 119
+     }
+    ]
+   },
+   {
+    "id": "N5",
+    "title": "Module 5 – NEM Spot Pricing and Dispatch",
+    "pdf": [
+     120,
+     146
+    ],
+    "lessons": [
+     {
+      "id": "N5.1",
+      "title": "Module introduction",
+      "pdf": 121
+     },
+     {
+      "id": "N5.2",
+      "title": "NEM spot pricing and dispatch",
+      "pdf": 123
+     },
+     {
+      "id": "N5.3",
+      "title": "NEM regions and pricing",
+      "pdf": 133
+     },
+     {
+      "id": "N5.4",
+      "title": "Pricing under extreme conditions",
+      "pdf": 138
+     },
+     {
+      "id": "N5.5",
+      "title": "Projected Assessment of System Adequacy (PASA)",
+      "pdf": 141
+     },
+     {
+      "id": "N5.6",
+      "title": "Rights and obligations of NEM participants in pricing and dispatch",
+      "pdf": 143
+     },
+     {
+      "id": "N5.7",
+      "title": "Module summary",
+      "pdf": 146
+     }
+    ]
+   },
+   {
+    "id": "N6",
+    "title": "Module 6 – Ancillary Services",
+    "pdf": [
+     147,
+     167
+    ],
+    "lessons": [
+     {
+      "id": "N6.1",
+      "title": "Module introduction",
+      "pdf": 148
+     },
+     {
+      "id": "N6.2",
+      "title": "Ancillary services",
+      "pdf": 149
+     },
+     {
+      "id": "N6.3",
+      "title": "Frequency Control Ancillary Services (FCAS)",
+      "pdf": 153
+     },
+     {
+      "id": "N6.4",
+      "title": "Network Support and Control Ancillary Services (NSCAS)",
+      "pdf": 163
+     },
+     {
+      "id": "N6.5",
+      "title": "System Restart Ancillary Services (SRAS)",
+      "pdf": 165
+     },
+     {
+      "id": "N6.6",
+      "title": "Module summary",
+      "pdf": 167
+     }
+    ]
+   },
+   {
+    "id": "N7",
+    "title": "Module 7 – Metering",
+    "pdf": [
+     168,
+     202
+    ],
+    "lessons": [
+     {
+      "id": "N7.1",
+      "title": "Module introduction",
+      "pdf": 169
+     },
+     {
+      "id": "N7.2",
+      "title": "Metering within the NEM",
+      "pdf": 170
+     },
+     {
+      "id": "N7.3",
+      "title": "Metering types",
+      "pdf": 176
+     },
+     {
+      "id": "N7.4",
+      "title": "Wholesale metering",
+      "pdf": 181
+     },
+     {
+      "id": "N7.5",
+      "title": "Retail contestability",
+      "pdf": 184
+     },
+     {
+      "id": "N7.6",
+      "title": "Net System Load Profile (NSLP)",
+      "pdf": 187
+     },
+     {
+      "id": "N7.7",
+      "title": "Metering operations",
+      "pdf": 193
+     },
+     {
+      "id": "N7.8",
+      "title": "Data accuracy",
+      "pdf": 196
+     },
+     {
+      "id": "N7.9",
+      "title": "Module summary",
+      "pdf": 202
+     }
+    ]
+   },
+   {
+    "id": "N8",
+    "title": "Module 8 – NEM Settlements and Prudentials",
+    "pdf": [
+     203,
+     249
+    ],
+    "lessons": [
+     {
+      "id": "N8.1",
+      "title": "Module introduction",
+      "pdf": 205
+     },
+     {
+      "id": "N8.2",
+      "title": "Introduction to settlements",
+      "pdf": 207
+     },
+     {
+      "id": "N8.3",
+      "title": "Settlements in the physical energy market",
+      "pdf": 210
+     },
+     {
+      "id": "N8.4",
+      "title": "Settlement statements",
+      "pdf": 212
+     },
+     {
+      "id": "N8.5",
+      "title": "Energy sales and purchases",
+      "pdf": 215
+     },
+     {
+      "id": "N8.6",
+      "title": "Compensation",
+      "pdf": 217
+     },
+     {
+      "id": "N8.7",
+      "title": "Application of GST to NEM transactions",
+      "pdf": 219
+     },
+     {
+      "id": "N8.8",
+      "title": "Adjustments",
+      "pdf": 221
+     },
+     {
+      "id": "N8.9",
+      "title": "The billing cycle",
+      "pdf": 222
+     },
+     {
+      "id": "N8.10",
+      "title": "Payments",
+      "pdf": 224
+     },
+     {
+      "id": "N8.11",
+      "title": "Disputes",
+      "pdf": 226
+     },
+     {
+      "id": "N8.12",
+      "title": "Activity – settlements terminology",
+      "pdf": 228
+     },
+     {
+      "id": "N8.13",
+      "title": "Prudential supervision",
+      "pdf": 230
+     },
+     {
+      "id": "N8.14",
+      "title": "Daily prudential supervision",
+      "pdf": 235
+     },
+     {
+      "id": "N8.15",
+      "title": "Settlements residue",
+      "pdf": 240
+     },
+     {
+      "id": "N8.16",
+      "title": "Settlements in the financial electricity market",
+      "pdf": 244
+     },
+     {
+      "id": "N8.17",
+      "title": "Activity – prudentials terminology",
+      "pdf": 247
+     },
+     {
+      "id": "N8.18",
+      "title": "Module summary",
+      "pdf": 249
+     }
+    ]
+   },
+   {
+    "id": "N9",
+    "title": "Module 9 – Financial Markets",
+    "pdf": [
+     250,
+     270
+    ],
+    "lessons": [
+     {
+      "id": "N9.1",
+      "title": "Module introduction",
+      "pdf": 251
+     },
+     {
+      "id": "N9.2",
+      "title": "Financial markets",
+      "pdf": 252
+     },
+     {
+      "id": "N9.3",
+      "title": "Derivative products",
+      "pdf": 257
+     },
+     {
+      "id": "N9.4",
+      "title": "Over-the-counter contracts (OTCs) vs futures",
+      "pdf": 266
+     },
+     {
+      "id": "N9.5",
+      "title": "Module summary",
+      "pdf": 270
+     }
+    ]
+   },
+   {
+    "id": "N10",
+    "title": "Module 10 – How do I find out more?",
+    "pdf": [
+     271,
+     298
+    ],
+    "lessons": [
+     {
+      "id": "N10.1",
+      "title": "Module introduction",
+      "pdf": 272
+     },
+     {
+      "id": "N10.2",
+      "title": "AEMO planning reports",
+      "pdf": 273
+     },
+     {
+      "id": "N10.3",
+      "title": "Data",
+      "pdf": 280
+     },
+     {
+      "id": "N10.4",
+      "title": "AEMO website – other resources",
+      "pdf": 285
+     },
+     {
+      "id": "N10.5",
+      "title": "Additional sources of information",
+      "pdf": 289
+     },
+     {
+      "id": "N10.6",
+      "title": "Energy Education courses",
+      "pdf": 294
+     },
+     {
+      "id": "N10.7",
+      "title": "Module summary",
+      "pdf": 298
+     }
+    ]
+   }
+  ],
+  "APR": [
+   {
+    "id": "AES",
+    "title": "Executive summary",
+    "pages": [
+     2,
+     8
+    ],
+    "sections": []
+   },
+   {
+    "id": "A1",
+    "title": "Chapter 1 – Tasmanian network planning environment",
+    "pages": [
+     9,
+     24
+    ],
+    "sections": [
+     {
+      "id": "A1.1",
+      "number": "1.1",
+      "title": "Introduction",
+      "page": 10
+     },
+     {
+      "id": "A1.2",
+      "number": "1.2",
+      "title": "What we do",
+      "page": 11
+     },
+     {
+      "id": "A1.2.1",
+      "number": "1.2.1",
+      "title": "Transmission and distribution networks",
+      "page": 13
+     },
+     {
+      "id": "A1.2.2",
+      "number": "1.2.2",
+      "title": "Telecommunications network",
+      "page": 13
+     },
+     {
+      "id": "A1.2.3",
+      "number": "1.2.3",
+      "title": "Subsidiary business functions",
+      "page": 13
+     },
+     {
+      "id": "A1.3",
+      "number": "1.3",
+      "title": "TasNetworks' strategy",
+      "page": 14
+     },
+     {
+      "id": "A1.4",
+      "number": "1.4",
+      "title": "Strategic planning environment",
+      "page": 15
+     },
+     {
+      "id": "A1.4.1",
+      "number": "1.4.1",
+      "title": "Integrated System Plan",
+      "page": 15
+     },
+     {
+      "id": "A1.4.2",
+      "number": "1.4.2",
+      "title": "Large-scale load connections",
+      "page": 16
+     },
+     {
+      "id": "A1.4.3",
+      "number": "1.4.3",
+      "title": "Marinus Link and North West Transmission Developments",
+      "page": 17
+     },
+     {
+      "id": "A1.4.4",
+      "number": "1.4.4",
+      "title": "Basslink",
+      "page": 18
+     },
+     {
+      "id": "A1.4.5",
+      "number": "1.4.5",
+      "title": "TasNetworks 2029–2034 revenue submission",
+      "page": 18
+     },
+     {
+      "id": "A1.5",
+      "number": "1.5",
+      "title": "Our customers",
+      "page": 19
+     },
+     {
+      "id": "A1.5.1",
+      "number": "1.5.1",
+      "title": "Industry Engagement Strategy and Register",
+      "page": 19
+     },
+     {
+      "id": "A1.5.2",
+      "number": "1.5.2",
+      "title": "Electric vehicles",
+      "page": 20
+     },
+     {
+      "id": "A1.5.3",
+      "number": "1.5.3",
+      "title": "Consumer energy resources penetration",
+      "page": 20
+     },
+     {
+      "id": "A1.5.4",
+      "number": "1.5.4",
+      "title": "Community batteries",
+      "page": 21
+     },
+     {
+      "id": "A1.6",
+      "number": "1.6",
+      "title": "Project consultations",
+      "page": 21
+     },
+     {
+      "id": "A1.7",
+      "number": "1.7",
+      "title": "What has changed since 2025",
+      "page": 22
+     },
+     {
+      "id": "A1.7.1",
+      "number": "1.7.1",
+      "title": "North West Transmission Developments",
+      "page": 22
+     },
+     {
+      "id": "A1.7.2",
+      "number": "1.7.2",
+      "title": "Waddamana to Palmerston transfer capability upgrade",
+      "page": 22
+     },
+     {
+      "id": "A1.7.3",
+      "number": "1.7.3",
+      "title": "Load forecasts",
+      "page": 23
+     },
+     {
+      "id": "A1.7.4",
+      "number": "1.7.4",
+      "title": "Enhancing distribution network planning and reporting",
+      "page": 23
+     },
+     {
+      "id": "A1.7.5",
+      "number": "1.7.5",
+      "title": "NEM access standards",
+      "page": 23
+     },
+     {
+      "id": "A1.7.6",
+      "number": "1.7.6",
+      "title": "Inertia and system strength",
+      "page": 24
+     },
+     {
+      "id": "A1.7.7",
+      "number": "1.7.7",
+      "title": "Planned investments and forecast limitations",
+      "page": 24
+     }
+    ]
+   },
+   {
+    "id": "A2",
+    "title": "Chapter 2 – Tasmanian power system",
+    "pages": [
+     25,
+     40
+    ],
+    "sections": [
+     {
+      "id": "A2.1",
+      "number": "2.1",
+      "title": "Load and generation characteristics",
+      "page": 26
+     },
+     {
+      "id": "A2.1.1",
+      "number": "2.1.1",
+      "title": "Load characteristics",
+      "page": 26
+     },
+     {
+      "id": "A2.1.2",
+      "number": "2.1.2",
+      "title": "Energy consumption characteristics",
+      "page": 28
+     },
+     {
+      "id": "A2.1.3",
+      "number": "2.1.3",
+      "title": "Generation characteristics",
+      "page": 29
+     },
+     {
+      "id": "A2.2",
+      "number": "2.2",
+      "title": "Energy and maximum demand forecasts",
+      "page": 30
+     },
+     {
+      "id": "A2.2.1",
+      "number": "2.2.1",
+      "title": "Introduction",
+      "page": 30
+     },
+     {
+      "id": "A2.2.2",
+      "number": "2.2.2",
+      "title": "Forecast scenarios",
+      "page": 31
+     },
+     {
+      "id": "A2.2.3",
+      "number": "2.2.3",
+      "title": "Annual energy forecast",
+      "page": 32
+     },
+     {
+      "id": "A2.2.4",
+      "number": "2.2.4",
+      "title": "Annual maximum demand forecast",
+      "page": 34
+     },
+     {
+      "id": "A2.3",
+      "number": "2.3",
+      "title": "Transmission network",
+      "page": 35
+     },
+     {
+      "id": "A2.4",
+      "number": "2.4",
+      "title": "Distribution network",
+      "page": 37
+     }
+    ]
+   },
+   {
+    "id": "A3",
+    "title": "Chapter 3 – Transmission network development",
+    "pages": [
+     41,
+     56
+    ],
+    "sections": [
+     {
+      "id": "A3.1",
+      "number": "3.1",
+      "title": "Introduction",
+      "page": 42
+     },
+     {
+      "id": "A3.2",
+      "number": "3.2",
+      "title": "Renewable energy zones and proponent generation interest",
+      "page": 42
+     },
+     {
+      "id": "A3.3",
+      "number": "3.3",
+      "title": "Committed and completed projects",
+      "page": 44
+     },
+     {
+      "id": "A3.3.1",
+      "number": "3.3.1",
+      "title": "Project Marinus",
+      "page": 44
+     },
+     {
+      "id": "A3.3.2",
+      "number": "3.3.2",
+      "title": "Central Highlands REZ capacity upgrades",
+      "page": 45
+     },
+     {
+      "id": "A3.4",
+      "number": "3.4",
+      "title": "Integrated System Plan",
+      "page": 46
+     },
+     {
+      "id": "A3.4.1",
+      "number": "3.4.1",
+      "title": "Renewable energy projections",
+      "page": 47
+     },
+     {
+      "id": "A3.4.2",
+      "number": "3.4.2",
+      "title": "Project Marinus Stage 2",
+      "page": 48
+     },
+     {
+      "id": "A3.4.3",
+      "number": "3.4.3",
+      "title": "Tasmanian REZ expansion",
+      "page": 49
+     },
+     {
+      "id": "A3.5",
+      "number": "3.5",
+      "title": "Large-scale load development",
+      "page": 52
+     },
+     {
+      "id": "A3.6",
+      "number": "3.6",
+      "title": "Network investments",
+      "page": 52
+     },
+     {
+      "id": "A3.6.1",
+      "number": "3.6.1",
+      "title": "Meeting network planning requirements at George Town",
+      "page": 52
+     },
+     {
+      "id": "A3.6.2",
+      "number": "3.6.2",
+      "title": "Reducing losses in Upper Derwent 110 kV network",
+      "page": 54
+     },
+     {
+      "id": "A3.6.3",
+      "number": "3.6.3",
+      "title": "Addressing southern Tasmania voltage stability",
+      "page": 54
+     },
+     {
+      "id": "A3.6.4",
+      "number": "3.6.4",
+      "title": "Addressing Farrell–Sheffield transient stability constraint",
+      "page": 55
+     },
+     {
+      "id": "A3.6.5",
+      "number": "3.6.5",
+      "title": "Addressing the southern Tasmania transmission reliability risk",
+      "page": 55
+     }
+    ]
+   },
+   {
+    "id": "A4",
+    "title": "Chapter 4 – Area planning constraints and development",
+    "pages": [
+     57,
+     76
+    ],
+    "sections": [
+     {
+      "id": "A4.1",
+      "number": "4.1",
+      "title": "Background to area planning",
+      "page": 58
+     },
+     {
+      "id": "A4.2",
+      "number": "4.2",
+      "title": "Planning areas",
+      "page": 58
+     },
+     {
+      "id": "A4.2.1",
+      "number": "4.2.1",
+      "title": "North West and West Coast planning area",
+      "page": 60
+     },
+     {
+      "id": "A4.2.2",
+      "number": "4.2.2",
+      "title": "Northern planning area",
+      "page": 60
+     },
+     {
+      "id": "A4.2.3",
+      "number": "4.2.3",
+      "title": "Central planning area",
+      "page": 60
+     },
+     {
+      "id": "A4.2.4",
+      "number": "4.2.4",
+      "title": "Southern planning area",
+      "page": 61
+     },
+     {
+      "id": "A4.3",
+      "number": "4.3",
+      "title": "Availability to connect to network",
+      "page": 61
+     },
+     {
+      "id": "A4.4",
+      "number": "4.4",
+      "title": "Completed and committed projects",
+      "page": 64
+     },
+     {
+      "id": "A4.5",
+      "number": "4.5",
+      "title": "Network limitations and developments",
+      "page": 64
+     },
+     {
+      "id": "A4.6",
+      "number": "4.6",
+      "title": "Future connection points",
+      "page": 66
+     },
+     {
+      "id": "A4.7",
+      "number": "4.7",
+      "title": "Targeted reliability corrective action",
+      "page": 66
+     },
+     {
+      "id": "A4.8",
+      "number": "4.8",
+      "title": "Deferred or averted limitations",
+      "page": 67
+     },
+     {
+      "id": "A4.8.1",
+      "number": "4.8.1",
+      "title": "Exemptions under jurisdictional network planning requirements",
+      "page": 67
+     },
+     {
+      "id": "A4.8.2",
+      "number": "4.8.2",
+      "title": "Chapel Street–Kingston 110 kV line limitation",
+      "page": 68
+     },
+     {
+      "id": "A4.9",
+      "number": "4.9",
+      "title": "Other factors affecting the network",
+      "page": 68
+     },
+     {
+      "id": "A4.9.1",
+      "number": "4.9.1",
+      "title": "Fault levels",
+      "page": 68
+     },
+     {
+      "id": "A4.9.2",
+      "number": "4.9.2",
+      "title": "Voltage management",
+      "page": 70
+     },
+     {
+      "id": "A4.9.3",
+      "number": "4.9.3",
+      "title": "Ageing and potentially unreliable assets",
+      "page": 70
+     },
+     {
+      "id": "A4.10",
+      "number": "4.10",
+      "title": "Network asset retirements and replacements",
+      "page": 70
+     },
+     {
+      "id": "A4.11",
+      "number": "4.11",
+      "title": "Investments in operational support systems and telecommunications",
+      "page": 74
+     },
+     {
+      "id": "A4.11.1",
+      "number": "4.11.1",
+      "title": "Operational support system programs",
+      "page": 74
+     },
+     {
+      "id": "A4.11.2",
+      "number": "4.11.2",
+      "title": "Telecommunications systems",
+      "page": 75
+     }
+    ]
+   },
+   {
+    "id": "A5",
+    "title": "Chapter 5 – Network security performance",
+    "pages": [
+     77,
+     96
+    ],
+    "sections": [
+     {
+      "id": "A5.1",
+      "number": "5.1",
+      "title": "Introduction",
+      "page": 78
+     },
+     {
+      "id": "A5.2",
+      "number": "5.2",
+      "title": "Updates on operational activities and specific events",
+      "page": 79
+     },
+     {
+      "id": "A5.2.1",
+      "number": "5.2.1",
+      "title": "System non-synchronous penetration ratio",
+      "page": 79
+     },
+     {
+      "id": "A5.2.2",
+      "number": "5.2.2",
+      "title": "AEMO Engineering Roadmap to 100% Renewables",
+      "page": 79
+     },
+     {
+      "id": "A5.3",
+      "number": "5.3",
+      "title": "Important changes to power system security management",
+      "page": 80
+     },
+     {
+      "id": "A5.3.1",
+      "number": "5.3.1",
+      "title": "Rules framework for managing system strength",
+      "page": 80
+     },
+     {
+      "id": "A5.3.2",
+      "number": "5.3.2",
+      "title": "Regulatory changes to system strength and inertia reporting",
+      "page": 81
+     },
+     {
+      "id": "A5.3.3",
+      "number": "5.3.3",
+      "title": "Transition plan for system security",
+      "page": 81
+     },
+     {
+      "id": "A5.3.4",
+      "number": "5.3.4",
+      "title": "Security framework enhancement rule change",
+      "page": 81
+     },
+     {
+      "id": "A5.4",
+      "number": "5.4",
+      "title": "Meeting our power system security obligations",
+      "page": 82
+     },
+     {
+      "id": "A5.4.1",
+      "number": "5.4.1",
+      "title": "An overview of inertia and system strength",
+      "page": 82
+     },
+     {
+      "id": "A5.4.2",
+      "number": "5.4.2",
+      "title": "Latest shortfall declarations",
+      "page": 82
+     },
+     {
+      "id": "A5.4.3",
+      "number": "5.4.3",
+      "title": "Longer term management of inertia and system strength",
+      "page": 83
+     },
+     {
+      "id": "A5.5",
+      "number": "5.5",
+      "title": "Transmission network constraints",
+      "page": 92
+     }
+    ]
+   },
+   {
+    "id": "A6",
+    "title": "Chapter 6 – Service delivery performance",
+    "pages": [
+     97,
+     106
+    ],
+    "sections": [
+     {
+      "id": "A6.1",
+      "number": "6.1",
+      "title": "Introduction",
+      "page": 98
+     },
+     {
+      "id": "A6.2",
+      "number": "6.2",
+      "title": "Tasmanian network and supply reliability",
+      "page": 98
+     },
+     {
+      "id": "A6.3",
+      "number": "6.3",
+      "title": "Transmission network reliability",
+      "page": 99
+     },
+     {
+      "id": "A6.4",
+      "number": "6.4",
+      "title": "Distribution network reliability",
+      "page": 100
+     },
+     {
+      "id": "A6.4.1",
+      "number": "6.4.1",
+      "title": "Tasmanian Electricity Code standards and performance",
+      "page": 100
+     },
+     {
+      "id": "A6.4.2",
+      "number": "6.4.2",
+      "title": "Distribution STPIS reliability targets and performance",
+      "page": 101
+     },
+     {
+      "id": "A6.4.3",
+      "number": "6.4.3",
+      "title": "Distribution AER STPIS reporting",
+      "page": 102
+     },
+     {
+      "id": "A6.4.4",
+      "number": "6.4.4",
+      "title": "Network and supply reliability compliance",
+      "page": 102
+     },
+     {
+      "id": "A6.5",
+      "number": "6.5",
+      "title": "Embedded generation connections",
+      "page": 103
+     },
+     {
+      "id": "A6.6",
+      "number": "6.6",
+      "title": "Distribution quality of supply performance",
+      "page": 105
+     }
+    ]
+   },
+   {
+    "id": "AGL",
+    "title": "Glossary",
+    "pages": [
+     108,
+     109
+    ],
+    "sections": []
+   },
+   {
+    "id": "AA",
+    "title": "Appendix A – Regulatory framework and planning process",
+    "pages": [
+     110,
+     122
+    ],
+    "sections": []
+   },
+   {
+    "id": "AB",
+    "title": "Appendix B – Generator information",
+    "pages": [
+     123,
+     124
+    ],
+    "sections": []
+   },
+   {
+    "id": "AC",
+    "title": "Appendix C – Distribution network reliability performance measures and results",
+    "pages": [
+     125,
+     127
+    ],
+    "sections": []
+   }
+  ]
+ },
+ "topics": [
+  {
+   "id": "F1",
+   "phase": "foundations",
+   "title": "From generator to customer in Tasmania",
+   "question": "How does electricity get from a generator through the network to a customer in Tasmania, and who is responsible at each point?",
+   "nem": [
+    "N1.1",
+    "N1.2",
+    "N1.3",
+    "N1.4",
+    "N1.11",
+    "N3.1",
+    "N3.2",
+    "N3.7"
+   ],
+   "apr": [
+    "AES",
+    "A1.1",
+    "A1.2",
+    "A1.2.1",
+    "A2.1.3",
+    "A2.3",
+    "A2.4",
+    "AB",
+    "AGL"
+   ],
+   "key": [
+    "NEM M1 L3, PDF pp. 6–13",
+    "NEM M3 L2, PDF pp. 76–85 (Tasmania p. 84)",
+    "APR p. 12 Figure 1-1",
+    "APR p. 29 Table 2-2",
+    "APR p. 35 Table 2-4",
+    "APR p. 36 Figure 2-8",
+    "APR p. 39 Table 2-5",
+    "APR p. 123 Table B-1"
+   ],
+   "build": {
+    "kind": "Walkthrough step",
+    "text": "Follow the electricity: a clickable path from a generator to a customer. Chris writes each stage's voltage and who is responsible, with its page."
+   }
+  },
+  {
+   "id": "F2",
+   "phase": "foundations",
+   "title": "Balancing supply and demand: dispatch and a network limit",
+   "question": "How does AEMO balance supply and demand and coordinate dispatch, and how can a network limit change the outcome?",
+   "nem": [
+    "N1.5",
+    "N1.6",
+    "N1.7",
+    "N4.1",
+    "N4.2",
+    "N4.8",
+    "N5.1",
+    "N5.2",
+    "N5.3",
+    "N5.7"
+   ],
+   "apr": [
+    "A1.4.4",
+    "A5.5"
+   ],
+   "key": [
+    "NEM M1 L7, PDF pp. 26–28",
+    "NEM M4 L2, PDF pp. 99–101",
+    "NEM M5 L2, PDF pp. 123–132",
+    "NEM M5 L3, PDF pp. 133–137",
+    "APR pp. 92–93 Figure 5-9",
+    "APR pp. 94–95 Table 5-9"
+   ],
+   "build": {
+    "kind": "Walkthrough step",
+    "text": "Change demand: a small dispatch simulation with one network limit, labelled simulated. Chris writes the rule that decides which generators run."
+   }
+  },
+  {
+   "id": "F3",
+   "phase": "foundations",
+   "title": "Planning capacity and screening new loads",
+   "question": "How does TasNetworks use forecasts, asset ratings and other network constraints to plan capacity and screen new loads?",
+   "nem": [
+    "N3.6",
+    "N4.7"
+   ],
+   "apr": [
+    "A1.4",
+    "A1.4.2",
+    "A1.7.3",
+    "A2.1",
+    "A2.1.1",
+    "A2.2",
+    "A2.2.1",
+    "A2.2.2",
+    "A2.2.3",
+    "A2.2.4",
+    "A3.5",
+    "A4.1",
+    "A4.2",
+    "A4.2.1",
+    "A4.2.2",
+    "A4.2.3",
+    "A4.2.4",
+    "A4.3",
+    "A4.9",
+    "A4.9.1",
+    "AA",
+    "AGL"
+   ],
+   "key": [
+    "NEM M3 L6, PDF pp. 93–95",
+    "NEM M4 L7, PDF pp. 116–118",
+    "APR p. 26 Table 2-1",
+    "APR p. 31 Table 2-3",
+    "APR p. 34 Figure 2-7",
+    "APR pp. 62–63 Table 4-1 (Creek Road, p. 63)",
+    "APR p. 69 Table 4-6",
+    "APR p. 71 Table 4-7",
+    "APR p. 112 Figure A-1"
+   ],
+   "build": {
+    "kind": "Walkthrough step",
+    "text": "A large load asks to connect: the Creek Road example. Chris works out the firm headroom from Table 4-1's columns, then lists what that published figure can't tell us."
+   }
+  },
+  {
+   "id": "T1",
+   "phase": "next",
+   "title": "Rules, governance and participants",
+   "question": "Who makes, enforces and operates the NEM's rules, and how does TasNetworks consult and report under them?",
+   "nem": [
+    "N1.8",
+    "N1.10",
+    "N2.1",
+    "N2.2",
+    "N2.3",
+    "N2.4",
+    "N2.5",
+    "N2.6",
+    "N2.7",
+    "N5.6"
+   ],
+   "apr": [
+    "A1.3",
+    "A1.5.1",
+    "A1.6",
+    "A1.7",
+    "A1.7.5",
+    "AA"
+   ],
+   "key": [
+    "NEM M2 L3, PDF pp. 46–58",
+    "NEM M2 L4, PDF pp. 59–63",
+    "APR p. 21 Tables 1-1, 1-2",
+    "APR pp. 110–122 Appendix A"
+   ],
+   "build": {
+    "kind": "Diagram and process walkthrough",
+    "text": "Who makes, enforces and operates the rules; how a rule change moves through its stages."
+   }
+  },
+  {
+   "id": "T2",
+   "phase": "next",
+   "title": "Spot pricing in depth",
+   "question": "How is the spot price set, what happens under extreme conditions, and how does AEMO look ahead?",
+   "nem": [
+    "N5.2",
+    "N5.4",
+    "N5.5"
+   ],
+   "apr": [],
+   "key": [
+    "NEM M5 L2, PDF pp. 123–132",
+    "NEM M5 L4, PDF pp. 138–140",
+    "NEM M5 L5, PDF pp. 141–142"
+   ],
+   "build": {
+    "kind": "Worked example",
+    "text": "Setting the price in one interval, and what the price cap and floor do."
+   }
+  },
+  {
+   "id": "T3",
+   "phase": "next",
+   "title": "Frequency, ancillary services and system security",
+   "question": "How is frequency kept close to 50 Hz, and how does TasNetworks meet its inertia and system strength obligations?",
+   "nem": [
+    "N3.5",
+    "N4.3",
+    "N4.4",
+    "N4.5",
+    "N4.6",
+    "N6.1",
+    "N6.2",
+    "N6.3",
+    "N6.4",
+    "N6.5",
+    "N6.6"
+   ],
+   "apr": [
+    "A1.7.6",
+    "A5.1",
+    "A5.2",
+    "A5.2.1",
+    "A5.2.2",
+    "A5.3",
+    "A5.3.1",
+    "A5.3.2",
+    "A5.3.3",
+    "A5.3.4",
+    "A5.4",
+    "A5.4.1",
+    "A5.4.2",
+    "A5.4.3",
+    "A5.5"
+   ],
+   "key": [
+    "NEM M6 L3, PDF pp. 153–162",
+    "APR p. 79 Table 5-1",
+    "APR pp. 82–84 Tables 5-2 to 5-8",
+    "APR pp. 88–91 Figures 5-5 to 5-8"
+   ],
+   "build": {
+    "kind": "Worked example",
+    "text": "How fast frequency falls after a trip, given the system's inertia (simulated), and how the response services follow."
+   }
+  },
+  {
+   "id": "T4",
+   "phase": "next",
+   "title": "Metering and settlement",
+   "question": "How is electricity measured and paid for in the NEM?",
+   "nem": [
+    "N7.1",
+    "N7.2",
+    "N7.3",
+    "N7.4",
+    "N7.5",
+    "N7.6",
+    "N7.7",
+    "N7.8",
+    "N7.9",
+    "N8.1",
+    "N8.2",
+    "N8.3",
+    "N8.4",
+    "N8.5",
+    "N8.6",
+    "N8.7",
+    "N8.8",
+    "N8.9",
+    "N8.10",
+    "N8.11",
+    "N8.12",
+    "N8.13",
+    "N8.14",
+    "N8.17",
+    "N8.18"
+   ],
+   "apr": [],
+   "key": [
+    "NEM M7 L3, PDF pp. 176–180",
+    "NEM M8 L5, PDF pp. 215–216",
+    "NEM M8 L9, PDF pp. 222–223"
+   ],
+   "build": {
+    "kind": "Worked example",
+    "text": "One interval's settlement, and a billing week from statement to payment."
+   }
+  },
+  {
+   "id": "T5",
+   "phase": "next",
+   "title": "Financial markets and their role in the NEM",
+   "question": "Why do generators and retailers hedge, and how do contracts change their exposure to the spot price?",
+   "nem": [
+    "N1.9",
+    "N8.15",
+    "N8.16",
+    "N9.1",
+    "N9.2",
+    "N9.3",
+    "N9.4",
+    "N9.5"
+   ],
+   "apr": [],
+   "key": [
+    "NEM M9 L2, PDF pp. 252–256",
+    "NEM M9 L3, PDF pp. 257–265",
+    "NEM M8 L15, PDF pp. 240–243"
+   ],
+   "build": {
+    "kind": "Worked example",
+    "text": "A swap and a cap at three different spot prices."
+   }
+  },
+  {
+   "id": "T6",
+   "phase": "next",
+   "title": "Losses and network pricing",
+   "question": "How are network losses accounted for, and how are networks paid?",
+   "nem": [
+    "N3.3",
+    "N3.4"
+   ],
+   "apr": [
+    "A1.4.5",
+    "A2.1.2",
+    "A3.6.2"
+   ],
+   "key": [
+    "NEM M3 L3, PDF pp. 86–87",
+    "NEM M3 L4, PDF pp. 88–90",
+    "APR p. 28 Figure 2-3",
+    "APR p. 54 Figure 3-7"
+   ],
+   "build": {
+    "kind": "Worked example",
+    "text": "Losses on a line, and what a loss factor does."
+   }
+  },
+  {
+   "id": "T7",
+   "phase": "next",
+   "title": "Tasmania's network development",
+   "question": "What is TasNetworks building and why: renewable energy zones, Marinus, George Town and the southern network?",
+   "nem": [
+    "N10.2"
+   ],
+   "apr": [
+    "A1.4.1",
+    "A1.4.3",
+    "A1.7.1",
+    "A1.7.2",
+    "A1.7.7",
+    "A3.1",
+    "A3.2",
+    "A3.3",
+    "A3.3.1",
+    "A3.3.2",
+    "A3.4",
+    "A3.4.1",
+    "A3.4.2",
+    "A3.4.3",
+    "A3.6",
+    "A3.6.1",
+    "A3.6.3",
+    "A3.6.4",
+    "A3.6.5",
+    "A4.4",
+    "A4.5",
+    "A4.6",
+    "A4.8",
+    "A4.8.1",
+    "A4.8.2"
+   ],
+   "key": [
+    "NEM M10 L2, PDF pp. 273–279",
+    "APR p. 43 Figure 3-1",
+    "APR p. 47 Table 3-1",
+    "APR pp. 52–53 (George Town)",
+    "APR pp. 64–66 Tables 4-2, 4-3",
+    "APR p. 68 Table 4-5"
+   ],
+   "build": {
+    "kind": "Process walkthrough",
+    "text": "One planning project, George Town, from need to preferred option, with its map."
+   }
+  },
+  {
+   "id": "T8",
+   "phase": "next",
+   "title": "Asset planning",
+   "question": "How does TasNetworks decide which assets to retire, replace or invest in?",
+   "nem": [],
+   "apr": [
+    "A1.2.2",
+    "A1.2.3",
+    "A4.9.3",
+    "A4.10",
+    "A4.11",
+    "A4.11.1",
+    "A4.11.2",
+    "AA"
+   ],
+   "key": [
+    "APR pp. 71–73 Tables 4-7 to 4-11",
+    "APR pp. 74–75 Tables 4-12 to 4-15",
+    "APR p. 117 Figure A-2"
+   ],
+   "build": {
+    "kind": "Worked example",
+    "text": "Ranking replacements by condition and consequence."
+   }
+  },
+  {
+   "id": "T9",
+   "phase": "next",
+   "title": "Reliability and quality of supply",
+   "question": "How reliable is Tasmania's supply, how is it measured, and what happens when targets are missed?",
+   "nem": [],
+   "apr": [
+    "A4.7",
+    "A4.9.2",
+    "A6.1",
+    "A6.2",
+    "A6.3",
+    "A6.4",
+    "A6.4.1",
+    "A6.4.2",
+    "A6.4.3",
+    "A6.4.4",
+    "A6.6",
+    "AC"
+   ],
+   "key": [
+    "APR p. 67 Table 4-4",
+    "APR p. 99 Table 6-1",
+    "APR pp. 100–102 Tables 6-2 to 6-6",
+    "APR p. 105 Table 6-9",
+    "APR pp. 125–127 Tables C-1 to C-6"
+   ],
+   "build": {
+    "kind": "Worked example",
+    "text": "SAIDI and SAIFI from a small set of outages."
+   }
+  },
+  {
+   "id": "T10",
+   "phase": "next",
+   "title": "Customers and consumer energy resources",
+   "question": "How are rooftop solar, batteries and EVs changing what the network carries?",
+   "nem": [
+    "N1.8",
+    "N2.6",
+    "N7.5"
+   ],
+   "apr": [
+    "A1.5",
+    "A1.5.2",
+    "A1.5.3",
+    "A1.5.4",
+    "A1.7.4",
+    "A6.5"
+   ],
+   "key": [
+    "APR pp. 20–21",
+    "APR p. 103 Table 6-8",
+    "APR pp. 104–105 Figures 6-1 to 6-3"
+   ],
+   "build": {
+    "kind": "Diagram",
+    "text": "How rooftop solar changes the flow on a street, using the published figures."
+   }
+  },
+  {
+   "id": "T11",
+   "phase": "next",
+   "title": "Data and finding out more",
+   "question": "Where does public information about the NEM come from, and how is it read?",
+   "nem": [
+    "N10.1",
+    "N10.3",
+    "N10.4",
+    "N10.5",
+    "N10.6",
+    "N10.7"
+   ],
+   "apr": [],
+   "key": [
+    "NEM M10 L3, PDF pp. 280–284"
+   ],
+   "build": {
+    "kind": "Data walkthrough",
+    "text": "Reading one public AEMO dataset for Tasmania."
+   }
+  }
+ ]
+}
