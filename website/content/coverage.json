@@ -1317,13 +1317,13 @@
    ],
    "build": {
     "kind": "Walkthrough step",
-    "text": "Change demand: a small dispatch simulation with one network limit, labelled simulated. Chris writes the rule that decides which generators run."
+    "text": "Change demand: a small dispatch simulation with one network limit, labelled simulated and linked to the same demand scenario as the Connection Lens. Chris writes the rule that decides which generators run."
    }
   },
   {
    "id": "F3",
    "phase": "foundations",
-   "title": "Planning capacity and screening new loads",
+   "title": "Planning capacity and screening new loads: the Connection Lens",
    "question": "How does TasNetworks use forecasts, asset ratings and other network constraints to plan capacity and screen new loads?",
    "nem": [
     "N3.6",
@@ -1366,7 +1366,7 @@
    ],
    "build": {
     "kind": "Walkthrough step",
-    "text": "A large load asks to connect: the Creek Road example. Chris works out the firm headroom from Table 4-1's columns, then lists what that published figure can't tell us."
+    "text": "The Connection Lens: Chris first reproduces three rows of Table 4-1 by hand (Creek Road, Risdon, Sandy Bay Zone). Then a traceable screen: a hypothetical load and power factor give its MVA and the margin against the published headroom, and every figure shows its source. The checks the figure can't settle stay listed."
    }
   },
   {

@@ -13,8 +13,13 @@ technical portfolio.** The goal is to understand:
 2. how **TasNetworks** plans and operates Tasmania's transmission and distribution networks;
 3. **where their responsibilities meet.**
 
-A job application may benefit from the work, but it does not drive the schedule. Don't steer toward
-finance, billing, reporting or general operations roles.
+**Near-term aim (set 11 Nov 2026): job-ready by 21 November 2026.** That means ready to apply and interview for
+entry-level network roles, not ready to work as an electrical engineer. Target roles include network planning
+support, asset performance, engineering support and connections support. Search terms such as *Network
+Planning Analyst*, *Asset Performance Analyst* and *Engineering Support Officer* are not verified openings.
+Don't steer toward finance, billing, reporting or general operations roles: check that a role's analysis feeds
+engineering decisions. The foundations work is the core of being job-ready. The day-by-day plan is in
+`docs/sessions/plan-11-to-21-november-2026.md`.
 
 Chris has an industrial and production engineering background, is a beginner in electrical engineering
 and software, and studies about 10–12 hours a week.
@@ -50,8 +55,16 @@ One connected walkthrough, built step by step with Chris:
 
 1. **Follow the electricity through Tasmania:** generator to customer, and who is responsible at each point.
 2. **Change demand in a simple dispatch simulation,** and see how a network limit changes the outcome.
-3. **A hypothetical large load asks to connect.** Use the **Creek Road** screening example to show what a
-   published capacity figure can and can't tell us (APR p. 63 Table 4-1; p. 69 Table 4-6; p. 71 Table 4-7).
+3. **A hypothetical large load asks to connect: the Connection Lens.** Use the **Creek Road** screening example to
+   show what a published capacity figure can and can't tell us (APR p. 63 Table 4-1; p. 69 Table 4-6; p. 71
+   Table 4-7).
+   - **Traceability is the point.** Every figure shows its source, every assumption can be changed, and the open
+     checks (upstream constraints, voltage, fault level, connection requirements) are always listed.
+   - **Chris reproduces three Table 4-1 rows by hand first:** Creek Road, Risdon and Sandy Bay Zone. Investigate
+     any difference rather than correcting it.
+   - **Link the dispatch step to the same demand scenario.** A load can change dispatch in the model even though
+     the connection screen can't show the network can serve it. That is where AEMO's and TasNetworks' jobs meet.
+   - **Keep the toy dispatch model separate from the published substation data.**
 
 Keep each interaction small enough for Chris to understand and help build.
 
