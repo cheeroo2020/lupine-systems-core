@@ -1,23 +1,23 @@
 {
-  "date": "2026-11-11",
+  "date": "2026-11-12",
   "stories": [
     {
-      "headline": "TransDigm (TDG) Q4 2026 Earnings Call Transcript",
-      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
+      "headline": "The Nasdaq Just Did Something For Just the 5th Time Ever. History Says This Could Happen Next.",
+      "body": "AI stocks have had a wild ride over the last month. First, they fell over concerns about a tightening credit environment, and then, following the midterm elections, fears of a crackdown on data centers sent the Invesco QQQ Trust (NASDAQ:QQQ) down 6.5% on Nov. 5.",
       "source": "Nasdaq",
-      "pub_date": "10 Nov 2026"
+      "pub_date": "12 Nov 2026"
     },
     {
-      "headline": "FTC emerges as main consumer-protection watchdog in D.C.",
-      "body": "As other federal agencies retreat, the Federal Trade Commission has become the only active consumer watchdog under the Trump administration, overseeing big-tech firms and digital payments.",
+      "headline": "IT software vendor banks use hit with third security threat",
+      "body": "N-able took its hosted N-central software offline Monday after a researcher published exploit code. Providers running their own servers still have to install the fix.",
       "source": "American Banker",
-      "pub_date": "10 Nov 2026"
+      "pub_date": "11 Nov 2026"
     },
     {
-      "headline": "Jensen Huang exit odds are low on prediction markets after Nvidia probe",
-      "body": "Prediction markets traders price relatively low odds that the Nvidia CEO will depart in the near term.",
+      "headline": "Fed's Goolsbee calls inflation report 'borderline disturbing' as central bank weighs more hikes",
+      "body": "The consumer price index rose more than expected in October, raising alarm among Federal Reserve officials.",
       "source": "CNBC Finance",
-      "pub_date": "09 Nov 2026"
+      "pub_date": "11 Nov 2026"
     }
   ]
 }
