@@ -1,23 +1,23 @@
 {
-  "date": "2026-11-12",
+  "date": "2026-11-13",
   "stories": [
     {
-      "headline": "The Nasdaq Just Did Something For Just the 5th Time Ever. History Says This Could Happen Next.",
-      "body": "AI stocks have had a wild ride over the last month. First, they fell over concerns about a tightening credit environment, and then, following the midterm elections, fears of a crackdown on data centers sent the Invesco QQQ Trust (NASDAQ:QQQ) down 6.5% on Nov. 5.",
+      "headline": "Kalshi in Talks to Raise Funding at $65 Billion Valuation",
+      "body": "Kalshi is in talks to raise money at a $65 billion valuation, Bloomberg reported Thursday (Nov. 12). That’s 62.5% above the $40 billion valuation Kalshi secured in late October, when it announced a $1 billion round that had been expected to be its last before an initial public offering. Kalshi decided to seek more private",
+      "source": "PYMNTS",
+      "pub_date": "13 Nov 2026"
+    },
+    {
+      "headline": "Japanese Market Sharply Higher",
+      "body": "(RTTNews) - The Japanese market is trading sharply higher on Friday, reversing the losses in the previous session, despite the broadly negative cues from Wall Street overnight. The Nikkei 225 is moving above the 61,650 level, with gains across most sectors led by financial and te",
       "source": "Nasdaq",
-      "pub_date": "12 Nov 2026"
+      "pub_date": "13 Nov 2026"
     },
     {
-      "headline": "IT software vendor banks use hit with third security threat",
-      "body": "N-able took its hosted N-central software offline Monday after a researcher published exploit code. Providers running their own servers still have to install the fix.",
+      "headline": "Exclusive research: Citi is redesigning 100 processes. What’s stopping others?",
+      "body": "Only 13% of banking professionals say that their institutions most often redesign workflows end to end when adopting AI, according to the latest survey by American Banker’s Market Intelligence team. Why is it so difficult?",
       "source": "American Banker",
-      "pub_date": "11 Nov 2026"
-    },
-    {
-      "headline": "Fed's Goolsbee calls inflation report 'borderline disturbing' as central bank weighs more hikes",
-      "body": "The consumer price index rose more than expected in October, raising alarm among Federal Reserve officials.",
-      "source": "CNBC Finance",
-      "pub_date": "11 Nov 2026"
+      "pub_date": "12 Nov 2026"
     }
   ]
 }

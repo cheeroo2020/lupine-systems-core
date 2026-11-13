@@ -222,3 +222,4 @@ No manual input needed. Fully automated.
 | [2026-11-10](./2026-11-10.md) | RadNet (RDNT) Q3 2026 Earnings Call Transcript |
 | [2026-11-11](./2026-11-11.md) | TransDigm (TDG) Q4 2026 Earnings Call Transcript |
 | [2026-11-12](./2026-11-12.md) | The Nasdaq Just Did Something For Just the 5th Time Ever. History S… |
+| [2026-11-13](./2026-11-13.md) | Kalshi in Talks to Raise Funding at $65 Billion Valuation |
