@@ -223,3 +223,4 @@ No manual input needed. Fully automated.
 | [2026-11-11](./2026-11-11.md) | TransDigm (TDG) Q4 2026 Earnings Call Transcript |
 | [2026-11-12](./2026-11-12.md) | The Nasdaq Just Did Something For Just the 5th Time Ever. History S… |
 | [2026-11-13](./2026-11-13.md) | Kalshi in Talks to Raise Funding at $65 Billion Valuation |
+| [2026-11-14](./2026-11-14.md) | Lutnick faces questions over Nvidia spy scandal. His sons' firm has… |
