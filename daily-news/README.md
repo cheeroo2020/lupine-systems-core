@@ -225,3 +225,4 @@ No manual input needed. Fully automated.
 | [2026-11-13](./2026-11-13.md) | Kalshi in Talks to Raise Funding at $65 Billion Valuation |
 | [2026-11-14](./2026-11-14.md) | Lutnick faces questions over Nvidia spy scandal. His sons' firm has… |
 | [2026-11-15](./2026-11-15.md) | DLocal: 3 Key Takeaways for Long-Term Investors |
+| [2026-11-16](./2026-11-16.md) | Indian Shares Surge On FII Flows |

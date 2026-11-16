@@ -1,23 +1,23 @@
 {
-  "date": "2026-11-15",
+  "date": "2026-11-16",
   "stories": [
     {
-      "headline": "DLocal: 3 Key Takeaways for Long-Term Investors",
-      "body": "Key PointsTotal payment volume grew 77% year over year to $18.3 billion.",
+      "headline": "Indian Shares Surge On FII Flows",
+      "body": "(RTTNews) - Indian shares were notably higher on Monday as falling oil prices helped ease concerns over inflation and India's import bill.",
       "source": "Nasdaq",
-      "pub_date": "15 Nov 2026"
+      "pub_date": "16 Nov 2026"
     },
     {
-      "headline": "How Nvidia turmoil and a Democratic Congress could reshape the AI trade, according to ETF experts",
-      "body": "ETF experts say Nvidia’s leadership turmoil and Democratic control of Congress could shift AI demand to the benefit of other Big Tech stocks, rival chipmakers.",
+      "headline": "Amex Projects 14-Year High for Small Business Holiday Spend",
+      "body": "American Express is projecting that 88% of American consumers will patronize a small business during this year’s holiday season. That’s the highest level since 2012, according to the company’s Shop Small Impact Study, released Thursday (Nov. 12). “Small businesses bring character and connection to our communities, and the holidays are an important opportunity to show",
+      "source": "PYMNTS",
+      "pub_date": "16 Nov 2026"
+    },
+    {
+      "headline": "Lutnick faces questions over Nvidia spy scandal. His sons' firm has ties to the chipmaker",
+      "body": "Jensen Huang’s resignation as Nvidia CEO has brought renewed scrutiny to Commerce Secretary Howard Lutnick and his family's financial ties to the chipmaker.",
       "source": "CNBC Finance",
-      "pub_date": "14 Nov 2026"
-    },
-    {
-      "headline": "Nubank U.S. reaches all 50 states in first weeks of launch",
-      "body": "The Brazilian digital bank attributed early adoption in the U.S. to word of mouth referrals among its target market of international Latin Americans.",
-      "source": "American Banker",
-      "pub_date": "13 Nov 2026"
+      "pub_date": "15 Nov 2026"
     }
   ]
 }
