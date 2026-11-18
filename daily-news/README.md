@@ -227,3 +227,4 @@ No manual input needed. Fully automated.
 | [2026-11-15](./2026-11-15.md) | DLocal: 3 Key Takeaways for Long-Term Investors |
 | [2026-11-16](./2026-11-16.md) | Indian Shares Surge On FII Flows |
 | [2026-11-17](./2026-11-17.md) | Indian Shares Modestly Higher In Early Trade |
+| [2026-11-18](./2026-11-18.md) | JPMorgan is working on AI agent transactions that don’t involve humans |

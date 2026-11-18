@@ -1,23 +1,23 @@
 {
-  "date": "2026-11-17",
+  "date": "2026-11-18",
   "stories": [
     {
-      "headline": "Indian Shares Modestly Higher In Early Trade",
-      "body": "(RTTNews) - Indian shares were modestly higher on Tuesday despite weak cues from global markets.",
-      "source": "Nasdaq",
-      "pub_date": "17 Nov 2026"
+      "headline": "JPMorgan is working on AI agent transactions that don’t involve humans",
+      "body": "JPMorgan and Hyundai Card are looking to expand the use of AI agents in financial transactions.",
+      "source": "CNBC Finance",
+      "pub_date": "18 Nov 2026"
     },
     {
-      "headline": "Kalshi Readies Stock Trading Launch After Quietly Buying Broker in July",
-      "body": "Prediction markets platform Kalshi bought New York-based broker FB Securities in July and plans to expand into stock trading within the next two months, The Wall Street Journal reported Monday (Nov. 16), citing unnamed sources. Kalshi plans to offer trading in stocks, exchange-traded funds and similar products, according to the report. Kalshi did not immediately",
-      "source": "PYMNTS",
-      "pub_date": "17 Nov 2026"
-    },
-    {
-      "headline": "Richard Neiman, regulator during 2008 crisis, dies at 76",
-      "body": "Richard Neiman, a former New York State Superintendent of Banks and member of the Congressional Oversight Panel for the Troubled Asset Relief Program, died after a long illness.",
+      "headline": "Fed’s Guynn: reform ‘increased the intensity of supervision’",
+      "body": "Randall Guynn, head of the Federal Reserve’s supervision and regulation division, said the central bank’s supervision is more concentrated and effective, saying it has “increased the intensity of supervision on things that matter.”",
       "source": "American Banker",
-      "pub_date": "17 Nov 2026"
+      "pub_date": "18 Nov 2026"
+    },
+    {
+      "headline": "Australian Market Modestly Lower",
+      "body": "(RTTNews) - Australian shares are trading modestly lower on Wednesday, extending the losses in the previous four sessions, with the benchmark S&P/ASX 200 falling well below the 8,900 level, following the broadly negative cues from Wall Street overnight, with weakness in financial",
+      "source": "Nasdaq",
+      "pub_date": "18 Nov 2026"
     }
   ]
 }
