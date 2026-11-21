@@ -1,22 +1,22 @@
 {
-  "date": "2026-11-20",
+  "date": "2026-11-21",
   "stories": [
     {
-      "headline": "Red Cat Holdings (RCAT) Q3 2026 Earnings Call Transcript",
-      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
+      "headline": "Why insurtech unicorn Corgi wants a traditional bank charter",
+      "body": "It's rare for an insurance firm to seek a bank charter, though the AI-focused insurance startup says its technology can drive down costs and improve access.",
+      "source": "American Banker",
+      "pub_date": "20 Nov 2026"
+    },
+    {
+      "headline": "PayPal vs. SoFi Technologies: Which Financial Stock Is a Better Buy for 2027?",
+      "body": "Key PointsPayPal maintains a massive global scale with nearly 439 million active accounts across 200 markets.",
       "source": "Nasdaq",
       "pub_date": "20 Nov 2026"
     },
     {
-      "headline": "FDIC Proposal Details How Banks Can Pay FinTechs in Deposit Deals",
-      "body": "The Federal Deposit Insurance Corp.’s Nov. 17 proposal implements a provision of the 21st Century ROAD to Housing Act that lets eligible banks exclude certain custodial deposits from their brokered deposit totals. The rule-making would govern how banks classify those deposits, and it has an implication for FinTech partners. Under the FDIC proposal, deposits a",
-      "source": "PYMNTS",
-      "pub_date": "20 Nov 2026"
-    },
-    {
-      "headline": "Fired NCUA board members continue long-shot legal fight",
-      "body": "Two former board members of the National Credit Union Administration, still battling their termination by President Trump, are widely considered unlikely to win their case. Industry advocates say that would be bad for credit unions.",
-      "source": "American Banker",
+      "headline": "The bull market has a new problem. The 'smart money' is selling",
+      "body": "Companies are shifting from share buybacks to stock issuance, adding new supply. Anthropic’s $81 billion IPO puts that demand to the test.",
+      "source": "CNBC Finance",
       "pub_date": "20 Nov 2026"
     }
   ]
