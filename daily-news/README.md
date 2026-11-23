@@ -232,3 +232,4 @@ No manual input needed. Fully automated.
 | [2026-11-20](./2026-11-20.md) | Red Cat Holdings (RCAT) Q3 2026 Earnings Call Transcript |
 | [2026-11-21](./2026-11-21.md) | Why insurtech unicorn Corgi wants a traditional bank charter |
 | [2026-11-22](./2026-11-22.md) | Intuit vs. Oracle: Which Technology Stock Is a Better Buy for 2027? |
+| [2026-11-23](./2026-11-23.md) | Indian Shares Seen Higher Despite Global Selloff |
