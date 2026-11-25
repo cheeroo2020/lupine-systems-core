@@ -234,3 +234,4 @@ No manual input needed. Fully automated.
 | [2026-11-22](./2026-11-22.md) | Intuit vs. Oracle: Which Technology Stock Is a Better Buy for 2027? |
 | [2026-11-23](./2026-11-23.md) | Indian Shares Seen Higher Despite Global Selloff |
 | [2026-11-24](./2026-11-24.md) | The Midterms Put Data Center Permitting Back in Play. Here Are 2 In… |
+| [2026-11-25](./2026-11-25.md) | Urban Outfitters (URBN) Q3 2027 Earnings Call Transcript |
