@@ -1,23 +1,23 @@
 {
-  "date": "2026-11-25",
+  "date": "2026-11-26",
   "stories": [
     {
-      "headline": "Urban Outfitters (URBN) Q3 2027 Earnings Call Transcript",
-      "body": "@media (max-width: 768px) { .image-container { width: 100% !important; float: none !important; margin: 0 0 1rem 0 !important; } } Image source: The Mo",
-      "source": "Nasdaq",
-      "pub_date": "25 Nov 2026"
-    },
-    {
-      "headline": "A week on, Chase still hasn’t explained its outage",
-      "body": "Treasury Secretary Scott Bessent named JPMorganChase while explaining how patches can cause glitches. Asked if a patch caused its outage, the bank wouldn't say.",
-      "source": "American Banker",
-      "pub_date": "24 Nov 2026"
-    },
-    {
-      "headline": "Fed's John Williams indicates higher interest rates likely 'over time' to address inflation",
-      "body": "The influential central banker expressed confidence that inflation will get closer to the Fed's 2% target in 2027.",
+      "headline": "Beware higher correlation but nab high U.S. credit yields, fund managers say",
+      "body": "The AI boom could trigger a recession, but data centers remain an attractive investment opportunity, a hedge fund manager said.",
       "source": "CNBC Finance",
-      "pub_date": "24 Nov 2026"
+      "pub_date": "26 Nov 2026"
+    },
+    {
+      "headline": "Indian Shares Little Changed In Cautious Trade",
+      "body": "(RTTNews) - Indian shares were flat to slightly higher in cautious trade on Thursday after rising sharply in the previous session.",
+      "source": "Nasdaq",
+      "pub_date": "26 Nov 2026"
+    },
+    {
+      "headline": "WaFd-Everbank merger secures early approvals",
+      "body": "The pending merger of Seattle-based WaFd and EverBank Financial in Florida has secured two regulatory approvals, BBVA is ramping up its US expansion with the creation of a repo and securities financing business, UBS Group suffered a further defeat in the long-running Swiss capital debate, and more in this week's banking news roundup.",
+      "source": "American Banker",
+      "pub_date": "25 Nov 2026"
     }
   ]
 }
