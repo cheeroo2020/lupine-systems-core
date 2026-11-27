@@ -236,3 +236,4 @@ No manual input needed. Fully automated.
 | [2026-11-24](./2026-11-24.md) | The Midterms Put Data Center Permitting Back in Play. Here Are 2 In… |
 | [2026-11-25](./2026-11-25.md) | Urban Outfitters (URBN) Q3 2027 Earnings Call Transcript |
 | [2026-11-26](./2026-11-26.md) | Beware higher correlation but nab high U.S. credit yields, fund man… |
+| [2026-11-27](./2026-11-27.md) | Legend Biotech: 3 Key Takeaways for Long-Term Investors |
