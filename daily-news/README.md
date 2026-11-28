@@ -237,3 +237,4 @@ No manual input needed. Fully automated.
 | [2026-11-25](./2026-11-25.md) | Urban Outfitters (URBN) Q3 2027 Earnings Call Transcript |
 | [2026-11-26](./2026-11-26.md) | Beware higher correlation but nab high U.S. credit yields, fund man… |
 | [2026-11-27](./2026-11-27.md) | Legend Biotech: 3 Key Takeaways for Long-Term Investors |
+| [2026-11-28](./2026-11-28.md) | Anthropic's Best Customers Spend 20 Times More Than the Rest. That'… |
